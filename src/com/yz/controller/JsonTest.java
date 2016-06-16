@@ -24,7 +24,6 @@ public class JsonTest {
 	//请求key/value，输出json
 	@RequestMapping("/responseJson")
 	public @ResponseBody ItemsCustom responseJson(ItemsCustom itemsCustom){
-		
 		//@ResponseBody将itemsCustom转成json输出
 		return itemsCustom;
 	}

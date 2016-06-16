@@ -22,8 +22,8 @@
 	包括 ：js、css、img、..
 	 -->
 	 <mvc:resources location="/js/" mapping="/js/**"/>
-	 <mvc:resources location="/img/" mapping="/img/**"/>
-	
+	 <mvc:resources location="/images/" mapping="/images/**"/>
+	 <mvc:resources location="/css/" mapping="/css/**"/>	
 		
 	<!--注解映射器 -->
 	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> -->
