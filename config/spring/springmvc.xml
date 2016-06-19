@@ -18,13 +18,15 @@
 	 -->
 	<context:component-scan base-package="com.yz.controller"></context:component-scan>
 	
+	<mvc:default-servlet-handler/>  
 	<!-- 静态资源解析
 	包括 ：js、css、img、..
 	 -->
+	 <!-- 
 	 <mvc:resources location="/js/" mapping="/js/**"/>
 	 <mvc:resources location="/images/" mapping="/images/**"/>
 	 <mvc:resources location="/css/" mapping="/css/**"/>	
-		
+		 -->
 	<!--注解映射器 -->
 	<!-- <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"/> -->
 	<!--注解适配器 -->
