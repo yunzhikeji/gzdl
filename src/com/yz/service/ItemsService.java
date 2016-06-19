@@ -5,15 +5,6 @@ import java.util.List;
 import com.yz.po.ItemsCustom;
 import com.yz.po.ItemsQueryVo;
 
-/**
- * 
- * <p>Title: ItemsService</p>
- * <p>Description:商品管理service </p>
- * <p>Company: www.itcast.com</p> 
- * @author	传智.燕青
- * @date	2015-4-13下午3:48:09
- * @version 1.0
- */
 public interface ItemsService {
 	
 	//商品查询列表
