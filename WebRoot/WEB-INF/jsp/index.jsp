@@ -5,19 +5,24 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>江苏云知智能科技有限公司</title>
-	<link href="${pageContext.request.contextPath }/css/index.css" rel="stylesheet" type="text/css" />
+<title>江苏云知智能科技有限公司</title>
+<link href="${pageContext.request.contextPath }/css/index.css"
+	rel="stylesheet" type="text/css" />
 </head>
 
 <body>
 	<header style="z-index: 25;">
 	<div class="tY0">
 		<h1>
-			<a href="https://95598.gd.csg.cn/"><img src="${pageContext.request.contextPath }/images/NFlogo.png"
+			<a href="https://95598.gd.csg.cn/"><img
+				src="${pageContext.request.contextPath }/images/NFlogo.png"
 				alt="广东南方电网公司网上营业厅" name="NFlogo" height="50" id="NFlogo" /></a>
 		</h1>
 		<ul class="tO0">
-			<li class="pR0">林某某，你好！</li>
+		<c:if test="${username!=null }">
+<li class="pR0">${username }，你好！</li>
+</c:if>
+			
 			<li class="rZ0 pn1">|</li>
 			<li class="rZ0"><a href="javascript:;"
 				onClick="ypgj('手机版','mobile.html','500px','300px')" title="手机版"
@@ -31,8 +36,12 @@
 						class="sh0 nui-txt-link">个人资料</a></li>
 				</ul></li>
 			<li class="rZ0 pn1">|</li>
-			<li class="rZ0"><a href="login.html" class="sh0 nui-txt-link"
-				target="_self">注销</a></li>
+			<c:if test="${username!=null }">
+				<li class="rZ0"><a
+					href="${pageContext.request.contextPath }/logout.action"
+					class="sh0 nui-txt-link" target="_self">注销</a></li>
+			</c:if>
+
 		</ul>
 	</div>
 	</header>
@@ -263,11 +272,16 @@ html, body {
 		<div class="tabCon">内容三</div>
 	</div>
 
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/2.1/layer.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/My97DatePicker/WdatePicker.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/H-ui.js"></script>
-	<script type="text/javascript" src="${pageContext.request.contextPath }/js/H-ui.admin.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/2.1/layer.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/H-ui.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/H-ui.admin.js"></script>
 	<script type="text/javascript">
 		$(function() {
 			$.Huitab("#tab_demo .tabBar span", "#tab_demo .tabCon", "current",
