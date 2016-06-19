@@ -4,9 +4,9 @@
   <resultMap id="BaseResultMap" type="com.yz.po.User" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="birthday" property="birthday" jdbcType="DATE" />
-    <result column="sex" property="sex" jdbcType="CHAR" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="realname" property="realname" jdbcType="VARCHAR" />
+    <result column="jobnumber" property="jobnumber" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, username, birthday, sex, address
+    id, username, password, realname, jobnumber
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yz.po.UserExample" >
     select
@@ -100,10 +100,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.yz.po.User" >
-    insert into user (id, username, birthday, 
-      sex, address)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, 
-      #{sex,jdbcType=CHAR}, #{address,jdbcType=VARCHAR})
+    insert into user (id, username, password, 
+      realname, jobnumber)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{realname,jdbcType=VARCHAR}, #{jobnumber,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yz.po.User" >
     insert into user
@@ -114,14 +114,14 @@
       <if test="username != null" >
         username,
       </if>
-      <if test="birthday != null" >
-        birthday,
+      <if test="password != null" >
+        password,
       </if>
-      <if test="sex != null" >
-        sex,
+      <if test="realname != null" >
+        realname,
       </if>
-      <if test="address != null" >
-        address,
+      <if test="jobnumber != null" >
+        jobnumber,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -131,14 +131,14 @@
       <if test="username != null" >
         #{username,jdbcType=VARCHAR},
       </if>
-      <if test="birthday != null" >
-        #{birthday,jdbcType=DATE},
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null" >
-        #{sex,jdbcType=CHAR},
+      <if test="realname != null" >
+        #{realname,jdbcType=VARCHAR},
       </if>
-      <if test="address != null" >
-        #{address,jdbcType=VARCHAR},
+      <if test="jobnumber != null" >
+        #{jobnumber,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -157,14 +157,14 @@
       <if test="record.username != null" >
         username = #{record.username,jdbcType=VARCHAR},
       </if>
-      <if test="record.birthday != null" >
-        birthday = #{record.birthday,jdbcType=DATE},
+      <if test="record.password != null" >
+        password = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.sex != null" >
-        sex = #{record.sex,jdbcType=CHAR},
+      <if test="record.realname != null" >
+        realname = #{record.realname,jdbcType=VARCHAR},
       </if>
-      <if test="record.address != null" >
-        address = #{record.address,jdbcType=VARCHAR},
+      <if test="record.jobnumber != null" >
+        jobnumber = #{record.jobnumber,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -175,9 +175,9 @@
     update user
     set id = #{record.id,jdbcType=INTEGER},
       username = #{record.username,jdbcType=VARCHAR},
-      birthday = #{record.birthday,jdbcType=DATE},
-      sex = #{record.sex,jdbcType=CHAR},
-      address = #{record.address,jdbcType=VARCHAR}
+      password = #{record.password,jdbcType=VARCHAR},
+      realname = #{record.realname,jdbcType=VARCHAR},
+      jobnumber = #{record.jobnumber,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -188,14 +188,14 @@
       <if test="username != null" >
         username = #{username,jdbcType=VARCHAR},
       </if>
-      <if test="birthday != null" >
-        birthday = #{birthday,jdbcType=DATE},
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="sex != null" >
-        sex = #{sex,jdbcType=CHAR},
+      <if test="realname != null" >
+        realname = #{realname,jdbcType=VARCHAR},
       </if>
-      <if test="address != null" >
-        address = #{address,jdbcType=VARCHAR},
+      <if test="jobnumber != null" >
+        jobnumber = #{jobnumber,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -203,9 +203,9 @@
   <update id="updateByPrimaryKey" parameterType="com.yz.po.User" >
     update user
     set username = #{username,jdbcType=VARCHAR},
-      birthday = #{birthday,jdbcType=DATE},
-      sex = #{sex,jdbcType=CHAR},
-      address = #{address,jdbcType=VARCHAR}
+      password = #{password,jdbcType=VARCHAR},
+      realname = #{realname,jdbcType=VARCHAR},
+      jobnumber = #{jobnumber,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

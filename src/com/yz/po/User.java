@@ -1,17 +1,15 @@
 package com.yz.po;
 
-import java.util.Date;
-
 public class User {
     private Integer id;
 
     private String username;
 
-    private Date birthday;
+    private String password;
 
-    private String sex;
+    private String realname;
 
-    private String address;
+    private String jobnumber;
 
     public Integer getId() {
         return id;
@@ -29,27 +27,27 @@ public class User {
         this.username = username == null ? null : username.trim();
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public String getPassword() {
+        return password;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
-    public String getSex() {
-        return sex;
+    public String getRealname() {
+        return realname;
     }
 
-    public void setSex(String sex) {
-        this.sex = sex == null ? null : sex.trim();
+    public void setRealname(String realname) {
+        this.realname = realname == null ? null : realname.trim();
     }
 
-    public String getAddress() {
-        return address;
+    public String getJobnumber() {
+        return jobnumber;
     }
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
+    public void setJobnumber(String jobnumber) {
+        this.jobnumber = jobnumber == null ? null : jobnumber.trim();
     }
 }

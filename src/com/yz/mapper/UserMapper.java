@@ -1,10 +1,9 @@
 package com.yz.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
-
 import com.yz.po.User;
 import com.yz.po.UserExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     int countByExample(UserExample example);
