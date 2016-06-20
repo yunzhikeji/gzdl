@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>map</title>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="mapfiles/mapapi_3.12.9.js"></script>
+<script type="text/javascript" src="js/map_helper.js"></script>
+<script type="text/javascript" src="js/popup_layer.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+<body>
+	<input type="button" onclick="ClearPoly()" value="浏览地图"></input>
+	<input type="button" id="addsite" style="color: #000;" onclick="addSite()"
+		value="添加工地"></input>
+	<input type="button" id="delsite" style="color: #000;" onclick="deleteSite()" value="删除工地"></input>
+		当前级别<input  type="text" name="ZOOM" id="ZOOM" value="8" size="17"/>
+		经度<input  type="text" name="CLNG" id="CLNG" value="" size="17"/>&nbsp;&nbsp;
+				维度<input  type="text" name="CLAT" id="CLAT" value="" size="17"/>
+	<div id="map_canvas"
+		style="margin:0 auto; width: 100%; height: 760px;">
+		地图加载失败....</div>
+</body>
+</html>
