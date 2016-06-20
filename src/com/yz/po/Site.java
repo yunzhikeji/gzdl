@@ -3,15 +3,15 @@ package com.yz.po;
 public class Site {
     private Integer id;
 
-    private String name;
+    private String name; //工地名称
 
-    private Double lng;
+    private Double lng; //经度
 
-    private Double lat;
+    private Double lat; //纬度
 
-    private String markid;
+    private String markid; // 标识号
 
-    private String snumber;
+    private String snumber;//工地编号
 
     public Integer getId() {
         return id;

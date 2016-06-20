@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yz.mapper.UserMapper;
+import com.yz.mapper.UserMapperCustom;
 import com.yz.po.User;
 import com.yz.po.UserCustom;
 import com.yz.po.UserQueryVo;
@@ -14,6 +15,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private UserMapperCustom userMapperCustom;
 
 	@Override
 	public void insert(User user) throws Exception {
@@ -41,6 +45,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findUserList(UserQueryVo userQueryVo) throws Exception {
 		return null;
+	}
+
+	@Override
+	public User findByUserNameAndPassword(String username, String password) throws Exception {
+		return userMapperCustom.findByUserNameAndPassword(username,password);
 	}
 
 }

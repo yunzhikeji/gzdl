@@ -23,5 +23,8 @@ public interface UserService {
 	// 修改用户 信息
 	
 	public void updateUser(Integer id,UserCustom userCustom)throws Exception;
+	
+	//验证用户登录
+	public User findByUserNameAndPassword(String username, String password) throws Exception;
 
 }

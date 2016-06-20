@@ -49,25 +49,23 @@ ul,li{list-style:none;}
 #tab .tabList ul li{
 	float:left;
 	background:#fefefe;
-	background: -ms-linear-gradient(top, #fefefe ,#daf3d5); 
-	background:-moz-linear-gradient(top, #fefefe, #daf3d5);	
-	background:-o-linear-gradient(left top,left bottom, from(#fefefe), to(#daf3d5));
-	background:-webkit-gradient(linear,left top,left bottom, from(#fefefe), to(#daf3d5));
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fefefe',endColorStr='#daf3d5',gradientType='0'); 
-	border-bottom:1px solid #ccc;
-	border-left:1px solid #ccc;
+	background: -ms-linear-gradient(top, #fefefe ,#e4e4e4); 
+	background:-moz-linear-gradient(top, #fefefe, #e4e4e4);	
+	background:-o-linear-gradient(left top,left bottom, from(#fefefe8), to(#e4e4e4));
+	background:-webkit-gradient(linear,left top,left bottom, from(#fefefe), to(#e4e4e4));
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fefefe',endColorStr='#e4e4e4',gradientType='0'); 
+	border-bottom:1px solid #d0d0d0;
 	padding:25px 0;
-	width:50%;
+	width:100%;
 	height:25px;
+	font-size:24px;
 	text-align:center;
-	margin-left:-1px;
 	position:relative;
-	cursor:pointer;
 }
 #tab .tabCon{
 	position:absolute;
-	left:-1px;
-	top:80px;
+	left:28%;
+	top:120px;
 	border-top:none;
 	width:100%;
 	height:100%;
@@ -109,13 +107,14 @@ border-radius: 20px;
 	z-index: 19;
 }
 .inputboxp {
+
+	margin-top:50px;
+}
+.inputboxs {
 	margin-top:20px;
 }
-
 .u-label {
-position: absolute;
-top:20px;
-left:30%;
+top:8px;
 z-index: 100;
 color: #bdbdbd;
 font-size: 12px;
@@ -149,9 +148,9 @@ text-align: start;
 }
 
 .j-inputtext{	        
-    width:50%;
-    height:35px;
-    line-height:35px;
+    width:40%;
+    height:25px;
+    line-height:25px;
 }
 
 .u-loginbtn {
