@@ -20,26 +20,27 @@
 						<li>云知账号登录</li>
 					</ul>
 				</div>
+				<!-- 显示错误信息 -->
+<c:if test="${loginError!=null }">
+
+	${ loginError}<br/>
+
+</c:if>
+				
 				<form action="${pageContext.request.contextPath }/login.action"
 					method="post">
+					<c:if test=""></c:if>
 					<div class="tabCon">
 						<li class="inputbox"><label class="u-label"></label> <input
-							name="username" type="text" class="j-inputtext" tabindex="1"
+							name="user.username" type="text" class="j-inputtext" tabindex="1"
 							autocomplete="off" value="云知账号"
 							style="color: #e7e7e7; font-family: Microsoft YaHei; background: url(images/login.png) no-repeat 0% 50%; padding-left: 18px"
 							spellcheck="false"></li>
 						<li class="inputboxp"><label class="p-label"></label> <input
-							name="password" class="j-inputtext" type="text"
+							name="user.password" class="j-inputtext" type="text"
 							autocomplete="off" tabindex="2" value="密码"
 							style="color: #e7e7e7; font-family: Microsoft YaHei; background: url(images/loginp.png) no-repeat 0% 50%; padding-left: 18px"
 							spellcheck="false"></li>
-						<li class="inputboxs"><span class="u-checkbox tabfocus"><input
-								id="un-login" type="checkbox" name="un-login" class="un-login"></span><label
-							for="un-login" style="color: #848585">十天内免登录</label> <a
-							class="forgetPwd"
-							href="http://reg.163.com/getpasswd/RetakePassword.jsp?from=mail126"
-							target="_blank" title="找回密码"
-							style="padding-left: 5%; color: #848585">忘记密码了?</a></li>
 						<li class="inputboxs"><input class="u-loginbtn" tabindex="6"
 							type="submit" value="登&nbsp;&nbsp;录" /> <a class="u-loginbtnp"
 							href="http://www.baidu.com" target="_blank" tabindex="7"

@@ -26,7 +26,7 @@ public class LoginController {
 		User userQuery = userService.findByUserNameAndPassword(userQueryVo);
 		if (userQuery == null){
 			model.addAttribute("loginError", "用户名或密码不正确！");
-		return "redirect:/login.jsp";	
+		return "login";	
 		}else{
 		// 在session中保存用户身份信息
 		session.setAttribute("username", userQueryVo.getUser().getUsername());
@@ -43,7 +43,7 @@ public class LoginController {
 		session.invalidate();
 
 		// 重定向到商品列表页面
-		return "redirect:/login.jsp";
+		return "redirect:/login";
 	}
 
 }
