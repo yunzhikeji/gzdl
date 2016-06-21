@@ -493,6 +493,66 @@ public class SiteExample {
             addCriterion("snumber not between", value1, value2, "snumber");
             return (Criteria) this;
         }
+
+        public Criteria andViewstyleIsNull() {
+            addCriterion("viewstyle is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewstyleIsNotNull() {
+            addCriterion("viewstyle is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewstyleEqualTo(Integer value) {
+            addCriterion("viewstyle =", value, "viewstyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewstyleNotEqualTo(Integer value) {
+            addCriterion("viewstyle <>", value, "viewstyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewstyleGreaterThan(Integer value) {
+            addCriterion("viewstyle >", value, "viewstyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewstyleGreaterThanOrEqualTo(Integer value) {
+            addCriterion("viewstyle >=", value, "viewstyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewstyleLessThan(Integer value) {
+            addCriterion("viewstyle <", value, "viewstyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewstyleLessThanOrEqualTo(Integer value) {
+            addCriterion("viewstyle <=", value, "viewstyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewstyleIn(List<Integer> values) {
+            addCriterion("viewstyle in", values, "viewstyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewstyleNotIn(List<Integer> values) {
+            addCriterion("viewstyle not in", values, "viewstyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewstyleBetween(Integer value1, Integer value2) {
+            addCriterion("viewstyle between", value1, value2, "viewstyle");
+            return (Criteria) this;
+        }
+
+        public Criteria andViewstyleNotBetween(Integer value1, Integer value2) {
+            addCriterion("viewstyle not between", value1, value2, "viewstyle");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

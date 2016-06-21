@@ -3,17 +3,19 @@ package com.yz.po;
 public class Camera {
     private Integer id;
 
-    private String sipid; 
+    private String sipid;
 
     private String sipserverid;
 
-    private Double lng; //经度
+    private Double lng;
 
-    private Double lat; //纬度
+    private Double lat;
 
     private String cnumber;
 
     private String name;
+
+    private String markerid;
 
     public Integer getId() {
         return id;
@@ -69,5 +71,13 @@ public class Camera {
 
     public void setName(String name) {
         this.name = name == null ? null : name.trim();
+    }
+
+    public String getMarkerid() {
+        return markerid;
+    }
+
+    public void setMarkerid(String markerid) {
+        this.markerid = markerid == null ? null : markerid.trim();
     }
 }

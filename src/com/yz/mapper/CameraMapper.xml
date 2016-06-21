@@ -9,6 +9,7 @@
     <result column="lat" property="lat" jdbcType="DOUBLE" />
     <result column="cnumber" property="cnumber" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="markerid" property="markerid" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, sipid, sipserverid, lng, lat, cnumber, name
+    id, sipid, sipserverid, lng, lat, cnumber, name, markerid
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yz.po.CameraExample" >
     select
@@ -103,11 +104,11 @@
   </delete>
   <insert id="insert" parameterType="com.yz.po.Camera" >
     insert into camera (id, sipid, sipserverid, 
-      lng, lat, cnumber, name
-      )
+      lng, lat, cnumber, name, 
+      markerid)
     values (#{id,jdbcType=INTEGER}, #{sipid,jdbcType=VARCHAR}, #{sipserverid,jdbcType=VARCHAR}, 
-      #{lng,jdbcType=DOUBLE}, #{lat,jdbcType=DOUBLE}, #{cnumber,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}
-      )
+      #{lng,jdbcType=DOUBLE}, #{lat,jdbcType=DOUBLE}, #{cnumber,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{markerid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.yz.po.Camera" >
     insert into camera
@@ -133,6 +134,9 @@
       <if test="name != null" >
         name,
       </if>
+      <if test="markerid != null" >
+        markerid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -155,6 +159,9 @@
       </if>
       <if test="name != null" >
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="markerid != null" >
+        #{markerid,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -188,6 +195,9 @@
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
       </if>
+      <if test="record.markerid != null" >
+        markerid = #{record.markerid,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -201,7 +211,8 @@
       lng = #{record.lng,jdbcType=DOUBLE},
       lat = #{record.lat,jdbcType=DOUBLE},
       cnumber = #{record.cnumber,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR}
+      name = #{record.name,jdbcType=VARCHAR},
+      markerid = #{record.markerid,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,6 +238,9 @@
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="markerid != null" >
+        markerid = #{markerid,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -237,7 +251,8 @@
       lng = #{lng,jdbcType=DOUBLE},
       lat = #{lat,jdbcType=DOUBLE},
       cnumber = #{cnumber,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR}
+      name = #{name,jdbcType=VARCHAR},
+      markerid = #{markerid,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

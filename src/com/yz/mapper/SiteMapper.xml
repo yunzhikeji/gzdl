@@ -8,6 +8,7 @@
     <result column="lat" property="lat" jdbcType="DOUBLE" />
     <result column="markid" property="markid" jdbcType="VARCHAR" />
     <result column="snumber" property="snumber" jdbcType="VARCHAR" />
+    <result column="viewstyle" property="viewstyle" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, lng, lat, markid, snumber
+    id, name, lng, lat, markid, snumber, viewstyle
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yz.po.SiteExample" >
     select
@@ -102,11 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.yz.po.Site" >
     insert into site (id, name, lng, 
-      lat, markid, snumber
-      )
+      lat, markid, snumber, 
+      viewstyle)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{lng,jdbcType=DOUBLE}, 
-      #{lat,jdbcType=DOUBLE}, #{markid,jdbcType=VARCHAR}, #{snumber,jdbcType=VARCHAR}
-      )
+      #{lat,jdbcType=DOUBLE}, #{markid,jdbcType=VARCHAR}, #{snumber,jdbcType=VARCHAR}, 
+      #{viewstyle,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.yz.po.Site" >
     insert into site
@@ -129,6 +130,9 @@
       <if test="snumber != null" >
         snumber,
       </if>
+      <if test="viewstyle != null" >
+        viewstyle,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -148,6 +152,9 @@
       </if>
       <if test="snumber != null" >
         #{snumber,jdbcType=VARCHAR},
+      </if>
+      <if test="viewstyle != null" >
+        #{viewstyle,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -178,6 +185,9 @@
       <if test="record.snumber != null" >
         snumber = #{record.snumber,jdbcType=VARCHAR},
       </if>
+      <if test="record.viewstyle != null" >
+        viewstyle = #{record.viewstyle,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -190,7 +200,8 @@
       lng = #{record.lng,jdbcType=DOUBLE},
       lat = #{record.lat,jdbcType=DOUBLE},
       markid = #{record.markid,jdbcType=VARCHAR},
-      snumber = #{record.snumber,jdbcType=VARCHAR}
+      snumber = #{record.snumber,jdbcType=VARCHAR},
+      viewstyle = #{record.viewstyle,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -213,6 +224,9 @@
       <if test="snumber != null" >
         snumber = #{snumber,jdbcType=VARCHAR},
       </if>
+      <if test="viewstyle != null" >
+        viewstyle = #{viewstyle,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -222,7 +236,8 @@
       lng = #{lng,jdbcType=DOUBLE},
       lat = #{lat,jdbcType=DOUBLE},
       markid = #{markid,jdbcType=VARCHAR},
-      snumber = #{snumber,jdbcType=VARCHAR}
+      snumber = #{snumber,jdbcType=VARCHAR},
+      viewstyle = #{viewstyle,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

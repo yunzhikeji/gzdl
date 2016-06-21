@@ -3,15 +3,17 @@ package com.yz.po;
 public class Site {
     private Integer id;
 
-    private String name; //工地名称
+    private String name;
 
-    private Double lng; //经度
+    private Double lng;
 
-    private Double lat; //纬度
+    private Double lat;
 
-    private String markid; // 标识号
+    private String markid;
 
-    private String snumber;//工地编号
+    private String snumber;
+
+    private Integer viewstyle;
 
     public Integer getId() {
         return id;
@@ -59,5 +61,13 @@ public class Site {
 
     public void setSnumber(String snumber) {
         this.snumber = snumber == null ? null : snumber.trim();
+    }
+
+    public Integer getViewstyle() {
+        return viewstyle;
+    }
+
+    public void setViewstyle(Integer viewstyle) {
+        this.viewstyle = viewstyle;
     }
 }
