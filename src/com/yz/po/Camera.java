@@ -3,13 +3,13 @@ package com.yz.po;
 public class Camera {
     private Integer id;
 
-    private String sipid;
+    private String sipid; 
 
     private String sipserverid;
 
-    private Double lng;
+    private Double lng; //经度
 
-    private Double lat;
+    private Double lat; //纬度
 
     private String cnumber;
 
