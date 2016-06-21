@@ -24,12 +24,12 @@
 					method="post">
 					<div class="tabCon">
 						<li class="inputbox"><label class="u-label"></label> <input
-							name="username" type="text" class="j-inputtext" tabindex="1"
+							name="user.username" type="text" class="j-inputtext" tabindex="1"
 							autocomplete="off" value="云知账号"
 							style="color: #e7e7e7; font-family: Microsoft YaHei; background: url(images/login.png) no-repeat 0% 50%; padding-left: 18px"
 							spellcheck="false"></li>
 						<li class="inputboxp"><label class="p-label"></label> <input
-							name="password" class="j-inputtext" type="text"
+							name="user.password" class="j-inputtext" type="text"
 							autocomplete="off" tabindex="2" value="密码"
 							style="color: #e7e7e7; font-family: Microsoft YaHei; background: url(images/loginp.png) no-repeat 0% 50%; padding-left: 18px"
 							spellcheck="false"></li>
