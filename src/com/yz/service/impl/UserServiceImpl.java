@@ -48,8 +48,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findByUserNameAndPassword(UserCustom userCustom) throws Exception {
-		return userMapperCustom.findByUserNameAndPassword(userCustom);
+	public User findByUserNameAndPassword(UserQueryVo userQueryVo) throws Exception {
+		
+		User user = userMapperCustom.findByUserNameAndPassword(userQueryVo);
+		
+		return user;
 	}
 
 }

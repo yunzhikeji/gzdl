@@ -25,6 +25,6 @@ public interface UserService {
 	public void updateUser(Integer id,UserCustom userCustom)throws Exception;
 	
 	//验证用户登录
-	public User findByUserNameAndPassword(UserCustom userCustom) throws Exception;
+	public User findByUserNameAndPassword(UserQueryVo userQueryVo) throws Exception;
 
 }

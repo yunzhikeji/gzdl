@@ -19,17 +19,17 @@ public class LoginController {
 	private UserService userService;
 	// 登陆
 	@RequestMapping("/login")
-	public String login(HttpSession session,UserCustom userCustom,Model model)
+	public String login(HttpSession session,UserQueryVo userQueryVo,Model model)
 			throws Exception {
 
 		// 调用service进行用户身份验证
-		User user = userService.findByUserNameAndPassword(userCustom);
-		if (user == null){
+		User userQuery = userService.findByUserNameAndPassword(userQueryVo);
+		if (userQuery == null){
 			model.addAttribute("loginError", "用户名或密码不正确！");
 		return "redirect:/login.jsp";	
 		}else{
 		// 在session中保存用户身份信息
-		session.setAttribute("username", userCustom.getUsername());
+		session.setAttribute("username", userQueryVo.getUser().getUsername());
 		// 重定向到商品列表页面
 		return "redirect:/index.action";
 		}
