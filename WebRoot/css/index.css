@@ -176,6 +176,8 @@ height: 30px;
 line-height: 30px; 
 text-align:center
 }
+.tA0{ font-size:14px
+}
 .kA0,.sJ0,.tA0,.mE0,.tabBar span.current {
 background-image:url(../images/8f0352f5fce1f0475e91bcec2574527981f25ce1.png);
 }
