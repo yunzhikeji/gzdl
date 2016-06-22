@@ -14,13 +14,13 @@
 <body>
 <header style="z-index: 25;">
 <div class="tY0">
-<h1><a href="https://95598.gd.csg.cn/"><img src="${pageContext.request.contextPath }/images/NFlogo.png" alt="广东南方电网公司网上营业厅" name="NFlogo" height="50" id="NFlogo"/></a></h1>
+<h1><a href="https://95598.gd.csg.cn/"><img src="images/NFlogo.png" alt="广东南方电网公司网上营业厅" name="NFlogo" height="50" id="NFlogo"/></a></h1>
 <ul class="tO0">
 		<c:if test="${username!=null }">
 <li class="pR0">${username }，你好！</li>
 </c:if>
 <li class="rZ0 pn1">|</li>
-<li class="rZ0"><a href="javascript:;" onClick="ypgj('用户管理','user.html','500px','300px')" title="用户管理" target="_self" class="sh0 nui-txt-link">用户管理</a></li>
+<li class="rZ0"><a href="javascript:;" onClick="ypgj('用户管理','user.html','1024px','768px')" title="用户管理" target="_self" class="sh0 nui-txt-link">用户管理</a></li>
 <li class="rZ0 pn1">|</li>
 <li class="rZ0"><a href="#" class="sh0 nui-txt-link">设置</a>
 <ul class="tO1">
@@ -53,17 +53,14 @@
   <div class="tabCon"> 
   <table class="table">
     <thead class="text-c">
-     <tr class="text-d">
-        <th colspan="7" style="text-align:left;"><button class="button blue"><i class="Hui-iconfont">&nbsp;&#xe600;&nbsp;</i>添加</button> <button class="button blue"><i class="Hui-iconfont">&nbsp;&#xe632;&nbsp;</i>保存</button> <button class="button orange"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>批量删除</button></th>
-      </tr>
     <tr class="text-d">
-        <th width="10%"></th>
-        <th width="10%">序号</th>
-        <th width="20%">工地名称</th>
-        <th width="30%">位置</th>
-        <th width="10%">显示画面个数</th>
-        <th width="10%"></th>
-        <th width="10%"></th>
+        <th width="10%"><button class="button orange" style="font-size:14px;"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>批量删除</button></th>
+        <th width="10%" style="font-size:14px;">序号</th>
+        <th width="20%" style="font-size:14px;">工地名称</th>
+        <th width="30%" style="font-size:14px;">位置</th>
+        <th width="10%" style="font-size:14px;">显示画面个数</th>
+        <th width="10%" style="font-size:14px;"></th>
+        <th width="10%" style="font-size:14px;"></th>
       </tr>
     </thead>
       <tbody>
@@ -72,9 +69,9 @@
         <td>1</td>
         <td>越秀城南区</td>
         <td>经度415°  纬度325°</td>
-        <td><input name="" type="radio" value="1" checked="checked"/>1 <input name="" type="radio" value="4" />4 <input name="" type="radio" value="6" />6</td>
-        <td><a href="javascript:;" onClick="ypgy('用户管理','user.html','500px','300px')" title="用户管理" target="_self" class="button blue bigrounded"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
-        <td><button class="button orange"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i></button></td>
+        <td><input name="viewstyle" type="radio" value="1" checked="checked"/>1 <input name="viewstyle" type="radio" value="4" />4 <input name="viewstyle" type="radio" value="6" />6</td>
+        <td><a href="javascript:;" onClick="ypgy('用户管理','user.html','1024px','768px')" title="用户管理" target="_self" class="button blue bigrounded" style="font-size:14px;"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
+        <td><button class="button orange" style="font-size:14px;"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除</button></td>
 
       </tr>
      
@@ -136,3 +133,4 @@ function ypgy(title,url,w,h){
 </script>
 </body>
 </html>
+	
