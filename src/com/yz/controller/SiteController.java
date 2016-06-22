@@ -38,10 +38,17 @@ public class SiteController {
 	
 	
 	
-	@RequestMapping("/saveSite")
-	public @ResponseBody String saveSite(@RequestBody Site site) throws Exception{
-		siteService.insertSite(site);
-		return "success";
+	@RequestMapping(value = "saveSite", method = {RequestMethod.POST })
+	public @ResponseBody String saveSite(@RequestBody Site site){
+		
+		String backJson = "0";//返回json状态码(0：表示正常  -1:异常)
+		try {
+			siteService.insertSite(site);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			backJson = "-1";
+		}
+		return backJson;
 	}
 	
 	@RequestMapping("/deleteSite")

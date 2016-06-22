@@ -299,16 +299,21 @@ function saveMarker(id) {
 			var name = $('#name').val();
 			var lat = initMarkers[i].getPosition().jb;
 			var lng = initMarkers[i].getPosition().kb;
-
-			$.ajax({
-				url : 'addOrUpdate',// 这里是你的action或者servlert的路径地址
-				type : 'post', // 数据发送方式
-				data : {
-					"mkid" : id,
-					"address" : address,
+			var jsonData =  {
+					"markid" : id,
+					"name" : name,
+					"areaname" : address,
 					"lat" : lat,
 					"lng" : lng
-				},
+				};
+			
+			console.log(jsonData);
+			$.ajax({
+				url : 'site/saveSite',// 这里是你的action或者servlert的路径地址
+				type : 'post', // 数据发送方式
+				contentType:'application/json;charset=utf-8',
+				async : false,
+				data : JSON.stringify(jsonData),
 				error : function(msg) { // 失败
 					alert('工地增加失败');
 				},
@@ -331,14 +336,16 @@ function saveMarker(id) {
 function deleteMarker(id) {
 		if (confirm("您确定要删除该工地么?")) {
 			for (var i = 0; i < initMarkers.length; i++) {
-
 				if (initMarkers[i].id == id) {
+					var jsonData =  {
+							"mkid" : id
+					};
 					$.ajax({
 						url : 'deleteMarker',// 这里是你的action或者servlert的路径地址
 						type : 'post', // 数据发送方式
-						data : {
-							"mkid" : id
-						},
+						contentType:'application/json;charset=utf-8',
+						async : false,
+						data : JSON.stringify(jsonData),
 						error : function(msg) { // 失败
 							alert('工地删除失败');
 						},
@@ -355,9 +362,6 @@ function deleteMarker(id) {
 
 }
 
-function changeArea() {
-	location.href = "map.jsp?areaid=" + parseInt($("#areaid").val());
-}
 
 function checkMarker() {
 	var nameError = false;
