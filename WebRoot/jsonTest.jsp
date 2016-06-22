@@ -5,7 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>json交互测试</title>
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.4.4.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.js"></script>
 <script type="text/javascript">
 //请求json，输出是json
 function requestJson(){
@@ -17,7 +17,7 @@ function requestJson(){
 		//数据格式是json串，商品信息
 		data:'{"name":"手机","price":999}',
 		success:function(data){//返回json结果
-			alert(data);
+			console.log(data);
 		}
 		
 	});

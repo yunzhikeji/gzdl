@@ -22,4 +22,6 @@ public interface SiteService {
 	// 添加工地
 	public void insertSite(Site site) throws Exception;
 
+	public List<Site> checkSite(SiteCustom siteCustom);
+
 }

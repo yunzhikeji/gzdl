@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yz.mapper.SiteMapper;
+import com.yz.mapper.SiteMapperCustom;
 import com.yz.po.Site;
 import com.yz.po.SiteCustom;
 import com.yz.po.SiteQueryVo;
@@ -14,6 +15,9 @@ public class SiteServiceImpl implements SiteService {
 	
 	@Autowired
 	private SiteMapper siteMapper;
+	
+	@Autowired
+	private SiteMapperCustom siteMapperCustom;
 
 	@Override
 	public List<Site> findSiteList(SiteQueryVo siteQueryVo) throws Exception {
@@ -41,6 +45,12 @@ public class SiteServiceImpl implements SiteService {
 	@Override
 	public void insertSite(Site site) throws Exception {
 		siteMapper.insert(site);
+	}
+
+	@Override
+	public List<Site> checkSite(SiteCustom siteCustom) {
+		// TODO Auto-generated method stub
+		return siteMapperCustom.querySiteBySiteCustom(siteCustom);
 	}
 
 }

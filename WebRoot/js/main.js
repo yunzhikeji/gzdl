@@ -266,14 +266,14 @@ function MarkersInit() {
 
 // 获得信号机基本信息
 function getMarkerContent(marker) {
-	return '<div  id="content"><h1 id="">当前信号机</h1><div id="bodyContent">'
-			+ '<br><div style="margin-top:0.8px">信号机编号：<input id="getnumber" value="'
+	return '<div  id="content"><h2 id="" style="margin:0 auto; border-bottom:1px solid rgba(0,0,0,0.1);color: #0077b9;">当前工地</h2><div id="bodyContent">'
+			+ '<br><div style="margin-top:0.8px">工地编号：<input id="getnumber" value="'
 			+ marker.number
 			+ '" name="signal_number" type="text"  width="25px"/></div>'
-			+ '<br><div style="margin-top:0.8px">信号机地址：<input  id="address" value="'
+			+ '<br><div style="margin-top:0.8px">工地地址：<input  id="address" value="'
 			+ marker.name
 			+ '" name="signal_address" type="text"    width="25px"/></div>'
-			+ '<br><div style="margin-top:0.8px">信号机名称：<input id="name" value="'
+			+ '<br><div style="margin-top:0.8px">工地名称：<input id="name" value="'
 			+ marker.address
 			+ '" name="signal_name" type="text"   width="25px"/></div>'
 	'</div>';
@@ -282,12 +282,12 @@ function getMarkerContent(marker) {
 // 绑定信号机并设置基本信息
 function setMarkerContent(marker) {
 
-	return '<div  id="content"><h1>添加工地</h1><div id="bodyContent">'
-			+ '<div style="margin-top:5px; float:left; width:360px;"><span style="float:left;width:100px;">工地地址：</span><input id="address" class="setAddress" value="" name="_address" type="text"   style="display:inline;float:left;padding-bottom:1px;border:1px solid #cfdfe4"  width="25px"/></div>'
-			+ '<br><div style="margin-top:5px; float:left; width:360px;"><span style="float:left;width:100px;">工地名称：</span><input id="name" class="setName" value="" name="_name" type="text"   style="float:left;padding-bottom:1px;border:1px solid #cfdfe4"  width="25px"/></div>'
-			+ '<br><div class="maptip"><btn style="margin-top:5px; float:left; width:360px;"><a href="javascript:saveMarker('
+	return '<div  id="content"><h2 style="margin:0 auto; border-bottom:1px solid rgba(0,0,0,0.1);color: #0077b9;">添加工地</h2><div id="bodyContent">'
+			+ '<div style="margin-top:5px; float:left; width:360px;"><span style="float:left;width:80px;font-size:14px;">工地地址：</span><input id="address" class="setAddress" value="" name="_address" type="text"   style="display:inline;float:left;padding-bottom:1px;border:1px solid #cfdfe4"  width="100px"/></div>'
+			+ '<br><div style="margin-top:5px; float:left; width:360px;"><span style="float:left;width:80px;font-size:14px;">工地名称：</span><input id="name" class="setName" value="" name="_name" type="text"   style="float:left;padding-bottom:1px;border:1px solid #cfdfe4;line-height:14px"  width="25px" /></div>'
+			+ '<br><div class="maptip"  ><btn style="margin-top:5px; float:left; width:100px;border:1px solid #0077b9;background: #0077b9;text-align:center;border-radius:5px;"><a href="javascript:saveMarker('
 			+ marker.id
-			+ ')" target="rightFrame" onclick="return checkMarker();">保存</a></btn></div></div>'
+			+ ')" target="rightFrame" onclick="return checkMarker();" style="color: #fff; text-decoration:none;font-size:14px;">保&nbsp;&nbsp;&nbsp;存</a></btn></div></div>'
 	'</div>';
 }
 
@@ -367,29 +367,32 @@ function checkMarker() {
 		alert("工地地址不能为空");
 		return false;
 	}
+	var jsonData =   {
+			"sname" : name
+	};
 	$.ajax({
-		url : 'checkMarkerName',// 这里是你的action或者servlert的路径地址
+		url : 'site/checkSite',// 这里是你的action或者servlert的路径地址
 		type : 'post', // 数据发送方式
+		contentType:'application/json;charset=utf-8',
 		async : false,
-		data : {
-			"name" : name
-		},
+		data : JSON.stringify(jsonData),
 		dataType : 'json',
 		error : function(msg) { // 失败
 			console.log('post失败');
 		},
 		success : function(msg) { // 成功
-			if (msg != null) {
+			console.log(msg);
+			if (msg == "1") {
 				nameError = true;
 			}
 		}
 	});
 	if (name == null || name == "") {
-		alert("信号机名称不能为空");
+		alert("工地名称不能为空");
 		return false;
 	}
 	if (nameError) {
-		alert("信号机名称已存在，请重新输入");
+		alert("工地名称已存在，请重新输入");
 		return false;
 	}
 }

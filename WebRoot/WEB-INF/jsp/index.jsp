@@ -46,7 +46,7 @@
   <div class="sJ0"></div>
   <div class="tabCon">
   <div style="width:100%; float:left;">
- <iframe name="" src="map.html" frameborder="0" scrolling="no" width="100%" height="862px" marginheight="0" marginwidth="0" style="background-color:#FFF"></iframe>  
+ <iframe name="map" src="map" frameborder="0" scrolling="no" width="100%" height="862px" marginheight="0" marginwidth="0" style="background-color:#FFF"></iframe>  
 </div>
 </div>
  
