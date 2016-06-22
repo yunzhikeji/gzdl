@@ -21,37 +21,33 @@
 					</ul>
 				</div>
 				<!-- 显示错误信息 -->
-<c:if test="${loginError!=null }">
+				<c:if test="${loginError!=null }">
 
-	${ loginError}<br/>
+	${ loginError}<br />
 
-</c:if>
-				
+				</c:if>
+
 				<form action="${pageContext.request.contextPath }/login.action"
 					method="post">
-					<c:if test=""></c:if>
 					<div class="tabCon">
 						<li class="inputbox"><label class="u-label"></label> <input
 							name="user.username" type="text" class="j-inputtext" tabindex="1"
-							autocomplete="off" value="云知账号"
-							style="color: #e7e7e7; font-family: Microsoft YaHei; background: url(images/login.png) no-repeat 0% 50%; padding-left: 18px"
+							autocomplete="off" placeholder="云知账号"
+							style="font-family: Microsoft YaHei; background: url(images/login.png) no-repeat 0% 50%; padding-left: 18px"
 							spellcheck="false"></li>
 						<li class="inputboxp"><label class="p-label"></label> <input
-							name="user.password" class="j-inputtext" type="text"
-							autocomplete="off" tabindex="2" value="密码"
-							style="color: #e7e7e7; font-family: Microsoft YaHei; background: url(images/loginp.png) no-repeat 0% 50%; padding-left: 18px"
+							name="user.password" class="j-inputtext" type="text" autocomplete="off"
+							tabindex="2" placeholder="密码"
+							style="font-family: Microsoft YaHei; background: url(images/loginp.png) no-repeat 0% 50%; padding-left: 18px"
 							spellcheck="false"></li>
 						<li class="inputboxs"><input class="u-loginbtn" tabindex="6"
-							type="submit" value="登&nbsp;&nbsp;录" /> <a class="u-loginbtnp"
-							href="http://www.baidu.com" target="_blank" tabindex="7"
-							style="margin-left: 1%">注&nbsp;&nbsp;册</a></li>
+							type="submit" value="登&nbsp;&nbsp;录" />
 
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-
 
 
 </body>
