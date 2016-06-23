@@ -49,19 +49,13 @@ public class SiteController {
 	}
 	
 	
-	@RequestMapping("/deleteSite")
-	public @ResponseBody String deleteSite(@RequestBody Integer id) throws Exception {
-		siteService.deleteSite(id);
-		return "success";
-	}
 
 	@RequestMapping("/deleteSiteByMarkid")
-	public @ResponseBody String deleteSiteByMarkid(@RequestBody String markid) throws Exception {
+	public @ResponseBody String deleteSiteByMarkid(@RequestBody Site site) throws Exception {
 
 		String backJson = "0";// 返回json状态码(0：表示正常 -1:异常)
 		try {
-			int del = siteService.deleteSiteByMarkid(markid);
-			System.out.println(del);
+			siteService.deleteSiteByMarkid(site.getMarkid());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			backJson = "-1";

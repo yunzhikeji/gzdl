@@ -26,6 +26,6 @@ public interface SiteService {
 
 	public List<Site> getSites() throws Exception;
 
-	public int deleteSiteByMarkid(String markid) throws Exception;
+	public void deleteSiteByMarkid(String markid) throws Exception;
 
 }

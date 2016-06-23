@@ -259,9 +259,7 @@
     select * from site
   </select>
     <delete id="deleteByMarkid" parameterType="java.lang.String" >
-    delete from site
-    <where>
-    	 markid = #{markid}
-    </where>
+    delete from site where markid = #{markid,jdbcType=VARCHAR}
+
   </delete>
 </mapper>

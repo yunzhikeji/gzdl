@@ -60,9 +60,9 @@ public class SiteServiceImpl implements SiteService {
 	}
 
 	@Override
-	public int deleteSiteByMarkid(String markid) throws Exception {
+	public void deleteSiteByMarkid(String markid) throws Exception {
 		// TODO Auto-generated method stub
-	   return siteMapper.deleteByMarkid(markid);
+	   siteMapper.deleteByMarkid(markid);
 	}
 
 }

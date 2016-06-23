@@ -36,7 +36,7 @@
 							style="font-family: Microsoft YaHei; background: url(images/login.png) no-repeat 0% 50%; padding-left: 18px"
 							spellcheck="false"></li>
 						<li class="inputboxp"><label class="p-label"></label> <input
-							name="user.password" class="j-inputtext" type="text" autocomplete="off"
+							name="user.password" class="j-inputtext" type="password" autocomplete="off"
 							tabindex="2" placeholder="密码"
 							style="font-family: Microsoft YaHei; background: url(images/loginp.png) no-repeat 0% 50%; padding-left: 18px"
 							spellcheck="false"></li>
