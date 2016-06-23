@@ -52,7 +52,7 @@ function initialize() {
 		$("#CLNG").val(event.latLng.lng());
 	});
 
-	// MarkersInit();
+	MarkersInit();
 
 	// google.maps.event.addListener(mapobj, "rightclick", reset);
 
@@ -217,11 +217,16 @@ function setMarkerEvents(marker) {
 
 // 初始化地图所有标志
 function MarkersInit() {
+	
+	var jsonData =  {};
+	
 	$.ajax({
-		url : 'load',// 这里是你的action或者servlert的路径地址
+		url : 'getMarkers',// 这里是你的action或者servlert的路径地址
 		type : 'post', // 数据发送方式
 		dataType : 'json',
+		contentType:'application/json;charset=utf-8',
 		async : false,
+		data : JSON.stringify(jsonData),
 		error : function(msg) { // 失败
 		},
 		success : function(msg) { // 成功
@@ -241,17 +246,17 @@ function MarkersInit() {
 								&& markermsg[i].lng != null
 								&& markermsg[i].lng != '') {
 							var marker = maphelper.markerPoint({
-								id : markermsg[i].id,
+								id : markermsg[i].markid,
 								lat : markermsg[i].lat,
 								lng : markermsg[i].lng,
 								title : '工地',
-								icon : "images/site.png"
+								icon : "images/site2.png"
 
 							});
 							marker.dbclickable = true;
 							marker.initOver = true;
 							marker.name = markermsg[i].name;
-							marker.address = markermsg[i].address;
+							marker.address = markermsg[i].areaname;
 							setMarkerEvents(marker);
 							initMarkers.push(marker);
 						}
@@ -267,9 +272,6 @@ function MarkersInit() {
 // 获得信号机基本信息
 function getMarkerContent(marker) {
 	return '<div  id="content"><h2 id="" style="margin:0 auto; border-bottom:1px solid rgba(0,0,0,0.1);color: #0077b9;">当前工地</h2><div id="bodyContent">'
-			+ '<br><div style="margin-top:0.8px">工地编号：<input id="getnumber" value="'
-			+ marker.number
-			+ '" name="signal_number" type="text"  width="25px"/></div>'
 			+ '<br><div style="margin-top:0.8px">工地地址：<input  id="address" value="'
 			+ marker.name
 			+ '" name="signal_address" type="text"    width="25px"/></div>'
@@ -307,7 +309,6 @@ function saveMarker(id) {
 					"lng" : lng
 				};
 			
-			console.log(jsonData);
 			$.ajax({
 				url : 'site/saveSite',// 这里是你的action或者servlert的路径地址
 				type : 'post', // 数据发送方式
@@ -320,7 +321,12 @@ function saveMarker(id) {
 				success : function(msg) { // 成功
 					if (infowindow)
 						infowindow.close();
-					alert('工地添加成功');
+					console.log(typeof(msg));
+					if(msg==0)
+					{
+						alert('工地添加成功');
+						}
+				
 				}
 			});
 			initMarkers[i].dbclickable = true;
@@ -338,10 +344,10 @@ function deleteMarker(id) {
 			for (var i = 0; i < initMarkers.length; i++) {
 				if (initMarkers[i].id == id) {
 					var jsonData =  {
-							"mkid" : id
+							"markid" : id
 					};
 					$.ajax({
-						url : 'deleteMarker',// 这里是你的action或者servlert的路径地址
+						url : 'site/deleteSiteByMarkid',// 这里是你的action或者servlert的路径地址
 						type : 'post', // 数据发送方式
 						contentType:'application/json;charset=utf-8',
 						async : false,
@@ -350,7 +356,11 @@ function deleteMarker(id) {
 							alert('工地删除失败');
 						},
 						success : function(msg) { // 成功
-							alert('工地删除成功');
+							console.log(typeof(msg));
+							if(msg=="0")
+							{
+								alert('工地删除成功');
+							}
 						}
 
 					});

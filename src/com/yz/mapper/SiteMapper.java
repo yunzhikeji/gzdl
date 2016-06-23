@@ -29,5 +29,9 @@ public interface SiteMapper {
 
     int updateByPrimaryKey(Site record);
 
-    List<Site> querySiteBySiteCustom(SiteCustom siteCustom);
+    List<Site> querySiteBySiteCustom(SiteCustom siteCustom);//空接口mapper未实现
+    
+    List<Site> getSites();
+
+	int deleteByMarkid(String markid);
 }

@@ -20,8 +20,12 @@ public interface SiteService {
 	public void deleteSite(Integer id) throws Exception;
 	
 	// 添加工地
-	public void insertSite(Site site) throws Exception;
+	public int insertSite(Site site) throws Exception;
 
-	public List<Site> checkSite(SiteCustom siteCustom);
+	public List<Site> checkSite(SiteCustom siteCustom) throws Exception ;
+
+	public List<Site> getSites() throws Exception;
+
+	public int deleteSiteByMarkid(String markid) throws Exception;
 
 }

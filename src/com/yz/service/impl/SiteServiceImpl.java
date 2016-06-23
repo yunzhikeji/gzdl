@@ -22,7 +22,7 @@ public class SiteServiceImpl implements SiteService {
 	@Override
 	public List<Site> findSiteList(SiteQueryVo siteQueryVo) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return siteMapper.querySiteBySiteCustom(siteQueryVo.getSiteCustom());
 	}
 
 	@Override
@@ -43,14 +43,26 @@ public class SiteServiceImpl implements SiteService {
 	}
 
 	@Override
-	public void insertSite(Site site) throws Exception {
-		siteMapper.insert(site);
+	public int insertSite(Site site) throws Exception {
+		return  siteMapper.insert(site);
 	}
 
 	@Override
-	public List<Site> checkSite(SiteCustom siteCustom) {
+	public List<Site> checkSite(SiteCustom siteCustom) throws Exception{
 		// TODO Auto-generated method stub
 		return siteMapperCustom.querySiteBySiteCustom(siteCustom);
+	}
+
+	@Override
+	public List<Site> getSites() throws Exception {
+		// TODO Auto-generated method stub
+		return siteMapper.getSites();
+	}
+
+	@Override
+	public int deleteSiteByMarkid(String markid) throws Exception {
+		// TODO Auto-generated method stub
+	   return siteMapper.deleteByMarkid(markid);
 	}
 
 }
