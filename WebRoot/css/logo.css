@@ -152,6 +152,11 @@ text-align: start;
     height:25px;
     line-height:25px;
 }
+.y-inputtext{	        
+    width:20%;
+    height:25px;
+    line-height:25px;
+}
 
 .u-loginbtn {
 	height: 38px;
@@ -165,6 +170,7 @@ text-align: start;
 	display: inline-block;
 	width: 23%;
 	text-align: center;
+	border:none;
 }
 
 .u-loginbtnp {

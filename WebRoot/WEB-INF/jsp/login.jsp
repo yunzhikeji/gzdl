@@ -23,7 +23,9 @@
 				<!-- 显示错误信息 -->
 				<c:if test="${loginError!=null }">
 
-	<center><font color="red" >${ loginError}<br /></font></center>
+					<center>
+						<font color="red">${ loginError}<br /></font>
+					</center>
 
 				</c:if>
 
@@ -36,12 +38,19 @@
 							style="font-family: Microsoft YaHei; background: url(images/login.png) no-repeat 0% 50%; padding-left: 18px"
 							spellcheck="false"></li>
 						<li class="inputboxp"><label class="p-label"></label> <input
-							name="user.password" class="j-inputtext" type="password" autocomplete="off"
-							tabindex="2" placeholder="密码"
+							name="user.password" class="j-inputtext" type="password"
+							autocomplete="off" tabindex="2" placeholder="密码"
 							style="font-family: Microsoft YaHei; background: url(images/loginp.png) no-repeat 0% 50%; padding-left: 18px"
 							spellcheck="false"></li>
+						<li class="inputboxs"><input class="y-inputtext" type="text"
+							placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}"
+							onclick="if(this.value=='验证码:'){this.value='';}"> <img
+							class="y-inputtext" src="${pageContext.request.contextPath }/images/20160623142829.png"> <a
+							href="javascript:;" style="background: #CCC">看不清，换一张</a></li>
 						<li class="inputboxs"><input class="u-loginbtn" tabindex="6"
-							type="submit" value="登&nbsp;&nbsp;录" />
+							type="submit" value="登&nbsp;&nbsp;录" /> <a class="u-loginbtnp"
+							href="http://www.baidu.com" target="_blank" tabindex="7"
+							style="margin-left: 1%">取&nbsp;&nbsp;消</a></li>
 
 					</div>
 				</form>
