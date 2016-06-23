@@ -18,7 +18,7 @@ public interface UserService {
 	public User findUserById(Integer id) throws Exception;
 	
 	// 用户查询列表
-	public List<User> findUserList(UserQueryVo userQueryVo) throws Exception;
+	public List<User> findUserList() throws Exception;
 	
 	// 修改用户 信息
 	

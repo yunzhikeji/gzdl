@@ -20,7 +20,7 @@
 <li class="pR0">${username }，你好！</li>
 </c:if>
 <li class="rZ0 pn1">|</li>
-<li class="rZ0"><a href="javascript:;" onClick="ypgj('用户管理','user.html','1024px','768px')" title="用户管理" target="_self" class="sh0 nui-txt-link">用户管理</a></li>
+<li class="rZ0"><a href="javascript:;" onClick="ypgj('用户管理','${pageContext.request.contextPath }/user/queryUsers','1024px','768px')" title="用户管理" target="_self" class="sh0 nui-txt-link">用户管理</a></li>
 <li class="rZ0 pn1">|</li>
 <li class="rZ0"><a href="#" class="sh0 nui-txt-link">设置</a>
 <ul class="tO1">

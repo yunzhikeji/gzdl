@@ -15,4 +15,9 @@
   			<include refid="query_user_where"></include>
   		</where>
  </select>
+ 
+  <select id="findUserList" resultType="com.yz.po.User">
+ 	SELECT user.* FROM user 
+
+</select>
 </mapper>

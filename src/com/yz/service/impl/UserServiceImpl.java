@@ -43,8 +43,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> findUserList(UserQueryVo userQueryVo) throws Exception {
-		return null;
+	public List<User> findUserList() throws Exception {
+		
+		return userMapperCustom.findUserList();
 	}
 
 	@Override
