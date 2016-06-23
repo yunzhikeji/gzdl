@@ -23,7 +23,7 @@
 				<!-- 显示错误信息 -->
 				<c:if test="${loginError!=null }">
 
-	${ loginError}<br />
+	<center><font color="red" >${ loginError}<br /></font></center>
 
 				</c:if>
 

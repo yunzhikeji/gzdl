@@ -5,15 +5,17 @@ public class Site {
 
     private String name;
 
-    private Double lng;
+    private String lng;
 
-    private Double lat;
+    private String lat;
 
     private String markid;
 
     private String snumber;
 
     private Integer viewstyle;
+
+    private String areaname;
 
     public Integer getId() {
         return id;
@@ -31,20 +33,20 @@ public class Site {
         this.name = name == null ? null : name.trim();
     }
 
-    public Double getLng() {
+    public String getLng() {
         return lng;
     }
 
-    public void setLng(Double lng) {
-        this.lng = lng;
+    public void setLng(String lng) {
+        this.lng = lng == null ? null : lng.trim();
     }
 
-    public Double getLat() {
+    public String getLat() {
         return lat;
     }
 
-    public void setLat(Double lat) {
-        this.lat = lat;
+    public void setLat(String lat) {
+        this.lat = lat == null ? null : lat.trim();
     }
 
     public String getMarkid() {
@@ -69,5 +71,13 @@ public class Site {
 
     public void setViewstyle(Integer viewstyle) {
         this.viewstyle = viewstyle;
+    }
+
+    public String getAreaname() {
+        return areaname;
+    }
+
+    public void setAreaname(String areaname) {
+        this.areaname = areaname == null ? null : areaname.trim();
     }
 }
