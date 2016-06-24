@@ -2,16 +2,20 @@ package com.yz.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.yz.po.Site;
 import com.yz.po.SiteCustom;
 import com.yz.po.SiteQueryVo;
+import com.yz.po.User;
 import com.yz.service.SiteService;
 
 @Controller
@@ -45,10 +49,8 @@ public class SiteController {
 			// TODO Auto-generated catch block
 			backJson = -1;
 		}
-		return backJson+"";
+		return backJson + "";
 	}
-	
-	
 
 	@RequestMapping("/deleteSiteByMarkid")
 	public @ResponseBody String deleteSiteByMarkid(@RequestBody Site site) throws Exception {
@@ -61,6 +63,20 @@ public class SiteController {
 			backJson = "-1";
 		}
 		return backJson;
+
+	}
+
+	@RequestMapping("/showSites")
+	public ModelAndView showSites(HttpServletRequest request) throws Exception {
+
+		// 调用service查询数据库，查询用户列表
+		List<Site> siteList = siteService.getSites();
+		// 返回ModelAndView
+		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.addObject("siteList", siteList);
+		modelAndView.setViewName("site");
+		return modelAndView;
 
 	}
 
