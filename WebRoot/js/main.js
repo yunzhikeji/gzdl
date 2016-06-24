@@ -175,7 +175,7 @@ function setMarkerEvents(marker) {
 	maphelper.bindInstanceEvent(marker, 'dblclick',
 			function(event, map, marker) {
 				if (!deleteable) {
-					window.parent.map.location.href="camera/realTime?markid="+marker.id;
+					window.parent.myiframe.location.href="camera/realTime?markid="+marker.id;
 				}
 			});
 
