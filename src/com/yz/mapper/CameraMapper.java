@@ -27,4 +27,5 @@ public interface CameraMapper {
     int updateByPrimaryKeySelective(Camera record);
 
     int updateByPrimaryKey(Camera record);
+
 }

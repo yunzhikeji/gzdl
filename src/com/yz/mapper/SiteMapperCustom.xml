@@ -10,4 +10,13 @@
 			name=#{sname}
   		</where>
  </select>
+   <select id="getSites" resultMap="com.yz.po.Site"  >
+    select * from site
+  </select>
+    <delete id="deleteByMarkid" parameterType="java.lang.String" >
+    delete from site where markid = #{markid,jdbcType=VARCHAR}
+  </delete>
+   <select id="getSites" resultMap="com.yz.po.Site" parameterType="java.lang.String" >
+    select * from site where markid = #{markid,jdbcType=VARCHAR}
+  </select>
 </mapper>

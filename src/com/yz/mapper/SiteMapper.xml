@@ -255,11 +255,4 @@
       areaname = #{areaname,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getSites" resultMap="BaseResultMap"  >
-    select * from site
-  </select>
-    <delete id="deleteByMarkid" parameterType="java.lang.String" >
-    delete from site where markid = #{markid,jdbcType=VARCHAR}
-
-  </delete>
 </mapper>

@@ -164,8 +164,8 @@ function setMarkerEvents(marker) {
 	maphelper.bindInstanceEvent(marker, 'dblclick',
 			function(event, map, marker) {
 				if (!deleteable) {
-					window.open("sigAction!toTraffic?mkid=" + marker.id,
-							"rightFrame");
+					window.open("vedio.html",
+							"map");
 				}
 			});
 

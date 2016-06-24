@@ -8,4 +8,10 @@ import org.apache.ibatis.annotations.Param;
 
 public interface SiteMapperCustom {
     List<Site> querySiteBySiteCustom(SiteCustom siteCustom);
+    
+    List<Site> getSites();
+
+	int deleteByMarkid(String markid);
+
+	Site selectByMarkid(String markid);
 }

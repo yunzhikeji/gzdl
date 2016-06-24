@@ -1,5 +1,7 @@
 package com.yz.service;
 
+import java.util.List;
+
 import com.yz.po.Camera;
 import com.yz.po.CameraCustom;
 
@@ -16,6 +18,8 @@ public interface CameraService {
 	
 	// 修改摄像头信息
 	public void updateCamera(Integer id,CameraCustom cameraCustom) throws Exception;
+
+	public List<Camera> getCameraByUsefulLatlng();
 	
 	// 批量删除
 

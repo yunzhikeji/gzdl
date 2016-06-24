@@ -56,13 +56,19 @@ public class SiteServiceImpl implements SiteService {
 	@Override
 	public List<Site> getSites() throws Exception {
 		// TODO Auto-generated method stub
-		return siteMapper.getSites();
+		return siteMapperCustom.getSites();
 	}
 
 	@Override
 	public void deleteSiteByMarkid(String markid) throws Exception {
 		// TODO Auto-generated method stub
-	   siteMapper.deleteByMarkid(markid);
+		siteMapperCustom.deleteByMarkid(markid);
+	}
+
+	@Override
+	public Site querySiteByMarkid(String markid) {
+		// TODO Auto-generated method stub
+		return siteMapperCustom.selectByMarkid(markid);
 	}
 
 }
