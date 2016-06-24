@@ -80,22 +80,33 @@ function rgb2hex(rgb) {
 
 function deleteSite() {
 	// 删除按钮
-	$("#addsite").css("color", "#000");
+	$("#addsite").css("color", "#606060").css("background", "-webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff)").css("background", "-moz-linear-gradient(top,  #ededed,  #fff)").css("filter", " progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff')");
+
+	
+	
+	
 	maphelper.clearInstanceEvent(mapobj, 'click');// 取消新增
 	if (mapClickEventListener) {
 		google.maps.event.removeListener(mapClickEventListener);
 		mapClickEventListener = null;
 	}
 
-	$("#delsite").css("color", "#fff");
+	$("#delsite").css("color", "#999").css("background", "-webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed))").css("background", "-moz-linear-gradient(top,  #fff,  #ededed)").css("filter", "  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed')");
+	
+	
+	
+	
 	alert("点击地图上的工地进行删除");
 	deleteable = true;// 可以删除
 }
 
 function addSite() {
 
-	$("#addsite").css("color", "#fff");
-	$("#delsite").css("color", "#000");
+	$("#addsite").css("color", "#999").css("background", "-webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff)").css("background", "-moz-linear-gradient(top,  #ededed,  #fff)").css("filter", " progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff')");
+	$("#delsite").css("color", "#606060").css("background", "-webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff)").css("background", "-moz-linear-gradient(top,  #ededed,  #fff)").css("filter", " progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff')");
+	
+	
+	
 	deleteable = false;// 取消删除
 	alert("单击地图添加工地..");
 
