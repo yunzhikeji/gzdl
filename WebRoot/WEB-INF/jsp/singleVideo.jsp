@@ -1,3 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>监控系统</title>
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/css/test.css" />
+<script type="text/javascript">
 function $(id){return document.getElementById(id);}
 
 function OnSend()
@@ -10,13 +19,15 @@ function OnSend()
 
 function OnPlay1()
 {  
+	
   var ocx = $("ocx");  
+  console.log(ocx);
   ocx.Login("test","test","115.28.135.48",20000); 
 }
 function OnPlay2()
 {  
-  alert("play");
   var ocx = $("ocx");  
+  console.log(ocx);
   ocx.PlayVideo("44030300001320020247"); /*   */
 
 }
@@ -68,3 +79,33 @@ function Onload()
 { 
 
 }
+</script> 
+</head>
+<body>
+<div style="width:100%; position:relative;"> 
+ <div class="yzrtv">
+   <span style="font-weight:bold;">工地名称：</span><span style="padding-right:6px;">阳光一百</span><span style="font-weight:bold;">|</span>
+   <span style="font-weight:bold;">工地位置：</span><span>解放东路2.35.67425655</span>   
+</div>  
+ <div class="yzvedio0" onLoad="Onload();">   
+  <object CLASSID='CLSID:7A2B1F67-6568-4466-A0A5-EA7FF6EBE820' id='ocx' width='100%' height='197%' VIEWASTEXT>
+  </object>
+ <div style="margin-top:5px;">
+<a href="#" class="button white" onClick="OnPlay1();">登录</a>
+<a href="#" class="button white" onClick="OnPlay2();">播放</a>
+<a href="#" class="button1 white" onClick="OnUp();">上</a>
+<a href="#" class="button1 white" onClick="OnDown();">下</a>
+<a href="#" class="button1 white" onClick="OnLeft();">左</a>
+<a href="#" class="button1 white" onClick="OnRight();">右</a>
+</div>
+</div>
+
+</div>
+
+
+
+
+
+
+</body>
+</html>

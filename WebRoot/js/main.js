@@ -164,8 +164,7 @@ function setMarkerEvents(marker) {
 	maphelper.bindInstanceEvent(marker, 'dblclick',
 			function(event, map, marker) {
 				if (!deleteable) {
-					window.open("singleVideo.html",
-							"map");
+					window.parent.map.location.href="camera/realTime?markid="+marker.id;
 				}
 			});
 
@@ -272,11 +271,11 @@ function MarkersInit() {
 // 获得信号机基本信息
 function getMarkerContent(marker) {
 	return '<div  id="content"><h2 id="" style="margin:0 auto; border-bottom:1px solid rgba(0,0,0,0.1);color: #0077b9;">当前工地</h2><div id="bodyContent">'
-			+ '<br><div style="margin-top:0.8px">工地地址：<input  id="address" value="'
-			+ marker.name
-			+ '" name="signal_address" type="text"    width="25px"/></div>'
-			+ '<br><div style="margin-top:0.8px">工地名称：<input id="name" value="'
+			+ '<br><div style="margin-top:5px; float:left; width:360px;">工地地址：<input  id="address" value="'
 			+ marker.address
+			+ '" name="signal_address" type="text"    width="25px"/></div>'
+			+ '<br><div style="margin-top:5px;padding-bottom:1px; float:left; width:360px;">工地名称：<input id="name" value="'
+			+ marker.name
 			+ '" name="signal_name" type="text"   width="25px"/></div>'
 	'</div>';
 }
@@ -289,7 +288,7 @@ function setMarkerContent(marker) {
 			+ '<br><div style="margin-top:5px; float:left; width:360px;"><span style="float:left;width:80px;font-size:14px;">工地名称：</span><input id="name" class="setName" value="" name="_name" type="text"   style="float:left;padding-bottom:1px;border:1px solid #cfdfe4;line-height:14px"  width="25px" /></div>'
 			+ '<br><div class="maptip"  ><btn style="margin-top:5px; float:left; width:100px;border:1px solid #0077b9;background: #0077b9;text-align:center;border-radius:5px;"><a href="javascript:saveMarker('
 			+ marker.id
-			+ ')" target="rightFrame" onclick="return checkMarker();" style="color: #fff; text-decoration:none;font-size:14px;">保&nbsp;&nbsp;&nbsp;存</a></btn></div></div>'
+			+ ')"  onclick="return checkMarker();" style="color: #fff; text-decoration:none;font-size:14px;">保&nbsp;&nbsp;&nbsp;存</a></btn></div></div>'
 	'</div>';
 }
 
