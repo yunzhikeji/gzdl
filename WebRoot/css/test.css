@@ -89,6 +89,9 @@ div {
 	background: -moz-linear-gradient(top,  #ededed,  #fff);
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
 }
+.yzvedio1{
+	width:100%; 
+}
 .yzvedio0{
 	float:left; 
 	width:100%; 
@@ -127,16 +130,12 @@ div {
 .yzrtv{
 	z-index:25;
 	color:#666; 
-	position:absolute; 
-	margin-left:3%; 
-	margin-top:20px;
 	padding-top:5px;
 	padding-left:15px;
 	padding-right:15px;
 	padding-bottom:5px;
-	background: #FFF;
+	background:#F9F9F9;
 	border-radius:3px;
-	box-shadow: 2px 2px 2px 2px rgba(51,51,51,0.3);
 
 }
 span{
