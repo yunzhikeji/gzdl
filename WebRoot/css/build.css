@@ -133,9 +133,9 @@ border:1px solid #e9e9e9;
 PADDING-RIGHT: 3px; 
 PADDING-LEFT: 3px; 
 PADDING-BOTTOM: 3px;
- MARGIN: 3px; 
  PADDING-TOP: 3px; 
- TEXT-ALIGN: center; 
+ TEXT-ALIGN: center;
+ background: #fff; 
 } 
 DIV.digg A { 
 BORDER-RIGHT: #aaaadd 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #aaaadd 1px solid;

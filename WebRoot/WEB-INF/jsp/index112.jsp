@@ -22,6 +22,7 @@
 <li class="rZ0 pn1">|</li>
 <li class="rZ0"><a href="javascript:;" onClick="ypgj('用户管理','${pageContext.request.contextPath }/user/queryUsers','1024px','768px')" title="用户管理" target="_self" class="sh0 nui-txt-link">用户管理</a></li>
 <li class="rZ0 pn1">|</li>
+
 			<c:if test="${username!=null }">
 				<li class="rZ0"><a
 					href="${pageContext.request.contextPath }/logout.action"
@@ -31,21 +32,23 @@
 </div>
 </header>
 
-<div class="HuiTab">
+<div id="tab_demo" class="HuiTab">
   <div class="tabBar cl">
-  <span class="tA0"><a href="map" target="myiframe">分布图</a></span>
-  <span class="tA0"><a href="${pageContext.request.contextPath }/site/showSites" id="td" onClick="changeToTd();" target="myiframe">工地管理</a></span>
-  <span class="tA0"><a href="javascript:void(0)" id="tj" onClick="changeToTj();" target="myiframe">视频管理</a></span>
+  <span class="tA0">分布图</span>
+  <span class="tA0">工地管理</span>
+  <span class="tA0">视频管理</span>
   </div>
   <div class="sJ0"></div>
   <div class="tabCon">
-  
- <iframe name="myiframe" src="${pageContext.request.contextPath }/map" id="iframepage" frameborder="0" scrolling="no" width="100%" height="862px" marginheight="0" marginwidth="0" style="background:#FFF"></iframe>  
-
+  <div style="width:100%; float:left;">
+ <iframe name="map" src="map" frameborder="0" scrolling="no" width="100%" height="862px" marginheight="0" marginwidth="0" style="background-color:#FFF"></iframe>  
+</div>
 </div>
  
- 
-  
+  <div class="tabCon"> 
+ <iframe name="site" src="${pageContext.request.contextPath }/site/showSites" id="iframepage" frameborder="0" scrolling="no" width="100%" height="862px" marginheight="0" marginwidth="0"></iframe> 
+    </div>
+  <div class="tabCon"> <iframe name="" src="vedio.html" id="iframepage" frameborder="0" scrolling="no" width="100%" height="862px" marginheight="0" marginwidth="0"></iframe>  </div>
 </div>
 
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
@@ -69,16 +72,20 @@ function ypgj(title,url,w,h){
     content: url //iframe的url
 }); 
 }
-function changeToTd()
-	{
-		$("#iframepage").attr('src',"${pageContext.request.contextPath }/site/showSites"); 
-	}
+function ypgy(title,url,w,h){
+	layer.open({
+    type: 2,
+    title: title,
+    shadeClose: true,
+    shade: 0.8,
+    area: [w, h],
+    content: url //iframe的url
+}); 
+}
+
+
 	
-	
-	function changeToTj()
-	{
-		$("#iframepage").attr('src',"vedio.html"); 
-	}			
 </script>
 </body>
 </html>
+	
