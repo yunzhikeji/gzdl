@@ -22,12 +22,7 @@
 <li class="rZ0 pn1">|</li>
 <li class="rZ0"><a href="javascript:;" onClick="ypgj('用户管理','${pageContext.request.contextPath }/user/queryUsers','1024px','768px')" title="用户管理" target="_self" class="sh0 nui-txt-link">用户管理</a></li>
 <li class="rZ0 pn1">|</li>
-<li class="rZ0"><a href="#" class="sh0 nui-txt-link">设置</a>
-<ul class="tO1">
-<li class="rZ1"><a href="#" target="_self" class="sh0 nui-txt-link">密码修改</a></li>
-<li class="rZ1"><a href="#" target="_self" class="sh0 nui-txt-link">个人资料</a></li>
-</ul></li>
-<li class="rZ0 pn1">|</li>
+
 			<c:if test="${username!=null }">
 				<li class="rZ0"><a
 					href="${pageContext.request.contextPath }/logout.action"
@@ -51,47 +46,7 @@
 </div>
  
   <div class="tabCon"> 
-  <table class="table">
-    <thead class="text-c">
-    <tr class="text-d">
-        <th width="10%"><button class="button orange" style="font-size:14px;"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>批量删除</button></th>
-        <th width="10%" style="font-size:14px;">序号</th>
-        <th width="20%" style="font-size:14px;">工地名称</th>
-        <th width="30%" style="font-size:14px;">位置</th>
-        <th width="10%" style="font-size:14px;">显示画面个数</th>
-        <th width="10%" style="font-size:14px;"></th>
-        <th width="10%" style="font-size:14px;"></th>
-      </tr>
-    </thead>
-      <tbody>
-      <tr class="text-c">
-        <td class="text-c"><input name="" type="checkbox" value="" /></td>
-        <td>1</td>
-        <td>越秀城南区</td>
-        <td>经度415°  纬度325°</td>
-        <td><input name="viewstyle" type="radio" value="1" checked="checked"/>1 <input name="viewstyle" type="radio" value="4" />4 <input name="viewstyle" type="radio" value="6" />6</td>
-        <td><a href="javascript:;" onClick="ypgy('用户管理','user.html','1024px','768px')" title="用户管理" target="_self" class="button blue bigrounded" style="font-size:14px;"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
-        <td><button class="button orange" style="font-size:14px;"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除</button></td>
-
-      </tr>
-     
-      </tbody>
-    </table>
-    <div class="digg"> 
-   <span class="disabled">&lt; </span>
-<span class="current">1</span>
-<a href="#?page=2">2</a>
-<a href="#?page=3">3</a>
-<a href="#?page=4">4</a>
-<a href="#?page=5">5</a>
-<a href="#?page=6">6</a>
-<a href="#?page=7">7</a>
-...
-<a href="#?page=199">199</a>
-<a href="#?page=200">200</a>
-<a href="#?page=2"> 
-&gt; </a></div> 
-
+ <iframe name="" src="build.html" id="iframepage" frameborder="0" scrolling="no" width="100%" height="862px" marginheight="0" marginwidth="0"></iframe> 
     </div>
   <div class="tabCon"> <iframe name="" src="vedio.html" id="iframepage" frameborder="0" scrolling="no" width="100%" height="862px" marginheight="0" marginwidth="0"></iframe>  </div>
 </div>

@@ -272,6 +272,14 @@ border:1px solid #e9e9e9;
 	-moz-border-radius: 1em;
 	border-radius: 1em;
 }
+.smallrounded {
+	-webkit-border-radius: 0.3em;
+	-moz-border-radius: 0.3em;
+	border-radius: 0.3em;
+}
+.bla{
+	padding: 5px 10px 5px 10px;
+}
 .blue {
 	color: #d9eef7;
 	border: solid 1px #0076a3;
