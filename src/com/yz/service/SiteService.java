@@ -29,5 +29,6 @@ public interface SiteService {
 	public void deleteSiteByMarkid(String markid) throws Exception;
 
 	public Site querySiteByMarkid(String markid);
+	
 
 }
