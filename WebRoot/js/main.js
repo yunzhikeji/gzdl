@@ -164,7 +164,7 @@ function setMarkerEvents(marker) {
 	maphelper.bindInstanceEvent(marker, 'dblclick',
 			function(event, map, marker) {
 				if (!deleteable) {
-					window.open("vedio.html",
+					window.open("singleVideo.html",
 							"map");
 				}
 			});

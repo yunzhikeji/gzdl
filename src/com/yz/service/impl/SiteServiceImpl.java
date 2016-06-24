@@ -22,7 +22,7 @@ public class SiteServiceImpl implements SiteService {
 	@Override
 	public List<Site> findSiteList(SiteQueryVo siteQueryVo) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return siteMapperCustom.getSites();
 	}
 
 	@Override

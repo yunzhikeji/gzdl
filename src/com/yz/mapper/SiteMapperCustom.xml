@@ -14,7 +14,7 @@
     <delete id="deleteByMarkid" parameterType="java.lang.String" >
     delete from site where markid = #{markid,jdbcType=VARCHAR}
   </delete>
-   <select id="getSites" resultType="com.yz.po.Site" parameterType="java.lang.String" >
+   <select id="selectByMarkid" resultType="com.yz.po.Site" parameterType="java.lang.String" >
     select * from site where markid = #{markid,jdbcType=VARCHAR}
   </select>
 </mapper>
