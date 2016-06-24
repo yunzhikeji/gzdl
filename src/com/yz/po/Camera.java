@@ -7,15 +7,21 @@ public class Camera {
 
     private String sipserverid;
 
-    private Double lng;
+    private String lng;
 
-    private Double lat;
+    private String lat;
 
     private String cnumber;
 
-    private String name;
+    private String cname;
 
     private String markerid;
+
+    private String voltage;
+
+    private String temperature;
+
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -41,20 +47,20 @@ public class Camera {
         this.sipserverid = sipserverid == null ? null : sipserverid.trim();
     }
 
-    public Double getLng() {
+    public String getLng() {
         return lng;
     }
 
-    public void setLng(Double lng) {
-        this.lng = lng;
+    public void setLng(String lng) {
+        this.lng = lng == null ? null : lng.trim();
     }
 
-    public Double getLat() {
+    public String getLat() {
         return lat;
     }
 
-    public void setLat(Double lat) {
-        this.lat = lat;
+    public void setLat(String lat) {
+        this.lat = lat == null ? null : lat.trim();
     }
 
     public String getCnumber() {
@@ -65,12 +71,12 @@ public class Camera {
         this.cnumber = cnumber == null ? null : cnumber.trim();
     }
 
-    public String getName() {
-        return name;
+    public String getCname() {
+        return cname;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setCname(String cname) {
+        this.cname = cname == null ? null : cname.trim();
     }
 
     public String getMarkerid() {
@@ -79,5 +85,29 @@ public class Camera {
 
     public void setMarkerid(String markerid) {
         this.markerid = markerid == null ? null : markerid.trim();
+    }
+
+    public String getVoltage() {
+        return voltage;
+    }
+
+    public void setVoltage(String voltage) {
+        this.voltage = voltage == null ? null : voltage.trim();
+    }
+
+    public String getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(String temperature) {
+        this.temperature = temperature == null ? null : temperature.trim();
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

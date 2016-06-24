@@ -28,11 +28,10 @@
 			<table class="table">
 				<thead class="text-c">
 					<tr class="text-d">
-						<th colspan="8" style="text-align: left; height: 35px;"><button
-								class="button blue" style="font-size: 14px;">
+						<th colspan="8" style="text-align: left; height: 35px;"><a class="button blue bla smallrounded" href="${pageContext.request.contextPath }/user/addUser" target="_self" style="font-size:14px;">
 								<i class="Hui-iconfont">&nbsp;&#xe607;&nbsp;</i>添加用户
-							</button>
-							<button class="button orange" style="font-size: 14px;">
+							</a>
+							<button class="button orange bla smallrounded" style="font-size: 14px;margin-left:3px; ">
 								<i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>批量删除
 							</button></th>
 					</tr>
@@ -58,9 +57,9 @@
 								checked="checked" /> A <input name="vd" type="radio" value="4" />
 								B <input name="vd" type="radio" value="6" /> C</td>
 							<td class="text-c"><input name="" type="checkbox" value="" /></td>
-							<td><a id="edit" href="#" class="button blue bigrounded"
-								style="font-size: 14px;"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe632;</i>保存&nbsp;&nbsp;&nbsp;</a></td>
-							<td><button class="button orange" style="font-size: 14px;">
+							<td><a id="edit" href="${pageContext.request.contextPath }/user/editUserUI" class="button blue bigrounded bla"
+								style="font-size: 14px;"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
+							<td><button class="button orange bla smallrounded" style="font-size: 14px;">
 									<i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除
 								</button></td>
 						</tr>

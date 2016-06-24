@@ -5,11 +5,14 @@
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="sipid" property="sipid" jdbcType="VARCHAR" />
     <result column="sipserverid" property="sipserverid" jdbcType="VARCHAR" />
-    <result column="lng" property="lng" jdbcType="DOUBLE" />
-    <result column="lat" property="lat" jdbcType="DOUBLE" />
+    <result column="lng" property="lng" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
     <result column="cnumber" property="cnumber" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="cname" property="cname" jdbcType="VARCHAR" />
     <result column="markerid" property="markerid" jdbcType="VARCHAR" />
+    <result column="voltage" property="voltage" jdbcType="VARCHAR" />
+    <result column="temperature" property="temperature" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, sipid, sipserverid, lng, lat, cnumber, name, markerid
+    id, sipid, sipserverid, lng, lat, cnumber, cname, markerid, voltage, temperature, 
+    status
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yz.po.CameraExample" >
     select
@@ -104,11 +108,13 @@
   </delete>
   <insert id="insert" parameterType="com.yz.po.Camera" >
     insert into camera (id, sipid, sipserverid, 
-      lng, lat, cnumber, name, 
-      markerid)
+      lng, lat, cnumber, 
+      cname, markerid, voltage, 
+      temperature, status)
     values (#{id,jdbcType=INTEGER}, #{sipid,jdbcType=VARCHAR}, #{sipserverid,jdbcType=VARCHAR}, 
-      #{lng,jdbcType=DOUBLE}, #{lat,jdbcType=DOUBLE}, #{cnumber,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{markerid,jdbcType=VARCHAR})
+      #{lng,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{cnumber,jdbcType=VARCHAR}, 
+      #{cname,jdbcType=VARCHAR}, #{markerid,jdbcType=VARCHAR}, #{voltage,jdbcType=VARCHAR}, 
+      #{temperature,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.yz.po.Camera" >
     insert into camera
@@ -131,11 +137,20 @@
       <if test="cnumber != null" >
         cnumber,
       </if>
-      <if test="name != null" >
-        name,
+      <if test="cname != null" >
+        cname,
       </if>
       <if test="markerid != null" >
         markerid,
+      </if>
+      <if test="voltage != null" >
+        voltage,
+      </if>
+      <if test="temperature != null" >
+        temperature,
+      </if>
+      <if test="status != null" >
+        status,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -149,19 +164,28 @@
         #{sipserverid,jdbcType=VARCHAR},
       </if>
       <if test="lng != null" >
-        #{lng,jdbcType=DOUBLE},
+        #{lng,jdbcType=VARCHAR},
       </if>
       <if test="lat != null" >
-        #{lat,jdbcType=DOUBLE},
+        #{lat,jdbcType=VARCHAR},
       </if>
       <if test="cnumber != null" >
         #{cnumber,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="cname != null" >
+        #{cname,jdbcType=VARCHAR},
       </if>
       <if test="markerid != null" >
         #{markerid,jdbcType=VARCHAR},
+      </if>
+      <if test="voltage != null" >
+        #{voltage,jdbcType=VARCHAR},
+      </if>
+      <if test="temperature != null" >
+        #{temperature,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -184,19 +208,28 @@
         sipserverid = #{record.sipserverid,jdbcType=VARCHAR},
       </if>
       <if test="record.lng != null" >
-        lng = #{record.lng,jdbcType=DOUBLE},
+        lng = #{record.lng,jdbcType=VARCHAR},
       </if>
       <if test="record.lat != null" >
-        lat = #{record.lat,jdbcType=DOUBLE},
+        lat = #{record.lat,jdbcType=VARCHAR},
       </if>
       <if test="record.cnumber != null" >
         cnumber = #{record.cnumber,jdbcType=VARCHAR},
       </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.cname != null" >
+        cname = #{record.cname,jdbcType=VARCHAR},
       </if>
       <if test="record.markerid != null" >
         markerid = #{record.markerid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.voltage != null" >
+        voltage = #{record.voltage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.temperature != null" >
+        temperature = #{record.temperature,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -208,11 +241,14 @@
     set id = #{record.id,jdbcType=INTEGER},
       sipid = #{record.sipid,jdbcType=VARCHAR},
       sipserverid = #{record.sipserverid,jdbcType=VARCHAR},
-      lng = #{record.lng,jdbcType=DOUBLE},
-      lat = #{record.lat,jdbcType=DOUBLE},
+      lng = #{record.lng,jdbcType=VARCHAR},
+      lat = #{record.lat,jdbcType=VARCHAR},
       cnumber = #{record.cnumber,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      markerid = #{record.markerid,jdbcType=VARCHAR}
+      cname = #{record.cname,jdbcType=VARCHAR},
+      markerid = #{record.markerid,jdbcType=VARCHAR},
+      voltage = #{record.voltage,jdbcType=VARCHAR},
+      temperature = #{record.temperature,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,19 +263,28 @@
         sipserverid = #{sipserverid,jdbcType=VARCHAR},
       </if>
       <if test="lng != null" >
-        lng = #{lng,jdbcType=DOUBLE},
+        lng = #{lng,jdbcType=VARCHAR},
       </if>
       <if test="lat != null" >
-        lat = #{lat,jdbcType=DOUBLE},
+        lat = #{lat,jdbcType=VARCHAR},
       </if>
       <if test="cnumber != null" >
         cnumber = #{cnumber,jdbcType=VARCHAR},
       </if>
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+      <if test="cname != null" >
+        cname = #{cname,jdbcType=VARCHAR},
       </if>
       <if test="markerid != null" >
         markerid = #{markerid,jdbcType=VARCHAR},
+      </if>
+      <if test="voltage != null" >
+        voltage = #{voltage,jdbcType=VARCHAR},
+      </if>
+      <if test="temperature != null" >
+        temperature = #{temperature,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -248,11 +293,14 @@
     update camera
     set sipid = #{sipid,jdbcType=VARCHAR},
       sipserverid = #{sipserverid,jdbcType=VARCHAR},
-      lng = #{lng,jdbcType=DOUBLE},
-      lat = #{lat,jdbcType=DOUBLE},
+      lng = #{lng,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
       cnumber = #{cnumber,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      markerid = #{markerid,jdbcType=VARCHAR}
+      cname = #{cname,jdbcType=VARCHAR},
+      markerid = #{markerid,jdbcType=VARCHAR},
+      voltage = #{voltage,jdbcType=VARCHAR},
+      temperature = #{temperature,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

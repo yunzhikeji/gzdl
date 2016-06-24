@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,6 +29,18 @@ public class UserController {
 		modelAndView.addObject("userList", userList);
 		modelAndView.setViewName("user");
 		return modelAndView;
+		
+	}
+	
+	@RequestMapping("/addUser")
+	public String addUser(HttpServletRequest request) throws Exception{
+		return "userAdd";
+		
+	}
+	
+	@RequestMapping("/editUserUI")
+	public String editUser(HttpServletRequest request) throws Exception{
+		return "userEdit";
 		
 	}
 
