@@ -29,10 +29,10 @@
       </tr>
     </thead>
       <tbody>
-      <c:forEach items="${siteList }" var="site">
+      <c:forEach items="${siteList }" var="site" varStatus="index">
       <tr class="text-c">
         <td class="text-c"><input name="" type="checkbox" value="" /></td>
-        <td>1</td>
+        <td>${index.count }</td>
         <td>${site.name }</td>
         <td>经度${site.lng }<br />纬度${site.lat }</td>
         <td>${site.viewstyle }</td>
