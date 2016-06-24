@@ -59,11 +59,11 @@
 <a href="#?page=200">200</a>
 <a href="#?page=2"> 
 &gt; </a></div> 
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/2.1/layer.js"></script>
-<script type="text/javascript" src="js/My97DatePicker/WdatePicker.js"></script> 
-<script type="text/javascript" src="js/H-ui.js"></script>
-<script type="text/javascript" src="js/H-ui.admin.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/2.1/layer.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/My97DatePicker/WdatePicker.js"></script> 
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/H-ui.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/H-ui.admin.js"></script>
 <script type="text/javascript">
 $(function(){
 $.Huitab("#tab_demo .tabBar span","#tab_demo .tabCon","current","click","0");
