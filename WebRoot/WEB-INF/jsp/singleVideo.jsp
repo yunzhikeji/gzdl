@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
 <title>监控系统</title>
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/css/test.css" />
 <script type="text/javascript">
@@ -28,7 +29,7 @@ function OnPlay2()
 {  
   var ocx = $("ocx");  
   console.log(ocx);
-  ocx.PlayVideo("44030300001320020247"); /*   */
+  ocx.PlayVideo("44030300001320020239"); /*   */
 
 }
 function OnPlay3()
@@ -88,7 +89,7 @@ function Onload()
    <span style="font-weight:bold;">工地位置：</span><span>解放东路2.35.67425655</span>   
 </div>  
  <div class="yzvedio0" onLoad="Onload();">   
-  <object CLASSID='CLSID:7A2B1F67-6568-4466-A0A5-EA7FF6EBE820' id='ocx' width='100%' height='197%' VIEWASTEXT>
+  <object CLASSID='CLSID:7A2B1F67-6568-4466-A0A5-EA7FF6EBE820' id='ocx' style="margin-left: 5px;margin-right: 5px;" width='96%' height='397px;' VIEWASTEXT>
   </object>
  <div style="margin-top:5px;">
 <a href="#" class="button white" onClick="OnPlay1();">登录</a>
