@@ -97,7 +97,13 @@ public class SiteController {
 			Integer id) throws Exception{
 		
 		siteService.updateSite(id, siteCustom);
-		return "successSiteEditSubmit";
+		return "successSite";
+	}
+	
+	@RequestMapping("deleteSite")
+	public String deleteSite(Integer id) throws Exception {
+		siteService.deleteSite(id);
+		return "successSite";
 	}
 
 }

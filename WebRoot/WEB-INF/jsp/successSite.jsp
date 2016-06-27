@@ -7,6 +7,6 @@
 <title>成功提示</title>
 </head>
 <body>
-操作成功！<a href="${pageContext.request.contextPath }/site/showSites.action">返回继续操作</a>
+操作成功！<a href="${pageContext.request.contextPath }/site/showSites.action" target="myiframe">返回继续操作</a>
 </body>
 </html>
