@@ -11,7 +11,7 @@ public interface SiteService {
 	public List<Site> findSiteList(SiteQueryVo siteQueryVo) throws Exception;
 
 	// 根据id查询工地信息
-	public SiteCustom findSiteById(Integer id) throws Exception;
+	public Site findSiteById(Integer id) throws Exception;
 
 	// 修改工地信息
 	public void updateSite(Integer id, SiteCustom siteCustom) throws Exception;

@@ -26,9 +26,9 @@ public class SiteServiceImpl implements SiteService {
 	}
 
 	@Override
-	public SiteCustom findSiteById(Integer id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Site findSiteById(Integer id) throws Exception {
+		
+		return siteMapper.selectByPrimaryKey(id);
 	}
 
 	@Override

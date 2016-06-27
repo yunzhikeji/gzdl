@@ -38,7 +38,7 @@
         <td>${site.viewstyle }</td>
         <td>单位名称：阳光一百<br />负责人：宋永康<br />联系电话：18251569424</td>
         <td>单位名称：阳光一百<br />负责人：宋永康<br />联系电话：18251569424</td>
-        <td><a href="javascript:;" onClick="ypgy('工地管理','builded.html','1024px','768px')" title="工地管理" target="_self" class="button blue bigrounded bla" style="font-size:14px;"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
+        <td><a href="javascript:;" onClick="ypgy('工地管理','${pageContext.request.contextPath }/site/editSite.action?id=${site.id}','1024px','768px')" title="工地管理" target="_self" class="button blue bigrounded bla" style="font-size:14px;"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
         <td><button class="button orange bla smallrounded" style="font-size:14px;line-height:14px;"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除</button></td>
 
       </tr>

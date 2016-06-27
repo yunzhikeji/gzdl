@@ -6,9 +6,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -78,6 +80,21 @@ public class SiteController {
 		modelAndView.setViewName("site");
 		return modelAndView;
 
+	}
+	
+	@RequestMapping("/editSite")
+	public String editSite(Model model,Integer id) throws Exception{
+		Site site = siteService.findSiteById(id);
+		
+		model.addAttribute("site", site);
+		return "siteEdit";
+	}
+	
+	@RequestMapping("/editSiteSubmit")
+	public String editSiteSubmit(Model model,
+			HttpServletRequest request,
+			Integer id) throws Exception{
+		return "";
 	}
 
 }
