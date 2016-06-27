@@ -7,6 +7,9 @@
 <title>成功提示</title>
 </head>
 <body>
-操作成功！<a href="${pageContext.request.contextPath }/site/showSites.action" target="myiframe">返回继续操作</a>
+<div align="center" style="font-family: 'Microsoft Yahei',verdana;color: #222;font-size: 14px; padding-top:25px;">
+  <p><img src="${pageContext.request.contextPath }/images/successSite.png" width="500" height="143" /></p>
+  <p><a href="${pageContext.request.contextPath }/site/showSites.action" target="myiframe">返回继续操作</a></p>
+</div>
 </body>
 </html>

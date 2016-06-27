@@ -35,6 +35,7 @@
   <div class="tabBar cl">
   <span class="tA0"><a href="map" target="myiframe">分布图</a></span>
   <span class="tA0"><a href="${pageContext.request.contextPath }/site/showSites" id="td" onClick="changeToTd();" target="myiframe">工地管理</a></span>
+   <span class="tA0"><a href="javascript:void(0)" id="tz" onClick="changeToTz();" target="myiframe">设备管理</a></span>
   <span class="tA0"><a href="javascript:void(0)" id="tj" onClick="changeToTj();" target="myiframe">视频管理</a></span>
   </div>
   <div class="sJ0"></div>
@@ -73,7 +74,10 @@ function changeToTd()
 	{
 		$("#iframepage").attr('src',"${pageContext.request.contextPath }/site/showSites"); 
 	}
-	
+function changeToTz()
+{
+	$("#iframepage").attr('src',"${pageContext.request.contextPath }/equip/equipList"); 
+}		
 	
 	function changeToTj()
 	{

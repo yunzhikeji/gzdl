@@ -50,9 +50,12 @@
 					</tr>
 					<tr class="text-c">
 						<th colspan="2">监控视频显示个数</th>
-						<td><input name="viewstyle" type="radio" value="1" />1 <input
-							name="vd" type="radio" value="4" checked="checked" />4 <input
-							name="vd" type="radio" value="6" />6</td>
+						<td><select name="viewstyle">
+									<option value="1">1</option>
+									<option value="4" s>4</option>
+									<option value="6">6</option>
+
+						</select></td>
 					</tr>
 					<tr class="text-c">
 						<th colspan="2">承包单位</th>
@@ -80,8 +83,9 @@
 					</tr>
 					<tr class="text-c">
 						<th style="background: #FFF; border: #FFF; text-align: center;"
-							colspan="3"><a id="save" href="#"
-							class="button orange smallrouded"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe66c;</i>重置&nbsp;&nbsp;&nbsp;</a>
+							colspan="3">
+							<input class="button orange smallrouded" tabindex="6" type="button"
+							value="取&nbsp;&nbsp;消"  onclick="window.close()"/>
 							<input class="button blue smallrouded" tabindex="6" type="submit"
 							value="保&nbsp;&nbsp;存" /></th>
 					</tr>
