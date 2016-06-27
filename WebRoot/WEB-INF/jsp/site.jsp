@@ -14,6 +14,7 @@
 </head>
 
 <body>
+<div style="background:#FFF; overflow:auto; width:100%;height:836px">
   <table class="table">
     <thead class="text-c">
     <tr class="text-d">
@@ -45,6 +46,7 @@
      </c:forEach>
       </tbody>
     </table>
+    </div>
     <div class="digg"> 
    <span class="disabled">&lt; </span>
 <span class="current">1</span>
