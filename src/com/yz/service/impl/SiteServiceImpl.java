@@ -33,7 +33,8 @@ public class SiteServiceImpl implements SiteService {
 
 	@Override
 	public void updateSite(Integer id, SiteCustom siteCustom) throws Exception {
-		// TODO Auto-generated method stub
+		siteCustom.setId(id);
+		siteMapper.updateByPrimaryKey(siteCustom);
 
 	}
 
