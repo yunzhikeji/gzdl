@@ -104,10 +104,11 @@
 			<span style="font-weight: bold;">工地位置：</span><span>${siteCustom.areaname }</span>
 		</div>
 		<div class="yzvedio0" onLoad="Onload();">
+			<div style="width: 80%;margin-left: 3%;height: 500px;">
 			<object CLASSID='CLSID:7A2B1F67-6568-4466-A0A5-EA7FF6EBE820' id='ocx'
-				style="margin-left: 10%; margin-right: 10%;" width='60%'
-				height='497px;' VIEWASTEXT> </object>
-
+				style="margin-left: 10%; margin-right: 10%;" width='100%'
+				height='100%' VIEWASTEXT> </object>
+			</div>
 			<div style="margin-top: 5px;">
 				<a href="#" class="button white" onClick="OnPlay1();">登录</a> <a
 					href="#" class="button white" onClick="OnPlay2();"><i
