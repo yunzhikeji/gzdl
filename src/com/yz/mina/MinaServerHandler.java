@@ -45,8 +45,10 @@ public class MinaServerHandler implements IoHandler {
 
 		if (d_data[2].equals('A')) {
 			String number = d_data[1]; // 设备编号
-			String latitude = d_data[3]; // 维度
-			String longitude = d_data[5]; // 经度
+			String s_latitude = d_data[3]; // 维度
+			String latitude = DataConvertor.stringTolatitude(s_latitude);
+			String s_longitude = d_data[5]; // 经度
+			String longitude = DataConvertor.stringTolatitude(s_longitude);
 			String voltage = d_data[7]; // 电压
 			String temperature = d_data[8]; // 温度
 			String state = d_data[9]; // 工作状态 A=正常工作，D=关机，R=重启中，N=未知状态

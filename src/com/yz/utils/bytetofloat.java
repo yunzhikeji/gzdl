@@ -75,5 +75,11 @@ public class bytetofloat {
 		// byte[] c = { 0x56 ,(byte) 0x41, (byte)0xfc, (byte)0x0f };
 		System.out.println(bytes2float(a));
 
+		
+		String lia = "3403.868";
+		System.out.println(DataConvertor.stringTolatitude(lia));
+		
+		String lon = "11709.432";
+		System.out.println(DataConvertor.stringTolongitude(lon));
 	}
 }
