@@ -35,7 +35,9 @@
 					<tr>
 						<th colspan="2">工地名称</th>
 						<td width="70%"><input type="text" name="name"
-							value="${site.name }" /></td>
+							value="${site.name }" /><input type="hidden" name="markid"
+							value="${site.markid }" /></td>
+							
 					</tr>
 				</thead>
 				<tbody>
