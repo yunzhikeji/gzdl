@@ -98,9 +98,10 @@
 <body>
 	<div style="width: 100%; position: relative;">
 		<div class="yzrtv">
-			<span style="font-weight: bold;">工地名称：</span><span
-				style="padding-right: 6px;"></span><span
-				style="font-weight: bold;">|</span> <span style="font-weight: bold;">工地位置：</span><span>解放东路2.35.67425655</span>
+			<span style="font-weight: bold;">工地名称：</span>
+			<span style="padding-right: 6px;">${siteCustom.name}</span>
+			<span style="font-weight: bold;">|</span> 
+			<span style="font-weight: bold;">工地位置：</span><span>${siteCustom.areaname }</span>
 		</div>
 		<div class="yzvedio0" onLoad="Onload();">
 			<object CLASSID='CLSID:7A2B1F67-6568-4466-A0A5-EA7FF6EBE820' id='ocx'
