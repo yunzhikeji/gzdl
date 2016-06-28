@@ -44,46 +44,39 @@ public class CameraController {
 				map.put("cameras", cameras);
 			}
 			map.put("siteCustom", siteCustom);
-			
+
 		} else {
 			return "fail";
 		}
-		
-		if(siteCustom.getViewstyle()==null||siteCustom.getViewstyle()==1)
-		{
+
+		if (siteCustom.getViewstyle() == null || siteCustom.getViewstyle() == 1) {
 			return "singleVideo";
-		}else if(siteCustom.getViewstyle()==4)
-		{
+		} else if (siteCustom.getViewstyle() == 4) {
 			return "fourVideos";
-		}
-		else
-		{
+		} else {
 			return "nineVideos";
 		}
-		
-		
+
 	}
-	
+
 	@RequestMapping(value = "siteVideos")
-	public String videos(ModelMap map) {
+	public String siteVideos(@RequestParam(value = "sid", required = true) int sid, ModelMap map) throws Exception {
+
+		Site site = siteService.findSiteById(sid);
 		
-		try {
-			List<Site> sites = siteService.getSites();
-			
-			
-			
-			
-			
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			
-			
+		if (site != null) {
+
+		} else {
+			return "fail";
 		}
-		
-		
-		return null;
-		
+
+		if (site.getViewstyle() == null || site.getViewstyle() == 1) {
+			return "singleVideo";
+		} else if (site.getViewstyle() == 4) {
+			return "fourVideos";
+		} else {
+			return "nineVideos";
+		}
 	}
-	
 
 }

@@ -19,7 +19,7 @@
 					target="myiframe">${site.name }</a>
 					<ul class="collapsed">
 						<li><a href="javascript:void(0)" id="tz"
-							onClick="changeToTz();" target="viframe">视频监控</a></li>
+							onClick="changeToTz('${site.id }');" target="viframe">视频监控1</a></li>
 					</ul></li>
 			</c:forEach>
 			<li style="border-bottom: 1px solid #b7b7b7;"><a
@@ -37,8 +37,8 @@
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath }/js/jquery.min.js"></script>
 	<script type="text/javascript">
-		function changeToTz() {
-			$("#viframe").attr('src', "vd1.html");
+		function changeToTz(sid) {
+			$("#viframe").attr('src', "${pageContext.request.contextPath}/camera/siteVideos?sid="+sid);
 		}
 	</script>
 	<script>

@@ -2,9 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>工地管理</title>
@@ -39,7 +38,6 @@
         <td>单位名称：阳光一百<br />负责人：宋永康<br />联系电话：18251569424</td>
         <td><a href="javascript:;" onClick="ypgy('工地管理','${pageContext.request.contextPath }/site/editSite.action?id=${site.id}','1024px','768px')" title="工地管理" target="_self" class="button blue bigrounded bla" style="font-size:14px;"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
         <td><a href="${pageContext.request.contextPath }/site/deleteSite.action?id=${site.id}" class="button orange bla smallrounded" style="font-size:14px;line-height:14px;"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除</a></td>
-
       </tr>
      </c:forEach>
       </tbody>

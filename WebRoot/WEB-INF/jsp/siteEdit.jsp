@@ -2,25 +2,23 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>工地管理</title>
-<!--[if lt IE 9]>
-<script type="text/javascript" src="lib/html5.js"></script>
-<script type="text/javascript" src="lib/respond.min.js"></script>
-<script type="text/javascript" src="lib/PIE_IE678.js"></script>
-<![endif]-->
 <link href="${pageContext.request.contextPath }/css/build.css"
 	rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath }/css/1.0.7/iconfont.css"
 	rel="stylesheet" type="text/css" />
-<!--[if IE 6]>
-<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
-<script>DD_belatedPNG.fix('*');</script>
-<![endif]-->
+<script type="text/javascript">
+	function childPage_close() {
+		parent.location.reload();//刷新父类
+		var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+		parent.layer.close(index);
+	}
+</script>
 
 </head>
 
@@ -37,7 +35,6 @@
 						<td width="70%"><input type="text" name="name"
 							value="${site.name }" /><input type="hidden" name="markid"
 							value="${site.markid }" /></td>
-							
 					</tr>
 				</thead>
 				<tbody>
@@ -53,9 +50,9 @@
 					<tr class="text-c">
 						<th colspan="2">监控视频显示个数</th>
 						<td><select name="viewstyle" style="width: 150px;">
-									<option value="1">1</option>
-									<option value="4">4</option>
-									<option value="6">6</option>
+								<option value="1">1</option>
+								<option value="4">4</option>
+								<option value="6">6</option>
 						</select></td>
 					</tr>
 					<tr class="text-c">
@@ -84,10 +81,10 @@
 					</tr>
 					<tr class="text-c">
 						<th style="background: #FFF; border: #FFF; text-align: center;"
-							colspan="3">
-							<input class="button orange smallrouded" tabindex="6" type="button"
-							value="取&nbsp;&nbsp;消"  onclick="window.close()"/>
-							<input class="button blue smallrouded" tabindex="6" type="submit"
+							colspan="3"><input class="button orange smallrouded"
+							tabindex="6" type="button" value="取&nbsp;&nbsp;消"
+							onclick="childPage_close();" /> <input
+							class="button blue smallrouded" tabindex="6" type="submit"
 							value="保&nbsp;&nbsp;存" /></th>
 					</tr>
 				</tbody>
