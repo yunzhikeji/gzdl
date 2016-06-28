@@ -18,7 +18,6 @@
   <table class="table">
     <thead class="text-c">
     <tr class="text-d">
-        <th width="9%"><button class="button orange bla smallrounded" style="font-size:14px; line-height:14px" ><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>批量删除</button></th>
         <th width="4%" style="font-size:14px;">序号</th>
         <th width="10%" style="font-size:14px;">工地名称</th>
         <th width="15%" style="font-size:14px;">位置</th>
@@ -32,7 +31,6 @@
       <tbody>
       <c:forEach items="${siteList }" var="site" varStatus="index">
       <tr class="text-c">
-        <td class="text-c"><input name="" type="checkbox" value="" /></td>
         <td>${index.count }</td>
         <td>${site.name }</td>
         <td>经度${site.lng }<br />纬度${site.lat }</td>
