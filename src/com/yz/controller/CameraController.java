@@ -37,16 +37,53 @@ public class CameraController {
 		SiteCustom siteCustom = new SiteCustom();
 
 		if (site != null) {
+			siteCustom.setViewstyle(site.getViewstyle());
 			siteCustom.setName(site.getName());
 			siteCustom.setAreaname(site.getAreaname());
 			if (cameras != null) {
 				map.put("cameras", cameras);
 			}
 			map.put("siteCustom", siteCustom);
+			
 		} else {
 			return "fail";
 		}
-		return "singleVideo";
+		
+		if(siteCustom.getViewstyle()==null||siteCustom.getViewstyle()==1)
+		{
+			return "singleVideo";
+		}else if(siteCustom.getViewstyle()==4)
+		{
+			return "fourVideos";
+		}
+		else
+		{
+			return "nineVideos";
+		}
+		
+		
 	}
+	
+	@RequestMapping(value = "siteVideos")
+	public String videos(ModelMap map) {
+		
+		try {
+			List<Site> sites = siteService.getSites();
+			
+			
+			
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			
+			
+		}
+		
+		
+		return null;
+		
+	}
+	
 
 }

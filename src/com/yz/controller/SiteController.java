@@ -83,6 +83,22 @@ public class SiteController {
 
 	}
 	
+	@RequestMapping("/showVideoSites")
+	public ModelAndView showVideoSites(HttpServletRequest request) throws Exception {
+
+		// 调用service查询数据库，查询用户列表
+		List<Site> siteList = siteService.getSites();
+		// 返回ModelAndView
+		ModelAndView modelAndView = new ModelAndView();
+
+		modelAndView.addObject("siteList", siteList);
+		modelAndView.setViewName("videoSites");
+		return modelAndView;
+
+	}
+	
+	
+	
 	@RequestMapping("/editSite")
 	public String editSite(Model model,Integer id) throws Exception{
 		Site site = siteService.findSiteById(id);

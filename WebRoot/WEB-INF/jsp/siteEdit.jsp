@@ -52,11 +52,10 @@
 					</tr>
 					<tr class="text-c">
 						<th colspan="2">监控视频显示个数</th>
-						<td><select name="viewstyle">
+						<td><select name="viewstyle" style="width: 150px;">
 									<option value="1">1</option>
-									<option value="4" s>4</option>
+									<option value="4">4</option>
 									<option value="6">6</option>
-
 						</select></td>
 					</tr>
 					<tr class="text-c">
