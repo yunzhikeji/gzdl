@@ -1,5 +1,6 @@
 package com.yz.mina;
 
+import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
@@ -20,6 +21,11 @@ public class MinaServerHandler implements IoHandler {
 	public void messageReceived(IoSession session, Object message) throws Exception {
 		// TODO Auto-generated method stub
 
+		if(message instanceof IoBuffer)
+		{
+			System.out.println("message is "+message);
+		}
+		
 		byte[] m_oData = DataConvertor.toByteArray(message);
 		char[] b = new char[m_oData.length];
 		StringBuffer tStringBuf = new StringBuffer();
