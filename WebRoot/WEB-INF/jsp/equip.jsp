@@ -19,10 +19,10 @@
     <tr class="text-d">
         <th width="5%" style="font-size:14px;">序号</th>
         <th width="20%" style="font-size:14px;">设备编号</th>
-        <th width="18%" style="font-size:14px;">经纬度</th>
-        <th width="12%" style="font-size:14px;">工作电压</th>
-        <th width="20%" style="font-size:14px;">工作温度</th>
-        <th width="20%" style="font-size:14px;">工作状态</th>
+        <th width="18%" style="font-size:14px;">当前经纬度</th>
+        <th width="12%" style="font-size:14px;">当前工作电压</th>
+        <th width="20%" style="font-size:14px;">当前工作温度</th>
+        <th width="20%" style="font-size:14px;">当前工作状态</th>
       </tr>
     </thead>
       <tbody>
