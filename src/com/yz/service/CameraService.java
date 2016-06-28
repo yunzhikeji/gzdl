@@ -21,6 +21,7 @@ public interface CameraService {
 
 	public List<Camera> getCameraByUsefulLatlng();
 	
-	// 批量删除
+    // 查询所有摄像头
+	public List<Camera> findCameraList () throws Exception;
 
 }

@@ -48,4 +48,10 @@ public class CameraServiceImpl implements CameraService {
 		return camearMapperCustom.getCameraByUsefulLatlng();
 	}
 
+	@Override
+	public List<Camera> findCameraList() throws Exception {
+		
+		return camearMapperCustom.findCameraList();
+	}
+
 }
