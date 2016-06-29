@@ -17,7 +17,7 @@
 		resultType="com.yz.po.Camera">
 		select * from camera
 		<where>
-			cnumber = ${number}
+			cnumber = #{number}
 		</where>
 	</select>
 

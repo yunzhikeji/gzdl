@@ -27,7 +27,7 @@ public class CameraServiceImpl implements CameraService {
 	@Override
 	public void insertCamera(Camera camera) throws Exception {
 		// TODO Auto-generated method stub
-
+		camearMapper.insert(camera);
 	}
 
 	@Override
@@ -58,6 +58,12 @@ public class CameraServiceImpl implements CameraService {
 	public Camera findCameraByNumber(String number) {
 		// TODO Auto-generated method stub
 		return camearMapperCustom.findCameraByNumber(number);
+	}
+
+	@Override
+	public void updateCamera(Camera camera) {
+		// TODO Auto-generated method stub
+		camearMapper.updateByPrimaryKey(camera);
 	}
 
 }

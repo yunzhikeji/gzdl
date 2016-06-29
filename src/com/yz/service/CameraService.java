@@ -26,4 +26,6 @@ public interface CameraService {
 
 	public Camera findCameraByNumber(String number);
 
+	public void updateCamera(Camera camera);
+
 }

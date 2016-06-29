@@ -85,7 +85,7 @@ public class MyBytesDecoder extends CumulativeProtocolDecoder {
 	protected boolean doDecode(IoSession session, IoBuffer in, ProtocolDecoderOutput out) throws Exception {
 		// System.out.println("==================================");
 		// System.out.println("开始处理:"+DateTimeKit.getLocal_Time2());
-		if (true) {
+		if (false) {
 			in.order(ByteOrder.LITTLE_ENDIAN);
 			if (in.remaining() < 51)// 信号机返回数据最小19个字节
 			{
@@ -126,7 +126,6 @@ public class MyBytesDecoder extends CumulativeProtocolDecoder {
 			}
 
 		} else
-
 		{
 			int i = in.limit();
 			System.out.println("here");

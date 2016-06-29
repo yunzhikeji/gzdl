@@ -4,6 +4,7 @@ import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -12,10 +13,9 @@ import com.yz.service.CameraService;
 import com.yz.utils.DataConvertor;
 
 public class MinaServerHandler implements IoHandler {
-	
-	final static ApplicationContext ac = new ClassPathXmlApplicationContext("spring/applicationContext-service.xml");
-	final static CameraService cameraService = (CameraService) ac
-			.getBean("cameraService");
+
+	@Autowired
+	private CameraService cameraService;
 
 	public void exceptionCaught(IoSession arg0, Throwable arg1) throws Exception {
 
@@ -28,12 +28,15 @@ public class MinaServerHandler implements IoHandler {
 
 	public void messageReceived(IoSession session, Object message) throws Exception {
 		// TODO Auto-generated method stub
-
-		if(message instanceof IoBuffer)
-		{
-			System.out.println("message is "+message);
-		}
 		
+		byte[] byteArray={1,1,1,1,1,1,1,1};
+		
+		session.write(IoBuffer.wrap(byteArray));
+
+		if (message instanceof IoBuffer) {
+			System.out.println("message is " + message);
+		}
+
 		byte[] m_oData = DataConvertor.toByteArray(message);
 		char[] b = new char[m_oData.length];
 		StringBuffer tStringBuf = new StringBuffer();
@@ -56,33 +59,60 @@ public class MinaServerHandler implements IoHandler {
 			String longitude = DataConvertor.stringTolatitude(s_longitude);
 			String voltage = d_data[7]; // 电压
 			String temperature = d_data[8]; // 温度
-			String state = d_data[9]; // 工作状态 A=正常工作，D=关机，R=重启中，N=未知状态
-			
-			
+			String state = "";
+			if (d_data.length > 9) {
+				state = d_data[9]; // 工作状态 A=正常工作，D=关机，R=重启中，N=未知状态
+			}
+
 			Camera camera = cameraService.findCameraByNumber(number);
 			
-			
-			if(camera==null)
-			{
+			System.out.println("state is "+state);
+
+			if (camera == null) {
 				camera = new Camera();
+				camera.setCnumber(number);
+				camera.setLat(latitude);
+				camera.setLng(longitude);
+				camera.setVoltage(voltage);
+				camera.setTemperature(temperature);
+
+				if (d_data.length > 9) {
+					if (state.contains("A")) {
+						camera.setStatus(1);
+					} else if (state.contains("D")) {
+						camera.setStatus(0);
+					} else if (state.contains("R")) {
+						camera.setStatus(2);
+					} else if (state.contains("N")) {
+						camera.setStatus(-1);
+					}
+					System.out.println("insert camera status is "+camera.getStatus());
+					cameraService.insertCamera(camera);
+				}
+
+			} else {
+
+				camera.setCnumber(number);
+				camera.setLat(latitude);
+				camera.setLng(longitude);
+				camera.setVoltage(voltage);
+				camera.setTemperature(temperature);
+
+				if (d_data.length > 9) {
+					if (state.contains("A")) {
+						camera.setStatus(1);
+					} else if (state.contains("D")) {
+						camera.setStatus(0);
+					} else if (state.contains("R")) {
+						camera.setStatus(2);
+					} else if (state.contains("N")) {
+						camera.setStatus(-1);
+					}
+					System.out.println("update camera status is "+camera.getStatus());
+					cameraService.updateCamera(camera);
+				}
+
 			}
-			camera.setCnumber(number);
-			camera.setLat(latitude);
-			camera.setLng(longitude);
-			camera.setVoltage(voltage);
-			camera.setTemperature(temperature);
-			
-			if (state.equals('A')) {
-				camera.setStatus(1);
-			}else if (state.equals('D')) {
-				camera.setStatus(0);
-			}else if (state.equals('R')) {
-				camera.setStatus(2);
-			}else if (state.equals('N')) {
-				camera.setStatus(-1);
-			}
-			
-			cameraService.insertCamera(camera);
 		}
 
 	}
