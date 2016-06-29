@@ -50,7 +50,7 @@ public class MinaServerHandler implements IoHandler {
 
 		String[] d_data = s_data.split(",");
 
-		if (d_data[2].equals("V")) {
+		if (d_data[2].equals("A")) {
 			String number = d_data[1]; // 设备编号
 			String s_latitude = d_data[3]; // 维度
 			String latitude = DataConvertor.stringTolatitude(s_latitude);
