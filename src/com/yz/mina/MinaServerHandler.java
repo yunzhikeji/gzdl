@@ -45,7 +45,6 @@ public class MinaServerHandler implements IoHandler {
 		}
 		tStringBuf.append(b);
 		String s_data = tStringBuf.toString();
-		// String s_data = DataConvertor.toHexString(m_oData);
 
 		System.out.println(s_data);
 
@@ -79,8 +78,6 @@ public class MinaServerHandler implements IoHandler {
 			
 			Camera camera = cameraService.findCameraByNumber(number);
 			
-			System.out.println("state is "+state);
-
 			if (camera == null) {
 				camera = new Camera();
 				camera.setCnumber(number);

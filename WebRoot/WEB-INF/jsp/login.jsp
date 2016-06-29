@@ -10,7 +10,7 @@
 <script type="text/javascript">
 //解决页面嵌套问题
 		$(function(){
-			document.forms[0].loginName.focus();
+			document.forms[0].username.focus();
 		});
 		
 		// 在被嵌套时就刷新上级窗口
@@ -44,7 +44,7 @@
 					method="post">
 					<div class="tabCon">
 						<li class="inputbox"><label class="u-label"></label> <input
-							name="user.username" type="text" class="j-inputtext" tabindex="1"
+							name="user.username" type="text" class="j-inputtext" tabindex="1" id="username"
 							autocomplete="off" placeholder="云知账号"
 							style="font-family: Microsoft YaHei; background: url(images/login.png) no-repeat 0% 50%; padding-left: 18px"
 							spellcheck="false"></li>
