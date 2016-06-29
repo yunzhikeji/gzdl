@@ -54,4 +54,10 @@ public class CameraServiceImpl implements CameraService {
 		return camearMapperCustom.findCameraList();
 	}
 
+	@Override
+	public Camera findCameraByNumber(String number) {
+		// TODO Auto-generated method stub
+		return camearMapperCustom.findCameraByNumber(number);
+	}
+
 }

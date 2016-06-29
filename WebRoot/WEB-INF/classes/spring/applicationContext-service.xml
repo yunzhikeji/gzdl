@@ -17,7 +17,7 @@
 <!-- 用户管理的service -->
 <bean id="userService" class="com.yz.service.impl.UserServiceImpl"/>
 <!-- 摄像头管理的service -->
-<bean id="CameraService" class="com.yz.service.impl.CameraServiceImpl"/>
+<bean id="cameraService" class="com.yz.service.impl.CameraServiceImpl"/>
 <!-- 工地管理的service -->
-<bean id="SiteService" class="com.yz.service.impl.SiteServiceImpl"/>
+<bean id="siteService" class="com.yz.service.impl.SiteServiceImpl"/>
 </beans>

@@ -24,4 +24,6 @@ public interface CameraService {
     // 查询所有摄像头
 	public List<Camera> findCameraList () throws Exception;
 
+	public Camera findCameraByNumber(String number);
+
 }

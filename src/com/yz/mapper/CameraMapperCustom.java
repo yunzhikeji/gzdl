@@ -6,9 +6,11 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface CameraMapperCustom {
-  public List<Camera> getCameraByUsefulLatlng();
-  
-  // 查询所有
-  
-  public List<Camera> findCameraList();
+	public List<Camera> getCameraByUsefulLatlng();
+
+	// 查询所有
+
+	public List<Camera> findCameraList();
+
+	public Camera findCameraByNumber(String number);
 }

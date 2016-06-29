@@ -56,7 +56,7 @@
 	
 <!--ioAcceptor	-->
 	 <bean id="ioAcceptor" class="org.apache.mina.transport.socket.nio.NioSocketAcceptor" init-method="bind" destroy-method="unbind">
-    <property name="defaultLocalAddress" value=":1024" />
+    <property name="defaultLocalAddress" value=":8899" />
     <property name="handler" ref="chatHandler" />
     <property name="reuseAddress" value="true" />
     <property name="filterChainBuilder" ref="filterChainBuilder" /> 

@@ -4,10 +4,18 @@ import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.yz.po.Camera;
+import com.yz.service.CameraService;
 import com.yz.utils.DataConvertor;
 
 public class MinaServerHandler implements IoHandler {
+	
+	final static ApplicationContext ac = new ClassPathXmlApplicationContext("spring/applicationContext-service.xml");
+	final static CameraService cameraService = (CameraService) ac
+			.getBean("cameraService");
 
 	public void exceptionCaught(IoSession arg0, Throwable arg1) throws Exception {
 
@@ -40,10 +48,7 @@ public class MinaServerHandler implements IoHandler {
 
 		String[] d_data = s_data.split(",");
 
-		for (int j = 0; j < d_data.length; j++)
-			System.out.println(d_data[j]);
-
-		if (d_data[2].equals('A')) {
+		if (d_data[2].equals("V")) {
 			String number = d_data[1]; // 设备编号
 			String s_latitude = d_data[3]; // 维度
 			String latitude = DataConvertor.stringTolatitude(s_latitude);
@@ -52,6 +57,32 @@ public class MinaServerHandler implements IoHandler {
 			String voltage = d_data[7]; // 电压
 			String temperature = d_data[8]; // 温度
 			String state = d_data[9]; // 工作状态 A=正常工作，D=关机，R=重启中，N=未知状态
+			
+			
+			Camera camera = cameraService.findCameraByNumber(number);
+			
+			
+			if(camera==null)
+			{
+				camera = new Camera();
+			}
+			camera.setCnumber(number);
+			camera.setLat(latitude);
+			camera.setLng(longitude);
+			camera.setVoltage(voltage);
+			camera.setTemperature(temperature);
+			
+			if (state.equals('A')) {
+				camera.setStatus(1);
+			}else if (state.equals('D')) {
+				camera.setStatus(0);
+			}else if (state.equals('R')) {
+				camera.setStatus(2);
+			}else if (state.equals('N')) {
+				camera.setStatus(-1);
+			}
+			
+			cameraService.insertCamera(camera);
 		}
 
 	}

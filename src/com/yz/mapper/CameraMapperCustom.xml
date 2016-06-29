@@ -1,14 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.yz.mapper.CameraMapperCustom" >
-    <select id="getCameraByUsefulLatlng"  resultType="com.yz.po.Camera" >
-    select * from camera  
-    <where>
-    	lat != '' and lng !=''
-    </where>
-  </select>
-  
-      <select id="findCameraList"  resultType="com.yz.po.Camera" >
-    select * from camera  
-  </select>
+<mapper namespace="com.yz.mapper.CameraMapperCustom">
+	<select id="getCameraByUsefulLatlng" resultType="com.yz.po.Camera">
+		select * from camera
+		<where>
+			lat != '' and lng !=''
+		</where>
+	</select>
+
+	<select id="findCameraList" resultType="com.yz.po.Camera">
+		select * from camera
+	</select>
+
+
+	<select id="findCameraByNumber" parameterType="java.lang.String"
+		resultType="com.yz.po.Camera">
+		select * from camera
+		<where>
+			cnumber = ${number}
+		</where>
+	</select>
+
 </mapper>
