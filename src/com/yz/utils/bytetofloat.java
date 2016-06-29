@@ -81,5 +81,26 @@ public class bytetofloat {
 		
 		String lon = "11709.432";
 		System.out.println(DataConvertor.stringTolongitude(lon));
+		
+		
+		String head = "$COMMAND,";
+		String number = "4321"; // 设备编号
+		String command = ",T";
+		String backup = ",000";
+		String blank = " ";
+		String enter = "\n";
+		
+		String send = head+number+command+backup+blank+enter;
+		System.out.println(send);
+		
+		byte[] srtbyte = send.getBytes();
+
+		// byte[] 转 string
+
+		String res = new String(srtbyte);
+
+		System.out.println(DataConvertor.bytesToHexString(srtbyte));
+		
+		//System.out.println("here");
 	}
 }
