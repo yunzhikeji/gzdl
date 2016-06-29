@@ -21,10 +21,11 @@
         <th width="10%" style="font-size:14px;">工地名称</th>
         <th width="15%" style="font-size:14px;">位置</th>
         <th width="10%" style="font-size:14px;">监控视频显示个数</th>
+        <!--  
         <th width="16%" style="font-size:14px;">承包单位信息</th>
         <th width="16%" style="font-size:14px;">监理单位信息</th>
-        <th width="10%" style="font-size:14px;"></th>
-        <th width="10%" style="font-size:14px;"></th>
+        -->
+        <th colspan="2" width="20%" style="font-size:14px;">操作</th>
       </tr>
     </thead>
       <tbody>
@@ -33,11 +34,18 @@
         <td>${index.count }</td>
         <td>${site.name }</td>
         <td>经度${site.lng }<br />纬度${site.lat }</td>
-        <td>${site.viewstyle }</td>
+        <td>
+        <c:if test="${site.viewstyle==null||site.viewstyle==0}">
+        		当前无摄像机
+        </c:if>
+        ${site.viewstyle}
+        </td>
+        <!-- 
         <td>单位名称：阳光一百<br />负责人：宋永康<br />联系电话：18251569424</td>
         <td>单位名称：阳光一百<br />负责人：宋永康<br />联系电话：18251569424</td>
+         -->
         <td><a href="javascript:;" onClick="ypgy('工地管理','${pageContext.request.contextPath }/site/editSite.action?id=${site.id}','1024px','768px')" title="工地管理" target="_self" class="button blue bigrounded bla" style="font-size:14px;"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
-        <td><a href="${pageContext.request.contextPath }/site/deleteSite.action?id=${site.id}" class="button orange bla smallrounded" style="font-size:14px;line-height:14px;"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除</a></td>
+        <td><a  onclick="return confirm('你确定删除该工地信息吗？')" href="${pageContext.request.contextPath }/site/deleteSite.action?id=${site.id}" class="button orange bla smallrounded" style="font-size:14px;line-height:14px;"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除</a></td>
       </tr>
      </c:forEach>
       </tbody>

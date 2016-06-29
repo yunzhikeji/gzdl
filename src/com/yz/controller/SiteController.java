@@ -47,6 +47,7 @@ public class SiteController {
 
 		int backJson = 0;// 返回json状态码(0：表示初始化 1：表示操作成功 -1:异常)
 		try {
+			site.setViewstyle(0);
 			backJson = siteService.insertSite(site);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

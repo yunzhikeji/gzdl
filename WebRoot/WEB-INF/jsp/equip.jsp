@@ -33,7 +33,17 @@
         <td>经度${camera.lng }<br />纬度${camera.lat }</td>
         <td>${camera.voltage }伏</td>
         <td>${camera.temperature }度</td>
-        <td>${camera.status }</td>
+        <td>
+        
+        
+       						<c:if test="${camera.status==-1}">未知状态</c:if> 
+					   <c:if test="${camera.status == 0 }">关机</c:if> 
+					   <c:if test="${camera.status == 1 }">正常工作</c:if> 
+					   <c:if test="${camera.status == 2 }">重启</c:if>
+        
+        
+        
+        </td>
       </tr>
      </c:forEach>
       </tbody>
