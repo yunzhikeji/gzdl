@@ -125,11 +125,8 @@ public class MyBytesDecoder extends CumulativeProtocolDecoder {
 
 			}
 
-		} else
-		{
+		} else {
 			int i = in.limit();
-			System.out.println("here");
-
 			byte[] bs = new byte[i];
 			in.get(bs);
 

@@ -56,12 +56,12 @@ public class MinaServerHandler implements IoHandler {
 			String s_latitude = d_data[3]; // 维度
 			String latitude = DataConvertor.stringTolatitude(s_latitude);
 			String s_longitude = d_data[5]; // 经度
-			String longitude = DataConvertor.stringTolatitude(s_longitude);
+			String longitude = DataConvertor.stringTolongitude(s_longitude);
 			String voltage = d_data[7]; // 电压
 			String temperature = d_data[8]; // 温度
 			String state = "";
 			if (d_data.length > 9) {
-				state = d_data[9]; // 工作状态 A=正常工作，D=关机，R=重启中，N=未知状态
+				state = d_data[9]; // 工作状态  A=正常工作(1)，D=关机(0)，R=重启中(2)，N=未知状态(-1)
 			}
 
 			Camera camera = cameraService.findCameraByNumber(number);

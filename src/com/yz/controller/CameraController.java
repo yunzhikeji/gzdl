@@ -28,11 +28,11 @@ public class CameraController {
 	@RequestMapping(value = "realTime", method = { RequestMethod.GET })
 	public String realTime(@RequestParam(value = "markid", required = false) String markid, ModelMap map) {
 
-		System.out.println("markid is" + markid);
-
 		Site site = siteService.querySiteByMarkid(markid);
 
 		List<Camera> cameras = cameraService.getCameraByUsefulLatlng();
+		
+		
 
 		SiteCustom siteCustom = new SiteCustom();
 
@@ -50,6 +50,14 @@ public class CameraController {
 		}
 
 		if (siteCustom.getViewstyle() == null || siteCustom.getViewstyle() == 1) {
+			
+			if(cameras!=null&&cameras.size()>0)
+			{
+				Camera camera = cameras.get(0);
+				
+				map.put("camera", camera);
+			}
+			
 			return "singleVideo";
 		} else if (siteCustom.getViewstyle() == 4) {
 			return "fourVideos";
@@ -64,6 +72,8 @@ public class CameraController {
 
 		Site site = siteService.findSiteById(sid);
 		
+		List<Camera> cameras = cameraService.getCameraByUsefulLatlng();
+		
 		if (site != null) {
 
 		} else {
@@ -71,6 +81,13 @@ public class CameraController {
 		}
 
 		if (site.getViewstyle() == null || site.getViewstyle() == 1) {
+			
+			if(cameras!=null&&cameras.size()>0)
+			{
+				Camera camera = cameras.get(0);
+				
+				map.put("camera", camera);
+			}
 			return "singleVideo";
 		} else if (site.getViewstyle() == 4) {
 			return "fourVideos";

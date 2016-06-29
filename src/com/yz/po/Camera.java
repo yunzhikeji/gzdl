@@ -21,7 +21,7 @@ public class Camera {
 
     private String temperature;
 
-    private Integer status;
+    private Integer status;// 工作状态  A=正常工作(1)，D=关机(0)，R=重启中(2)，N=未知状态(-1)
 
     public Integer getId() {
         return id;
