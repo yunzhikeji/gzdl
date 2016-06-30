@@ -2,9 +2,7 @@ var maphelper = null;// 封装操作对象
 var infowindow = null;// 信息窗口
 var getMarkerWindow = null;// 信息窗口
 var mapobj = null;// 地图对象
-var markerZoom = 12;// 标记红绿灯地图所在级别
-var lng = "119.81380462646484";// 经度
-var lat = "31.381046028549978";// 维度
+var markerZoom = 16;// 标记红绿灯地图所在级别
 var mapClickEventListener = null;
 var markers = [];
 var initMarkers = [];
@@ -18,6 +16,14 @@ var deleteable = false;
 google.maps.event.addDomListener(window, "load", initialize);
 
 function initialize() {
+	if(lng==null)
+	{
+		lng = "113.27483654022217";// 经度
+	}
+	if(lat==null)
+	{
+		lat = "23.132546168188966";// 维度
+	}
 	var mapCanvas = document.getElementById("map_canvas");
 	var myOptions = {
 		zoom : markerZoom,

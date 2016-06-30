@@ -10,6 +10,15 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/mapfiles/mapapi_3.12.9.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/map_helper.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/popup_layer.js"></script>
+<script type="text/javascript">
+		
+		
+		var lng = "${site.lng}";// 经度
+		var lat = "${site.lat}";// 维度
+		alert(lng);
+		alert(lat);
+		
+</script>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/main.js"></script>
 <body>
 		当前级别<input  type="text" name="ZOOM" id="ZOOM" value="8" size="17"/>

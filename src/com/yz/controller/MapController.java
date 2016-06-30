@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yz.exception.CustomException;
 import com.yz.po.Site;
 import com.yz.po.SiteQueryVo;
 import com.yz.service.SiteService;
@@ -32,8 +34,15 @@ public class MapController {
 	}
 
 	@RequestMapping("/map")
-	public String showMap() throws Exception {
+	public String showMap(ModelMap map) throws Exception {
 		
+		List<Site> sites = new ArrayList<Site>();
+		
+		if(sites!=null&&sites.size()>0)
+		{
+			Site site = sites.get(0);
+			map.put("site", site);
+		}
 		return "map";
 	}
 	
