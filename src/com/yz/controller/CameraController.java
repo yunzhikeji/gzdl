@@ -31,8 +31,6 @@ public class CameraController {
 		Site site = siteService.querySiteByMarkid(markid);
 
 		List<Camera> cameras = cameraService.getCameraByUsefulLatlng();
-		
-		
 
 		SiteCustom siteCustom = new SiteCustom();
 
@@ -50,19 +48,19 @@ public class CameraController {
 		}
 
 		if (siteCustom.getViewstyle() == null || siteCustom.getViewstyle() == 1) {
-			
-			if(cameras!=null&&cameras.size()>0)
-			{
+
+			if (cameras != null && cameras.size() > 0) {
 				Camera camera = cameras.get(0);
-				
+
 				map.put("camera", camera);
 			}
-			
 			return "singleVideo";
 		} else if (siteCustom.getViewstyle() == 4) {
 			return "fourVideos";
-		} else {
+		} else if (siteCustom.getViewstyle() == 9) {
 			return "nineVideos";
+		} else {
+			return "singleVideo";
 		}
 
 	}
@@ -71,9 +69,9 @@ public class CameraController {
 	public String siteVideos(@RequestParam(value = "sid", required = true) int sid, ModelMap map) throws Exception {
 
 		Site site = siteService.findSiteById(sid);
-		
+
 		List<Camera> cameras = cameraService.getCameraByUsefulLatlng();
-		
+
 		if (site != null) {
 
 		} else {
@@ -81,11 +79,10 @@ public class CameraController {
 		}
 
 		if (site.getViewstyle() == null || site.getViewstyle() == 1) {
-			
-			if(cameras!=null&&cameras.size()>0)
-			{
+
+			if (cameras != null && cameras.size() > 0) {
 				Camera camera = cameras.get(0);
-				
+
 				map.put("camera", camera);
 			}
 			return "singleVideo";

@@ -137,18 +137,17 @@
 			<span>||</span>
 			<c:if test="${camera!=null }">
 				<span style="font-weight: bold;">设备工作状态：</span>
-				<span> 
-						<c:if test="${camera.status==-1}">未知状态</c:if> 
-					   <c:if test="${camera.status == 0 }">关机</c:if> 
-					   <c:if test="${camera.status == 1 }">正常工作</c:if> 
-					   <c:if test="${camera.status == 2 }">重启</c:if>
-					   
+				<span> <c:if test="${camera.status==-1}">未知状态</c:if> <c:if
+						test="${camera.status == 0 }">关机</c:if> <c:if
+						test="${camera.status == 1 }">正常工作</c:if> <c:if
+						test="${camera.status == 2 }">重启</c:if>
 				</span>
 				<span style="font-weight: bold;">设备电压：</span>
 				<span>${camera.voltage}伏</span>
 				<span style="font-weight: bold;">设备温度：</span>
 				<span>${camera.temperature}度</span>
-			</c:if> 
+			</c:if>
+			<c:if test="${camera==null }">当前没有设备接入</c:if>
 		</div>
 		<div class="yzvedio0">
 			<div
@@ -167,8 +166,7 @@
 					class="button1 white" onClick="down();"><i class="iconfont">&nbsp;&#xe603;&nbsp;</i></a>
 
 				<a href="#" class="button1 white" onClick="left();"><i
-					class="iconfont">&nbsp;&#xe604;&nbsp;</i></a> 
-				<a href="#"
+					class="iconfont">&nbsp;&#xe604;&nbsp;</i></a> <a href="#"
 					class="button1 white" onClick="right();"><i class="iconfont">&nbsp;&#xe622;&nbsp;</i></a>
 
 				<a href="#" class="button white" onClick="ptzStop();">停止控制</a>
