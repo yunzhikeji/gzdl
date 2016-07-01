@@ -36,7 +36,7 @@ public class MapController {
 	@RequestMapping("/map")
 	public String showMap(ModelMap map) throws Exception {
 		
-		List<Site> sites = new ArrayList<Site>();
+		List<Site> sites = siteService.getSites();
 		
 		if(sites!=null&&sites.size()>0)
 		{
