@@ -28,11 +28,13 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/main.js"></script>
 <body>
+	<!--  
 	当前级别
 	<input type="text" name="ZOOM" id="ZOOM" value="8" size="17" /> 经度
 	<input type="text" name="CLNG" id="CLNG" value="" size="17" />&nbsp;&nbsp;
 	维度
 	<input type="text" name="CLAT" id="CLAT" value="" size="17" />
+	-->
 	<div class="yzrtv">
 		<div class="yzrtvh">工具栏</div>
 		<div class="yzrtvb">

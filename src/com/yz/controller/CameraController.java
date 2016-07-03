@@ -88,8 +88,10 @@ public class CameraController {
 			return "singleVideo";
 		} else if (site.getViewstyle() == 4) {
 			return "fourVideos";
-		} else {
+		}else if (site.getViewstyle() == 9) {
 			return "nineVideos";
+		} else {
+			return "singleVideo";
 		}
 	}
 
