@@ -19,6 +19,7 @@
 </head>
 <body>
     <div id="allmap"></div>
+
 </body>
 </html>
 <script type="text/javascript">
