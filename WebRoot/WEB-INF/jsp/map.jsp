@@ -4,53 +4,103 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>map</title>
-<link href="${pageContext.request.contextPath }/css/map.css"
-	rel="stylesheet" type="text/css" />
+<title></title>
+<style type="text/css">
+body, html, #allmap {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	margin: 0;
+	font-family: "微软雅黑";
+}
+</style>
+<script type="text/javascript" src="js/json2.js"></script>
 <script type="text/javascript"
-	src="${pageContext.request.contextPath }/js/jquery.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/mapfiles/mapapi_3.12.9.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/js/map_helper.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/js/popup_layer.js"></script>
-<script type="text/javascript">
-	var lng = null
-	var lat = null;
-	if ("${site.lng}" != "") {
-		lng = "${site.lng}";// 经度
-	}
-	if ("${site.lng}" != "") {
-		lat = "${site.lat}";// 维度
-	}
-</script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/js/main.js"></script>
+	src="http://api.map.baidu.com/api?v=2.0&ak=MfZWrGmV9tab4tOxRB5zOCTdAGApBqU6"></script>
+<script src="js/jquery-1.8.2.js"></script>
+</head>
 <body>
-	当前级别
-	<input type="text" name="ZOOM" id="ZOOM" value="8" size="17" /> 经度
-	<input type="text" name="CLNG" id="CLNG" value="" size="17" />&nbsp;&nbsp;
-	维度
-	<input type="text" name="CLAT" id="CLAT" value="" size="17" />
-	<div class="yzrtv">
-		<div class="yzrtvh">工具栏</div>
-		<div class="yzrtvb">
-			<button class="button white" onclick="ClearPoly()"
-				style="box-shadow: 1px 2px 1px 1px rgba(51, 51, 51, 0.3);">
-				<i class="iconfont">&nbsp;&#xe609;&nbsp;</i>浏览地图
-			</button>
-			<button class="button white" id="addsite" onclick="addSite()"
-				style="margin: 5px 16px; box-shadow: 1px 2px 1px 1px rgba(51, 51, 51, 0.3);">
-				<i class="iconfont">&nbsp;&#xe613;&nbsp;</i>添加工地
-			</button>
-			<button class="button white" id="delsite" onclick="deleteSite()"
-				style="box-shadow: 1px 2px 1px 1px rgba(51, 51, 51, 0.3);">
-				<i class="iconfont">&nbsp;&#xe612;&nbsp;</i>删除工地
-			</button>
-		</div>
-	</div>
-	<div id="map_canvas"
-		style="margin: 0 auto; width: 100%; height: 862px;">地图加载失败....</div>
+	<div id="allmap"></div>
+
 </body>
 </html>
+<script type="text/javascript">
+	var map, json, i = 0;
+	;
+	$.ajax({
+		type : 'post',
+		//async:false,
+		url : '${pageContext.request.contextPath }/camera/getcameras.action',
+		contentType : 'application/json;charset=utf-8',
+		//数据格式是json串，商品信息
+		success : function(data) {//返回json结果
+			//json=JSON.stringify(data);//JSON object 转json串
+			json = data;
+			addMarker();
+		}
+
+	});
+	console.log(json);
+	// 百度地图API功能
+	var map = new BMap.Map("allmap");
+	map.enableScrollWheelZoom();
+	map.enableContinuousZoom();
+	map.centerAndZoom("宜兴", 15);
+
+	$(function() {
+
+	});
+	function attribute(e) {
+		alert("id:" + this.data["id"]);
+	}
+
+	function addMarker() {
+
+		var convertor = new BMap.Convertor();
+		var pointArr = [];
+		pointArr.push(json[i]);
+		convertor.translate(pointArr, 1, 5, translateCallback)
+
+	}
+	//坐标转换完之后的回调函数
+	translateCallback = function(data) {
+		if (data.status === 0) {
+			var myIcon;
+			var point = new BMap.Point(json[i]["lng"], json[i]["lat"]);
+
+			switch (json[i]["temperature"]) {
+			//case "a":
+			//    myIcon = new BMap.Icon("./images/g_m.png", new BMap.Size(30, 30));
+			//    break;
+			//case "b":
+			//    myIcon = new BMap.Icon("./images/b_m.png", new BMap.Size(30, 30));
+			//    break;
+			//case "c":
+			//    myIcon = new BMap.Icon("./images/r_m.png", new BMap.Size(30, 30));
+			//    break;
+			default:
+				myIcon = new BMap.Icon("./images/camera.png", new BMap.Size(30,
+						30));
+				break;
+			}
+			var marker2 = new BMap.Marker(data.points[0], {
+				icon : myIcon
+			}); // 创建标注
+
+			var label = new BMap.Label("ID:" + json[i]["id"] + "temperature:"
+					+ json[i]["temperature"], {
+				offset : new BMap.Size(20, -10)
+			});
+
+			marker2.setLabel(label);
+			marker2.data = json[i];
+			marker2.addEventListener("click", attribute);
+			map.addOverlay(marker2);
+		}
+
+		i++;
+		if (i < json.length) {
+			addMarker();
+		}
+	}
+</script>

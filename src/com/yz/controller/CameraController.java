@@ -8,7 +8,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yz.po.Camera;
 import com.yz.po.Site;
@@ -88,9 +88,16 @@ public class CameraController {
 			return "singleVideo";
 		} else if (site.getViewstyle() == 4) {
 			return "fourVideos";
-		} else {
+		}else if (site.getViewstyle() == 9) {
 			return "nineVideos";
+		} else {
+			return "singleVideo";
 		}
 	}
+	
+@RequestMapping("/getcameras")	
+ public @ResponseBody List<Camera> getAllCameras() throws Exception {
+	 return cameraService.findCameraList();
+ }
 
 }

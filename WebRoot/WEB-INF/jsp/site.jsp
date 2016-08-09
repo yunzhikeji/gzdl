@@ -38,7 +38,9 @@
         <c:if test="${site.viewstyle==null||site.viewstyle==0}">
         		当前无摄像机
         </c:if>
+        <c:if test="${site.viewstyle!=null&&site.viewstyle!=0}">
         ${site.viewstyle}
+        </c:if>
         </td>
         <!-- 
         <td>单位名称：阳光一百<br />负责人：宋永康<br />联系电话：18251569424</td>
