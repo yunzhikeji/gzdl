@@ -51,7 +51,12 @@ body, html, #allmap {
 
 	});
 	function attribute(e) {
-		window.open("${pageContext.request.contextPath }/camera/singleVideo?id="+this.data["id"],"_blank","top=100,left=100,width=900,height=800,menubar=yes,scrollbars=no,toolbar=yes,status=yes");
+		window
+				.open(
+						"${pageContext.request.contextPath }/camera/singleVideo?id="
+								+ this.data["id"],
+						"_blank",
+						"top=100,left=100,width=900,height=800,menubar=yes,scrollbars=no,toolbar=yes,status=yes");
 	}
 
 	function addMarker() {
@@ -92,7 +97,8 @@ body, html, #allmap {
 				offset : new BMap.Size(20, -10)
 			});
 
-			marker2.setLabel(label);
+			marker2.setTitle("ID:" + json[i]["id"] + "temperature:"
+					+ json[i]["temperature"]);
 			marker2.data = json[i];
 			marker2.addEventListener("click", attribute);
 			map.addOverlay(marker2);
