@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,43 +26,13 @@ public class CameraController {
 	@Autowired
 	private SiteService siteService;
 
-	@RequestMapping(value = "realTime", method = { RequestMethod.GET })
-	public String realTime(@RequestParam(value = "markid", required = false) String markid, ModelMap map) {
+	@RequestMapping(value = "singleVideo", method = { RequestMethod.GET })
+	public String singleVideo(@RequestParam(value = "id", required = false) Integer id,ModelMap map) throws Exception {
+			Camera camera = cameraService.findCameraById(id);
+			map.put("camera", camera);
 
-		Site site = siteService.querySiteByMarkid(markid);
-
-		List<Camera> cameras = cameraService.getCameraByUsefulLatlng();
-
-		SiteCustom siteCustom = new SiteCustom();
-
-		if (site != null) {
-			siteCustom.setViewstyle(site.getViewstyle());
-			siteCustom.setName(site.getName());
-			siteCustom.setAreaname(site.getAreaname());
-			if (cameras != null) {
-				map.put("cameras", cameras);
-			}
-			map.put("siteCustom", siteCustom);
-
-		} else {
-			return "fail";
-		}
-
-		if (siteCustom.getViewstyle() == null || siteCustom.getViewstyle() == 1) {
-
-			if (cameras != null && cameras.size() > 0) {
-				Camera camera = cameras.get(0);
-
-				map.put("camera", camera);
-			}
 			return "singleVideo";
-		} else if (siteCustom.getViewstyle() == 4) {
-			return "fourVideos";
-		} else if (siteCustom.getViewstyle() == 9) {
-			return "nineVideos";
-		} else {
-			return "singleVideo";
-		}
+
 
 	}
 

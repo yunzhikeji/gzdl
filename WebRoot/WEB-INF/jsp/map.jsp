@@ -51,7 +51,7 @@ body, html, #allmap {
 
 	});
 	function attribute(e) {
-		alert("id:" + this.data["id"]);
+		window.open("${pageContext.request.contextPath }/camera/singleVideo?id="+this.data["id"],"_blank","top=100,left=100,width=900,height=800,menubar=yes,scrollbars=no,toolbar=yes,status=yes");
 	}
 
 	function addMarker() {
