@@ -32,6 +32,7 @@ public class MinaServerHandler implements IoHandler {
 //		byte[] byteArray={1,1,1,1,1,1,1,1};
 //		
 //		session.write(IoBuffer.wrap(byteArray));
+		
 
 		if (message instanceof IoBuffer) {
 			System.out.println("message is " + message);
@@ -49,9 +50,24 @@ public class MinaServerHandler implements IoHandler {
 		System.out.println(s_data);
 
 		String[] d_data = s_data.split(",");
+		
+		String number = d_data[1]; // 设备编号
+		
+		
+		String head = "$COMMAND,";
+		String command = ",T";
+		String backup = ",000";
+		String blank = " ";
+		String enter = "\n";
+		
+		String send = head+number+command+backup+blank+enter;
+		
+		
+		byte[] srtbyte = send.getBytes();
+		
+		session.write(IoBuffer.wrap(srtbyte));
 
 		if (d_data[2].equals("A")) {
-			String number = d_data[1]; // 设备编号
 			String s_latitude = d_data[3]; // 维度
 			String latitude = DataConvertor.stringTolatitude(s_latitude);
 			String s_longitude = d_data[5]; // 经度
@@ -63,18 +79,6 @@ public class MinaServerHandler implements IoHandler {
 				state = d_data[9]; // 工作状态  A=正常工作(1)，D=关机(0)，R=重启中(2)，N=未知状态(-1)
 			}
 
-			String head = "$COMMAND,";
-			
-			String command = ",T";
-			String backup = ",000";
-			String blank = " ";
-			String enter = "\n";
-			
-			String send = head+number+command+backup+blank+enter;
-			
-			byte[] srtbyte = send.getBytes();
-			
-			session.write(IoBuffer.wrap(srtbyte));
 			
 			Camera camera = cameraService.findCameraByNumber(number);
 			
