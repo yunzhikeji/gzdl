@@ -84,7 +84,7 @@ body, html, #allmap {
 			//    myIcon = new BMap.Icon("./images/r_m.png", new BMap.Size(30, 30));
 			//    break;
 			default:
-				myIcon = new BMap.Icon("./images/camera.png", new BMap.Size(30,
+				myIcon = new BMap.Icon("./images/r_m.png", new BMap.Size(30,
 						30));
 				break;
 			}
