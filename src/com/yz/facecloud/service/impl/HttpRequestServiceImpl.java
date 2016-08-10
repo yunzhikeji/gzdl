@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
+import org.hamcrest.core.Is;
 
 import com.yz.facecloud.model.CameraMessage;
 import com.yz.facecloud.model.CameraResultMessage;
@@ -37,7 +38,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	public static final String ADD_PERSON_REQUEST_URL = "facedb/";
 
 	private String serverAddress;
-	private static String cookie = "";
+	private String cookie;
 
 	/**
 	 * 用户登陆
@@ -58,7 +59,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		String requestMsg = JSONObject.fromObject(loginMes).toString();
 
-		JSONObject jsonObject = httpRequest(login_url, "POST", requestMsg, true);
+		JSONObject jsonObject = httpRequest(login_url, "POST", requestMsg,true);
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
@@ -69,8 +70,11 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 				resultMsg.setVersion(jsonObject.getString("version"));
 				resultMsg.setServer_time(jsonObject.getString("server_time"));
 
-				cookie = jsonObject.getString("sessionid");
-
+				String loginCookie = jsonObject.getString("sessionid");//登陆时获得的cookie
+				if(loginCookie!=null&&!loginCookie.equals(""))
+				{
+					
+				}
 			} catch (JSONException e) {
 
 			}
@@ -83,15 +87,15 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	 * 查询摄像机
 	 * 
 	 * 
-	 * @return loginResultMessage 登陆返回信息
+	 * @return cameraResultMessage 登陆查询的摄像机信息
 	 */
 	public CameraResultMessage getCameras() {
 
-		String cameras_url = serverAddress + CAMERA_REQUEST_URL + "?host_id=1";
-
 		CameraResultMessage resultMsg = new CameraResultMessage();
+		String cameras_url = serverAddress + CAMERA_REQUEST_URL + "?host_id=1";
+		
 
-		JSONObject jsonObject = httpRequest(cameras_url, "GET", null, false);
+		JSONObject jsonObject = httpRequest(cameras_url, "GET", null,false);
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
@@ -99,12 +103,13 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 				System.out.println(jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
-				resultMsg.setTotal_count(jsonObject.getInt("total_count"));
+				resultMsg.setTotal_count(jsonObject.getInt("total"));
 				resultMsg.setList_size(jsonObject.getInt("list_size"));
 
 				List<CameraMessage> list = new ArrayList<CameraMessage>();
-				if (jsonObject.getInt("list_size") > 0) {
+				if (jsonObject.getInt("total") > 0) {
 					JSONArray array = jsonObject.getJSONArray("camera_list");
+					System.out.println(array);
 					list = (List<CameraMessage>) JSONArray.toCollection(array, CameraMessage.class);
 					Iterator it = list.iterator();
 					while (it.hasNext()) {
@@ -121,6 +126,110 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		return resultMsg;
 	}
+	
+	
+	/**
+	 * 新增摄像头摄像机
+	 * 
+	 * 
+	 * @return cameraResultMessage 返回新增状态及新增摄像机属性
+	 */
+	public CameraResultMessage addCamera(CameraMessage cameraMessage) {
+
+		CameraResultMessage resultMsg = new CameraResultMessage();
+		String cameras_url = serverAddress + CAMERA_REQUEST_URL;
+		
+		String requestMsg = JSONObject.fromObject(cameraMessage).toString();
+
+		JSONObject jsonObject = httpRequest(cameras_url, "PUT", requestMsg,false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+
+				System.out.println(jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+				
+				ArrayList<CameraMessage> list = new ArrayList<CameraMessage>();
+				CameraMessage camera = new CameraMessage();
+				camera.setCamera_id(jsonObject.getInt("camera_id"));
+				camera.setCamera_state(jsonObject.getInt("camera_state"));
+				list.add(camera);
+				resultMsg.setCamera_list(list);
+			} catch (JSONException e) {
+
+			}
+		}
+
+		return resultMsg;
+	}
+	
+	
+	/**
+	 * 删除摄像机
+	 * 
+	 * 
+	 * @return cameraResultMessage 返回新增状态及新增摄像机属性
+	 */
+	public CameraResultMessage deleteCamera(int camera_id) {
+
+		CameraResultMessage resultMsg = new CameraResultMessage();
+		String cameras_url = serverAddress + CAMERA_REQUEST_URL+"/"+camera_id;
+		
+
+		JSONObject jsonObject = httpRequest(cameras_url, "DELETE", null,false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+				System.out.println(jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+			} catch (JSONException e) {
+
+			}
+		}
+
+		return resultMsg;
+	}
+	
+	
+	/**
+	 * 告警抓拍统计数据清零
+	 * 
+	 * 
+	 * @return cameraResultMessage 返回摄像机属性
+	 */
+	public CameraResultMessage statreset(int camera_id) {
+
+		CameraResultMessage resultMsg = new CameraResultMessage();
+		String cameras_url = serverAddress + CAMERA_REQUEST_URL+"/"+camera_id+"/statreset";
+
+		JSONObject jsonObject = httpRequest(cameras_url, "POST", null,false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+				System.out.println(jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+				ArrayList<CameraMessage> list = new ArrayList<CameraMessage>();
+				CameraMessage camera = new CameraMessage();
+				camera.setLast_clear_time(jsonObject.getString("last_clear_time"));
+				list.add(camera);
+				resultMsg.setCamera_list(list);
+			} catch (JSONException e) {
+			}
+		}
+
+		return resultMsg;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * 用户注销
@@ -131,9 +240,9 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	public LoginResultMessage logout() {
 
 		LoginResultMessage resultMsg = new LoginResultMessage();
-		String logout_url = serverAddress + LOGIN_REQUEST_URL;
+		String logout_url = serverAddress + LOGOUT_REQUEST_URL;
 
-		JSONObject jsonObject = httpRequest(logout_url, "POST", null, false);
+		JSONObject jsonObject = httpRequest(logout_url, "POST", null,false);
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
@@ -161,7 +270,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	 *            提交的数据
 	 * @return JSONObject(通过JSONObject.get(key)的方式获取json对象的属性值)
 	 */
-	public JSONObject httpRequest(String requestUrl, String requestMethod, String outputStr, boolean isLogin) {
+	public JSONObject httpRequest(String requestUrl, String requestMethod, String outputStr,Boolean isLogin) {
 		JSONObject jsonObject = null;
 		StringBuffer buffer = new StringBuffer();
 		try {
@@ -175,25 +284,24 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 			// 设置请求方式（GET/POST）
 			httpUrlConn.setRequestMethod(requestMethod);
 			httpUrlConn.setRequestProperty("Content-Type", "application/json;charset=utf-8");
-			if (!isLogin) {
-				cookie = "facecloud_session=160809152302000007:user";
-				if (!cookie.equals(""))
-				httpUrlConn.addRequestProperty("Set-Cookie", cookie);
-				Map<String, List<String>> maps = httpUrlConn.getHeaderFields();
-				for (String key : maps.keySet()) {
-					System.out.println(key+":"+maps.get(key));
-				}
-			}else
+			
+			if(!isLogin)
 			{
-				httpUrlConn.setRequestProperty("Set-Cookie", cookie);
+				checkCookie();//检查cookie
+				if (!cookie.equals("")) {
+					httpUrlConn.setRequestProperty("Cookie", cookie);
+				}
 			}
-
+			
 			if ("GET".equalsIgnoreCase(requestMethod))
+			{
 				httpUrlConn.connect();
+			}
+				
 
 			// 当有数据需要提交时
 			if (null != outputStr) {
-				OutputStream outputStream = httpUrlConn.getOutputStream();
+				OutputStream outputStream = httpUrlConn.getOutputStream();// 此处getOutputStream会隐含的进行connect(即：如同调用上面的connect()方法， 
 				// 注意编码格式，防止中文乱码
 				outputStream.write(outputStr.getBytes("UTF-8"));
 				outputStream.close();
@@ -203,7 +311,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 			if(httpUrlConn.getResponseCode() == HttpURLConnection.HTTP_OK)
 			{
 				// 将返回的输入流转换成字符串
-				InputStream inputStream = httpUrlConn.getInputStream();
+				InputStream inputStream = httpUrlConn.getInputStream();// <===注意，实际发送请求的代码段就在这里 
 				InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
 				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
@@ -220,6 +328,11 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 				jsonObject = JSONObject.fromObject(buffer.toString());
 			}
 			
+			Map<String, List<String>> maps = httpUrlConn.getHeaderFields();
+			for (String key : maps.keySet()) {
+				System.out.println(key+":"+maps.get(key));
+			}
+			
 			httpUrlConn.disconnect();
 
 		} catch (ConnectException ce) {
@@ -229,6 +342,15 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		}
 		return jsonObject;
 	}
+	
+	
+	public void checkCookie()
+	{
+		if(cookie==null||cookie.equals(""))
+		{
+			
+		}
+	}
 
 	public String getServerAddress() {
 		return serverAddress;
@@ -237,5 +359,15 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	public void setServerAddress(String serverAddress) {
 		this.serverAddress = serverAddress;
 	}
+
+	public String getCookie() {
+		return cookie;
+	}
+
+	public void setCookie(String cookie) {
+		this.cookie = cookie;
+	}
+	
+	
 
 }

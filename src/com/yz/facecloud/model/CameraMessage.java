@@ -3,14 +3,14 @@ package com.yz.facecloud.model;
 public class CameraMessage {
 
 	private int camera_id;
-	private String camera_name;// port 1
-	private int camera_mode;// 0
+	private String camera_name;// 布控相机名称
+	private int camera_mode;// 摄像机视频资源提供模式(0普通摄像机，1英飞拓人脸抓拍摄像机，2大华人脸抓拍摄像机，……)，整型
 	private String url;// admin:12345@192.168.0.64/h264/ch1/main/av_stream”
-	private int camera_state;
-	private int mt_policy_id;
-	private String db_id_list;// "1+2+3"
-	private int node_id;
-	private int fixed_host;
+	private int camera_state;//
+	private int mt_policy_id;//布控策略，整型
+	private String db_id_list;// 布控库列表（比如 "db_id_list":"2+4+8"）
+	private int node_id;//指定将布控挂在某个目录下，需要先建立布控目录树，整型
+	private int fixed_host;//服务器编号，该参数缺省时表示随机连接一台服务器，否则表示固定绑定到一台服务器上，整型
 	private int belong_host;// 当前摄像机挂载服务器,运行时信息,不可修改
 	private int man_ctrl;// 0:自动模式1:手动模式,运行时信息,不可修改
 	private int man_init_state;// 手动初始状态，含义同camera_state,运行时信息,不可修改
