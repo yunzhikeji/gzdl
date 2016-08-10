@@ -27,7 +27,7 @@ public class CameraController {
 	private SiteService siteService;
 
 	@RequestMapping(value = "singleVideo", method = { RequestMethod.GET })
-	public String singleVideo(@RequestParam(value = "id", required = false) Integer id,ModelMap map) throws Exception {
+	public String singleVideo(@RequestParam(value = "id", required = false) Integer id,ModelMap map)  throws Exception {
 			Camera camera = cameraService.findCameraById(id);
 			map.put("camera", camera);
 
@@ -35,7 +35,7 @@ public class CameraController {
 
 
 	}
-
+	
 	@RequestMapping(value = "siteVideos")
 	public String siteVideos(@RequestParam(value = "sid", required = true) int sid, ModelMap map) throws Exception {
 

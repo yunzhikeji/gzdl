@@ -24,4 +24,6 @@
 <bean id="httpRequestSercie" class="com.yz.facecloud.service.impl.HttpRequestServiceImpl">
 	<property name="serverAddress" value="http://114.55.132.15:8000/"></property>
 </bean>
+<!-- 人脸server管理Face的service -->
+<bean id="faceService" class="com.yz.service.impl.FaceServiceImpl"></bean>
 </beans>
