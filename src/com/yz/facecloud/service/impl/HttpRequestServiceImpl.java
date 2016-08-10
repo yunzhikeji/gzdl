@@ -254,6 +254,71 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		return resultMsg;
 	}
 	
+	
+	
+	/**
+	 * 开始人脸布控
+	 * 
+	 * 
+	 * @return cameraResultMessage 返回摄像机属性
+	 */
+	public CameraResultMessage recognition(int camera_id) {
+
+		CameraResultMessage resultMsg = new CameraResultMessage();
+		String cameras_url = serverAddress + CAMERA_REQUEST_URL+"/video_recognition/"+camera_id;
+		
+
+		JSONObject jsonObject = httpRequest(cameras_url, "POST", null, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+				System.out.println(jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+				ArrayList<CameraMessage> list = new ArrayList<CameraMessage>();
+				CameraMessage camera = new CameraMessage();
+				camera.setCamera_id(jsonObject.getInt("camera_id"));
+				camera.setCamera_state(jsonObject.getInt("camera_state"));
+				list.add(camera);
+				resultMsg.setCamera_list(list);
+			} catch (JSONException e) {
+			}
+		}
+
+		return resultMsg;
+	}
+	
+	
+	/**
+	 * 停止人脸布控
+	 * 
+	 * 
+	 * @return cameraResultMessage 返回摄像机属性
+	 */
+	public CameraResultMessage recognitionStop(int camera_id) {
+
+		CameraResultMessage resultMsg = new CameraResultMessage();
+		String cameras_url = serverAddress + CAMERA_REQUEST_URL+"/video_recognition_stop/"+camera_id;
+
+		JSONObject jsonObject = httpRequest(cameras_url, "POST", null, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+				System.out.println(jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+				ArrayList<CameraMessage> list = new ArrayList<CameraMessage>();
+				CameraMessage camera = new CameraMessage();
+				camera.setCamera_state(jsonObject.getInt("camera_state"));
+				list.add(camera);
+				resultMsg.setCamera_list(list);
+			} catch (JSONException e) {
+			}
+		}
+
+		return resultMsg;
+	}
+	
 	/*****************************************人脸库************************************
 	/**
 	 * 查询人脸库
@@ -296,6 +361,9 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		return resultMsg;
 	}
+	
+	
+	
 	
 	
 	

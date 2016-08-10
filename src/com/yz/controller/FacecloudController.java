@@ -61,6 +61,19 @@ public class FacecloudController {
 		return requestService.deleteCamera(1);
 	}
 	
+	@RequestMapping("/recognition")
+	public @ResponseBody CameraResultMessage recognition() throws Exception {
+		
+		int camera_id = 1;
+		return requestService.recognition(1);
+	}
+	
+	@RequestMapping("/recognitionStop")
+	public @ResponseBody CameraResultMessage recognitionStop() throws Exception {
+		
+		int camera_id = 1;
+		return requestService.recognitionStop(1);
+	}
 	
 	@RequestMapping("/statreset")
 	public @ResponseBody CameraResultMessage statreset() throws Exception {
@@ -73,5 +86,7 @@ public class FacecloudController {
 	public @ResponseBody FaceDBResultMessage faceDBs() throws Exception {
 		return requestService.getFaceDBs();
 	}
+	
+	
 
 }
