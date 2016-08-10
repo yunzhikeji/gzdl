@@ -161,4 +161,8 @@
     set cookie = #{cookie,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  	<select id="findFaceList" resultType="com.yz.po.Face">
+		select * from face
+	</select>
 </mapper>

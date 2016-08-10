@@ -1,6 +1,8 @@
 package com.yz.service.impl;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yz.mapper.FaceMapper;
@@ -34,6 +36,12 @@ public class FaceServiceImpl implements FaceService {
 	@Override
 	public void deleteFaceById(Integer id) throws Exception {
 		faceMapper.deleteByPrimaryKey(id);
+	}
+
+	@Override
+	public List<Face> findFaceList() throws Exception {
+		
+		return faceMapper.findFaceList();
 	}
 
 

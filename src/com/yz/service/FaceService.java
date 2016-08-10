@@ -6,7 +6,7 @@ import com.yz.po.Face;
 
 public interface FaceService {
 	
-
+	public List<Face> findFaceList() throws Exception;
 
 	public Face findFaceById(Integer id) throws Exception;
 	
