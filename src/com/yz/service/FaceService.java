@@ -9,7 +9,6 @@ public interface FaceService {
 	public List<Face> findFaceList() throws Exception;
 
 	public Face findFaceById(Integer id) throws Exception;
-	
 
 	public void updateFace(Integer id,Face face) throws Exception;
 	

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
-import org.hamcrest.core.Is;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yz.facecloud.model.CameraMessage;
 import com.yz.facecloud.model.CameraResultMessage;
@@ -21,6 +21,8 @@ import com.yz.facecloud.model.LoginRequestMessage;
 import com.yz.facecloud.model.LoginResultMessage;
 import com.yz.facecloud.service.HttpRequestService;
 import com.yz.facecloud.util.MD5Util;
+import com.yz.po.Face;
+import com.yz.service.FaceService;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONException;
@@ -36,6 +38,9 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	public static final String GET_FACEDB_REQUEST_URL = "facedb";
 	public static final String RECOGNIZE_REQUEST_URL = "faceops/image_recognition";
 	public static final String ADD_PERSON_REQUEST_URL = "facedb/";
+	
+	@Autowired
+	private FaceService faceService;
 
 	private String serverAddress;
 	private String cookie;
@@ -73,7 +78,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 				String loginCookie = jsonObject.getString("sessionid");//登陆时获得的cookie
 				if(loginCookie!=null&&!loginCookie.equals(""))
 				{
-					
+					saveCookie(loginCookie);
 				}
 			} catch (JSONException e) {
 
@@ -341,6 +346,17 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 			log.error("http request error:{}", e);
 		}
 		return jsonObject;
+	}
+	
+	public void saveCookie(String cookie)
+	{
+		Face face  = new Face();
+		face.setCookie(cookie);
+		try {
+			faceService.saveFace(face);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	
