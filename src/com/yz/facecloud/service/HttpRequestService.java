@@ -2,6 +2,7 @@ package com.yz.facecloud.service;
 
 import com.yz.facecloud.model.CameraMessage;
 import com.yz.facecloud.model.CameraResultMessage;
+import com.yz.facecloud.model.FaceDBResultMessage;
 import com.yz.facecloud.model.LoginResultMessage;
 
 public interface HttpRequestService {
@@ -17,6 +18,8 @@ public interface HttpRequestService {
 	public CameraResultMessage deleteCamera(int camera_id);
 	
 	public CameraResultMessage statreset(int camera_id);
+	
+	public FaceDBResultMessage getFaceDBs();
 	
 
 }

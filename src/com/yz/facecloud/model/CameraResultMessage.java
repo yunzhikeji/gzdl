@@ -6,9 +6,10 @@ public class CameraResultMessage {
 
 	private int ret;
 	private String ret_mes;
-	private int total_count;
-	private int list_size;
+	private int total_count;//满足搜索条件的结果的数量
+	private int list_size;//返回的结果列表大小
 	private List<CameraMessage> camera_list;
+	
 
 	public int getRet() {
 		return ret;

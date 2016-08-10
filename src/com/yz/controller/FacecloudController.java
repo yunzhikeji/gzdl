@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yz.facecloud.model.CameraMessage;
 import com.yz.facecloud.model.CameraResultMessage;
+import com.yz.facecloud.model.FaceDBResultMessage;
 import com.yz.facecloud.model.LoginResultMessage;
 import com.yz.facecloud.service.HttpRequestService;
 
@@ -66,6 +67,11 @@ public class FacecloudController {
 		
 		int camera_id = 1;
 		return requestService.statreset(1);
+	}
+	
+	@RequestMapping("/faceDBs")
+	public @ResponseBody FaceDBResultMessage faceDBs() throws Exception {
+		return requestService.getFaceDBs();
 	}
 
 }
