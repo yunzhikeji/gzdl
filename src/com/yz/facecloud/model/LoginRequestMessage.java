@@ -1,6 +1,9 @@
 package com.yz.facecloud.model;
 
-public class LoginRequestMessage {
+/*
+ * 登陆请求信息封装
+ */
+public class LoginRequestMessage extends BasicRequestMessage{
 
 	private String user_name;
 	private String user_pwd;

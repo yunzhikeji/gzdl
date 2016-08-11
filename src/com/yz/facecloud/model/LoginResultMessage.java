@@ -1,28 +1,13 @@
 package com.yz.facecloud.model;
 
-public class LoginResultMessage {
+/*
+ * 登陆返回信息
+ */
+public class LoginResultMessage  extends BasicResultMessage{
 
-	private int ret;
-	private String ret_mes;
 	private String sessionid;
 	private String version;
 	private String server_time;
-
-	public int getRet() {
-		return ret;
-	}
-
-	public void setRet(int ret) {
-		this.ret = ret;
-	}
-
-	public String getRet_mes() {
-		return ret_mes;
-	}
-
-	public void setRet_mes(String ret_mes) {
-		this.ret_mes = ret_mes;
-	}
 
 	public String getSessionid() {
 		return sessionid;

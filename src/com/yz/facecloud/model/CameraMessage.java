@@ -2,7 +2,7 @@ package com.yz.facecloud.model;
 
 public class CameraMessage {
 
-	private int camera_id;
+	private int camera_id; //相机id
 	private String camera_name;// 布控相机名称
 	private int camera_mode;// 摄像机视频资源提供模式(0普通摄像机，1英飞拓人脸抓拍摄像机，2大华人脸抓拍摄像机，……)，整型
 	private String url;// admin:12345@192.168.0.64/h264/ch1/main/av_stream”

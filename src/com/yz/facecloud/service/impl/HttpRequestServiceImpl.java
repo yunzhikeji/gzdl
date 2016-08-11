@@ -15,12 +15,21 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yz.facecloud.model.AlarmMessage;
+import com.yz.facecloud.model.AlarmRequestMessage;
+import com.yz.facecloud.model.AlarmResultMessage;
+import com.yz.facecloud.model.BasicResultMessage;
 import com.yz.facecloud.model.CameraMessage;
+import com.yz.facecloud.model.CameraRequestMessage;
 import com.yz.facecloud.model.CameraResultMessage;
 import com.yz.facecloud.model.FaceDBMessage;
+import com.yz.facecloud.model.FaceDBRequestMessage;
 import com.yz.facecloud.model.FaceDBResultMessage;
 import com.yz.facecloud.model.LoginRequestMessage;
 import com.yz.facecloud.model.LoginResultMessage;
+import com.yz.facecloud.model.PolicyMessage;
+import com.yz.facecloud.model.PolicyRequestMessage;
+import com.yz.facecloud.model.PolicyResultMessage;
 import com.yz.facecloud.service.HttpRequestService;
 import com.yz.facecloud.util.MD5Util;
 import com.yz.po.Face;
@@ -33,11 +42,16 @@ import net.sf.json.JSONObject;
 public class HttpRequestServiceImpl implements HttpRequestService {
 
 	private static Logger log = Logger.getLogger(HttpRequestServiceImpl.class);
+
+	public static final String SYSTEM_REQUEST_URL = "sysmgr/reboot";
 	public static final String LOGIN_REQUEST_URL = "base/auth/login";
 	public static final String LOGOUT_REQUEST_URL = "base/auth/logout";
+	public static final String POLICY_REQUEST_URL = "rtmonitor/mt_policy";
 	public static final String CAMERA_REQUEST_URL = "rtmonitor/manage";
+	public static final String ALARM_REQUEST_URL = "rtmonitor/alarm";
+
 	public static final String FACEDB_REQUEST_URL = "facedb";
-	
+
 	public static final String RECOGNIZE_REQUEST_URL = "faceops/image_recognition";
 	public static final String ADD_PERSON_REQUEST_URL = "facedb/";
 
@@ -46,13 +60,39 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 	private String serverAddress;
 
-	/*****************************************用户登陆 注销************************************
-	/**
-	 * 用户登陆
+	/*****************************************
+	 * 系统操作************************************** /** 重启服务 只有超级管理员root可以执行
+	 * 
+	 * @return loginResultMessage 返回基本信息
+	 */
+	public BasicResultMessage reboot() {
+
+		BasicResultMessage resultMsg = new BasicResultMessage();
+		String system_url = serverAddress + SYSTEM_REQUEST_URL;
+
+		JSONObject jsonObject = httpRequest(system_url, "PUT", null, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+
+				System.out.println("重启服务:" + jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+
+			} catch (JSONException e) {
+
+			}
+		}
+
+		return resultMsg;
+	}
+
+	/*****************************************
+	 * 用户登陆 注销************************************ /** 用户登陆
 	 * 
 	 * @param name,password
 	 * 
-	 * @return loginResultMessage 登陆返回信息
+	 * @return loginResultMessage 返回登陆信息
 	 */
 	public LoginResultMessage login(String name, String password) {
 
@@ -71,6 +111,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		if (null != jsonObject) {
 			try {
 
+				System.out.println("用户登陆:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 				resultMsg.setSessionid(jsonObject.getString("sessionid"));
@@ -88,13 +129,12 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		return resultMsg;
 	}
-	
-	
+
 	/**
 	 * 用户注销
 	 * 
 	 * 
-	 * @return loginResultMessage 登陆返回信息
+	 * @return loginResultMessage 返回登陆信息
 	 */
 	public LoginResultMessage logout() {
 
@@ -106,7 +146,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		if (null != jsonObject) {
 			try {
 
-				System.out.println(jsonObject);
+				System.out.println("用户注销:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 
@@ -118,24 +158,74 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		return resultMsg;
 	}
 
-	/*****************************************摄像机************************************
-	/**
-	 * 查询摄像机
+	/*****************************************
+	 * 布控策略************************************ /** 查询布控策略
 	 * 
 	 * 
-	 * @return cameraResultMessage 登陆查询的摄像机信息
+	 * @return policeResultMessage 返回策略信息
 	 */
-	public CameraResultMessage getCameras() {
+	public PolicyResultMessage getPolices(PolicyRequestMessage requestMessage) {
+
+		PolicyResultMessage resultMsg = new PolicyResultMessage();
+		String police_url = serverAddress + POLICY_REQUEST_URL;
+
+		int police_id = requestMessage.getMt_policy_id();
+
+		if (police_id != 0) {
+			police_url = police_url + "?police_id=" + police_id;
+		}
+
+		JSONObject jsonObject = httpRequest(police_url, "GET", null, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+
+				System.out.println("查询布控策略:" + jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setMt_policy_num(jsonObject.getInt("mt_policy_num"));
+				List<PolicyMessage> list = new ArrayList<PolicyMessage>();
+				if (jsonObject.getInt("mt_policy_num") > 0) {
+					JSONArray array = jsonObject.getJSONArray("mt_policy_list");
+					System.out.println(array);
+					list = (List<PolicyMessage>) JSONArray.toCollection(array, PolicyMessage.class);
+					Iterator it = list.iterator();
+					while (it.hasNext()) {
+						PolicyMessage polMsg = (PolicyMessage) it.next();
+						System.out.println(polMsg.getMt_policy_id());
+					}
+				}
+				resultMsg.setPolicyMessages(list);
+			} catch (JSONException e) {
+
+			}
+		}
+		return resultMsg;
+	}
+
+	/*****************************************
+	 * 摄像机************************************ /** 查询摄像机
+	 * 
+	 * 
+	 * @return cameraResultMessage 返回摄像机信息
+	 */
+	public CameraResultMessage getCameras(CameraRequestMessage requestMessage) {
 
 		CameraResultMessage resultMsg = new CameraResultMessage();
-		String cameras_url = serverAddress + CAMERA_REQUEST_URL + "?host_id=1";
+		String cameras_url = serverAddress + CAMERA_REQUEST_URL;
+
+		int  host_id = requestMessage.getHost_id();
+		int camera_id = requestMessage.getCamera_id();
+
+		if (host_id!=0) {
+			cameras_url = cameras_url + "?host_id=" + host_id;
+		}
 
 		JSONObject jsonObject = httpRequest(cameras_url, "GET", null, false);
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
 
-				System.out.println(jsonObject);
+				System.out.println("查询摄像机:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 				resultMsg.setTotal_count(jsonObject.getInt("total"));
@@ -163,10 +253,10 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 
 	/**
-	 * 新增摄像头摄像机
+	 * 新增摄像机
 	 * 
 	 * 
-	 * @return cameraResultMessage 返回新增状态及新增摄像机属性
+	 * @return cameraResultMessage 返回摄像机属性
 	 */
 	public CameraResultMessage addCamera(CameraMessage cameraMessage) {
 
@@ -180,7 +270,43 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		if (null != jsonObject) {
 			try {
 
-				System.out.println(jsonObject);
+				System.out.println("新增摄像机:" + jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+
+				ArrayList<CameraMessage> list = new ArrayList<CameraMessage>();
+				CameraMessage camera = new CameraMessage();
+				camera.setCamera_id(jsonObject.getInt("camera_id"));
+				camera.setCamera_state(jsonObject.getInt("camera_state"));
+				list.add(camera);
+				resultMsg.setCamera_list(list);
+			} catch (JSONException e) {
+
+			}
+		}
+
+		return resultMsg;
+	}
+
+	/**
+	 * 配置摄像机
+	 * 
+	 * 
+	 * @return cameraResultMessage 返回摄像机属性
+	 */
+	public CameraResultMessage updateCamera(CameraMessage cameraMessage) {
+
+		CameraResultMessage resultMsg = new CameraResultMessage();
+		String cameras_url = serverAddress + CAMERA_REQUEST_URL + "/" + cameraMessage.getCamera_id();
+
+		String requestMsg = JSONObject.fromObject(cameraMessage).toString();
+
+		JSONObject jsonObject = httpRequest(cameras_url, "PUT", requestMsg, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+
+				System.out.println("配置摄像机:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 
@@ -202,7 +328,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	 * 删除摄像机
 	 * 
 	 * 
-	 * @return cameraResultMessage 返回新增状态及新增摄像机属性
+	 * @return cameraResultMessage 返回摄像机属性
 	 */
 	public CameraResultMessage deleteCamera(int camera_id) {
 
@@ -213,7 +339,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
-				System.out.println(jsonObject);
+				System.out.println("删除摄像机:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 			} catch (JSONException e) {
@@ -233,13 +359,13 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	public CameraResultMessage statreset(int camera_id) {
 
 		CameraResultMessage resultMsg = new CameraResultMessage();
-		String cameras_url = serverAddress + CAMERA_REQUEST_URL +"/"+camera_id+"/statreset";
+		String cameras_url = serverAddress + CAMERA_REQUEST_URL + "/" + camera_id + "/statreset";
 
 		JSONObject jsonObject = httpRequest(cameras_url, "POST", null, false);
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
-				System.out.println(jsonObject);
+				System.out.println("告警抓拍统计数据清零:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 				ArrayList<CameraMessage> list = new ArrayList<CameraMessage>();
@@ -253,9 +379,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		return resultMsg;
 	}
-	
-	
-	
+
 	/**
 	 * 开始人脸布控
 	 * 
@@ -265,14 +389,13 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	public CameraResultMessage recognition(int camera_id) {
 
 		CameraResultMessage resultMsg = new CameraResultMessage();
-		String cameras_url = serverAddress + CAMERA_REQUEST_URL+"/video_recognition/"+camera_id;
-		
+		String cameras_url = serverAddress + CAMERA_REQUEST_URL + "/video_recognition/" + camera_id;
 
 		JSONObject jsonObject = httpRequest(cameras_url, "POST", null, false);
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
-				System.out.println(jsonObject);
+				System.out.println("开始人脸布控:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 				ArrayList<CameraMessage> list = new ArrayList<CameraMessage>();
@@ -287,8 +410,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		return resultMsg;
 	}
-	
-	
+
 	/**
 	 * 停止人脸布控
 	 * 
@@ -298,13 +420,13 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	public CameraResultMessage recognitionStop(int camera_id) {
 
 		CameraResultMessage resultMsg = new CameraResultMessage();
-		String cameras_url = serverAddress + CAMERA_REQUEST_URL+"/video_recognition_stop/"+camera_id;
+		String cameras_url = serverAddress + CAMERA_REQUEST_URL + "/video_recognition_stop/" + camera_id;
 
 		JSONObject jsonObject = httpRequest(cameras_url, "POST", null, false);
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
-				System.out.println(jsonObject);
+				System.out.println("停止人脸布控:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 				ArrayList<CameraMessage> list = new ArrayList<CameraMessage>();
@@ -318,25 +440,31 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		return resultMsg;
 	}
-	
-	/*****************************************人脸库************************************
-	/**
-	 * 查询人脸库
+
+	/*****************************************
+	 * 人脸库************************************ /** 查询人脸库
 	 * 
 	 * 
 	 * @return faceDBResultMessage 返回数据库属性
 	 */
-	public FaceDBResultMessage getFaceDBs() {
+	public FaceDBResultMessage getFaceDBs(FaceDBRequestMessage requestMessage) {
 
 		FaceDBResultMessage resultMsg = new FaceDBResultMessage();
 		String faceDB_url = serverAddress + FACEDB_REQUEST_URL;
+
+		String dbname = requestMessage.getDbname();
+
+		if (dbname != null && !dbname.replace(" ", "").equals("")) {
+
+			faceDB_url = faceDB_url + "?dbname=" + dbname;
+		}
 
 		JSONObject jsonObject = httpRequest(faceDB_url, "GET", null, false);
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
 
-				System.out.println(jsonObject);
+				System.out.println("查询人脸库：" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 				resultMsg.setTotal_count(jsonObject.getInt("total_count"));
@@ -355,23 +483,101 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 				}
 				resultMsg.setFacedb_list(list);
-			}catch (JSONException e) {
+			} catch (JSONException e) {
 			}
 		}
 
 		return resultMsg;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
-	
+	/*****************************************
+	 * 告警记录************************************ /** 查询告警记录
+	 * 
+	 * 
+	 * @return alarmResultMessage 查询的告警记录
+	 */
+	public AlarmResultMessage getAlarms(AlarmRequestMessage requestMessage) {
+
+		AlarmResultMessage resultMsg = new AlarmResultMessage();
+		String alarm_url = serverAddress + ALARM_REQUEST_URL;
+
+		String alarm_id = requestMessage.getAlarm_id();
+		String camera_id_list = requestMessage.getCamera_id_list();
+
+		if (alarm_id != null && !alarm_id.replace(" ", "").equals("")) {
+			alarm_url = alarm_url + "?alarm_id=" + alarm_id;
+		}
+		if (camera_id_list != null && !camera_id_list.replace(" ", "").equals("")) {
+			alarm_url = alarm_url + "&camera_id_list=" + camera_id_list;
+		}
+		JSONObject jsonObject = httpRequest(alarm_url, "GET", null, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+
+				System.out.println("查询告警记录:" + jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+				resultMsg.setAlarm_size(jsonObject.getInt("alarm_size"));
+
+				List<AlarmMessage> list = new ArrayList<AlarmMessage>();
+				if (jsonObject.getInt("alarm_list") > 0) {
+					JSONArray array = jsonObject.getJSONArray("alarm_list");
+					System.out.println(array);
+					list = (List<AlarmMessage>) JSONArray.toCollection(array, AlarmMessage.class);
+					Iterator it = list.iterator();
+					while (it.hasNext()) {
+						AlarmMessage alarmMsg = (AlarmMessage) it.next();
+						System.out.println(alarmMsg.getCamera_id());
+					}
+
+				}
+				resultMsg.setAlarmMessages(list);
+			} catch (JSONException e) {
+
+			}
+		}
+
+		return resultMsg;
+	}
+
+	/**
+	 * 删除告警记录
+	 * 
+	 * 
+	 * @return alarmResultMessage 告警信息
+	 */
+	public AlarmResultMessage deleteAlarms(AlarmRequestMessage requestMessage) {
+
+		AlarmResultMessage resultMsg = new AlarmResultMessage();
+		String alarm_url = serverAddress + ALARM_REQUEST_URL;
+
+		String alarm_id = requestMessage.getAlarm_id().replace(" ", "");
+		String camera_id_list = requestMessage.getCamera_id_list().replace(" ", "");
+
+		if (alarm_id != null && !alarm_id.equals("")) {
+			alarm_url = alarm_url + "?alarm_id=" + alarm_id;
+		}
+		if (camera_id_list != null && !camera_id_list.equals("")) {
+			alarm_url = alarm_url + "&camera_id_list=" + camera_id_list;
+		}
+		JSONObject jsonObject = httpRequest(alarm_url, "DELETE", null, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+
+				System.out.println("删除告警记录:" + jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+				resultMsg.setDelete_result(jsonObject.getInt("delete_result"));
+
+			} catch (JSONException e) {
+
+			}
+		}
+
+		return resultMsg;
+	}
 
 	/**
 	 * 发起https请求并获取结果
@@ -392,12 +598,12 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 			URL url = new URL(requestUrl);
 			HttpURLConnection httpUrlConn = (HttpURLConnection) url.openConnection();
 
+			httpUrlConn.setRequestProperty("Content-Type", "application/json;charset=utf-8");
+			// 设置请求方式（GET/POST）
+			httpUrlConn.setRequestMethod(requestMethod);
 			httpUrlConn.setDoOutput(true);
 			httpUrlConn.setDoInput(true);
 			httpUrlConn.setUseCaches(false);
-			// 设置请求方式（GET/POST）
-			httpUrlConn.setRequestMethod(requestMethod);
-			httpUrlConn.setRequestProperty("Content-Type", "application/json;charset=utf-8");
 
 			if (!isLogin) {
 				String cookie = checkCookie();// 检查cookie
@@ -414,8 +620,12 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 			if (null != outputStr) {
 				OutputStream outputStream = httpUrlConn.getOutputStream();// 此处getOutputStream会隐含的进行connect(即：如同调用上面的connect()方法，
 				// 注意编码格式，防止中文乱码
-				outputStream.write(outputStr.getBytes("UTF-8"));
-				outputStream.close();
+				if (outputStream != null) {
+					outputStream.write(outputStr.getBytes("UTF-8"));
+					outputStream.flush();
+					outputStream.close();
+				}
+
 			}
 
 			if (httpUrlConn.getResponseCode() == HttpURLConnection.HTTP_OK) {
@@ -434,7 +644,9 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 				// 释放资源
 				inputStream.close();
 				inputStream = null;
-				jsonObject = JSONObject.fromObject(buffer.toString());
+
+				if (!buffer.toString().replace(" ", "").equals(""))
+					jsonObject = JSONObject.fromObject(buffer.toString());
 			}
 
 			Map<String, List<String>> maps = httpUrlConn.getHeaderFields();
@@ -442,7 +654,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 				System.out.println(key + ":" + maps.get(key));
 			}
 
-			httpUrlConn.disconnect();
+			if (httpUrlConn != null)
+				httpUrlConn.disconnect();
 
 		} catch (ConnectException ce) {
 			log.error(" server connection timed out.");
@@ -478,6 +691,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 			List<Face> faces = faceService.findFaceList();
 			if (faces != null && faces.size() > 0) {
 				cookie = faces.get(0).getCookie();
+				System.out.println(cookie);
 			}
 
 		} catch (Exception e) {

@@ -18,6 +18,15 @@
 	 -->
 	<context:component-scan base-package="com.yz.controller"></context:component-scan>
 	
+	<bean id="faceUser" class="com.yz.facecloud.model.FaceUser">
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+		<!-- 
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+		 -->
+	</bean>
+	
 	<mvc:default-servlet-handler/>  
 	<!-- 静态资源解析
 	包括 ：js、css、img、..
