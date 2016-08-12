@@ -69,7 +69,6 @@ public class FacecloudController {
 					cameraCustom.setStat(1);  //布控成功就将stat设为1，否则为0
 					cameraCustom.setIscontroll(1); //布控成功将iscontroller设为1，否则为0
 					cameraService.updateCamera(id, cameraCustom);
-					return "布控成功";
 					
 //					AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
 //					alarmRequestMessage.setCamera_id_list(cameraResulttMessage.getCamera_list().get(0).getCamera_id()+"");
@@ -78,11 +77,12 @@ public class FacecloudController {
 				}
 
 			}
-
+			return "布控成功";
+			
 		}
-
-		return "";
+		else return "布控失败";
 	}
+
 	
 	
 	@RequestMapping("/getalarms")
