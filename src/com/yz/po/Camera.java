@@ -27,6 +27,10 @@ public class Camera {
 
     private Integer stat;
 
+    private Integer state;
+
+    private Integer cameraid;
+
     public Integer getId() {
         return id;
     }
@@ -129,5 +133,21 @@ public class Camera {
 
     public void setStat(Integer stat) {
         this.stat = stat;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
+    }
+
+    public Integer getCameraid() {
+        return cameraid;
+    }
+
+    public void setCameraid(Integer cameraid) {
+        this.cameraid = cameraid;
     }
 }

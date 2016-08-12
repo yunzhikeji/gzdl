@@ -14,7 +14,26 @@
 	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/jquery.js"></script>
+	<Script language="javascript"> 
+function GetRequest() { 
+var url = location.search; //获取url中"?"符后的字串 
+var theRequest = new Object(); 
+if (url.indexOf("?") != -1) { 
+var str = url.substr(1); 
+strs = str.split("&"); 
+for(var i = 0; i < strs.length; i ++) { 
+theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]); 
+} 
+} 
+return theRequest; 
+} 
+</Script>
 <script type="text/javascript">
+
+var Request = new Object(); 
+Request = GetRequest(); 
+var id;
+id = Request['id']; 
 	var ocx = null;
 
 	function login() {
@@ -94,7 +113,7 @@
 			//请求是key/value这里不需要指定contentType，因为默认就 是key/value类型
 			//contentType:'application/json;charset=utf-8',
 			//数据格式是json串，商品信息
-			//data:'name=手机&price=999',
+			data:'id='+id,
 			success:function(data){//返回json结果
 				alert(data.name);
 			}

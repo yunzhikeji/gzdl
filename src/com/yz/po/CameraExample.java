@@ -973,6 +973,126 @@ public class CameraExample {
             addCriterion("stat not between", value1, value2, "stat");
             return (Criteria) this;
         }
+
+        public Criteria andStateIsNull() {
+            addCriterion("state is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateIsNotNull() {
+            addCriterion("state is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateEqualTo(Integer value) {
+            addCriterion("state =", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateNotEqualTo(Integer value) {
+            addCriterion("state <>", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateGreaterThan(Integer value) {
+            addCriterion("state >", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateGreaterThanOrEqualTo(Integer value) {
+            addCriterion("state >=", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateLessThan(Integer value) {
+            addCriterion("state <", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateLessThanOrEqualTo(Integer value) {
+            addCriterion("state <=", value, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateIn(List<Integer> values) {
+            addCriterion("state in", values, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateNotIn(List<Integer> values) {
+            addCriterion("state not in", values, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateBetween(Integer value1, Integer value2) {
+            addCriterion("state between", value1, value2, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andStateNotBetween(Integer value1, Integer value2) {
+            addCriterion("state not between", value1, value2, "state");
+            return (Criteria) this;
+        }
+
+        public Criteria andCameraidIsNull() {
+            addCriterion("cameraid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCameraidIsNotNull() {
+            addCriterion("cameraid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCameraidEqualTo(Integer value) {
+            addCriterion("cameraid =", value, "cameraid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCameraidNotEqualTo(Integer value) {
+            addCriterion("cameraid <>", value, "cameraid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCameraidGreaterThan(Integer value) {
+            addCriterion("cameraid >", value, "cameraid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCameraidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("cameraid >=", value, "cameraid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCameraidLessThan(Integer value) {
+            addCriterion("cameraid <", value, "cameraid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCameraidLessThanOrEqualTo(Integer value) {
+            addCriterion("cameraid <=", value, "cameraid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCameraidIn(List<Integer> values) {
+            addCriterion("cameraid in", values, "cameraid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCameraidNotIn(List<Integer> values) {
+            addCriterion("cameraid not in", values, "cameraid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCameraidBetween(Integer value1, Integer value2) {
+            addCriterion("cameraid between", value1, value2, "cameraid");
+            return (Criteria) this;
+        }
+
+        public Criteria andCameraidNotBetween(Integer value1, Integer value2) {
+            addCriterion("cameraid not between", value1, value2, "cameraid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

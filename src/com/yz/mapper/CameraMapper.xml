@@ -15,6 +15,8 @@
     <result column="status" property="status" jdbcType="INTEGER" />
     <result column="iscontroll" property="iscontroll" jdbcType="INTEGER" />
     <result column="stat" property="stat" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="cameraid" property="cameraid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,7 +78,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, sipid, sipserverid, lng, lat, cnumber, cname, markerid, voltage, temperature, 
-    status, iscontroll, stat
+    status, iscontroll, stat, state, cameraid
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yz.po.CameraExample" >
     select
@@ -113,12 +115,14 @@
       lng, lat, cnumber, 
       cname, markerid, voltage, 
       temperature, status, iscontroll, 
-      stat)
+      stat, state, cameraid
+      )
     values (#{id,jdbcType=INTEGER}, #{sipid,jdbcType=VARCHAR}, #{sipserverid,jdbcType=VARCHAR}, 
       #{lng,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{cnumber,jdbcType=VARCHAR}, 
       #{cname,jdbcType=VARCHAR}, #{markerid,jdbcType=VARCHAR}, #{voltage,jdbcType=VARCHAR}, 
       #{temperature,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{iscontroll,jdbcType=INTEGER}, 
-      #{stat,jdbcType=INTEGER})
+      #{stat,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{cameraid,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.yz.po.Camera" >
     insert into camera
@@ -162,6 +166,12 @@
       <if test="stat != null" >
         stat,
       </if>
+      <if test="state != null" >
+        state,
+      </if>
+      <if test="cameraid != null" >
+        cameraid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -202,6 +212,12 @@
       </if>
       <if test="stat != null" >
         #{stat,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="cameraid != null" >
+        #{cameraid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -253,6 +269,12 @@
       <if test="record.stat != null" >
         stat = #{record.stat,jdbcType=INTEGER},
       </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.cameraid != null" >
+        cameraid = #{record.cameraid,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -272,7 +294,9 @@
       temperature = #{record.temperature,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       iscontroll = #{record.iscontroll,jdbcType=INTEGER},
-      stat = #{record.stat,jdbcType=INTEGER}
+      stat = #{record.stat,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=INTEGER},
+      cameraid = #{record.cameraid,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -316,6 +340,12 @@
       <if test="stat != null" >
         stat = #{stat,jdbcType=INTEGER},
       </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="cameraid != null" >
+        cameraid = #{cameraid,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -332,7 +362,9 @@
       temperature = #{temperature,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       iscontroll = #{iscontroll,jdbcType=INTEGER},
-      stat = #{stat,jdbcType=INTEGER}
+      stat = #{stat,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      cameraid = #{cameraid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
