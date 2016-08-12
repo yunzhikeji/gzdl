@@ -75,13 +75,14 @@ public class FacecloudController {
 	public @ResponseBody CameraResultMessage addCamera() throws Exception {
 
 		CameraMessage cameraMessage = new CameraMessage();
+		
 
-		cameraMessage.setCamera_name("aaa");
+		cameraMessage.setCamera_name("cccc");
 		cameraMessage.setCamera_mode(0);
-		cameraMessage.setUrl("rtsp://admin:12345@192.168.0.64/h264/ch1/main/av_stream");
+		cameraMessage.setUrl("rtsp://admin:admin@192.168.1.224:554");
 		cameraMessage.setDb_id_list("7");
-		//cameraMessage.setNode_id(11);
-		//cameraMessage.setFixed_host(1);
+		cameraMessage.setNode_id(0);
+		cameraMessage.setFixed_host(0);
 		cameraMessage.setMt_policy_id(1);
 
 		return requestService.addCamera(cameraMessage);
@@ -97,9 +98,9 @@ public class FacecloudController {
 		cameraMessage.setCamera_mode(0);
 		cameraMessage.setUrl("rtsp://admin:12345@192.168.0.64/h264/ch1/main/av_stream");
 		cameraMessage.setDb_id_list("2+4+8");
-		cameraMessage.setNode_id(11);
-		cameraMessage.setFixed_host(1);
-		cameraMessage.setMt_policy_id(11);
+		//cameraMessage.setNode_id(11);
+		//cameraMessage.setFixed_host(1);
+		cameraMessage.setMt_policy_id(1);
 
 		return requestService.addCamera(cameraMessage);
 	}
@@ -114,15 +115,15 @@ public class FacecloudController {
 	@RequestMapping("/recognition")
 	public @ResponseBody CameraResultMessage recognition() throws Exception {
 
-		int camera_id = 1;
-		return requestService.recognition(1);
+		int camera_id = 37;
+		return requestService.recognition(camera_id);
 	}
 
 	@RequestMapping("/recognitionStop")
 	public @ResponseBody CameraResultMessage recognitionStop() throws Exception {
 
-		int camera_id = 1;
-		return requestService.recognitionStop(1);
+		int camera_id = 37;
+		return requestService.recognitionStop(37);
 	}
 
 	@RequestMapping("/statreset")
