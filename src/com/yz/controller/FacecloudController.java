@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yz.facecloud.model.AlarmRequestMessage;
 import com.yz.facecloud.model.AlarmResultMessage;
-import com.yz.facecloud.model.BasicResultMessage;
 import com.yz.facecloud.model.CameraMessage;
 import com.yz.facecloud.model.CameraRequestMessage;
 import com.yz.facecloud.model.CameraResultMessage;
@@ -27,37 +26,60 @@ public class FacecloudController {
 
 	@Autowired
 	private HttpRequestService requestService;
-	
-	@Resource(name="faceUser")
+
+	@Resource(name = "faceUser")
 	private FaceUser faceUser;
-	
+
 	/*
 	 * 经测试 reboot接口无效
-	@RequestMapping("/reboot")
-	public @ResponseBody BasicResultMessage reboot() throws Exception {
+	 * 
+	 * @RequestMapping("/reboot") public @ResponseBody BasicResultMessage
+	 * reboot() throws Exception {
+	 * 
+	 * return requestService.reboot(); }
+	 */
 
-		return requestService.reboot();
-	}
-	*/
-	
-	
 	@RequestMapping("/addcameratocloud")
-	public String addCameraToCloud () throws Exception {
+	public String addCameraToCloud() throws Exception {
 		LoginResultMessage resultMessage = login();
 		if (resultMessage.getRet() == 0) {
-			
+			CameraMessage cameraMessage = new CameraMessage();
+			cameraMessage.setCamera_name("cccc");
+			cameraMessage.setCamera_mode(0);
+			cameraMessage.setUrl("rtsp://admin:admin@192.168.1.224:554");
+			cameraMessage.setDb_id_list("1");
+			cameraMessage.setNode_id(0);
+			cameraMessage.setFixed_host(0);
+			cameraMessage.setMt_policy_id(1);
+
+			CameraResultMessage cameraResultMessage = requestService.addCamera(cameraMessage);
+
+			if (cameraResultMessage.getRet() == 0) {
+				int cameraid = cameraResultMessage.getCamera_list().get(0).getCamera_id();
+				CameraResultMessage cameraResulttMessage = requestService.recognition(cameraid);
+				if (cameraResulttMessage.getRet() == 0) {
+					
+					
+					
+					AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
+					alarmRequestMessage.setCamera_id_list(cameraResulttMessage.getCamera_list().get(0).getCamera_id()+"");
+					AlarmResultMessage alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
+
+				}
+
+			}
+
 		}
-		
+
 		return null;
 	}
 
 	@RequestMapping("/login")
 	public @ResponseBody LoginResultMessage login() throws Exception {
-		
+
 		String username = "";
 		String password = "";
-		if(faceUser!=null)
-		{
+		if (faceUser != null) {
 			username = faceUser.getUsername();
 			password = faceUser.getPassword();
 		}
@@ -68,11 +90,11 @@ public class FacecloudController {
 	public @ResponseBody LoginResultMessage logout() throws Exception {
 		return requestService.logout();
 	}
-	
+
 	@RequestMapping("/policies")
 	public @ResponseBody PolicyResultMessage policies() throws Exception {
-		
-		PolicyRequestMessage requestMessage  = new PolicyRequestMessage();
+
+		PolicyRequestMessage requestMessage = new PolicyRequestMessage();
 		return requestService.getPolices(requestMessage);
 	}
 
@@ -86,7 +108,6 @@ public class FacecloudController {
 	public @ResponseBody CameraResultMessage addCamera() throws Exception {
 
 		CameraMessage cameraMessage = new CameraMessage();
-		
 
 		cameraMessage.setCamera_name("cccc");
 		cameraMessage.setCamera_mode(0);
@@ -109,8 +130,8 @@ public class FacecloudController {
 		cameraMessage.setCamera_mode(0);
 		cameraMessage.setUrl("rtsp://admin:12345@192.168.0.64/h264/ch1/main/av_stream");
 		cameraMessage.setDb_id_list("2+4+8");
-		//cameraMessage.setNode_id(11);
-		//cameraMessage.setFixed_host(1);
+		// cameraMessage.setNode_id(11);
+		// cameraMessage.setFixed_host(1);
 		cameraMessage.setMt_policy_id(1);
 
 		return requestService.addCamera(cameraMessage);
@@ -146,7 +167,7 @@ public class FacecloudController {
 
 	@RequestMapping("/faceDBs")
 	public @ResponseBody FaceDBResultMessage faceDBs() throws Exception {
-		
+
 		FaceDBRequestMessage requestMessage = new FaceDBRequestMessage();
 		return requestService.getFaceDBs(requestMessage);
 	}
@@ -156,7 +177,7 @@ public class FacecloudController {
 		AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
 		return requestService.getAlarms(alarmRequestMessage);
 	}
-	
+
 	@RequestMapping("/deleteAlarms")
 	public @ResponseBody AlarmResultMessage deleteAlarms() throws Exception {
 		AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();

@@ -21,7 +21,11 @@ public class Camera {
 
     private String temperature;
 
-    private Integer status;// 工作状态  A=正常工作(1)，D=关机(0)，R=重启中(2)，N=未知状态(-1)
+    private Integer status;
+
+    private Integer iscontroll;
+
+    private Integer stat;
 
     public Integer getId() {
         return id;
@@ -109,5 +113,21 @@ public class Camera {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getIscontroll() {
+        return iscontroll;
+    }
+
+    public void setIscontroll(Integer iscontroll) {
+        this.iscontroll = iscontroll;
+    }
+
+    public Integer getStat() {
+        return stat;
+    }
+
+    public void setStat(Integer stat) {
+        this.stat = stat;
     }
 }

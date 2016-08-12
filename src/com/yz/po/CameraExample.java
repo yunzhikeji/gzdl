@@ -853,6 +853,126 @@ public class CameraExample {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
+
+        public Criteria andIscontrollIsNull() {
+            addCriterion("iscontroll is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscontrollIsNotNull() {
+            addCriterion("iscontroll is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscontrollEqualTo(Integer value) {
+            addCriterion("iscontroll =", value, "iscontroll");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscontrollNotEqualTo(Integer value) {
+            addCriterion("iscontroll <>", value, "iscontroll");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscontrollGreaterThan(Integer value) {
+            addCriterion("iscontroll >", value, "iscontroll");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscontrollGreaterThanOrEqualTo(Integer value) {
+            addCriterion("iscontroll >=", value, "iscontroll");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscontrollLessThan(Integer value) {
+            addCriterion("iscontroll <", value, "iscontroll");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscontrollLessThanOrEqualTo(Integer value) {
+            addCriterion("iscontroll <=", value, "iscontroll");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscontrollIn(List<Integer> values) {
+            addCriterion("iscontroll in", values, "iscontroll");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscontrollNotIn(List<Integer> values) {
+            addCriterion("iscontroll not in", values, "iscontroll");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscontrollBetween(Integer value1, Integer value2) {
+            addCriterion("iscontroll between", value1, value2, "iscontroll");
+            return (Criteria) this;
+        }
+
+        public Criteria andIscontrollNotBetween(Integer value1, Integer value2) {
+            addCriterion("iscontroll not between", value1, value2, "iscontroll");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatIsNull() {
+            addCriterion("stat is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatIsNotNull() {
+            addCriterion("stat is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatEqualTo(Integer value) {
+            addCriterion("stat =", value, "stat");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatNotEqualTo(Integer value) {
+            addCriterion("stat <>", value, "stat");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatGreaterThan(Integer value) {
+            addCriterion("stat >", value, "stat");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatGreaterThanOrEqualTo(Integer value) {
+            addCriterion("stat >=", value, "stat");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatLessThan(Integer value) {
+            addCriterion("stat <", value, "stat");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatLessThanOrEqualTo(Integer value) {
+            addCriterion("stat <=", value, "stat");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatIn(List<Integer> values) {
+            addCriterion("stat in", values, "stat");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatNotIn(List<Integer> values) {
+            addCriterion("stat not in", values, "stat");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatBetween(Integer value1, Integer value2) {
+            addCriterion("stat between", value1, value2, "stat");
+            return (Criteria) this;
+        }
+
+        public Criteria andStatNotBetween(Integer value1, Integer value2) {
+            addCriterion("stat not between", value1, value2, "stat");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
