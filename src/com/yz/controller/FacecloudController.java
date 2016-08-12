@@ -39,6 +39,17 @@ public class FacecloudController {
 		return requestService.reboot();
 	}
 	*/
+	
+	
+	@RequestMapping("/addcameratocloud")
+	public String addCameraToCloud () throws Exception {
+		LoginResultMessage resultMessage = login();
+		if (resultMessage.getRet() == 0) {
+			
+		}
+		
+		return null;
+	}
 
 	@RequestMapping("/login")
 	public @ResponseBody LoginResultMessage login() throws Exception {

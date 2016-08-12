@@ -19,7 +19,7 @@
 	<context:component-scan base-package="com.yz.controller"></context:component-scan>
 	
 	<bean id="faceUser" class="com.yz.facecloud.model.FaceUser">
-		<property name="username" value="root"></property>
+		<property name="username" value="user"></property>
 		<property name="password" value="123456"></property>
 		<!-- 
 		<property name="username" value="root"></property>

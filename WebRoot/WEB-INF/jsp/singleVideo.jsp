@@ -87,6 +87,23 @@
 		}
 	}
 
+	function addcamera() {
+		$.ajax({
+			type:'post',
+			url:'${pageContext.request.contextPath }/facecloud/addcameratocloud.action',
+			//请求是key/value这里不需要指定contentType，因为默认就 是key/value类型
+			//contentType:'application/json;charset=utf-8',
+			//数据格式是json串，商品信息
+			//data:'name=手机&price=999',
+			success:function(data){//返回json结果
+				alert(data.name);
+			}
+			
+		});
+		
+	}
+	
+	
 	function ptzStop() {
 		if (ocx == null) {
 			ocx = document.getElementById("ocx");
@@ -175,6 +192,7 @@
 		</div>
 		<div style="width: 100%; height: 200px;">
 			<div class="yzrl">
+			<input type="button" onclick="addcamera()" value="开始布控"/>
 				<label style="font-weight: bold;">人脸检测：</label> <input
 					type="checkbox" checked="checked" />
 				<button class="blue smallrouded btn1">手动</button>
