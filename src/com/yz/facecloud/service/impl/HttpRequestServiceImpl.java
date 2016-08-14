@@ -98,17 +98,12 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	 * 
 	 * @return loginResultMessage 返回登陆信息
 	 */
-	public LoginResultMessage login(String name, String password) {
+	public LoginResultMessage login(LoginRequestMessage requestMessage) {
 
 		LoginResultMessage resultMsg = new LoginResultMessage();
 		String login_url = serverAddress + LOGIN_REQUEST_URL;
 
-		LoginRequestMessage loginMes = new LoginRequestMessage();
-		loginMes.setUser_name(name);
-		loginMes.setUser_pwd(MD5Util.getMD5(password));
-		loginMes.setModel("force_login");
-
-		String requestMsg = jsonMessage(loginMes);
+		String requestMsg = jsonMessage(requestMessage);
 		
 		System.out.println("登陆请求message:"+requestMsg);
 
@@ -693,7 +688,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 						return true;
 					}
 				}
-				if(fieldName.equals("camera_id"))
+				if(fieldName.equals("camera_id")||fieldName.equals("skip")||fieldName.equals("top"))
 				{
 					return null == fieldValue || "".equals(fieldValue)||fieldValue.equals(0);
 				}else{

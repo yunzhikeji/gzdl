@@ -21,7 +21,9 @@ import com.yz.facecloud.model.LoginResultMessage;
 import com.yz.facecloud.model.PolicyRequestMessage;
 import com.yz.facecloud.model.PolicyResultMessage;
 import com.yz.facecloud.model.FaceUser;
+import com.yz.facecloud.model.LoginRequestMessage;
 import com.yz.facecloud.service.HttpRequestService;
+import com.yz.facecloud.util.MD5Util;
 import com.yz.po.Camera;
 import com.yz.po.CameraCustom;
 import com.yz.service.CameraService;
@@ -32,7 +34,7 @@ public class FacecloudController {
 
 	@Autowired
 	private HttpRequestService requestService;
-	
+
 	@Autowired
 	private CameraService cameraService;
 
@@ -68,52 +70,49 @@ public class FacecloudController {
 				CameraResultMessage cameraResulttMessage = requestService.recognition(cameraid);
 				if (cameraResulttMessage.getRet() == 0) {
 					CameraCustom cameraCustom = new CameraCustom();
-					cameraCustom.setCameraid(cameraid); //布控成功将cameraid保存到数据库
-					cameraCustom.setStat(1);  //布控成功就将stat设为1，否则为0
-					cameraCustom.setIscontroll(1); //布控成功将iscontroller设为1，否则为0
+					cameraCustom.setCameraid(cameraid); // 布控成功将cameraid保存到数据库
+					cameraCustom.setStat(1); // 布控成功就将stat设为1，否则为0
+					cameraCustom.setIscontroll(1); // 布控成功将iscontroller设为1，否则为0
 					cameraService.updateCamera(id, cameraCustom);
-					
-//					AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
-//					alarmRequestMessage.setCamera_id_list(cameraResulttMessage.getCamera_list().get(0).getCamera_id()+"");
-//					AlarmResultMessage alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
+
+					// AlarmRequestMessage alarmRequestMessage = new
+					// AlarmRequestMessage();
+					// alarmRequestMessage.setCamera_id_list(cameraResulttMessage.getCamera_list().get(0).getCamera_id()+"");
+					// AlarmResultMessage alarmResultMessage =
+					// requestService.getAlarms(alarmRequestMessage);
 
 				}
 
 			}
 			return "布控成功";
-			
-		}
-		else return "布控失败";
+
+		} else
+			return "布控失败";
 	}
 
-	
-	
 	@RequestMapping("/getalarms")
 	public @ResponseBody List<AlarmMessage> getAlarms(Integer id) throws Exception {
-		
+
 		Camera camera = cameraService.findCameraById(id);
 
 		AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
-		alarmRequestMessage.setCamera_id_list(camera.getCameraid()+"");
+		alarmRequestMessage.setCamera_id_list(camera.getCameraid() + "");
 		AlarmResultMessage alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
 		return alarmResultMessage.getAlarmMessages();
 
-			
-		}
-		
-		
-
+	}
 
 	@RequestMapping("/login")
 	public @ResponseBody LoginResultMessage login() throws Exception {
 
-		String username = "";
-		String password = "";
+		LoginRequestMessage requestMessage  = new LoginRequestMessage();
 		if (faceUser != null) {
-			username = faceUser.getUsername();
-			password = faceUser.getPassword();
+			requestMessage.setUser_name(faceUser.getUsername());;
+			requestMessage.setUser_pwd(MD5Util.getMD5(faceUser.getPassword()));
+			requestMessage.setModel(faceUser.getMode());
 		}
-		return requestService.login(username, password);
+		
+		return requestService.login(requestMessage);
 	}
 
 	@RequestMapping("/logout")
@@ -202,7 +201,13 @@ public class FacecloudController {
 		return requestService.getFaceDBs(requestMessage);
 	}
 
+	@RequestMapping("/alarms")
+	public @ResponseBody AlarmResultMessage getAlarms() throws Exception {
+		AlarmRequestMessage requestMessage = new AlarmRequestMessage();
 
+		return requestService.getAlarms(requestMessage);
+
+	}
 
 	@RequestMapping("/deleteAlarms")
 	public @ResponseBody AlarmResultMessage deleteAlarms() throws Exception {

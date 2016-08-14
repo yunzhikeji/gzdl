@@ -21,9 +21,11 @@
 	<bean id="faceUser" class="com.yz.facecloud.model.FaceUser">
 		<property name="username" value="root"></property>
 		<property name="password" value="123456"></property>
+		<property name="mode" value="force_login"></property>
 		<!-- 
 		<property name="username" value="root"></property>
 		<property name="password" value="123456"></property>
+		property name="mode" value="force_login"></property>
 		 -->
 	</bean>
 	

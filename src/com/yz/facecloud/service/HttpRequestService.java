@@ -8,6 +8,7 @@ import com.yz.facecloud.model.CameraRequestMessage;
 import com.yz.facecloud.model.CameraResultMessage;
 import com.yz.facecloud.model.FaceDBRequestMessage;
 import com.yz.facecloud.model.FaceDBResultMessage;
+import com.yz.facecloud.model.LoginRequestMessage;
 import com.yz.facecloud.model.LoginResultMessage;
 import com.yz.facecloud.model.PolicyRequestMessage;
 import com.yz.facecloud.model.PolicyResultMessage;
@@ -16,7 +17,7 @@ public interface HttpRequestService {
 	
 	public BasicResultMessage reboot();//重启服务只有root权限用户才可以执行
 	
-	public LoginResultMessage login(String username,String password);//登陆
+	public LoginResultMessage login(LoginRequestMessage requestMessage);//登陆
 	
 	public LoginResultMessage logout();//注销
 	

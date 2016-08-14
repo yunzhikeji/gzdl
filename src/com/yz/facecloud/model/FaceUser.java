@@ -4,6 +4,7 @@ public class FaceUser {
 
 	private String username;
 	private String password;
+	private String mode;
 
 	public String getUsername() {
 		return username;
@@ -20,5 +21,15 @@ public class FaceUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public String getMode() {
+		return mode;
+	}
+
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+	
+	
 
 }
