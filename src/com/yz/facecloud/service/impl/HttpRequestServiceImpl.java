@@ -62,8 +62,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 	private String serverAddress;
 
-	/*****************************************系统操作************************************** 
-	 /** 重启服务 只有超级管理员root可以执行
+	/*****************************************
+	 * 系统操作************************************** /** 重启服务 只有超级管理员root可以执行
 	 *
 	 * 
 	 * @return loginResultMessage 返回基本信息
@@ -90,8 +90,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		return resultMsg;
 	}
 
-	/*****************************************用户登陆 注销************************************ 
-	 /** 用户登陆
+	/*****************************************
+	 * 用户登陆 注销************************************ /** 用户登陆
 	 *
 	 * 
 	 * @param name,password
@@ -104,8 +104,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		String login_url = serverAddress + LOGIN_REQUEST_URL;
 
 		String requestMsg = jsonMessage(requestMessage);
-		
-		System.out.println("登陆请求message:"+requestMsg);
+
+		System.out.println("登陆请求message:" + requestMsg);
 
 		JSONObject jsonObject = httpRequest(login_url, "POST", requestMsg, true);
 		// 如果请求成功
@@ -159,8 +159,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		return resultMsg;
 	}
 
-	/*****************************************布控策略************************************ 
-	 /** 查询布控策略
+	/*****************************************
+	 * 布控策略************************************ /** 查询布控策略
 	 *
 	 * 
 	 * 
@@ -174,7 +174,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		int police_id = requestMessage.getMt_policy_id();
 
 		if (police_id != 0) {
-			police_url = police_url + "?police_id=" + police_id;
+			police_url = setRequestURL(police_url, "police_id", police_id+"");
 		}
 
 		JSONObject jsonObject = httpRequest(police_url, "GET", null, false);
@@ -204,8 +204,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		return resultMsg;
 	}
 
-	/*****************************************摄像机************************************ 
-	 /** 查询摄像机
+	/*****************************************
+	 * 摄像机************************************ /** 查询摄像机
 	 *
 	 * 
 	 * 
@@ -220,7 +220,10 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		int camera_id = requestMessage.getCamera_id();
 
 		if (host_id != 0) {
-			cameras_url = cameras_url + "?host_id=" + host_id;
+			cameras_url = setRequestURL(cameras_url, "host_id", host_id+"");
+		}
+		if (camera_id != 0) {
+			cameras_url = setRequestURL(cameras_url, "camera_id", camera_id+"");
 		}
 
 		JSONObject jsonObject = httpRequest(cameras_url, "GET", null, false);
@@ -267,8 +270,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		String cameras_url = serverAddress + CAMERA_REQUEST_URL;
 
 		String requestMsg = jsonMessage(cameraMessage);
-		
-		System.out.println("新增摄像机message:"+requestMsg);
+
+		System.out.println("新增摄像机message:" + requestMsg);
 
 		JSONObject jsonObject = httpRequest(cameras_url, "PUT", requestMsg, false);
 		// 如果请求成功
@@ -305,8 +308,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		String cameras_url = serverAddress + CAMERA_REQUEST_URL + "/" + cameraMessage.getCamera_id();
 
 		String requestMsg = jsonMessage(cameraMessage);
-		
-		System.out.println("配置相机请求message:"+requestMsg);
+
+		System.out.println("配置相机请求message:" + requestMsg);
 
 		JSONObject jsonObject = httpRequest(cameras_url, "PUT", requestMsg, false);
 		// 如果请求成功
@@ -448,8 +451,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		return resultMsg;
 	}
 
-	/*****************************************人脸库************************************ 
-	 /** 查询人脸库
+	/*****************************************
+	 * 人脸库************************************ /** 查询人脸库
 	 *
 	 *
 	 * 
@@ -463,9 +466,9 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		String dbname = requestMessage.getDbname();
 
-		if (dbname != null && !dbname.replace(" ", "").equals("")) {
-
-			faceDB_url = faceDB_url + "?dbname=" + dbname;
+		if (dbname != null && !dbname.equals("")) {
+			faceDB_url = setRequestURL(faceDB_url, "dbname", dbname);
+			
 		}
 
 		JSONObject jsonObject = httpRequest(faceDB_url, "GET", null, false);
@@ -514,11 +517,11 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		String alarm_id = requestMessage.getAlarm_id();
 		String camera_id_list = requestMessage.getCamera_id_list();
 
-		if (alarm_id != null && !alarm_id.replace(" ", "").equals("")) {
-			alarm_url = alarm_url + "?alarm_id=" + alarm_id;
+		if (alarm_id != null && !alarm_id.equals("")) {
+			alarm_url = setRequestURL(alarm_url, "alarm_id", alarm_id);
 		}
-		if (camera_id_list != null && !camera_id_list.replace(" ", "").equals("")) {
-			alarm_url = alarm_url + "&camera_id_list=" + camera_id_list;
+		if (camera_id_list != null && !camera_id_list.equals("")) {
+			alarm_url = setRequestURL(alarm_url, "camera_id_list", camera_id_list);
 		}
 		JSONObject jsonObject = httpRequest(alarm_url, "GET", null, false);
 		// 如果请求成功
@@ -566,10 +569,10 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		String camera_id_list = requestMessage.getCamera_id_list().replace(" ", "");
 
 		if (alarm_id != null && !alarm_id.equals("")) {
-			alarm_url = alarm_url + "?alarm_id=" + alarm_id;
+			alarm_url = setRequestURL(alarm_url, "alarm_id", alarm_id);
 		}
 		if (camera_id_list != null && !camera_id_list.equals("")) {
-			alarm_url = alarm_url + "&camera_id_list=" + camera_id_list;
+			alarm_url = setRequestURL(alarm_url, "camera_id_list", camera_id_list);
 		}
 		JSONObject jsonObject = httpRequest(alarm_url, "DELETE", null, false);
 		// 如果请求成功
@@ -688,10 +691,9 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 						return true;
 					}
 				}
-				if(fieldName.equals("camera_id")||fieldName.equals("skip")||fieldName.equals("top"))
-				{
-					return null == fieldValue || "".equals(fieldValue)||fieldValue.equals(0);
-				}else{
+				if (fieldName.equals("camera_id") || fieldName.equals("skip") || fieldName.equals("top")) {
+					return null == fieldValue || "".equals(fieldValue) || fieldValue.equals(0);
+				} else {
 					return null == fieldValue || "".equals(fieldValue);
 				}
 			}
@@ -736,6 +738,19 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 			e.printStackTrace();
 		}
 		return cookie;
+	}
+
+	public String setRequestURL(String url, String parmName, String parmValue) {
+		String sign = setRequestSign(url);
+		url = url + sign + parmName + "=" + parmValue;
+		return url;
+	}
+
+	public String setRequestSign(String url) {
+		if (url.contains("?")) {
+			return "&";
+		}
+		return "?";
 	}
 
 	public String getServerAddress() {
