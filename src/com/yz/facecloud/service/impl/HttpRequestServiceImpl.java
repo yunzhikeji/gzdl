@@ -31,7 +31,6 @@ import com.yz.facecloud.model.PolicyMessage;
 import com.yz.facecloud.model.PolicyRequestMessage;
 import com.yz.facecloud.model.PolicyResultMessage;
 import com.yz.facecloud.service.HttpRequestService;
-import com.yz.facecloud.util.MD5Util;
 import com.yz.po.Face;
 import com.yz.service.FaceService;
 
@@ -63,7 +62,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	private String serverAddress;
 
 	/*****************************************
-	 * 系统操作************************************** /** 重启服务 只有超级管理员root可以执行
+	 * 系统操作 重启服务 只有超级管理员root可以执行
 	 *
 	 * 
 	 * @return loginResultMessage 返回基本信息
@@ -91,7 +90,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 
 	/*****************************************
-	 * 用户登陆 注销************************************ /** 用户登陆
+	 * 用户登陆
 	 *
 	 * 
 	 * @param name,password
@@ -103,7 +102,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		LoginResultMessage resultMsg = new LoginResultMessage();
 		String login_url = serverAddress + LOGIN_REQUEST_URL;
 
-		String requestMsg = jsonMessage(requestMessage);
+		String requestMsg = this.jsonRequestMessage(requestMessage);
 
 		System.out.println("登陆请求message:" + requestMsg);
 
@@ -160,7 +159,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 
 	/*****************************************
-	 * 布控策略************************************ /** 查询布控策略
+	 * 布控策略  查询布控策略
 	 *
 	 * 
 	 * 
@@ -174,7 +173,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		int police_id = requestMessage.getMt_policy_id();
 
 		if (police_id != 0) {
-			police_url = setRequestURL(police_url, "police_id", police_id+"");
+			police_url = setRequestURL(police_url, "police_id", police_id + "");
 		}
 
 		JSONObject jsonObject = httpRequest(police_url, "GET", null, false);
@@ -205,7 +204,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 
 	/*****************************************
-	 * 摄像机************************************ /** 查询摄像机
+	 * 摄像机  查询摄像机
 	 *
 	 * 
 	 * 
@@ -220,10 +219,10 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		int camera_id = requestMessage.getCamera_id();
 
 		if (host_id != 0) {
-			cameras_url = setRequestURL(cameras_url, "host_id", host_id+"");
+			cameras_url = setRequestURL(cameras_url, "host_id", host_id + "");
 		}
 		if (camera_id != 0) {
-			cameras_url = setRequestURL(cameras_url, "camera_id", camera_id+"");
+			cameras_url = setRequestURL(cameras_url, "camera_id", camera_id + "");
 		}
 
 		JSONObject jsonObject = httpRequest(cameras_url, "GET", null, false);
@@ -269,7 +268,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		CameraResultMessage resultMsg = new CameraResultMessage();
 		String cameras_url = serverAddress + CAMERA_REQUEST_URL;
 
-		String requestMsg = jsonMessage(cameraMessage);
+		String requestMsg = this.jsonRequestMessage(cameraMessage);
 
 		System.out.println("新增摄像机message:" + requestMsg);
 
@@ -307,7 +306,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		CameraResultMessage resultMsg = new CameraResultMessage();
 		String cameras_url = serverAddress + CAMERA_REQUEST_URL + "/" + cameraMessage.getCamera_id();
 
-		String requestMsg = jsonMessage(cameraMessage);
+		String requestMsg = this.jsonRequestMessage(cameraMessage);
 
 		System.out.println("配置相机请求message:" + requestMsg);
 
@@ -452,7 +451,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 
 	/*****************************************
-	 * 人脸库************************************ /** 查询人脸库
+	 * 人脸库  查询人脸库
 	 *
 	 *
 	 * 
@@ -468,7 +467,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		if (dbname != null && !dbname.equals("")) {
 			faceDB_url = setRequestURL(faceDB_url, "dbname", dbname);
-			
+
 		}
 
 		JSONObject jsonObject = httpRequest(faceDB_url, "GET", null, false);
@@ -503,7 +502,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 
 	/*****************************************
-	 * 告警记录************************************ /** 查询告警记录
+	 * 告警记录 查询告警记录
 	 *
 	 * 
 	 * 
@@ -598,7 +597,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	 * @param requestUrl
 	 *            请求地址
 	 * @param requestMethod
-	 *            请求方式（GET、POST）
+	 *            请求方式（GET、POST、PUT、DELETE、HEAD、TRACE 、TRACE、OPTIONS ）
 	 * @param outputStr
 	 *            提交的数据
 	 * @return JSONObject(通过JSONObject.get(key)的方式获取json对象的属性值)
@@ -679,9 +678,9 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 
 	/*
-	 * json转换
+	 * json转换请求对象
 	 */
-	public String jsonMessage(Object object) {
+	public String jsonRequestMessage(Object object) {
 		JsonConfig jsonConfig = new JsonConfig();
 		PropertyFilter filter = new PropertyFilter() {
 			public boolean apply(Object object, String fieldName, Object fieldValue) {
