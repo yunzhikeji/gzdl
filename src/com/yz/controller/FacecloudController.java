@@ -1,5 +1,7 @@
 package com.yz.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yz.facecloud.model.AlarmMessage;
 import com.yz.facecloud.model.AlarmRequestMessage;
 import com.yz.facecloud.model.AlarmResultMessage;
 import com.yz.facecloud.model.CameraMessage;
@@ -50,10 +53,10 @@ public class FacecloudController {
 		LoginResultMessage resultMessage = login();
 		if (resultMessage.getRet() == 0) {
 			CameraMessage cameraMessage = new CameraMessage();
-			cameraMessage.setCamera_name("cccc");
+			cameraMessage.setCamera_name("224");
 			cameraMessage.setCamera_mode(0);
 			cameraMessage.setUrl("rtsp://admin:admin@192.168.1.224:554");
-			cameraMessage.setDb_id_list("1");
+			cameraMessage.setDb_id_list("7");
 			cameraMessage.setNode_id(0);
 			cameraMessage.setFixed_host(0);
 			cameraMessage.setMt_policy_id(1);
@@ -86,18 +89,20 @@ public class FacecloudController {
 	
 	
 	@RequestMapping("/getalarms")
-	public @ResponseBody AlarmResultMessage getAlarms(Integer id) throws Exception {
+	public @ResponseBody List<AlarmMessage> getAlarms(Integer id) throws Exception {
+		
 		Camera camera = cameraService.findCameraById(id);
-		if (camera.getStat()==1) {
+
 		AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
 		alarmRequestMessage.setCamera_id_list(camera.getCameraid()+"");
 		AlarmResultMessage alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
-		return alarmResultMessage;
+		return alarmResultMessage.getAlarmMessages();
+
+			
 		}
-		else return null;
 		
 		
-	}
+
 
 	@RequestMapping("/login")
 	public @ResponseBody LoginResultMessage login() throws Exception {

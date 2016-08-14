@@ -13,21 +13,20 @@ import com.yz.service.CameraService;
 public class CameraServiceImpl implements CameraService {
 	
 	@Autowired
-	private CameraMapper camearMapper;
+	private CameraMapper cameraMapper;
 	
 	@Autowired
 	private CameraMapperCustom camearMapperCustom;
 
 	@Override
-	public CameraCustom findCameraById(Integer id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public Camera findCameraById(Integer id) throws Exception {
+		
+		return cameraMapper.selectByPrimaryKey(id);
 	}
 
 	@Override
 	public void insertCamera(Camera camera) throws Exception {
-		// TODO Auto-generated method stub
-		camearMapper.insert(camera);
+		cameraMapper.insert(camera);
 	}
 
 	@Override
@@ -37,9 +36,11 @@ public class CameraServiceImpl implements CameraService {
 	}
 
 	@Override
-	public void updateCamera(Integer id, CameraCustom cameraCustom) throws Exception {
-		// TODO Auto-generated method stub
-
+	public void updateCamera(Integer id, Camera camera) throws Exception {
+		if(id != null) {
+			camera.setId(id);
+			cameraMapper.updateByPrimaryKeySelective(camera);
+		}
 	}
 
 	@Override
@@ -63,7 +64,7 @@ public class CameraServiceImpl implements CameraService {
 	@Override
 	public void updateCamera(Camera camera) {
 		// TODO Auto-generated method stub
-		camearMapper.updateByPrimaryKey(camera);
+		cameraMapper.updateByPrimaryKey(camera);
 	}
 
 }
