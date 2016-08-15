@@ -522,10 +522,10 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		String camera_id_list = requestMessage.getCamera_id_list();
 
 		if (alarm_id != null && !alarm_id.replace(" ", "").equals("")) {
-			alarm_url = alarm_url + "?alarm_id=" + alarm_id;
+			alarm_url = setRequestURL(alarm_url, "alarm_id", alarm_id);
 		}
 		if (camera_id_list != null && !camera_id_list.replace(" ", "").equals("")) {
-			alarm_url = alarm_url + "&camera_id_list=" + camera_id_list;
+			alarm_url = setRequestURL(alarm_url, "camera_id_list", camera_id_list);
 		}
 		JSONObject jsonObject = httpRequest(alarm_url, "GET", null, false);
 		// 如果请求成功
@@ -646,7 +646,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 				JSONObject object = jsonObject.getJSONObject("image_data");
 
-				ImageMessage imageMessage = (ImageMessage) object.toBean(object, ImageMessage.class);
+				ImageMessage imageMessage = (ImageMessage)JSONObject.toBean(object, ImageMessage.class);
 
 				resultMsg.setImage(imageMessage);
 
@@ -659,7 +659,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 
 	/**
-	 * 发起https请求并获取结果
+	 * 发起http请求并获取结果
 	 * 
 	 * @param requestUrl
 	 *            请求地址
