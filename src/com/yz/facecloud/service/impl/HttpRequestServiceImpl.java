@@ -32,7 +32,6 @@ import com.yz.facecloud.model.PolicyRequestMessage;
 import com.yz.facecloud.model.PolicyResultMessage;
 import com.yz.facecloud.model.SearchMessage;
 import com.yz.facecloud.service.HttpRequestService;
-import com.yz.facecloud.util.MD5Util;
 import com.yz.po.Face;
 import com.yz.service.FaceService;
 
@@ -63,8 +62,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 	private String serverAddress;
 
-	/*****************************************系统操作************************************** 
-	 /** 重启服务 只有超级管理员root可以执行
+	/*****************************************
+	 * 系统操作 重启服务 只有超级管理员root可以执行
 	 *
 	 * 
 	 * @return loginResultMessage 返回基本信息
@@ -91,27 +90,22 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		return resultMsg;
 	}
 
-	/*****************************************用户登陆 注销************************************ 
-	 /** 用户登陆
+	/*****************************************
+	 * 用户登陆
 	 *
 	 * 
 	 * @param name,password
 	 * 
 	 * @return loginResultMessage 返回登陆信息
 	 */
-	public LoginResultMessage login(String name, String password) {
+	public LoginResultMessage login(LoginRequestMessage requestMessage) {
 
 		LoginResultMessage resultMsg = new LoginResultMessage();
 		String login_url = serverAddress + LOGIN_REQUEST_URL;
 
-		LoginRequestMessage loginMes = new LoginRequestMessage();
-		loginMes.setUser_name(name);
-		loginMes.setUser_pwd(MD5Util.getMD5(password));
-		loginMes.setModel("force_login");
+		String requestMsg = this.jsonRequestMessage(requestMessage);
 
-		String requestMsg = jsonMessage(loginMes);
-		
-		System.out.println("登陆请求message:"+requestMsg);
+		System.out.println("登陆请求message:" + requestMsg);
 
 		JSONObject jsonObject = httpRequest(login_url, "POST", requestMsg, true);
 		// 如果请求成功
@@ -165,8 +159,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		return resultMsg;
 	}
 
-	/*****************************************布控策略************************************ 
-	 /** 查询布控策略
+	/*****************************************
+	 * 布控策略  查询布控策略
 	 *
 	 * 
 	 * 
@@ -180,7 +174,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		int police_id = requestMessage.getMt_policy_id();
 
 		if (police_id != 0) {
-			police_url = police_url + "?police_id=" + police_id;
+			police_url = setRequestURL(police_url, "police_id", police_id + "");
 		}
 
 		JSONObject jsonObject = httpRequest(police_url, "GET", null, false);
@@ -210,8 +204,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		return resultMsg;
 	}
 
-	/*****************************************摄像机************************************ 
-	 /** 查询摄像机
+	/*****************************************
+	 * 摄像机  查询摄像机
 	 *
 	 * 
 	 * 
@@ -226,7 +220,10 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		int camera_id = requestMessage.getCamera_id();
 
 		if (host_id != 0) {
-			cameras_url = cameras_url + "?host_id=" + host_id;
+			cameras_url = setRequestURL(cameras_url, "host_id", host_id + "");
+		}
+		if (camera_id != 0) {
+			cameras_url = setRequestURL(cameras_url, "camera_id", camera_id + "");
 		}
 
 		JSONObject jsonObject = httpRequest(cameras_url, "GET", null, false);
@@ -272,9 +269,9 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		CameraResultMessage resultMsg = new CameraResultMessage();
 		String cameras_url = serverAddress + CAMERA_REQUEST_URL;
 
-		String requestMsg = jsonMessage(cameraMessage);
-		
-		System.out.println("新增摄像机message:"+requestMsg);
+		String requestMsg = this.jsonRequestMessage(cameraMessage);
+
+		System.out.println("新增摄像机message:" + requestMsg);
 
 		JSONObject jsonObject = httpRequest(cameras_url, "PUT", requestMsg, false);
 		// 如果请求成功
@@ -310,9 +307,9 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		CameraResultMessage resultMsg = new CameraResultMessage();
 		String cameras_url = serverAddress + CAMERA_REQUEST_URL + "/" + cameraMessage.getCamera_id();
 
-		String requestMsg = jsonMessage(cameraMessage);
-		
-		System.out.println("配置相机请求message:"+requestMsg);
+		String requestMsg = this.jsonRequestMessage(cameraMessage);
+
+		System.out.println("配置相机请求message:" + requestMsg);
 
 		JSONObject jsonObject = httpRequest(cameras_url, "PUT", requestMsg, false);
 		// 如果请求成功
@@ -454,8 +451,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		return resultMsg;
 	}
 
-	/*****************************************人脸库************************************ 
-	 /** 查询人脸库
+	/*****************************************
+	 * 人脸库  查询人脸库
 	 *
 	 *
 	 * 
@@ -469,9 +466,9 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		String dbname = requestMessage.getDbname();
 
-		if (dbname != null && !dbname.replace(" ", "").equals("")) {
+		if (dbname != null && !dbname.equals("")) {
+			faceDB_url = setRequestURL(faceDB_url, "dbname", dbname);
 
-			faceDB_url = faceDB_url + "?dbname=" + dbname;
 		}
 
 		JSONObject jsonObject = httpRequest(faceDB_url, "GET", null, false);
@@ -506,7 +503,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 
 	/*****************************************
-	 * 告警记录************************************ /** 查询告警记录
+	 * 告警记录 查询告警记录
 	 *
 	 * 
 	 * 
@@ -594,10 +591,10 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		String camera_id_list = requestMessage.getCamera_id_list().replace(" ", "");
 
 		if (alarm_id != null && !alarm_id.equals("")) {
-			alarm_url = alarm_url + "?alarm_id=" + alarm_id;
+			alarm_url = setRequestURL(alarm_url, "alarm_id", alarm_id);
 		}
 		if (camera_id_list != null && !camera_id_list.equals("")) {
-			alarm_url = alarm_url + "&camera_id_list=" + camera_id_list;
+			alarm_url = setRequestURL(alarm_url, "camera_id_list", camera_id_list);
 		}
 		JSONObject jsonObject = httpRequest(alarm_url, "DELETE", null, false);
 		// 如果请求成功
@@ -623,7 +620,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	 * @param requestUrl
 	 *            请求地址
 	 * @param requestMethod
-	 *            请求方式（GET、POST）
+	 *            请求方式（GET、POST、PUT、DELETE、HEAD、TRACE 、TRACE、OPTIONS ）
 	 * @param outputStr
 	 *            提交的数据
 	 * @return JSONObject(通过JSONObject.get(key)的方式获取json对象的属性值)
@@ -704,9 +701,9 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 
 	/*
-	 * json转换
+	 * json转换请求对象
 	 */
-	public String jsonMessage(Object object) {
+	public String jsonRequestMessage(Object object) {
 		JsonConfig jsonConfig = new JsonConfig();
 		PropertyFilter filter = new PropertyFilter() {
 			public boolean apply(Object object, String fieldName, Object fieldValue) {
@@ -716,10 +713,9 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 						return true;
 					}
 				}
-				if(fieldName.equals("camera_id"))
-				{
-					return null == fieldValue || "".equals(fieldValue)||fieldValue.equals(0);
-				}else{
+				if (fieldName.equals("camera_id") || fieldName.equals("skip") || fieldName.equals("top")) {
+					return null == fieldValue || "".equals(fieldValue) || fieldValue.equals(0);
+				} else {
 					return null == fieldValue || "".equals(fieldValue);
 				}
 			}
@@ -764,6 +760,19 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 			e.printStackTrace();
 		}
 		return cookie;
+	}
+
+	public String setRequestURL(String url, String parmName, String parmValue) {
+		String sign = setRequestSign(url);
+		url = url + sign + parmName + "=" + parmValue;
+		return url;
+	}
+
+	public String setRequestSign(String url) {
+		if (url.contains("?")) {
+			return "&";
+		}
+		return "?";
 	}
 
 	public String getServerAddress() {
