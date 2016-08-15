@@ -7,8 +7,9 @@ import java.util.List;
  */
 public class AlarmMessage {
 
-	private String alarm_id;//告警ID，不指定缺省 多个1,2,3
-	private int camera_id; //相机id
+	private String alarm_id;// 告警ID，不指定缺省 多个1,2,3
+	private int camera_id; // 相机id
+	private String camera_name;// 
 	private String alarm_time;
 	private int monitor_type;// 布控类型
 	private int alarm_type;// 0,抓拍无告警1,告警 9所有//查询时不分黑白名单告警，所用1包含黑白名单告警
@@ -19,6 +20,14 @@ public class AlarmMessage {
 	private int photo_host_id;
 	private int state;// 处理状态（0：未处理，1：正常，2：误报，3：已处理（包括1和2），4：正常并入库，指定所有状态时不传state即可）
 	private List<SearchMessage> searchMessages;
+
+	public String getCamera_name() {
+		return camera_name;
+	}
+
+	public void setCamera_name(String camera_name) {
+		this.camera_name = camera_name;
+	}
 
 	public String getAlarm_id() {
 		return alarm_id;
