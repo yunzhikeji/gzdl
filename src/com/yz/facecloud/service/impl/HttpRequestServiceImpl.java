@@ -214,12 +214,12 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	 * 
 	 * @return policyResultMessage 返回策略属性
 	 */
-	public PolicyResultMessage addPolice(PolicyRequestMessage requestMessage) {
+	public PolicyResultMessage addPolice(PolicyMessage policyMessage) {
 
 		PolicyResultMessage resultMsg = new PolicyResultMessage();
 		String police_url = serverAddress + POLICY_REQUEST_URL;
 
-		String request = this.jsonRequestMessage(requestMessage);
+		String request = this.jsonRequestMessage(policyMessage);
 
 		JSONObject jsonObject = httpRequest(police_url, "PUT", request, false);
 		// 如果请求成功
@@ -274,12 +274,12 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	 * 
 	 * @return cameraResultMessage 返回摄像机属性
 	 */
-	public BasicResultMessage updatePolice(PolicyRequestMessage requestMessage) {
+	public BasicResultMessage updatePolice(PolicyMessage policyMessage) {
 
 		BasicResultMessage resultMsg = new BasicResultMessage();
-		String police_url = serverAddress + POLICY_REQUEST_URL+requestMessage.getMt_policy_id();
+		String police_url = serverAddress + POLICY_REQUEST_URL+policyMessage.getMt_policy_id();
 
-		String request = this.jsonRequestMessage(requestMessage);
+		String request = this.jsonRequestMessage(policyMessage);
 
 		JSONObject jsonObject = httpRequest(police_url, "POST", request, false);
 		// 如果请求成功
