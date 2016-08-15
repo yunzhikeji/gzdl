@@ -202,13 +202,10 @@ public class FacecloudController {
 	}
 
 	@RequestMapping("/alarms")
-	public @ResponseBody List<AlarmMessage> getAlarms(Integer id) throws Exception {
-		Camera camera = cameraService.findCameraById(id);
+	public @ResponseBody AlarmResultMessage getAlarms() throws Exception {
 		
 		AlarmRequestMessage requestMessage = new AlarmRequestMessage();
-		requestMessage.setCamera_id_list(camera.getCameraid() + "");
-
-		return requestService.getAlarms(requestMessage).getAlarmMessages();
+		return requestService.getAlarms(requestMessage);
 
 	}
 
