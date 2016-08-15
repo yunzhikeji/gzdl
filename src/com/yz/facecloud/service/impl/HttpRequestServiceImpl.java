@@ -542,7 +542,6 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 						AlarmMessage alarmMsg = (AlarmMessage) it.next();
 						System.out.println(alarmMsg.getCamera_id());
 					}
-
 				}
 				resultMsg.setAlarmMessages(list);
 			} catch (JSONException e) {

@@ -109,7 +109,7 @@ public class FacecloudController {
 		if (faceUser != null) {
 			requestMessage.setUser_name(faceUser.getUsername());;
 			requestMessage.setUser_pwd(MD5Util.getMD5(faceUser.getPassword()));
-			requestMessage.setModel(faceUser.getMode());
+			requestMessage.setMode(faceUser.getMode());
 		}
 		
 		return requestService.login(requestMessage);

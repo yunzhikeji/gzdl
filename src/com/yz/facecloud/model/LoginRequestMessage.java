@@ -7,7 +7,7 @@ public class LoginRequestMessage extends BasicRequestMessage{
 
 	private String user_name;
 	private String user_pwd;
-	private String model;
+	private String mode;
 
 	public String getUser_name() {
 		return user_name;
@@ -25,12 +25,14 @@ public class LoginRequestMessage extends BasicRequestMessage{
 		this.user_pwd = user_pwd;
 	}
 
-	public String getModel() {
-		return model;
+	public String getMode() {
+		return mode;
 	}
 
-	public void setModel(String model) {
-		this.model = model;
+	public void setMode(String mode) {
+		this.mode = mode;
 	}
+
+	
 
 }
