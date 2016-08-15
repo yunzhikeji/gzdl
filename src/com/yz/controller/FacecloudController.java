@@ -55,19 +55,23 @@ public class FacecloudController {
 		LoginResultMessage resultMessage = login();
 		if (resultMessage.getRet() == 0) {
 			Camera camera = cameraService.findCameraById(id);
-			if(camera.getCameraid() != null) {
-				requestService.deleteCamera(camera.getCameraid());
+			CameraResultMessage cameraResultMessage = null;
+			
+				CameraMessage cameraMessage = new CameraMessage();
+				cameraMessage.setCamera_name(camera.getSipid());
+				cameraMessage.setCamera_mode(0);
+				cameraMessage.setUrl("rtsp://admin:admin@192.168.1.224:554");
+				cameraMessage.setDb_id_list("7");  //人脸库
+				cameraMessage.setNode_id(0);
+				cameraMessage.setFixed_host(0);
+				cameraMessage.setMt_policy_id(1); //策略
+				if(camera.getCameraid() == null) {
+				 cameraResultMessage = requestService.addCamera(cameraMessage);
 			}
-			CameraMessage cameraMessage = new CameraMessage();
-			cameraMessage.setCamera_name(camera.getSipid());
-			cameraMessage.setCamera_mode(0);
-			cameraMessage.setUrl("rtsp://admin:admin@192.168.1.224:554");
-			cameraMessage.setDb_id_list("7");
-			cameraMessage.setNode_id(0);
-			cameraMessage.setFixed_host(0);
-			cameraMessage.setMt_policy_id(1);
-
-			CameraResultMessage cameraResultMessage = requestService.addCamera(cameraMessage);
+//				if(camera.getCameraid() != null){
+//					requestService.updateCamera(cameraMessage);
+//					
+//				}
 
 			if (cameraResultMessage.getRet() == 0) {
 				int cameraid = cameraResultMessage.getCamera_list().get(0).getCamera_id();
