@@ -221,7 +221,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		String request = this.jsonRequestMessage(requestMessage);
 
-		JSONObject jsonObject = httpRequest(police_url, "POST", request, false);
+		JSONObject jsonObject = httpRequest(police_url, "PUT", request, false);
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
@@ -250,11 +250,11 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	public BasicResultMessage deletePolice(PolicyRequestMessage requestMessage) {
 
 		BasicResultMessage resultMsg = new BasicResultMessage();
-		String police_url = serverAddress + POLICY_REQUEST_URL;
+		String police_url = serverAddress + POLICY_REQUEST_URL+"delete/"+requestMessage.getMt_policy_id();
 
 		String request = this.jsonRequestMessage(requestMessage);
 
-		JSONObject jsonObject = httpRequest(police_url, "POST", request, false);
+		JSONObject jsonObject = httpRequest(police_url, "DELETE", request, false);
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
@@ -277,7 +277,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	public BasicResultMessage updatePolice(PolicyRequestMessage requestMessage) {
 
 		BasicResultMessage resultMsg = new BasicResultMessage();
-		String police_url = serverAddress + POLICY_REQUEST_URL;
+		String police_url = serverAddress + POLICY_REQUEST_URL+requestMessage.getMt_policy_id();
 
 		String request = this.jsonRequestMessage(requestMessage);
 
