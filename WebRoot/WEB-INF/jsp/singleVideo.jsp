@@ -115,7 +115,7 @@ id = Request['id'];
 			//数据格式是json串，商品信息
 			data:'id='+id,
 			success:function(data){//返回json结果
-				alert(data.name);
+				alert(data);
 			}
 			
 		});

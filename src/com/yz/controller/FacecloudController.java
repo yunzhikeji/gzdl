@@ -90,17 +90,17 @@ public class FacecloudController {
 			return "布控失败";
 	}
 
-	@RequestMapping("/getalarms")
-	public @ResponseBody List<AlarmMessage> getAlarms(Integer id) throws Exception {
+//	@RequestMapping("/getalarms")
+//	public @ResponseBody List<AlarmMessage> getAlarms(Integer id) throws Exception {
+//
+//		Camera camera = cameraService.findCameraById(id);
+//
+//		AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
+//		alarmRequestMessage.setCamera_id_list(camera.getCameraid() + "");
+//		AlarmResultMessage alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
+//		return alarmResultMessage.getAlarmMessages();
 
-		Camera camera = cameraService.findCameraById(id);
-
-		AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
-		alarmRequestMessage.setCamera_id_list(camera.getCameraid() + "");
-		AlarmResultMessage alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
-		return alarmResultMessage.getAlarmMessages();
-
-	}
+//	}
 
 	@RequestMapping("/login")
 	public @ResponseBody LoginResultMessage login() throws Exception {
@@ -202,10 +202,13 @@ public class FacecloudController {
 	}
 
 	@RequestMapping("/alarms")
-	public @ResponseBody AlarmResultMessage getAlarms() throws Exception {
+	public @ResponseBody List<AlarmMessage> getAlarms(Integer id) throws Exception {
+		Camera camera = cameraService.findCameraById(id);
+		
 		AlarmRequestMessage requestMessage = new AlarmRequestMessage();
+		requestMessage.setCamera_id_list(camera.getCameraid() + "");
 
-		return requestService.getAlarms(requestMessage);
+		return requestService.getAlarms(requestMessage).getAlarmMessages();
 
 	}
 
