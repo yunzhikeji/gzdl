@@ -25,6 +25,12 @@ public interface HttpRequestService {
 	
 	public PolicyResultMessage getPolices(PolicyRequestMessage requestMessage);//查询布控策略
 	
+	public PolicyResultMessage addPolice(PolicyRequestMessage requestMessage);//新增布控策略
+	
+	public BasicResultMessage updatePolice(PolicyRequestMessage requestMessage);//修改布控策略
+	
+	public BasicResultMessage deletePolice(PolicyRequestMessage requestMessage);//修改布控策略
+	
 	public CameraResultMessage getCameras(CameraRequestMessage requestMessage);//获得摄像机列表
 	
 	public CameraResultMessage addCamera(CameraMessage cameraMessage);//增加摄像机

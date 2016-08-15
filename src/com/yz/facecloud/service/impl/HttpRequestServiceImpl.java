@@ -208,6 +208,93 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		return resultMsg;
 	}
 
+	/**
+	 * 新增布控策略
+	 * 
+	 * 
+	 * @return policyResultMessage 返回策略属性
+	 */
+	public PolicyResultMessage addPolice(PolicyRequestMessage requestMessage) {
+
+		PolicyResultMessage resultMsg = new PolicyResultMessage();
+		String police_url = serverAddress + POLICY_REQUEST_URL;
+
+		String request = this.jsonRequestMessage(requestMessage);
+
+		JSONObject jsonObject = httpRequest(police_url, "POST", request, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+				System.out.println("新增布控策略:" + jsonObject);
+
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+				resultMsg.setMt_policy_num(jsonObject.getInt("mt_policy_num"));
+				List<PolicyMessage> list = new ArrayList<PolicyMessage>();
+				PolicyMessage polMsg = new PolicyMessage();
+				polMsg.setMt_policy_id(jsonObject.getInt("mt_policy_id"));
+				resultMsg.setPolicyMessages(list);
+			} catch (JSONException e) {
+
+			}
+		}
+		return resultMsg;
+	}
+	
+	/**
+	 * 删除布控策略
+	 * 
+	 * 
+	 * @return policyResultMessage 返回策略属性
+	 */
+	public BasicResultMessage deletePolice(PolicyRequestMessage requestMessage) {
+
+		BasicResultMessage resultMsg = new BasicResultMessage();
+		String police_url = serverAddress + POLICY_REQUEST_URL;
+
+		String request = this.jsonRequestMessage(requestMessage);
+
+		JSONObject jsonObject = httpRequest(police_url, "POST", request, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+				System.out.println("修改布控策略:" + jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+			} catch (JSONException e) {
+
+			}
+		}
+		return resultMsg;
+	}
+
+	/**
+	 * 修改摄像机
+	 * 
+	 * 
+	 * @return cameraResultMessage 返回摄像机属性
+	 */
+	public BasicResultMessage updatePolice(PolicyRequestMessage requestMessage) {
+
+		BasicResultMessage resultMsg = new BasicResultMessage();
+		String police_url = serverAddress + POLICY_REQUEST_URL;
+
+		String request = this.jsonRequestMessage(requestMessage);
+
+		JSONObject jsonObject = httpRequest(police_url, "POST", request, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+				System.out.println("修改布控策略:" + jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+			} catch (JSONException e) {
+
+			}
+		}
+		return resultMsg;
+	}
+
 	/*****************************************
 	 * 摄像机 查询摄像机
 	 *
@@ -646,7 +733,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 				JSONObject object = jsonObject.getJSONObject("image_data");
 
-				ImageMessage imageMessage = (ImageMessage)JSONObject.toBean(object, ImageMessage.class);
+				ImageMessage imageMessage = (ImageMessage) JSONObject.toBean(object, ImageMessage.class);
 
 				resultMsg.setImage(imageMessage);
 

@@ -1,17 +1,17 @@
 package com.yz.facecloud.model;
 
 public class PolicyMessage {
-
+	
 	private int mt_policy_id;
 	private String mt_policy_name;
-	private int monitor_type;
+	private int monitor_type;// 1-黑名单布控，有黑名单中人物出现时告警 2-白名单布控，出现人物不在名单时告 3-抓拍+黑名单 4-抓拍+白名单 5-抓拍
 	private String alarm_type;
-	private int time_schema_id;
+	private int time_schema_id;//手工布控方案填0
 	private Float similarity;// 80.0
-	private Float similarity2;// 80.0
-	private Float similarity3;// 80.0
+	private Float similarity2;// 80.0 普通告警阀值，不填数据库默认为0，抓拍不处理该级别的告警
+	private Float similarity3;// 80.0 提示告警阀值，不填数据库默认为0，抓拍不处理该级别的告警
 	private int max_return;// 10 (<50),
-	private int scene_saved;// 可选,默认都保存
+	private int scene_saved;// 可选,默认都保存 1-都不保存 2-都保存 3-大图保存，人脸不保存 4-大图不保存，人脸保存
 	private int min_pixel;// 可选,单位为象素
 	private int max_face_num;// 12,
 	private Float zoom_times;
@@ -19,7 +19,7 @@ public class PolicyMessage {
 	private int best_face; // 0:普通抓拍；1：最佳人脸抓拍
 	private int speed_mode;// 0:正常模式 1:分片模式 只对ftp有效，//可选，不填时服务端以0处理
 	private int face_adjust;// 可选，不填时服务端以0处理，
-	private int min_point;// 10，
+	private int min_point;//最小角度，大于此角度的人脸丢弃
 	private int skip_dup;// 0:不进行人脸去重分析，1:进行人脸去重，//可选，不填时服务端以0处理，
 	private int skip_time; // 去重时间周期，单位秒，表示这个时间周期内有重复的人脸则不再抓拍
 
