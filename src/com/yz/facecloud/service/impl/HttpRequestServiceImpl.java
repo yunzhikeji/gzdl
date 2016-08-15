@@ -25,6 +25,9 @@ import com.yz.facecloud.model.CameraResultMessage;
 import com.yz.facecloud.model.FaceDBMessage;
 import com.yz.facecloud.model.FaceDBRequestMessage;
 import com.yz.facecloud.model.FaceDBResultMessage;
+import com.yz.facecloud.model.ImageMessage;
+import com.yz.facecloud.model.ImageRequestMessage;
+import com.yz.facecloud.model.ImageResultMessage;
 import com.yz.facecloud.model.LoginRequestMessage;
 import com.yz.facecloud.model.LoginResultMessage;
 import com.yz.facecloud.model.PolicyMessage;
@@ -51,6 +54,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	public static final String POLICY_REQUEST_URL = "rtmonitor/mt_policy";
 	public static final String CAMERA_REQUEST_URL = "rtmonitor/manage";
 	public static final String ALARM_REQUEST_URL = "rtmonitor/alarm";
+	public static final String IMAGE_REQUEST_URL = "rtmonitor/alarm/image/";
 
 	public static final String FACEDB_REQUEST_URL = "facedb";
 
@@ -160,7 +164,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 
 	/*****************************************
-	 * 布控策略  查询布控策略
+	 * 布控策略 查询布控策略
 	 *
 	 * 
 	 * 
@@ -205,7 +209,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 
 	/*****************************************
-	 * 摄像机  查询摄像机
+	 * 摄像机 查询摄像机
 	 *
 	 * 
 	 * 
@@ -452,7 +456,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 
 	/*****************************************
-	 * 人脸库  查询人脸库
+	 * 人脸库 查询人脸库
 	 *
 	 *
 	 * 
@@ -466,7 +470,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		String dbname = requestMessage.getDbname();
 
-		if (dbname != null && !dbname.equals("")) {
+		if (dbname != null && !dbname.replace(" ", "").equals("")) {
 			faceDB_url = setRequestURL(faceDB_url, "dbname", dbname);
 
 		}
@@ -536,15 +540,14 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 				List<AlarmMessage> list = new ArrayList<AlarmMessage>();
 				if (jsonObject.getInt("alarm_size") > 0) {
 					JSONArray array = jsonObject.getJSONArray("alarm_list");
-					System.out.println(array);
 					for (int i = 0; i < array.size(); i++) {
 						JSONObject object = (JSONObject) array.get(i);
-						System.out.println("object:"+object);
+						System.out.println("object:" + object);
 						AlarmMessage alarmMessage = new AlarmMessage();
 						List<SearchMessage> searchMessages = new ArrayList<SearchMessage>();
-						if(object.getJSONArray("search_list")!=null)
-						{
-						    searchMessages = (List<SearchMessage>) JSONArray.toCollection(object.getJSONArray("search_list"), SearchMessage.class);
+						if (object.getJSONArray("search_list") != null) {
+							searchMessages = (List<SearchMessage>) JSONArray
+									.toCollection(object.getJSONArray("search_list"), SearchMessage.class);
 							alarmMessage.setSearchMessages(searchMessages);
 						}
 						alarmMessage.setAlarm_id(object.getString("alarm_id"));
@@ -557,13 +560,13 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 						alarmMessage.setFace_blur(object.getInt("face_blur"));
 						alarmMessage.setPhoto_host_id(object.getInt("photo_host_id"));
 						alarmMessage.setState(object.getInt("state"));
-						
+
 						list.add(alarmMessage);
 					}
 					Iterator it = list.iterator();
 					while (it.hasNext()) {
 						AlarmMessage alarmMsg = (AlarmMessage) it.next();
-						System.out.println("查询："+alarmMsg.getSearchMessages());
+						System.out.println("查询：" + alarmMsg.getSearchMessages());
 					}
 
 				}
@@ -587,13 +590,13 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		AlarmResultMessage resultMsg = new AlarmResultMessage();
 		String alarm_url = serverAddress + ALARM_REQUEST_URL;
 
-		String alarm_id = requestMessage.getAlarm_id().replace(" ", "");
-		String camera_id_list = requestMessage.getCamera_id_list().replace(" ", "");
+		String alarm_id = requestMessage.getAlarm_id();
+		String camera_id_list = requestMessage.getCamera_id_list();
 
-		if (alarm_id != null && !alarm_id.equals("")) {
+		if (alarm_id != null && !alarm_id.replace(" ", "").equals("")) {
 			alarm_url = setRequestURL(alarm_url, "alarm_id", alarm_id);
 		}
-		if (camera_id_list != null && !camera_id_list.equals("")) {
+		if (camera_id_list != null && !camera_id_list.replace(" ", "").equals("")) {
 			alarm_url = setRequestURL(alarm_url, "camera_id_list", camera_id_list);
 		}
 		JSONObject jsonObject = httpRequest(alarm_url, "DELETE", null, false);
@@ -605,6 +608,47 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 				resultMsg.setDelete_result(jsonObject.getInt("delete_result"));
+
+			} catch (JSONException e) {
+
+			}
+		}
+
+		return resultMsg;
+	}
+
+	/*****************************************
+	 * 告警记录中图片信息
+	 *
+	 * 
+	 * 
+	 * @return imageResultMessage 获得告警记录中的现场抓拍图片
+	 */
+	public ImageResultMessage getImage(ImageRequestMessage requestMessage) {
+
+		ImageResultMessage resultMsg = new ImageResultMessage();
+		String image_url = serverAddress + IMAGE_REQUEST_URL + requestMessage.getPhoto_host_id();
+
+		String filename = requestMessage.getFilename();
+
+		if (filename != null && !filename.replace(" ", "").equals("")) {
+			image_url = setRequestURL(image_url, "filename", filename);
+		}
+
+		JSONObject jsonObject = httpRequest(image_url, "GET", null, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+
+				System.out.println("删除告警记录:" + jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+
+				JSONObject object = jsonObject.getJSONObject("image_data");
+
+				ImageMessage imageMessage = (ImageMessage) object.toBean(object, ImageMessage.class);
+
+				resultMsg.setImage(imageMessage);
 
 			} catch (JSONException e) {
 
