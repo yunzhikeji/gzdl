@@ -54,8 +54,12 @@ public class FacecloudController {
 	public String addCameraToCloud(Integer id) throws Exception {
 		LoginResultMessage resultMessage = login();
 		if (resultMessage.getRet() == 0) {
+			Camera camera = cameraService.findCameraById(id);
+			if(camera.getCameraid() != null) {
+				requestService.deleteCamera(camera.getCameraid());
+			}
 			CameraMessage cameraMessage = new CameraMessage();
-			cameraMessage.setCamera_name("224");
+			cameraMessage.setCamera_name(camera.getSipid());
 			cameraMessage.setCamera_mode(0);
 			cameraMessage.setUrl("rtsp://admin:admin@192.168.1.224:554");
 			cameraMessage.setDb_id_list("7");
@@ -90,28 +94,29 @@ public class FacecloudController {
 			return "布控失败";
 	}
 
-//	@RequestMapping("/getalarms")
-//	public @ResponseBody List<AlarmMessage> getAlarms(Integer id) throws Exception {
-//
-//		Camera camera = cameraService.findCameraById(id);
-//
-//		AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
-//		alarmRequestMessage.setCamera_id_list(camera.getCameraid() + "");
-//		AlarmResultMessage alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
-//		return alarmResultMessage.getAlarmMessages();
+	@RequestMapping("/getalarms")
+	public @ResponseBody List<AlarmMessage> getAlarms(Integer id) throws Exception {
 
-//	}
+		Camera camera = cameraService.findCameraById(id);
+
+		AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
+		alarmRequestMessage.setCamera_id_list(camera.getCameraid() + "");
+		AlarmResultMessage alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
+		return alarmResultMessage.getAlarmMessages();
+
+	}
 
 	@RequestMapping("/login")
 	public @ResponseBody LoginResultMessage login() throws Exception {
 
-		LoginRequestMessage requestMessage  = new LoginRequestMessage();
+		LoginRequestMessage requestMessage = new LoginRequestMessage();
 		if (faceUser != null) {
-			requestMessage.setUser_name(faceUser.getUsername());;
+			requestMessage.setUser_name(faceUser.getUsername());
+			;
 			requestMessage.setUser_pwd(MD5Util.getMD5(faceUser.getPassword()));
 			requestMessage.setMode(faceUser.getMode());
 		}
-		
+
 		return requestService.login(requestMessage);
 	}
 
@@ -203,7 +208,7 @@ public class FacecloudController {
 
 	@RequestMapping("/alarms")
 	public @ResponseBody AlarmResultMessage getAlarms() throws Exception {
-		
+
 		AlarmRequestMessage requestMessage = new AlarmRequestMessage();
 		return requestService.getAlarms(requestMessage);
 
