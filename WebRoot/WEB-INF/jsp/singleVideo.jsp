@@ -14,26 +14,25 @@
 	rel="stylesheet" type="text/css" />
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/jquery.js"></script>
-	<Script language="javascript"> 
-function GetRequest() { 
-var url = location.search; //获取url中"?"符后的字串 
-var theRequest = new Object(); 
-if (url.indexOf("?") != -1) { 
-var str = url.substr(1); 
-strs = str.split("&"); 
-for(var i = 0; i < strs.length; i ++) { 
-theRequest[strs[i].split("=")[0]]=unescape(strs[i].split("=")[1]); 
-} 
-} 
-return theRequest; 
-} 
+<Script language="javascript">
+	function GetRequest() {
+		var url = location.search; //获取url中"?"符后的字串 
+		var theRequest = new Object();
+		if (url.indexOf("?") != -1) {
+			var str = url.substr(1);
+			strs = str.split("&");
+			for (var i = 0; i < strs.length; i++) {
+				theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+			}
+		}
+		return theRequest;
+	}
 </Script>
 <script type="text/javascript">
-
-var Request = new Object(); 
-Request = GetRequest(); 
-var id;
-id = Request['id']; 
+	var Request = new Object();
+	Request = GetRequest();
+	var id;
+	id = Request['id'];
 	var ocx = null;
 
 	function login() {
@@ -107,22 +106,22 @@ id = Request['id'];
 	}
 
 	function addcamera() {
-		$.ajax({
-			type:'post',
-			url:'${pageContext.request.contextPath }/facecloud/addcameratocloud.action',
-			//请求是key/value这里不需要指定contentType，因为默认就 是key/value类型
-			//contentType:'application/json;charset=utf-8',
-			//数据格式是json串，商品信息
-			data:'id='+id,
-			success:function(data){//返回json结果
-				alert(data);
-			}
-			
-		});
-		
+		$
+				.ajax({
+					type : 'post',
+					url : '${pageContext.request.contextPath }/facecloud/addcameratocloud.action',
+					//请求是key/value这里不需要指定contentType，因为默认就 是key/value类型
+					//contentType:'application/json;charset=utf-8',
+					//数据格式是json串，商品信息
+					data : 'id=' + id,
+					success : function(data) {//返回json结果
+					 	alert(data);
+					}
+
+				});
+
 	}
-	
-	
+
 	function ptzStop() {
 		if (ocx == null) {
 			ocx = document.getElementById("ocx");
@@ -152,17 +151,40 @@ id = Request['id'];
 	}
 
 	$(document).ready(function() {
-		$(".btn1").click(function() {
-			$("table").show();
-			setTimeout("showCls1()", 3000);
-			setTimeout("showCls2()", 5000);
-		});
-
-		$(".btn2").click(function() {
-			$("table").show();
-		});
-
+		setInterval("alarms()", 3000);
 	});
+
+	function alarms() {
+		$.ajax({
+			type : 'post',
+			url : '${pageContext.request.contextPath }/facecloud/getalarms',
+			//请求是key/value这里不需要指定contentType，因为默认就 是key/value类型
+			//contentType:'application/json;charset=utf-8',
+			//数据格式是json串，商品信息
+			data : 'id=' + id,
+			success : function(data) {//返回json结果
+				if(data!=null)
+					{
+					
+					console.log(data);
+					var obj = data;
+					var tbody = $('<tbody></tbody>');
+					$(obj).each(
+							function(index) {
+								var val = obj[index];
+								var tr = $('<tr></tr>');
+								tr.append('<td>' + val.alarm_id + '</td>' + '<td>'
+										+ val.alarm_time + '</td>' + '<td>'
+										+ val.photo_name + '</td>');
+								tbody.append(tr);
+							});
+					$('#myTable tbody').replaceWith(tbody);
+					
+					}
+			}
+
+		});
+	}
 </script>
 </head>
 <body onload="checkAndLogin()">
@@ -211,40 +233,23 @@ id = Request['id'];
 		</div>
 		<div style="width: 100%; height: 200px;">
 			<div class="yzrl">
-			<input type="button" onclick="addcamera()" value="开始布控"/>
-				<label style="font-weight: bold;">人脸检测：</label> <input
-					type="checkbox" checked="checked" />
-				<button class="blue smallrouded btn1">手动</button>
-				<input type="checkbox" />
-				<button class="white smallrouded btn2">自动</button>
+				<input type="button" onclick="addcamera()" value="开始布控" />
+
+
 			</div>
 			<div class="yzr2">
-				<table class="tt" width="100%" border="0" cellspacing="1"
-					cellpadding="0" align="left">
-					<tr>
-						<td colspan="5" style="font-weight: bold;">开始人脸检测...</td>
-					</tr>
-					<tr>
-						<td>序号</td>
-						<td>人员编号</td>
-						<td>姓名</td>
-						<td>检测结果</td>
-						<td>身份信息</td>
-					</tr>
-					<tr class="nopass">
-						<td class="cls1" style="display: none">1</td>
-						<td class="cls1" style="display: none">12345678</td>
-						<td class="cls1" style="display: none">林某</td>
-						<td class="cls1" style="display: none">不通过</td>
-						<td class="cls1" style="display: none">非法人员</td>
-					</tr>
-					<tr class="pass">
-						<td class="cls2" style="display: none">2</td>
-						<td class="cls2" style="display: none">987654321</td>
-						<td class="cls2" style="display: none">王某</td>
-						<td class="cls2" style="display: none">通过</td>
-						<td class="cls2" style="display: none">技术员</td>
-					</tr>
+				<table id="myTable" class="tt" width="100%" border="0"
+					cellspacing="1" cellpadding="0" align="left">
+					<thead>
+						<tr>
+							<td>告警ID</td>
+							<td>告警时间</td>
+							<td>相机名称</td>
+
+
+						</tr>
+					</thead>
+					<tbody></tbody>
 				</table>
 			</div>
 		</div>

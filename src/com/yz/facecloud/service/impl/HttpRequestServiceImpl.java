@@ -15,6 +15,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yz.exception.CustomException;
 import com.yz.facecloud.model.AlarmMessage;
 import com.yz.facecloud.model.AlarmRequestMessage;
 import com.yz.facecloud.model.AlarmResultMessage;

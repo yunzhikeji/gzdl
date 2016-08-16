@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yz.exception.CustomException;
 import com.yz.facecloud.model.AlarmMessage;
 import com.yz.facecloud.model.AlarmRequestMessage;
 import com.yz.facecloud.model.AlarmResultMessage;
@@ -51,51 +52,42 @@ public class FacecloudController {
 	 */
 
 	@RequestMapping("/addcameratocloud")
-	public String addCameraToCloud(Integer id) throws Exception {
-		LoginResultMessage resultMessage = login();
-		if (resultMessage.getRet() == 0) {
-			Camera camera = cameraService.findCameraById(id);
-			CameraResultMessage cameraResultMessage = null;
-			
-				CameraMessage cameraMessage = new CameraMessage();
-				cameraMessage.setCamera_name(camera.getSipid());
-				cameraMessage.setCamera_mode(0);
-				cameraMessage.setUrl("rtsp://admin:admin@192.168.1.224:554");
-				cameraMessage.setDb_id_list("7");  //人脸库
-				cameraMessage.setNode_id(0);
-				cameraMessage.setFixed_host(0);
-				cameraMessage.setMt_policy_id(1); //策略
-				if(camera.getCameraid() == null) {
-				 cameraResultMessage = requestService.addCamera(cameraMessage);
+	public @ResponseBody String addCameraToCloud(Integer id) throws Exception {
+
+		int cameraid = 0;
+		Camera camera = cameraService.findCameraById(id);
+
+		CameraResultMessage cameraResultMessage = new CameraResultMessage();
+
+		CameraMessage cameraMessage = new CameraMessage();
+		cameraMessage.setCamera_name(camera.getSipid());
+		cameraMessage.setCamera_mode(0);
+		cameraMessage.setUrl(this.setRtspURL(camera.getSipid()));
+		cameraMessage.setDb_id_list("7"); // 人脸库
+		cameraMessage.setNode_id(0);
+		cameraMessage.setFixed_host(0);
+		cameraMessage.setMt_policy_id(1); // 策略
+		if (camera.getCameraid() == null||camera.getCameraid() == 0) {
+			cameraResultMessage = requestService.addCamera(cameraMessage);
+
+			if (!checkLoginState(cameraResultMessage.getRet())) {
+				setLoginState();
+				cameraResultMessage = requestService.addCamera(cameraMessage);
 			}
-//				if(camera.getCameraid() != null){
-//					requestService.updateCamera(cameraMessage);
-//					
-//				}
 
-			if (cameraResultMessage.getRet() == 0) {
-				int cameraid = cameraResultMessage.getCamera_list().get(0).getCamera_id();
-				CameraResultMessage cameraResulttMessage = requestService.recognition(cameraid);
-				if (cameraResulttMessage.getRet() == 0) {
-					CameraCustom cameraCustom = new CameraCustom();
-					cameraCustom.setCameraid(cameraid); // 布控成功将cameraid保存到数据库
-					cameraCustom.setStat(1); // 布控成功就将stat设为1，否则为0
-					cameraCustom.setIscontroll(1); // 布控成功将iscontroller设为1，否则为0
-					cameraService.updateCamera(id, cameraCustom);
+			cameraid = cameraResultMessage.getCamera_list().get(0).getCamera_id();
+		} else {
+			cameraid = camera.getCameraid();
+		}
 
-					// AlarmRequestMessage alarmRequestMessage = new
-					// AlarmRequestMessage();
-					// alarmRequestMessage.setCamera_id_list(cameraResulttMessage.getCamera_list().get(0).getCamera_id()+"");
-					// AlarmResultMessage alarmResultMessage =
-					// requestService.getAlarms(alarmRequestMessage);
+		CameraResultMessage cameraResulttMessage = requestService.recognition(cameraid);// 布控下发
 
-				}
+		this.updateCamera(id, cameraid);
 
-			}
+		if (cameraResulttMessage.getRet() == 0) {
 			return "布控成功";
-
-		} else
-			return "布控失败";
+		}
+		return "布控失败：" + cameraResulttMessage.getRet_mes();
 	}
 
 	@RequestMapping("/getalarms")
@@ -103,10 +95,20 @@ public class FacecloudController {
 
 		Camera camera = cameraService.findCameraById(id);
 
-		AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
-		alarmRequestMessage.setCamera_id_list(camera.getCameraid() + "");
-		AlarmResultMessage alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
-		return alarmResultMessage.getAlarmMessages();
+		if (camera.getCameraid() != null&&camera.getCameraid() != 0) {
+			AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
+			alarmRequestMessage.setCamera_id_list(camera.getCameraid() + "");
+
+			AlarmResultMessage alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
+
+			if (!checkLoginState(alarmResultMessage.getRet())) {
+				setLoginState();
+				alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
+			}
+			return alarmResultMessage.getAlarmMessages();
+		} else {
+			return null;
+		}
 
 	}
 
@@ -176,9 +178,14 @@ public class FacecloudController {
 	}
 
 	@RequestMapping("/deleteCamera")
-	public @ResponseBody CameraResultMessage deleteCamera() throws Exception {
+	public @ResponseBody CameraResultMessage deleteCamera(int id) throws Exception {
 
 		int camera_id = 0;
+		// 删除时设置camera_id为0
+		Camera camera = cameraService.findCameraById(id);
+		camera_id = camera.getCameraid();
+		camera.setCameraid(0);
+		cameraService.updateCamera(id,camera);
 		return requestService.deleteCamera(camera_id);
 	}
 
@@ -223,6 +230,74 @@ public class FacecloudController {
 		AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
 		alarmRequestMessage.setAlarm_id("1+2");
 		return requestService.deleteAlarms(alarmRequestMessage);
+	}
+
+	/*********************************
+	 * 简单方法封装
+	 * 
+	 * 本地数据库操作
+	 * 
+	 * 保存 人脸服务器胡摄像机id
+	 */
+	public void updateCamera(Integer id, int cameraid) throws Exception {
+		// TODO Auto-generated method stub
+		CameraCustom cameraCustom = new CameraCustom();
+		cameraCustom.setCameraid(cameraid); // 布控成功将cameraid保存到数据库
+		cameraCustom.setStat(1); // 布控成功就将stat设为1，否则为0
+		cameraCustom.setIscontroll(1); // 布控成功将iscontroller设为1，否则为0
+		cameraService.updateCamera(id, cameraCustom);
+
+	}
+
+	/*
+	 * 拼装 远程流媒体服务器rtsp流地址
+	 */
+	public String setRtspURL(String sipid) {
+		if (sipid != null) {
+			String url = "rtsp://127.0.0.1:8554/" + sipid + "/1";
+			return url;
+		}
+		return null;
+	}
+
+	/*
+	 * 检查登录状态
+	 */
+	public boolean checkLoginState(int ret) {
+		if (ret == 0) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	/*
+	 * 获取登录cookie
+	 */
+	public void setLoginState() {
+
+		int result = 1;
+		int counter = 0;
+		while (true) {
+			try {
+				result = this.login().getRet();
+				counter++;
+				if(counter==15)
+				{
+					CustomException exception = new CustomException("人脸服务器连接异常。");
+					throw exception;
+				}
+				if (result == 0 || result == 4011)// 登录成功 请求超时
+																	// camera_id设置错误
+					break;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+
 	}
 
 }
