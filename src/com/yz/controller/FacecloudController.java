@@ -1,5 +1,6 @@
 package com.yz.controller;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -18,16 +19,17 @@ import com.yz.facecloud.model.CameraRequestMessage;
 import com.yz.facecloud.model.CameraResultMessage;
 import com.yz.facecloud.model.FaceDBRequestMessage;
 import com.yz.facecloud.model.FaceDBResultMessage;
+import com.yz.facecloud.model.FaceUser;
+import com.yz.facecloud.model.LoginRequestMessage;
 import com.yz.facecloud.model.LoginResultMessage;
 import com.yz.facecloud.model.PolicyRequestMessage;
 import com.yz.facecloud.model.PolicyResultMessage;
-import com.yz.facecloud.model.FaceUser;
-import com.yz.facecloud.model.LoginRequestMessage;
 import com.yz.facecloud.service.HttpRequestService;
 import com.yz.facecloud.util.MD5Util;
 import com.yz.po.Camera;
 import com.yz.po.CameraCustom;
 import com.yz.service.CameraService;
+import com.yz.utils.DateTimeKit;
 
 @Controller
 @RequestMapping("/facecloud")
@@ -60,7 +62,7 @@ public class FacecloudController {
 		CameraResultMessage cameraResultMessage = new CameraResultMessage();
 
 		CameraMessage cameraMessage = new CameraMessage();
-		cameraMessage.setCamera_name(camera.getCnumber());
+		cameraMessage.setCamera_name(camera.getCnumber()+"_"+DateTimeKit.getLocalTime());
 		cameraMessage.setCamera_mode(0);
 		cameraMessage.setUrl(this.setRtspURL(camera.getSipid()));
 		cameraMessage.setDb_id_list("1"); // 人脸库
