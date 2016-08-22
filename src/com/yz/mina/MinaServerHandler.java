@@ -123,7 +123,7 @@ public class MinaServerHandler implements IoHandler {
 						camera.setStatus(-1);
 					}
 					System.out.println("update camera status is "+camera.getStatus());
-					cameraService.updateCamera(camera);
+					cameraService.updateCamera(camera.getId(), camera);
 				}
 
 			}

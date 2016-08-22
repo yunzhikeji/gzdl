@@ -60,10 +60,10 @@ public class FacecloudController {
 		CameraResultMessage cameraResultMessage = new CameraResultMessage();
 
 		CameraMessage cameraMessage = new CameraMessage();
-		cameraMessage.setCamera_name(camera.getSipid());
+		cameraMessage.setCamera_name(camera.getCnumber());
 		cameraMessage.setCamera_mode(0);
 		cameraMessage.setUrl(this.setRtspURL(camera.getSipid()));
-		cameraMessage.setDb_id_list("7"); // 人脸库
+		cameraMessage.setDb_id_list("1"); // 人脸库
 		cameraMessage.setNode_id(0);
 		cameraMessage.setFixed_host(0);
 		cameraMessage.setMt_policy_id(1); // 策略

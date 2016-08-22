@@ -28,6 +28,7 @@ public class CameraController {
 
 	@RequestMapping(value = "singleVideo", method = { RequestMethod.GET })
 	public String singleVideo(@RequestParam(value = "id", required = false) Integer id,ModelMap map)  throws Exception {
+			System.out.println(id);
 			Camera camera = cameraService.findCameraById(id);
 			map.put("camera", camera);
 
