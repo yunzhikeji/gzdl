@@ -14,12 +14,37 @@ body, html, #allmap {
 	font-family: "微软雅黑";
 }
 </style>
+<script type="text/javascript">
+	function refresh()
+	{
+		window.location.reload();
+	}
+
+
+</script>
 <script type="text/javascript" src="js/json2.js"></script>
 <script type="text/javascript"
 	src="http://api.map.baidu.com/api?v=2.0&ak=MfZWrGmV9tab4tOxRB5zOCTdAGApBqU6"></script>
 <script src="js/jquery-1.8.2.js"></script>
 </head>
 <body>
+	<div style="padding-left: 15px;">
+		<span style="font-size:13px;">设备查询条件:</span>
+		
+		<span style="font-size:13px;">作业性质</span>
+		<select>
+			<option>10KV以上</option>
+			<option>10KV以下</option>
+		</select>
+		
+		<select>
+			<option>设备编号</option>
+			<option>施工单位</option>
+		</select>
+		<input type="text" name="convalue" />
+		
+		<input type="button" value="查询" onclick="refresh();"/>
+	</div>
 	<div id="allmap"></div>
 
 </body>

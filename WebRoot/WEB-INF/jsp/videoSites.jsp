@@ -22,6 +22,13 @@
 							onClick="changeToTz('${site.id }');" target="viframe">查看监控</a></li>
 					</ul></li>
 			</c:forEach>
+			<li><a
+					href="javascript:void(0)"
+					target="myiframe">4</a>
+					<ul class="collapsed">
+						<li><a href="${pageContext.request.contextPath }/vd4.html" id="tz"
+							 target="viframe">查看监控</a></li>
+					</ul></li>
 			<li style="border-bottom: 1px solid #b7b7b7;"><a
 				href="javascript:void(0)" onClick="goback();">返回</a></li>
 		</ul>

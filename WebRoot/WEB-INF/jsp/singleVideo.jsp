@@ -121,6 +121,24 @@
 				});
 
 	}
+	
+	function video()
+	{
+		alert("暂无视频");
+	}
+	
+	function sayTo()
+	{
+		alert("开始对讲");
+		
+		$("#says").val("正在对讲....");
+	}
+	
+	function recordToWeb()
+	{
+		alert("录制失败，未配置云存储服务器.");
+		$("#check").attr("checked",false);
+	}
 
 	function ptzStop() {
 		if (ocx == null) {
@@ -234,8 +252,11 @@
 		<div style="width: 100%; height: 200px;">
 			<div class="yzrl">
 				<input type="button" onclick="addcamera()" value="开始布控" />
-
-
+				<input type="button" onclick="sayTo();" value="开始对讲"  id="says"/>
+				<input type="button" onclick="recordToWeb();" value="手动录制"  id="record"/>
+				<input type="checkbox" id="check" onclick="recordToWeb();" >报警时录制</input>
+				
+				<input type="button" onclick="video();" value="录像回放"  />
 			</div>
 			<div class="yzr2">
 				<table id="myTable" class="tt" width="100%" border="0"
@@ -245,8 +266,6 @@
 							<td>告警ID</td>
 							<td>告警时间</td>
 							<td>相机名称</td>
-
-
 						</tr>
 					</thead>
 					<tbody></tbody>
