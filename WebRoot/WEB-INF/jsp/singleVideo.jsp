@@ -49,7 +49,7 @@
 		if (ocx == null) {
 			ocx = document.getElementById("ocx");
 		}
-		var backPlay = ocx.PlayVideo("44030300001320020239");
+		var backPlay = ocx.PlayVideo("44030300001320020246");
 		if (backPlay != 0) {
 			alert("操作失败");
 		}
@@ -175,7 +175,7 @@
 	function alarms() {
 		$.ajax({
 			type : 'post',
-			url : '${pageContext.request.contextPath }/facecloud/getalarms',
+			url : '${pageContext.request.contextPath }/facecloud/getalarmvos',
 			//请求是key/value这里不需要指定contentType，因为默认就 是key/value类型
 			//contentType:'application/json;charset=utf-8',
 			//数据格式是json串，商品信息
@@ -192,8 +192,9 @@
 								var val = obj[index];
 								var tr = $('<tr></tr>');
 								tr.append('<td>' + val.alarm_id + '</td>' + '<td>'
+										+ val.camera_name + '</td>' + '<td>'
 										+ val.alarm_time + '</td>' + '<td>'
-										+ val.photo_name + '</td>');
+										+ val.alarm_typename + '</td>');
 								tbody.append(tr);
 							});
 					$('#myTable tbody').replaceWith(tbody);
@@ -255,7 +256,6 @@
 				<input type="button" onclick="sayTo();" value="开始对讲"  id="says"/>
 				<input type="button" onclick="recordToWeb();" value="手动录制"  id="record"/>
 				<input type="checkbox" id="check" onclick="recordToWeb();" >报警时录制</input>
-				
 				<input type="button" onclick="video();" value="录像回放"  />
 			</div>
 			<div class="yzr2">
@@ -264,8 +264,9 @@
 					<thead>
 						<tr>
 							<td>告警ID</td>
-							<td>告警时间</td>
 							<td>相机名称</td>
+							<td>告警时间</td>
+							<td>人员类别</td>
 						</tr>
 					</thead>
 					<tbody></tbody>

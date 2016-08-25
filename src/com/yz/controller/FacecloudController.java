@@ -1,6 +1,7 @@
 package com.yz.controller;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -24,8 +25,10 @@ import com.yz.facecloud.model.LoginRequestMessage;
 import com.yz.facecloud.model.LoginResultMessage;
 import com.yz.facecloud.model.PolicyRequestMessage;
 import com.yz.facecloud.model.PolicyResultMessage;
+import com.yz.facecloud.model.SearchMessage;
 import com.yz.facecloud.service.HttpRequestService;
 import com.yz.facecloud.util.MD5Util;
+import com.yz.facecloud.vo.AlarmMessageVO;
 import com.yz.po.Camera;
 import com.yz.po.CameraCustom;
 import com.yz.service.CameraService;
@@ -108,6 +111,80 @@ public class FacecloudController {
 				alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
 			}
 			return alarmResultMessage.getAlarmMessages();
+		} else {
+			return null;
+		}
+
+	}
+	
+	
+	
+	@RequestMapping("/getalarmvos")
+	public @ResponseBody List<AlarmMessageVO> getAlarmVOs(Integer id) throws Exception {
+
+		Camera camera = cameraService.findCameraById(id);
+
+		if (camera.getCameraid() != null&&camera.getCameraid() != 0) {
+			AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
+			alarmRequestMessage.setCamera_id_list(camera.getCameraid() + "");
+			alarmRequestMessage.setAlarm_type(9);
+
+			AlarmResultMessage alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
+
+			if (!checkLoginState(alarmResultMessage.getRet())) {
+				setLoginState();
+				alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
+			}
+			
+			List<AlarmMessageVO> alarmMessageVOs = new ArrayList<AlarmMessageVO>();
+			if(alarmResultMessage!=null)
+			{
+				for(int i=0;i<alarmResultMessage.getAlarmMessages().size();i++)
+				{
+					AlarmMessage alarm = alarmResultMessage.getAlarmMessages().get(i);
+					
+					//根据布控类型来获取，当前布控类型为白名单+抓拍，所以获取告警记录时，仅需获取白名单和抓拍即可~
+					if(alarm.getAlarm_type()!=1)
+					{
+						AlarmMessageVO vo = new AlarmMessageVO();
+						vo.setAlarm_id(alarm.getAlarm_id());
+						vo.setAlarm_time(alarm.getAlarm_time());
+						vo.setCamera_name(alarm.getCamera_name());
+						//// 0,抓拍无告警   1,黑名单告警2,白名单告警
+						switch (alarm.getAlarm_type()) {
+						case 0:
+							vo.setAlarm_typename("工作人员");
+							break;
+						case 1:
+							vo.setAlarm_typename("黑名单");
+							break;
+						case 2:
+							vo.setAlarm_typename("非工作人员");
+							break;
+						default:
+							break;
+						}
+						/*if(alarm.getSearchMessages()!=null)
+						{
+							for(int j=0;j<alarm.getSearchMessages().size();j++)
+							{
+								SearchMessage message = alarm.getSearchMessages().get(0);
+								if(message.getPerson_name()!=null&&!message.getPerson_name().equals(""))
+								{
+									vo.setPhoto_name(message.getPerson_name());
+									break;
+								}
+							}
+						}else
+						{
+							vo.setPhoto_name("未登记姓名");
+						}*/
+						alarmMessageVOs.add(vo);
+					}
+					
+				}
+			}
+			return alarmMessageVOs;
 		} else {
 			return null;
 		}
@@ -223,6 +300,7 @@ public class FacecloudController {
 	public @ResponseBody AlarmResultMessage getAlarms() throws Exception {
 
 		AlarmRequestMessage requestMessage = new AlarmRequestMessage();
+		requestMessage.setAlarm_type(9);
 		return requestService.getAlarms(requestMessage);
 
 	}

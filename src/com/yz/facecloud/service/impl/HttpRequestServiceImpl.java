@@ -608,6 +608,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		String alarm_id = requestMessage.getAlarm_id();
 		String camera_id_list = requestMessage.getCamera_id_list();
+		int alarm_type = requestMessage.getAlarm_type();
 
 		if (alarm_id != null && !alarm_id.replace(" ", "").equals("")) {
 			alarm_url = setRequestURL(alarm_url, "alarm_id", alarm_id);
@@ -615,6 +616,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		if (camera_id_list != null && !camera_id_list.replace(" ", "").equals("")) {
 			alarm_url = setRequestURL(alarm_url, "camera_id_list", camera_id_list);
 		}
+		alarm_url = setRequestURL(alarm_url, "alarm_type", alarm_type+"");
+		
 		JSONObject jsonObject = httpRequest(alarm_url, "GET", null, false);
 		// 如果请求成功
 		if (null != jsonObject) {
