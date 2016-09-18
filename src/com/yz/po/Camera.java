@@ -31,6 +31,8 @@ public class Camera {
 
     private Integer cameraid;
 
+    private Integer organizeid;
+
     public Integer getId() {
         return id;
     }
@@ -149,5 +151,13 @@ public class Camera {
 
     public void setCameraid(Integer cameraid) {
         this.cameraid = cameraid;
+    }
+
+    public Integer getOrganizeid() {
+        return organizeid;
+    }
+
+    public void setOrganizeid(Integer organizeid) {
+        this.organizeid = organizeid;
     }
 }

@@ -11,6 +11,10 @@ public class User {
 
     private String jobnumber;
 
+    private Integer role;
+
+    private Integer organizeid;
+
     public Integer getId() {
         return id;
     }
@@ -49,5 +53,21 @@ public class User {
 
     public void setJobnumber(String jobnumber) {
         this.jobnumber = jobnumber == null ? null : jobnumber.trim();
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
+    }
+
+    public Integer getOrganizeid() {
+        return organizeid;
+    }
+
+    public void setOrganizeid(Integer organizeid) {
+        this.organizeid = organizeid;
     }
 }

@@ -1093,6 +1093,66 @@ public class CameraExample {
             addCriterion("cameraid not between", value1, value2, "cameraid");
             return (Criteria) this;
         }
+
+        public Criteria andOrganizeidIsNull() {
+            addCriterion("organizeid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrganizeidIsNotNull() {
+            addCriterion("organizeid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrganizeidEqualTo(Integer value) {
+            addCriterion("organizeid =", value, "organizeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrganizeidNotEqualTo(Integer value) {
+            addCriterion("organizeid <>", value, "organizeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrganizeidGreaterThan(Integer value) {
+            addCriterion("organizeid >", value, "organizeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrganizeidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("organizeid >=", value, "organizeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrganizeidLessThan(Integer value) {
+            addCriterion("organizeid <", value, "organizeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrganizeidLessThanOrEqualTo(Integer value) {
+            addCriterion("organizeid <=", value, "organizeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrganizeidIn(List<Integer> values) {
+            addCriterion("organizeid in", values, "organizeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrganizeidNotIn(List<Integer> values) {
+            addCriterion("organizeid not in", values, "organizeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrganizeidBetween(Integer value1, Integer value2) {
+            addCriterion("organizeid between", value1, value2, "organizeid");
+            return (Criteria) this;
+        }
+
+        public Criteria andOrganizeidNotBetween(Integer value1, Integer value2) {
+            addCriterion("organizeid not between", value1, value2, "organizeid");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

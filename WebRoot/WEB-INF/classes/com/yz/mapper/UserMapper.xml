@@ -7,6 +7,8 @@
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="realname" property="realname" jdbcType="VARCHAR" />
     <result column="jobnumber" property="jobnumber" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="organizeid" property="organizeid" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, username, password, realname, jobnumber
+    id, username, password, realname, jobnumber, role, organizeid
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yz.po.UserExample" >
     select
@@ -101,9 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.yz.po.User" >
     insert into user (id, username, password, 
-      realname, jobnumber)
+      realname, jobnumber, role, 
+      organizeid)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{realname,jdbcType=VARCHAR}, #{jobnumber,jdbcType=VARCHAR})
+      #{realname,jdbcType=VARCHAR}, #{jobnumber,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, 
+      #{organizeid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.yz.po.User" >
     insert into user
@@ -123,6 +127,12 @@
       <if test="jobnumber != null" >
         jobnumber,
       </if>
+      <if test="role != null" >
+        role,
+      </if>
+      <if test="organizeid != null" >
+        organizeid,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -139,6 +149,12 @@
       </if>
       <if test="jobnumber != null" >
         #{jobnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="role != null" >
+        #{role,jdbcType=INTEGER},
+      </if>
+      <if test="organizeid != null" >
+        #{organizeid,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -166,6 +182,12 @@
       <if test="record.jobnumber != null" >
         jobnumber = #{record.jobnumber,jdbcType=VARCHAR},
       </if>
+      <if test="record.role != null" >
+        role = #{record.role,jdbcType=INTEGER},
+      </if>
+      <if test="record.organizeid != null" >
+        organizeid = #{record.organizeid,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +199,9 @@
       username = #{record.username,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       realname = #{record.realname,jdbcType=VARCHAR},
-      jobnumber = #{record.jobnumber,jdbcType=VARCHAR}
+      jobnumber = #{record.jobnumber,jdbcType=VARCHAR},
+      role = #{record.role,jdbcType=INTEGER},
+      organizeid = #{record.organizeid,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +221,12 @@
       <if test="jobnumber != null" >
         jobnumber = #{jobnumber,jdbcType=VARCHAR},
       </if>
+      <if test="role != null" >
+        role = #{role,jdbcType=INTEGER},
+      </if>
+      <if test="organizeid != null" >
+        organizeid = #{organizeid,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,7 +235,9 @@
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       realname = #{realname,jdbcType=VARCHAR},
-      jobnumber = #{jobnumber,jdbcType=VARCHAR}
+      jobnumber = #{jobnumber,jdbcType=VARCHAR},
+      role = #{role,jdbcType=INTEGER},
+      organizeid = #{organizeid,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

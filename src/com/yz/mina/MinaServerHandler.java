@@ -4,6 +4,8 @@ import org.apache.mina.core.buffer.IoBuffer;
 import org.apache.mina.core.service.IoHandler;
 import org.apache.mina.core.session.IdleStatus;
 import org.apache.mina.core.session.IoSession;
+import org.apache.taglibs.standard.lang.jstl.test.beans.PublicBean1;
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -17,12 +19,16 @@ public class MinaServerHandler implements IoHandler {
 	@Autowired
 	private CameraService cameraService;
 
+	private Camera camera;
+	
 	public void exceptionCaught(IoSession arg0, Throwable arg1) throws Exception {
 
 	}
 
 	public void inputClosed(IoSession arg0) throws Exception {
 		// TODO Auto-generated method stub
+		camera.setStatus(0);
+		
 		arg0.closeOnFlush();
 	}
 
@@ -80,7 +86,7 @@ public class MinaServerHandler implements IoHandler {
 			}
 
 			
-			Camera camera = cameraService.findCameraByNumber(number);
+			camera = cameraService.findCameraByNumber(number);
 			
 			if (camera == null) {
 				camera = new Camera();
@@ -114,16 +120,16 @@ public class MinaServerHandler implements IoHandler {
 
 				if (d_data.length > 9) {
 					if (state.contains("A")) {
-						camera.setStatus(1);
+						camera.setStatus(1);  //正常工作
 					} else if (state.contains("D")) {
-						camera.setStatus(0);
+						camera.setStatus(0); //关机
 					} else if (state.contains("R")) {
-						camera.setStatus(2);
+						camera.setStatus(2); //重启
 					} else if (state.contains("N")) {
-						camera.setStatus(-1);
+						camera.setStatus(-1); //未知
 					}
 					System.out.println("update camera status is "+camera.getStatus());
-					cameraService.updateCamera(camera.getId(), camera);
+					cameraService.updateCamera(camera);
 				}
 
 			}
@@ -137,6 +143,10 @@ public class MinaServerHandler implements IoHandler {
 
 	public void sessionClosed(IoSession arg0) throws Exception {
 		// TODO Auto-generated method stub
+		
+		camera.setStatus(0);
+		
+		
 		arg0.closeOnFlush();
 	}
 
@@ -145,7 +155,16 @@ public class MinaServerHandler implements IoHandler {
 
 	}
 
+	public static int idleConts = 0;
+	
 	public void sessionIdle(IoSession arg0, IdleStatus arg1) throws Exception {
+		
+		idleConts++;
+		if (idleConts > 3) {
+			sessionClosed(arg0);
+		}
+		
+		
 		// TODO Auto-generated method stub
 
 	}
