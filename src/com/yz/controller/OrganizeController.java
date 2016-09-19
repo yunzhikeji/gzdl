@@ -9,8 +9,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class OrganizeController {
 	@RequestMapping("/organizeList")
 	public String organizeList() throws Exception {
-		System.out.println("hello");
-		return "organizelist";
+		return "organize/organizelist";
+	}
+	
+	@RequestMapping("/toAdd")
+	public String toAdd() throws Exception {
+		return "organize/organizeadd";
 	}
 
+	@RequestMapping("/toUpdate")
+	public String toUpdate() throws Exception {
+		return "organize/organizeUpdate";
+	}
 }

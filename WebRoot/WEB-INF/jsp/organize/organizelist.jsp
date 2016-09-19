@@ -25,7 +25,7 @@
 			</button>
 			<button class="button blue bla smallrounded"
 				style="font-size: 14px; line-height: 14px; margin-left: 72%"
-				; onClick="ypgy('组织管理','builded.html','1024px','768px')">
+				; onClick="ypgy('组织管理','${pageContext.request.contextPath }/organize/toAdd','1024px','768px')">
 				<i class="Hui-iconfont">&nbsp;&#xe600;&nbsp;</i>添加施工单位
 			</button>
 		</div>
@@ -48,7 +48,22 @@
 						<td>广州建设大队</td>
 						<td>越秀城南区</td>
 						<td><a href="javascript:;"
-							onClick="ypgy('组织管理','builded.html','1024px','768px')"
+							onClick="ypgy('组织管理','${pageContext.request.contextPath }/organize/toUpdate','1024px','768px')"
+							title="组织管理" target="_self" class="button blue bigrounded bla"
+							style="font-size: 14px; line-height: 14px"><i
+								class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
+						<td><button class="button orange bla smallrounded"
+								style="font-size: 14px; line-height: 14px" onClick="OnUp();">
+								<i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除
+							</button></td>
+
+					</tr>
+					<tr class="text-c">
+						<td class="text-c">1</td>
+						<td>广州建设大队</td>
+						<td>越秀城南区</td>
+						<td><a href="javascript:;"
+							onClick="ypgy('组织管理','${pageContext.request.contextPath }/organize/toUpdate','1024px','768px')"
 							title="工地管理" target="_self" class="button blue bigrounded bla"
 							style="font-size: 14px; line-height: 14px"><i
 								class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
@@ -63,7 +78,7 @@
 						<td>广州建设大队</td>
 						<td>越秀城南区</td>
 						<td><a href="javascript:;"
-							onClick="ypgy('组织管理','builded.html','1024px','768px')"
+							onClick="ypgy('组织管理','${pageContext.request.contextPath }/organize/toUpdate','1024px','768px')"
 							title="工地管理" target="_self" class="button blue bigrounded bla"
 							style="font-size: 14px; line-height: 14px"><i
 								class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
@@ -78,22 +93,7 @@
 						<td>广州建设大队</td>
 						<td>越秀城南区</td>
 						<td><a href="javascript:;"
-							onClick="ypgy('组织管理','builded.html','1024px','768px')"
-							title="工地管理" target="_self" class="button blue bigrounded bla"
-							style="font-size: 14px; line-height: 14px"><i
-								class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
-						<td><button class="button orange bla smallrounded"
-								style="font-size: 14px; line-height: 14px" onClick="OnUp();">
-								<i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除
-							</button></td>
-
-					</tr>
-					<tr class="text-c">
-						<td class="text-c">1</td>
-						<td>广州建设大队</td>
-						<td>越秀城南区</td>
-						<td><a href="javascript:;"
-							onClick="ypgy('组织管理','builded.html','1024px','768px')"
+							onClick="ypgy('组织管理','${pageContext.request.contextPath }/organize/toUpdate','1024px','768px')"
 							title="工地管理" target="_self" class="button blue bigrounded bla"
 							style="font-size: 14px; line-height: 14px"><i
 								class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
