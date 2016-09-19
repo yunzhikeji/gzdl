@@ -46,7 +46,7 @@
 				class="tA0"><a
 				href="${pageContext.request.contextPath }/site/showSites" id="td"
 				onClick="changeToTd();" target="myiframe">工地管理</a></span>  -->
-			<span class="tA0"><a href="${pageContext.request.contextPath }/organizeList" id="td"
+			<span class="tA0"><a href="javascript:void(0)" id="td" onClick="changeToTd();"
 				target="myiframe">组织管理</a>
 				</span> <span class="tA0"><a
 				href="javascript:void(0)" id="tz" onClick="changeToTz();"
@@ -98,7 +98,7 @@
 		}
 		function changeToTd() {
 			$("#iframepage").attr('src',
-					"${pageContext.request.contextPath }/site/showSites");
+					"${pageContext.request.contextPath }/organize/organizeList");
 		}
 		function changeToTz() {
 			$("#iframepage").attr('src',
