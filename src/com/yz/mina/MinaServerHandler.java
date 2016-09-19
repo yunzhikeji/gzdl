@@ -155,13 +155,11 @@ public class MinaServerHandler implements IoHandler {
 
 	}
 
-	public static int idleConts = 0;
 	
-	public void sessionIdle(IoSession arg0, IdleStatus arg1) throws Exception {
+	public void sessionIdle(IoSession session, IdleStatus idleStatus) throws Exception {
 		
-		idleConts++;
-		if (idleConts > 3) {
-			sessionClosed(arg0);
+		if(session.getIdleCount(idleStatus) >= 3){
+			session.closeOnFlush();
 		}
 		
 		

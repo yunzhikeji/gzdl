@@ -9,6 +9,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>添加用户</title>
+<link href="${pageContext.request.contextPath }/css/datePicker1.css" rel="stylesheet" type="text/css" media="all" />
 <link href="${pageContext.request.contextPath }/css/build.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath }/css/1.0.7/iconfont.css" rel="stylesheet" type="text/css" />
 </head>
@@ -20,13 +21,13 @@
     <thead class="text-c">
     <tr>
         <th>用户名</th>
-         <td width="70%"><input type="text" /></td>
+         <td width="70%"><input type="text" class="date_picker" style="width:400px"/></td>
       </tr>
     </thead>
       <tbody>
       <tr class="text-c">
         <th>用户职位</th>
-        <td><input type="text" /></td>
+        <td><input type="text" class="date_picker" style="width:400px"/></td>
       </tr>
      <tr class="text-c">
        <th>管理级别</th>

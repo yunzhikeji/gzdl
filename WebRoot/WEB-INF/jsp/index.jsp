@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<title>江苏云知智能科技有限公司</title>
+	<title>广州亿弘淼科技有限公司</title>
 	<link href="${pageContext.request.contextPath }/css/index.css"
 		rel="stylesheet" type="text/css" />
 	<link href="${pageContext.request.contextPath }/css/1.0.7/iconfont.css"
@@ -41,10 +41,14 @@
 
 	<div class="HuiTab">
 		<div class="tabBar cl">
-			<span class="tA0"><a href="map" target="myiframe">分布图</a></span> <span
+			<span class="tA0"><a href="map" target="myiframe">分布图</a></span>
+			<!-- <span
 				class="tA0"><a
 				href="${pageContext.request.contextPath }/site/showSites" id="td"
-				onClick="changeToTd();" target="myiframe">工地管理</a></span> <span class="tA0"><a
+				onClick="changeToTd();" target="myiframe">工地管理</a></span>  -->
+			<span class="tA0"><a href="${pageContext.request.contextPath }/organizeList" id="td"
+				target="myiframe">组织管理</a>
+				</span> <span class="tA0"><a
 				href="javascript:void(0)" id="tz" onClick="changeToTz();"
 				target="myiframe">设备管理</a></span> <span class="tA0"><a
 				href="javascript:void(0)" id="tj" onClick="changeToTj();"

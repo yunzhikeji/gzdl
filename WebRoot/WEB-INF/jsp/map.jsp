@@ -4,6 +4,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link href="css/daily.css" rel="stylesheet" type="text/css">
+<link href="css/1.0.7/iconfont.css" rel="stylesheet" type="text/css" />
 <title></title>
 <style type="text/css">
 body, html, #allmap {
@@ -15,12 +17,9 @@ body, html, #allmap {
 }
 </style>
 <script type="text/javascript">
-	function refresh()
-	{
+	function refresh() {
 		window.location.reload();
 	}
-
-
 </script>
 <script type="text/javascript" src="js/json2.js"></script>
 <script type="text/javascript"
@@ -28,22 +27,26 @@ body, html, #allmap {
 <script src="js/jquery-1.8.2.js"></script>
 </head>
 <body>
-	<div style="padding-left: 15px;">
-		<span style="font-size:13px;">设备查询条件:</span>
-		
-		<span style="font-size:13px;">作业性质</span>
-		<select>
-			<option>10KV以上</option>
-			<option>10KV以下</option>
-		</select>
-		
-		<select>
-			<option>设备编号</option>
-			<option>施工单位</option>
-		</select>
-		<input type="text" name="convalue" />
-		
-		<input type="button" value="查询" onclick="refresh();"/>
+	<div style="padding-left: 15px; padding-bottom: 5px; padding-top: 5px;">
+		<span>设备查询条件:</span>&nbsp;&nbsp;&nbsp; <span>变电站:</span> <select class="date_picker2">
+			<option>城东区</option>
+			<option>城北区</option>
+		</select> &nbsp;&nbsp;&nbsp; <span>施工单位:</span> <select
+			class="date_picker2">
+			<option>湖北建筑公司</option>
+			<option>北京建筑公司</option>
+		</select> &nbsp;&nbsp;&nbsp; <span
+			style="font-size: 13px;">设备名:</span> <select class="date_picker2">
+
+			<option>大华007</option>
+			<option>海康001</option>
+		</select> &nbsp;&nbsp;&nbsp; <input type="text"
+			class="date_picker2" name="convalue" />
+
+		<button class="loginBtn1 blue" onClick="refresh();"
+			style="margin-left: 5px;">
+			<i class="Hui-iconfont">&#xe665;</i>查询
+		</button>
 	</div>
 	<div id="allmap"></div>
 
@@ -70,7 +73,7 @@ body, html, #allmap {
 	var map = new BMap.Map("allmap");
 	map.enableScrollWheelZoom();
 	map.enableContinuousZoom();
-	map.centerAndZoom("宜兴", 15);
+	map.centerAndZoom("广州", 13);
 
 	$(function() {
 
@@ -109,8 +112,8 @@ body, html, #allmap {
 			//    myIcon = new BMap.Icon("./images/r_m.png", new BMap.Size(30, 30));
 			//    break;
 			default:
-				myIcon = new BMap.Icon("./images/r_m.png", new BMap.Size(30,
-						30));
+				myIcon = new BMap.Icon("./images/r_m.png",
+						new BMap.Size(30, 30));
 				break;
 			}
 			var marker2 = new BMap.Marker(data.points[0], {

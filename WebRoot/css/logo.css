@@ -161,6 +161,7 @@ text-align: start;
 .u-loginbtn {
 	height: 38px;
 	line-height: 38px;
+	border:none;
 	color: #fff;
 	font-size: 14px;
 	font-weight: 700;
@@ -170,7 +171,6 @@ text-align: start;
 	display: inline-block;
 	width: 23%;
 	text-align: center;
-	border:none;
 }
 
 .u-loginbtnp {
