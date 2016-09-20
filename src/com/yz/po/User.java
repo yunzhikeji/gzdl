@@ -9,10 +9,6 @@ public class User {
 
     private String realname;
 
-    private String jobnumber;
-
-    private Integer role;
-
     private Integer organizeid;
 
     public Integer getId() {
@@ -45,22 +41,6 @@ public class User {
 
     public void setRealname(String realname) {
         this.realname = realname == null ? null : realname.trim();
-    }
-
-    public String getJobnumber() {
-        return jobnumber;
-    }
-
-    public void setJobnumber(String jobnumber) {
-        this.jobnumber = jobnumber == null ? null : jobnumber.trim();
-    }
-
-    public Integer getRole() {
-        return role;
-    }
-
-    public void setRole(Integer role) {
-        this.role = role;
     }
 
     public Integer getOrganizeid() {

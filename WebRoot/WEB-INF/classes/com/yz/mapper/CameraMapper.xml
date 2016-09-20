@@ -9,7 +9,6 @@
     <result column="lat" property="lat" jdbcType="VARCHAR" />
     <result column="cnumber" property="cnumber" jdbcType="VARCHAR" />
     <result column="cname" property="cname" jdbcType="VARCHAR" />
-    <result column="markerid" property="markerid" jdbcType="VARCHAR" />
     <result column="voltage" property="voltage" jdbcType="VARCHAR" />
     <result column="temperature" property="temperature" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="INTEGER" />
@@ -78,8 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, sipid, sipserverid, lng, lat, cnumber, cname, markerid, voltage, temperature, 
-    status, iscontroll, stat, state, cameraid, organizeid
+    id, sipid, sipserverid, lng, lat, cnumber, cname, voltage, temperature, status, iscontroll, 
+    stat, state, cameraid, organizeid
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yz.po.CameraExample" >
     select
@@ -114,16 +113,16 @@
   <insert id="insert" parameterType="com.yz.po.Camera" >
     insert into camera (id, sipid, sipserverid, 
       lng, lat, cnumber, 
-      cname, markerid, voltage, 
-      temperature, status, iscontroll, 
-      stat, state, cameraid, 
-      organizeid)
+      cname, voltage, temperature, 
+      status, iscontroll, stat, 
+      state, cameraid, organizeid
+      )
     values (#{id,jdbcType=INTEGER}, #{sipid,jdbcType=VARCHAR}, #{sipserverid,jdbcType=VARCHAR}, 
       #{lng,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{cnumber,jdbcType=VARCHAR}, 
-      #{cname,jdbcType=VARCHAR}, #{markerid,jdbcType=VARCHAR}, #{voltage,jdbcType=VARCHAR}, 
-      #{temperature,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{iscontroll,jdbcType=INTEGER}, 
-      #{stat,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, #{cameraid,jdbcType=INTEGER}, 
-      #{organizeid,jdbcType=INTEGER})
+      #{cname,jdbcType=VARCHAR}, #{voltage,jdbcType=VARCHAR}, #{temperature,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{iscontroll,jdbcType=INTEGER}, #{stat,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER}, #{cameraid,jdbcType=INTEGER}, #{organizeid,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.yz.po.Camera" >
     insert into camera
@@ -148,9 +147,6 @@
       </if>
       <if test="cname != null" >
         cname,
-      </if>
-      <if test="markerid != null" >
-        markerid,
       </if>
       <if test="voltage != null" >
         voltage,
@@ -198,9 +194,6 @@
       </if>
       <if test="cname != null" >
         #{cname,jdbcType=VARCHAR},
-      </if>
-      <if test="markerid != null" >
-        #{markerid,jdbcType=VARCHAR},
       </if>
       <if test="voltage != null" >
         #{voltage,jdbcType=VARCHAR},
@@ -258,9 +251,6 @@
       <if test="record.cname != null" >
         cname = #{record.cname,jdbcType=VARCHAR},
       </if>
-      <if test="record.markerid != null" >
-        markerid = #{record.markerid,jdbcType=VARCHAR},
-      </if>
       <if test="record.voltage != null" >
         voltage = #{record.voltage,jdbcType=VARCHAR},
       </if>
@@ -299,7 +289,6 @@
       lat = #{record.lat,jdbcType=VARCHAR},
       cnumber = #{record.cnumber,jdbcType=VARCHAR},
       cname = #{record.cname,jdbcType=VARCHAR},
-      markerid = #{record.markerid,jdbcType=VARCHAR},
       voltage = #{record.voltage,jdbcType=VARCHAR},
       temperature = #{record.temperature,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
@@ -332,9 +321,6 @@
       </if>
       <if test="cname != null" >
         cname = #{cname,jdbcType=VARCHAR},
-      </if>
-      <if test="markerid != null" >
-        markerid = #{markerid,jdbcType=VARCHAR},
       </if>
       <if test="voltage != null" >
         voltage = #{voltage,jdbcType=VARCHAR},
@@ -371,7 +357,6 @@
       lat = #{lat,jdbcType=VARCHAR},
       cnumber = #{cnumber,jdbcType=VARCHAR},
       cname = #{cname,jdbcType=VARCHAR},
-      markerid = #{markerid,jdbcType=VARCHAR},
       voltage = #{voltage,jdbcType=VARCHAR},
       temperature = #{temperature,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},

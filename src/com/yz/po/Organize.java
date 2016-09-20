@@ -15,6 +15,12 @@ public class Organize {
 
     private Integer city;
 
+    private Integer area;
+
+    private Integer type;
+
+    private Integer level;
+
     public Integer getId() {
         return id;
     }
@@ -69,5 +75,29 @@ public class Organize {
 
     public void setCity(Integer city) {
         this.city = city;
+    }
+
+    public Integer getArea() {
+        return area;
+    }
+
+    public void setArea(Integer area) {
+        this.area = area;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }

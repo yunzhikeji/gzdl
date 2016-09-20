@@ -15,8 +15,6 @@ public class Camera {
 
     private String cname;
 
-    private String markerid;
-
     private String voltage;
 
     private String temperature;
@@ -87,14 +85,6 @@ public class Camera {
 
     public void setCname(String cname) {
         this.cname = cname == null ? null : cname.trim();
-    }
-
-    public String getMarkerid() {
-        return markerid;
-    }
-
-    public void setMarkerid(String markerid) {
-        this.markerid = markerid == null ? null : markerid.trim();
     }
 
     public String getVoltage() {

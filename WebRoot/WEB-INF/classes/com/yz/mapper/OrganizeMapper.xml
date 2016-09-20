@@ -9,6 +9,9 @@
     <result column="phone" property="phone" jdbcType="VARCHAR" />
     <result column="province" property="province" jdbcType="INTEGER" />
     <result column="city" property="city" jdbcType="INTEGER" />
+    <result column="area" property="area" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -69,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, address, contact, phone, province, city
+    id, name, address, contact, phone, province, city, area, type, level
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yz.po.OrganizeExample" >
     select
@@ -104,10 +107,12 @@
   <insert id="insert" parameterType="com.yz.po.Organize" >
     insert into organize (id, name, address, 
       contact, phone, province, 
-      city)
+      city, area, type, level
+      )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
       #{contact,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{province,jdbcType=INTEGER}, 
-      #{city,jdbcType=INTEGER})
+      #{city,jdbcType=INTEGER}, #{area,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.yz.po.Organize" >
     insert into organize
@@ -133,6 +138,15 @@
       <if test="city != null" >
         city,
       </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -155,6 +169,15 @@
       </if>
       <if test="city != null" >
         #{city,jdbcType=INTEGER},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -188,6 +211,15 @@
       <if test="record.city != null" >
         city = #{record.city,jdbcType=INTEGER},
       </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.level != null" >
+        level = #{record.level,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -201,7 +233,10 @@
       contact = #{record.contact,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       province = #{record.province,jdbcType=INTEGER},
-      city = #{record.city,jdbcType=INTEGER}
+      city = #{record.city,jdbcType=INTEGER},
+      area = #{record.area,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      level = #{record.level,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -227,6 +262,15 @@
       <if test="city != null" >
         city = #{city,jdbcType=INTEGER},
       </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=INTEGER},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -237,7 +281,10 @@
       contact = #{contact,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       province = #{province,jdbcType=INTEGER},
-      city = #{city,jdbcType=INTEGER}
+      city = #{city,jdbcType=INTEGER},
+      area = #{area,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      level = #{level,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
