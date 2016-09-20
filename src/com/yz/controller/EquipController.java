@@ -28,9 +28,20 @@ public class EquipController {
 		
 		modelAndView.addObject("cameraList", cameraList);
 		
-		modelAndView.setViewName("equip");
+		modelAndView.setViewName("equip/equip");
 		
 		return modelAndView;
+	}
+	
+	
+	@RequestMapping("/toAdd")
+	public String toAdd() throws Exception {
+		return "equip/equipadd";
+	}
+	
+	@RequestMapping("/toUpdate")
+	public String toUpdate() throws Exception {
+		return "equip/equipUpdate";
 	}
 
 }
