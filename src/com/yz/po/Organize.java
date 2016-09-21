@@ -17,9 +17,9 @@ public class Organize {
 
     private String area;
 
-    private Integer type;
+    private Integer type;//组织类型  1：供电局  2：施工单位
 
-    private Integer level;
+    private Integer level;//组织级别  1：省级  2:市级 3：区级  级别仅对供电局起作用，施工单位无级别
 
     public Integer getId() {
         return id;

@@ -30,6 +30,7 @@ public class LoginController {
 		}else{
 		// 在session中保存用户身份信息
 		session.setAttribute("username", userQueryVo.getUser().getUsername());
+		session.setAttribute("organizeid", userQueryVo.getUser().getOrganizeid());
 		// 重定向到商品列表页面
 		return "redirect:/index.action";
 		}

@@ -9,7 +9,7 @@ public class User {
 
     private String realname;
 
-    private Integer organizeid;
+    private Integer organizeid;//-1:表示超级管理员
 
     public Integer getId() {
         return id;

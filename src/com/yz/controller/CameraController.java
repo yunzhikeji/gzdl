@@ -3,6 +3,8 @@ package com.yz.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.yz.po.Camera;
+import com.yz.po.Organize;
 import com.yz.service.CameraService;
+import com.yz.service.OrganizeService;
 
 @Controller
 @RequestMapping("/camera")
@@ -21,6 +25,9 @@ public class CameraController {
 
 	@Autowired
 	private CameraService cameraService;
+	
+	@Autowired
+	private OrganizeService organizeService;
 
 	// 单个监控画面
 	@RequestMapping(value = "singleVideo", method = { RequestMethod.GET })
@@ -39,10 +46,20 @@ public class CameraController {
 	 * @throws Exception
 	 */
 	// 地图返回
-	@RequestMapping("/getcameras")
-	public @ResponseBody List<Camera> getAllCameras(String number) throws Exception {
+	@RequestMapping("/getCameras")
+	public @ResponseBody List<Camera> getAllCameras(String number,HttpSession session) throws Exception {
+		
+		System.out.println("session:"+session);
+		
+		String username = (String) session.getAttribute("username");
+		Integer userOrganizeid = (Integer) session.getAttribute("organizeid");
+		
+		Organize organize = organizeService.selectByPrimaryKey(userOrganizeid);
+		
 		
 		List<Camera> cameras = new ArrayList<Camera>();
+		
+		cameras =  organizeService.getCamerasByNumberAndOrganizeid(number,userOrganizeid);
 		
 		if(number!=null&&!number.trim().equals(""))
 		{

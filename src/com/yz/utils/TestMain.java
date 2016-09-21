@@ -11,17 +11,11 @@ import net.sf.json.util.PropertyFilter;
 public class TestMain {
 	
 	public static void main(String[] args) {
-		CameraMessage cameraMessage = new CameraMessage();
 		
-		cameraMessage.setCamera_name("bbbb");
-		cameraMessage.setCamera_mode(0);
-		cameraMessage.setUrl("rtsp://admin:12345@192.168.0.64/h264/ch1/main/av_stream");
-		cameraMessage.setDb_id_list("7");
-		cameraMessage.setNode_id(0);
-		cameraMessage.setFixed_host(0);
-		cameraMessage.setMt_policy_id(1);
+		int a = -1;
+		System.out.println(a);
 		
-		System.out.println(jsonMessage(cameraMessage));
+		System.out.println(-1!=0);
 	}
 	
 	
