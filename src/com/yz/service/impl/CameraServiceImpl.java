@@ -67,4 +67,10 @@ public class CameraServiceImpl implements CameraService {
 		cameraMapper.updateByPrimaryKey(camera);
 	}
 
+	@Override
+	public List<Camera> findCameraListByNumber(String number) {
+		// TODO Auto-generated method stub
+		return camearMapperCustom.findCameraListByNumber(number);
+	}
+
 }

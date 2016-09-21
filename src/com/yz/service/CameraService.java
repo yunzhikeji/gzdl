@@ -28,4 +28,6 @@ public interface CameraService {
 
 	public void updateCamera(Camera camera);
 
+	public List<Camera> findCameraListByNumber(String number);
+
 }

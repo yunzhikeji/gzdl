@@ -1,5 +1,6 @@
 package com.yz.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,13 @@ public class CameraController {
 	}
 
 	@RequestMapping("/getcameras")
-	public @ResponseBody List<Camera> getAllCameras() throws Exception {
-		return cameraService.findCameraList();
+	public @ResponseBody List<Camera> getAllCameras(String number) throws Exception {
+		
+		List<Camera> cameras = new ArrayList<Camera>();
+		
+		if(number!=null&&!number.trim().equals(""))
+		{
+		return cameras;
 	}
 
 }

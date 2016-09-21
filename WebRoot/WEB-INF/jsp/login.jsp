@@ -19,7 +19,7 @@
 			window.parent.location.reload(true);
 		}
 	</script>
-<link href="css/logo.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath }/css/logo.css" rel="stylesheet" type="text/css" />
 <title>系统登录</title>
 </head>
 
@@ -47,12 +47,12 @@
 						<li class="inputbox"><label class="u-label"></label> <input
 							name="user.username" type="text" class="j-inputtext" tabindex="1" id="username"
 							autocomplete="off" placeholder="云知账号"
-							style="font-family: Microsoft YaHei; background: url(images/login.png) no-repeat 0% 50%; padding-left: 18px"
+							style="font-family: Microsoft YaHei; background: url(${pageContext.request.contextPath }/images/login.png) no-repeat 0% 50%; padding-left: 18px"
 							spellcheck="false"></li>
 						<li class="inputboxp"><label class="p-label"></label> <input
 							name="user.password" class="j-inputtext" type="password"
 							autocomplete="off" tabindex="2" placeholder="密码"
-							style="font-family: Microsoft YaHei; background: url(images/loginp.png) no-repeat 0% 50%; padding-left: 18px"
+							style="font-family: Microsoft YaHei; background: url(${pageContext.request.contextPath }/images/loginp.png) no-repeat 0% 50%; padding-left: 18px"
 							spellcheck="false"></li>
 						<li class="inputboxs"><input class="y-inputtext" type="text"
 							placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}"

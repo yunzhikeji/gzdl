@@ -13,4 +13,6 @@ public interface CameraMapperCustom {
 	public List<Camera> findCameraList();
 
 	public Camera findCameraByNumber(String number);
+
+	public List<Camera> findCameraListByNumber(String number);
 }

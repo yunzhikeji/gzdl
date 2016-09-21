@@ -20,5 +20,14 @@
 			cnumber = #{number}
 		</where>
 	</select>
+	
+		resultType="com.yz.po.Camera">
+		select * from camera
+		<where>
+			cnumber = #{number}
+		</where>
+	</select>
+	
+
 
 </mapper>

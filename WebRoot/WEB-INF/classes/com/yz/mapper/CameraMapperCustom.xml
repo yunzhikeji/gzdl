@@ -20,5 +20,15 @@
 			cnumber = #{number}
 		</where>
 	</select>
+	
+		<select id="findCameraListByNumber" parameterType="java.lang.String"
+		resultType="com.yz.po.Camera">
+		select * from camera
+		<where>
+			cnumber = #{number}
+		</where>
+	</select>
+	
+
 
 </mapper>
