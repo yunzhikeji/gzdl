@@ -62,5 +62,14 @@ public class CameraController {
 		return modelAndView;
 	}
 	
+	@RequestMapping("/toAdd")
+	public String toAdd() throws Exception {
+		return "camera/cameraAdd";
+	}
+	
+	@RequestMapping("/toUpdate")
+	public String toUpdate() throws Exception {
+		return "camera/cameraUpdate";
+	}
 
 }

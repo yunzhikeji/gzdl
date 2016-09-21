@@ -102,7 +102,7 @@
 		}
 		function changeToTz() {
 			$("#iframepage").attr('src',
-					"${pageContext.request.contextPath }/equip/equipList");
+					"${pageContext.request.contextPath }/camera/cameraList");
 		}
 
 		function changeToTj() {
