@@ -3,6 +3,7 @@ package com.yz.service;
 import java.util.List;
 
 import com.yz.po.Camera;
+import com.yz.vo.CameraQueryVO;
 
 public interface CameraService {
 
@@ -32,5 +33,8 @@ public interface CameraService {
 
 	// 根据设备编号,模糊查询所有摄像头(设备)列表
 	public List<Camera> findCameraListByNumber(String number);
+	
+	//根据CameraQueryVO,查询所有摄像头(设备)列表
+	public List<Camera> getCamerasByNumberAndOrganizeid(CameraQueryVO cameraQueryVO);
 
 }

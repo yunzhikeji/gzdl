@@ -1,14 +1,19 @@
 package com.yz.service.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yz.mapper.CameraMapper;
 import com.yz.mapper.CameraMapperCustom;
+import com.yz.mapper.OrganizeMapper;
+import com.yz.mapper.OrganizeMapperCustom;
 import com.yz.po.Camera;
 import com.yz.po.CameraCustom;
+import com.yz.po.Organize;
 import com.yz.service.CameraService;
+import com.yz.vo.CameraQueryVO;
 
 public class CameraServiceImpl implements CameraService {
 	
@@ -17,6 +22,12 @@ public class CameraServiceImpl implements CameraService {
 	
 	@Autowired
 	private CameraMapperCustom camearMapperCustom;
+	
+	@Autowired
+	private OrganizeMapper organizeMapper;
+	
+	@Autowired
+	private OrganizeMapperCustom organizeMapperCustom;
 
 	@Override
 	public Camera findCameraById(Integer id) throws Exception {
@@ -71,6 +82,27 @@ public class CameraServiceImpl implements CameraService {
 	public List<Camera> findCameraListByNumber(String number) {
 		// TODO Auto-generated method stub
 		return camearMapperCustom.findCameraListByNumber(number);
+	}
+	
+	@Override
+	public List<Camera> getCamerasByNumberAndOrganizeid(CameraQueryVO cameraQueryVO) {
+		
+		List<Camera> cameras = new ArrayList<Camera>();
+		
+		Organize userOrganize = organizeMapper.selectByPrimaryKey(cameraQueryVO.getUserOrganizeid());//当前用户所在组织
+		
+		int type  = userOrganize.getType();
+		
+		if(type==1)//组织类型  1：供电局  2：施工单位
+		{
+			
+		}else if(type==2)
+		{
+			System.out.println("UserOrganizeid:"+cameraQueryVO.getUserOrganizeid());
+			cameras = camearMapperCustom.getCameraListByNumberAndUserOrganizeid(cameraQueryVO);
+		}
+		
+		return cameras;
 	}
 
 }
