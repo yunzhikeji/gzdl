@@ -18,6 +18,7 @@ import com.yz.po.Camera;
 import com.yz.po.Organize;
 import com.yz.service.CameraService;
 import com.yz.service.OrganizeService;
+import com.yz.vo.CameraQueryVO;
 
 @Controller
 @RequestMapping("/camera")
@@ -49,25 +50,16 @@ public class CameraController {
 	@RequestMapping("/getCameras")
 	public @ResponseBody List<Camera> getAllCameras(String number,HttpSession session) throws Exception {
 		
-		System.out.println("session:"+session);
-		
-		String username = (String) session.getAttribute("username");
-		Integer userOrganizeid = (Integer) session.getAttribute("organizeid");
-		
-		Organize organize = organizeService.selectByPrimaryKey(userOrganizeid);
-		
-		
 		List<Camera> cameras = new ArrayList<Camera>();
 		
-		cameras =  organizeService.getCamerasByNumberAndOrganizeid(number,userOrganizeid);
+		Integer userOrganizeid = (Integer) session.getAttribute("organizeid");
 		
-		if(number!=null&&!number.trim().equals(""))
-		{
-			cameras = cameraService.findCameraListByNumber(number);
-		}else
-		{
-			cameras = cameraService.findCameraList();
-		}
+		CameraQueryVO cameraQueryVO = new CameraQueryVO();
+		cameraQueryVO.setNumber(number);
+		cameraQueryVO.setUserOrganizeid(userOrganizeid);
+		
+		cameras =  cameraService.getCamerasByNumberAndOrganizeid(cameraQueryVO);
+		
 		return cameras;
 	}
 	

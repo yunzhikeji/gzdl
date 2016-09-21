@@ -20,15 +20,27 @@
 			cnumber = #{number}
 		</where>
 	</select>
-	
-		<select id="findCameraListByNumber" parameterType="java.lang.String"
+
+	<select id="findCameraListByNumber" parameterType="java.lang.String"
 		resultType="com.yz.po.Camera">
 		select * from camera
 		<where>
-			cnumber like  concat('%',#{number},'%')
+			cnumber like concat('%',#{number},'%')
 		</where>
 	</select>
-	
+
+
+	<select id="getCameraListByNumberAndUserOrganizeid"
+		parameterType="com.yz.vo.CameraQueryVO" resultType="com.yz.po.Camera">
+		select * from camera where
+		<if test="#{number} != null or #{number} != '' ">
+			cnumber like concat('%',#{number},'%') and
+		</if>
+		organizeid = 1
+	</select>
+
+
+
 
 
 </mapper>

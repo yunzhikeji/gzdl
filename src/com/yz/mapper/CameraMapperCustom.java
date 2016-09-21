@@ -2,6 +2,8 @@ package com.yz.mapper;
 
 import com.yz.po.Camera;
 import com.yz.po.CameraExample;
+import com.yz.vo.CameraQueryVO;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,4 +17,6 @@ public interface CameraMapperCustom {
 	public Camera findCameraByNumber(String number);
 
 	public List<Camera> findCameraListByNumber(String number);
+
+	public List<Camera> getCameraListByNumberAndUserOrganizeid(CameraQueryVO cameraQueryVO);
 }
