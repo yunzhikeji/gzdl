@@ -33,7 +33,7 @@
 	<select id="getCameraListByNumberAndUserOrganizeid"
 		parameterType="com.yz.vo.CameraQueryVO" resultType="com.yz.po.Camera">
 		select * from camera where
-		<if test="#{number} != null or #{number} != '' ">
+		<if test="number != null and number != '' ">
 			cnumber like concat('%',#{number},'%') and
 		</if>
 		organizeid = 1

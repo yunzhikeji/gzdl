@@ -96,9 +96,9 @@ public class CameraServiceImpl implements CameraService {
 		if(type==1)//组织类型  1：供电局  2：施工单位
 		{
 			
+			
 		}else if(type==2)
 		{
-			System.out.println("UserOrganizeid:"+cameraQueryVO.getUserOrganizeid());
 			cameras = camearMapperCustom.getCameraListByNumberAndUserOrganizeid(cameraQueryVO);
 		}
 		
