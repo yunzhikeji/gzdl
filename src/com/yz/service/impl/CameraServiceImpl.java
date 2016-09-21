@@ -95,7 +95,17 @@ public class CameraServiceImpl implements CameraService {
 		
 		if(type==1)//组织类型  1：供电局  2：施工单位
 		{
-			
+			int level = userOrganize.getLevel();
+			switch (level) {
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			default:
+				break;
+			}
 			
 		}else if(type==2)
 		{
