@@ -38,6 +38,11 @@ public class CameraController {
 		
 		if(number!=null&&!number.trim().equals(""))
 		{
+			cameras = cameraService.findCameraListByNumber(number);
+		}else
+		{
+			cameras = cameraService.findCameraList();
+		}
 		return cameras;
 	}
 
