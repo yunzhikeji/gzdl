@@ -31,6 +31,12 @@ public class CameraController {
 
 	}
 
+	//地图获取设备列表
+	/**
+	 * @param number
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/getcameras")
 	public @ResponseBody List<Camera> getAllCameras(String number) throws Exception {
 		
