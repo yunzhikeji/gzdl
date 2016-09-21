@@ -11,11 +11,11 @@ public class Organize {
 
     private String phone;
 
-    private Integer province;
+    private String province;
 
-    private Integer city;
+    private String city;
 
-    private Integer area;
+    private String area;
 
     private Integer type;
 
@@ -61,28 +61,28 @@ public class Organize {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public Integer getProvince() {
+    public String getProvince() {
         return province;
     }
 
-    public void setProvince(Integer province) {
-        this.province = province;
+    public void setProvince(String province) {
+        this.province = province == null ? null : province.trim();
     }
 
-    public Integer getCity() {
+    public String getCity() {
         return city;
     }
 
-    public void setCity(Integer city) {
-        this.city = city;
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
     }
 
-    public Integer getArea() {
+    public String getArea() {
         return area;
     }
 
-    public void setArea(Integer area) {
-        this.area = area;
+    public void setArea(String area) {
+        this.area = area == null ? null : area.trim();
     }
 
     public Integer getType() {

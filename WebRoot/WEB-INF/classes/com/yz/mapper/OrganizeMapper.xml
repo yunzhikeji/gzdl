@@ -7,9 +7,9 @@
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="contact" property="contact" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="province" property="province" jdbcType="INTEGER" />
-    <result column="city" property="city" jdbcType="INTEGER" />
-    <result column="area" property="area" jdbcType="INTEGER" />
+    <result column="province" property="province" jdbcType="VARCHAR" />
+    <result column="city" property="city" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="INTEGER" />
     <result column="level" property="level" jdbcType="INTEGER" />
   </resultMap>
@@ -110,8 +110,8 @@
       city, area, type, level
       )
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{contact,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{province,jdbcType=INTEGER}, 
-      #{city,jdbcType=INTEGER}, #{area,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}
+      #{contact,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{level,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.yz.po.Organize" >
@@ -165,13 +165,13 @@
         #{phone,jdbcType=VARCHAR},
       </if>
       <if test="province != null" >
-        #{province,jdbcType=INTEGER},
+        #{province,jdbcType=VARCHAR},
       </if>
       <if test="city != null" >
-        #{city,jdbcType=INTEGER},
+        #{city,jdbcType=VARCHAR},
       </if>
       <if test="area != null" >
-        #{area,jdbcType=INTEGER},
+        #{area,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
         #{type,jdbcType=INTEGER},
@@ -206,13 +206,13 @@
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
       <if test="record.province != null" >
-        province = #{record.province,jdbcType=INTEGER},
+        province = #{record.province,jdbcType=VARCHAR},
       </if>
       <if test="record.city != null" >
-        city = #{record.city,jdbcType=INTEGER},
+        city = #{record.city,jdbcType=VARCHAR},
       </if>
       <if test="record.area != null" >
-        area = #{record.area,jdbcType=INTEGER},
+        area = #{record.area,jdbcType=VARCHAR},
       </if>
       <if test="record.type != null" >
         type = #{record.type,jdbcType=INTEGER},
@@ -232,9 +232,9 @@
       address = #{record.address,jdbcType=VARCHAR},
       contact = #{record.contact,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
-      province = #{record.province,jdbcType=INTEGER},
-      city = #{record.city,jdbcType=INTEGER},
-      area = #{record.area,jdbcType=INTEGER},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
       type = #{record.type,jdbcType=INTEGER},
       level = #{record.level,jdbcType=INTEGER}
     <if test="_parameter != null" >
@@ -257,13 +257,13 @@
         phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="province != null" >
-        province = #{province,jdbcType=INTEGER},
+        province = #{province,jdbcType=VARCHAR},
       </if>
       <if test="city != null" >
-        city = #{city,jdbcType=INTEGER},
+        city = #{city,jdbcType=VARCHAR},
       </if>
       <if test="area != null" >
-        area = #{area,jdbcType=INTEGER},
+        area = #{area,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
         type = #{type,jdbcType=INTEGER},
@@ -280,9 +280,9 @@
       address = #{address,jdbcType=VARCHAR},
       contact = #{contact,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
-      province = #{province,jdbcType=INTEGER},
-      city = #{city,jdbcType=INTEGER},
-      area = #{area,jdbcType=INTEGER},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
       type = #{type,jdbcType=INTEGER},
       level = #{level,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}

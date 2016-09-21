@@ -454,52 +454,62 @@ public class OrganizeExample {
             return (Criteria) this;
         }
 
-        public Criteria andProvinceEqualTo(Integer value) {
+        public Criteria andProvinceEqualTo(String value) {
             addCriterion("province =", value, "province");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceNotEqualTo(Integer value) {
+        public Criteria andProvinceNotEqualTo(String value) {
             addCriterion("province <>", value, "province");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceGreaterThan(Integer value) {
+        public Criteria andProvinceGreaterThan(String value) {
             addCriterion("province >", value, "province");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceGreaterThanOrEqualTo(Integer value) {
+        public Criteria andProvinceGreaterThanOrEqualTo(String value) {
             addCriterion("province >=", value, "province");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceLessThan(Integer value) {
+        public Criteria andProvinceLessThan(String value) {
             addCriterion("province <", value, "province");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceLessThanOrEqualTo(Integer value) {
+        public Criteria andProvinceLessThanOrEqualTo(String value) {
             addCriterion("province <=", value, "province");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceIn(List<Integer> values) {
+        public Criteria andProvinceLike(String value) {
+            addCriterion("province like", value, "province");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceNotLike(String value) {
+            addCriterion("province not like", value, "province");
+            return (Criteria) this;
+        }
+
+        public Criteria andProvinceIn(List<String> values) {
             addCriterion("province in", values, "province");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceNotIn(List<Integer> values) {
+        public Criteria andProvinceNotIn(List<String> values) {
             addCriterion("province not in", values, "province");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceBetween(Integer value1, Integer value2) {
+        public Criteria andProvinceBetween(String value1, String value2) {
             addCriterion("province between", value1, value2, "province");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceNotBetween(Integer value1, Integer value2) {
+        public Criteria andProvinceNotBetween(String value1, String value2) {
             addCriterion("province not between", value1, value2, "province");
             return (Criteria) this;
         }
@@ -514,52 +524,62 @@ public class OrganizeExample {
             return (Criteria) this;
         }
 
-        public Criteria andCityEqualTo(Integer value) {
+        public Criteria andCityEqualTo(String value) {
             addCriterion("city =", value, "city");
             return (Criteria) this;
         }
 
-        public Criteria andCityNotEqualTo(Integer value) {
+        public Criteria andCityNotEqualTo(String value) {
             addCriterion("city <>", value, "city");
             return (Criteria) this;
         }
 
-        public Criteria andCityGreaterThan(Integer value) {
+        public Criteria andCityGreaterThan(String value) {
             addCriterion("city >", value, "city");
             return (Criteria) this;
         }
 
-        public Criteria andCityGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCityGreaterThanOrEqualTo(String value) {
             addCriterion("city >=", value, "city");
             return (Criteria) this;
         }
 
-        public Criteria andCityLessThan(Integer value) {
+        public Criteria andCityLessThan(String value) {
             addCriterion("city <", value, "city");
             return (Criteria) this;
         }
 
-        public Criteria andCityLessThanOrEqualTo(Integer value) {
+        public Criteria andCityLessThanOrEqualTo(String value) {
             addCriterion("city <=", value, "city");
             return (Criteria) this;
         }
 
-        public Criteria andCityIn(List<Integer> values) {
+        public Criteria andCityLike(String value) {
+            addCriterion("city like", value, "city");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityNotLike(String value) {
+            addCriterion("city not like", value, "city");
+            return (Criteria) this;
+        }
+
+        public Criteria andCityIn(List<String> values) {
             addCriterion("city in", values, "city");
             return (Criteria) this;
         }
 
-        public Criteria andCityNotIn(List<Integer> values) {
+        public Criteria andCityNotIn(List<String> values) {
             addCriterion("city not in", values, "city");
             return (Criteria) this;
         }
 
-        public Criteria andCityBetween(Integer value1, Integer value2) {
+        public Criteria andCityBetween(String value1, String value2) {
             addCriterion("city between", value1, value2, "city");
             return (Criteria) this;
         }
 
-        public Criteria andCityNotBetween(Integer value1, Integer value2) {
+        public Criteria andCityNotBetween(String value1, String value2) {
             addCriterion("city not between", value1, value2, "city");
             return (Criteria) this;
         }
@@ -574,52 +594,62 @@ public class OrganizeExample {
             return (Criteria) this;
         }
 
-        public Criteria andAreaEqualTo(Integer value) {
+        public Criteria andAreaEqualTo(String value) {
             addCriterion("area =", value, "area");
             return (Criteria) this;
         }
 
-        public Criteria andAreaNotEqualTo(Integer value) {
+        public Criteria andAreaNotEqualTo(String value) {
             addCriterion("area <>", value, "area");
             return (Criteria) this;
         }
 
-        public Criteria andAreaGreaterThan(Integer value) {
+        public Criteria andAreaGreaterThan(String value) {
             addCriterion("area >", value, "area");
             return (Criteria) this;
         }
 
-        public Criteria andAreaGreaterThanOrEqualTo(Integer value) {
+        public Criteria andAreaGreaterThanOrEqualTo(String value) {
             addCriterion("area >=", value, "area");
             return (Criteria) this;
         }
 
-        public Criteria andAreaLessThan(Integer value) {
+        public Criteria andAreaLessThan(String value) {
             addCriterion("area <", value, "area");
             return (Criteria) this;
         }
 
-        public Criteria andAreaLessThanOrEqualTo(Integer value) {
+        public Criteria andAreaLessThanOrEqualTo(String value) {
             addCriterion("area <=", value, "area");
             return (Criteria) this;
         }
 
-        public Criteria andAreaIn(List<Integer> values) {
+        public Criteria andAreaLike(String value) {
+            addCriterion("area like", value, "area");
+            return (Criteria) this;
+        }
+
+        public Criteria andAreaNotLike(String value) {
+            addCriterion("area not like", value, "area");
+            return (Criteria) this;
+        }
+
+        public Criteria andAreaIn(List<String> values) {
             addCriterion("area in", values, "area");
             return (Criteria) this;
         }
 
-        public Criteria andAreaNotIn(List<Integer> values) {
+        public Criteria andAreaNotIn(List<String> values) {
             addCriterion("area not in", values, "area");
             return (Criteria) this;
         }
 
-        public Criteria andAreaBetween(Integer value1, Integer value2) {
+        public Criteria andAreaBetween(String value1, String value2) {
             addCriterion("area between", value1, value2, "area");
             return (Criteria) this;
         }
 
-        public Criteria andAreaNotBetween(Integer value1, Integer value2) {
+        public Criteria andAreaNotBetween(String value1, String value2) {
             addCriterion("area not between", value1, value2, "area");
             return (Criteria) this;
         }
