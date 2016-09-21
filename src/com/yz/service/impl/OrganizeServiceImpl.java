@@ -36,6 +36,30 @@ public class OrganizeServiceImpl implements OrganizeService {
 		
 		return null;
 	}
+
+	@Override
+	public void deleteOrganizeById(Integer id) {
+		organizeMapper.deleteByPrimaryKey(id);
+		
+	}
+
+	@Override
+	public void updateOrganize(Integer id, Organize organize) {
+		organize.setId(id);
+		organizeMapper.updateByPrimaryKeySelective(organize);
+	}
+
+	@Override
+	public void insertOrganize(Organize organize) {
+		organizeMapper.insert(organize);
+		
+	}
+
+	@Override
+	public List<Organize> findOrganizeList() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	

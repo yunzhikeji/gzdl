@@ -9,14 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class OrganizeController {
 	@RequestMapping("/organizeList")
 	public String organizeList() throws Exception {
-		return "organize/organizelist";
+		return "organize/organizeList";
 	}
 	
-	@RequestMapping("/toAdd")
-	public String toAdd() throws Exception {
-		return "organize/organizeadd";
+	@RequestMapping("/toCompanyAdd")
+	public String toCompanyAdd() throws Exception {
+		return "organize/companyAdd";
 	}
 
+	@RequestMapping("/toGovermentAdd")
+	public String toGovermentAdd() throws Exception {
+		return "organize/govermentAdd";
+	}
+	
 	@RequestMapping("/toUpdate")
 	public String toUpdate() throws Exception {
 		return "organize/organizeUpdate";
