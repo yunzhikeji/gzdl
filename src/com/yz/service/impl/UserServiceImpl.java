@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.yz.mapper.UserMapper;
 import com.yz.mapper.UserMapperCustom;
+import com.yz.po.Organize;
 import com.yz.po.User;
 import com.yz.po.UserCustom;
 import com.yz.po.UserQueryVo;
@@ -54,6 +55,12 @@ public class UserServiceImpl implements UserService {
 		User user = userMapperCustom.findByUserNameAndPassword(userQueryVo);
 		
 		return user;
+	}
+
+
+	@Override
+	public Organize findOrganizeByOrganizeId(Integer organizeid) throws Exception {
+		return userMapperCustom.findOrganizeByOrganizeId(organizeid);
 	}
 
 }

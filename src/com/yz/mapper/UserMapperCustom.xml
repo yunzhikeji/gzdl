@@ -20,4 +20,9 @@
  	SELECT user.* FROM user 
 
 </select>
+
+  <select id="findOrganizeByOrganizeId" parameterType="java.lang.Integer" resultType="com.yz.po.Organize">
+ 	SELECT * from organize where id = #{organizeId} 
+
+</select>
 </mapper>

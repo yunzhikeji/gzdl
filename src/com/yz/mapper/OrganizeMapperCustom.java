@@ -7,5 +7,7 @@ import com.yz.po.Organize;
 public interface OrganizeMapperCustom {
 	
 	public List<Organize> findOrganizeList();
+
+	public Organize findOrganizeByName(String organizeName);
 	
 }
