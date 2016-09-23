@@ -50,9 +50,7 @@
 				target="myiframe">组织管理</a>
 				</span> <span class="tA0"><a
 				href="javascript:void(0)" id="tz" onClick="changeToTz();"
-				target="myiframe">设备管理</a></span> <span class="tA0"><a
-				href="javascript:void(0)" id="tj" onClick="changeToTj();"
-				target="myiframe">视频管理</a></span>
+				target="myiframe">设备管理</a></span> 
 		</div>
 		<div class="sJ0"></div>
 		<div class="tabCon">

@@ -61,8 +61,14 @@ public class OrganizeServiceImpl implements OrganizeService {
 
 	@Override
 	public List<Organize> findOrganizeList() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return organizeMapperCustom.findOrganizeList();
+	}
+
+
+	@Override
+	public Organize findOrganizeByName(String organizeName) {
+		return organizeMapperCustom.findOrganizeByName(organizeName);
 	}
 
 	

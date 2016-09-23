@@ -20,14 +20,14 @@
  <span style="margin-left:20px"><select class="date_picker" id="s_province" name="s_province"></select>  
     <select class="date_picker" id="s_city" name="s_city" ></select>  
     <select class="date_picker1" id="s_county" name="s_county"></select>
-    <script class="resources library" src="js/area.js" type="text/javascript"></script>
+    <script class="resources library" src="${pageContext.request.contextPath }/js/area.js" type="text/javascript"></script>
     
     <script type="text/javascript">_init_area();</script></span><span id="show"></span>
     
 <input type="text" class="date_picker" placeholder="单位名称" style="width:150px"/>
 <button class="loginBtn1 orange smallrounded" onClick="refresh();" style="margin-left:5px;"><i class="Hui-iconfont">&#xe665;</i></button>             
-<button class="button blue bla smallrounded" style="font-size:14px; line-height:14px;margin-left:20px" onClick="ypgy('施工单位','builded.html','1024px','768px')" ><i class="Hui-iconfont">&nbsp;&#xe600;&nbsp;</i>添加施工单位</button>
-<button class="button blue bla smallrounded" style="font-size:14px; line-height:14px;margin-left:5px" onClick="ypgy('供电局','power.html','1024px','768px')" ><i class="Hui-iconfont">&nbsp;&#xe600;&nbsp;</i>添加供电局</button>
+<button class="button blue bla smallrounded" style="font-size:14px; line-height:14px;margin-left:20px" onClick="ypgy('施工单位','${pageContext.request.contextPath }/organize/toCompanyAdd','1024px','768px')" ><i class="Hui-iconfont">&nbsp;&#xe600;&nbsp;</i>添加施工单位</button>
+<button class="button blue bla smallrounded" style="font-size:14px; line-height:14px;margin-left:5px" onClick="ypgy('供电局','${pageContext.request.contextPath }/organize/toGovermentAdd','1024px','768px')" ><i class="Hui-iconfont">&nbsp;&#xe600;&nbsp;</i>添加供电局</button>
 <button class="button orange bla smallrounded" style="font-size:14px;line-height:14px;margin-left:20px"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>批量删除</button></div>
  <div class="sJ0"></div>
  <div style="height:740px">
@@ -54,7 +54,7 @@
         <td>林卿</td>
         <td>13587528456</td>
         <td>施工单位</td>
-        <td><a href="javascript:;" onClick="ypgy('组织管理','power.html','1024px','768px')" title="组织管理" target="_self" class="button blue bigrounded bla" style="font-size:14px;line-height:14px"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
+        <td><a href="javascript:;" onClick="ypgy('组织管理','${pageContext.request.contextPath }/organize/toGovermentAdd','1024px','768px')" title="组织管理" target="_self" class="button blue bigrounded bla" style="font-size:14px;line-height:14px"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
         <td><button class="button orange bla smallrounded" style="font-size:14px;line-height:14px" onClick="OnUp();"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除</button></td>
 
       </tr>                  

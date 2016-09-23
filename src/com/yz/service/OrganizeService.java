@@ -25,5 +25,8 @@ public interface OrganizeService {
 	//查询所有组织
 	public List<Organize> findOrganizeList();
 
+	//根据组织名称查询组织
+	public Organize findOrganizeByName(String organizeName);
+
 
 }

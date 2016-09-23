@@ -13,4 +13,7 @@ public interface OrganizeMapperCustom {
 	//根据organizeQueryVO查询所有组织列表
 	public List<Organize> findOrganizeListByOrganizeQueryVO(OrganizeQueryVO organizeQueryVO);
 	
+	
+	public Organize findOrganizeByName(String organizeName);
+	
 }

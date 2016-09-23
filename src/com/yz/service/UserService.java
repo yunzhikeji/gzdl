@@ -2,6 +2,7 @@ package com.yz.service;
 
 import java.util.List;
 
+import com.yz.po.Organize;
 import com.yz.po.User;
 import com.yz.po.UserCustom;
 import com.yz.po.UserQueryVo;
@@ -26,5 +27,9 @@ public interface UserService {
 	
 	//验证用户登录
 	public User findByUserNameAndPassword(UserQueryVo userQueryVo) throws Exception;
+
+	// 根据用户的organizeId查询用户所属的组织信息
+	public Organize findOrganizeByOrganizeId(Integer organizeid) throws Exception;
+
 
 }
