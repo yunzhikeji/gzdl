@@ -36,25 +36,23 @@
 				<thead class="text-c">
 					<tr>
 						<th width="15%">设备编号</th>
-						<td width="70%"><input type="text" name="cnumber" value="${camera.cnumer }" class="date_picker"
+						<td width="70%"><input type="text" name="cnumber"
+							value="${camera.cnumer }" class="date_picker"
 							style="width: 400px" value="" /></td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr class="text-c">
-						<th>SIP编号</th>
-						<td><input type="text" name="sipid" value="${camera.sipid }" class="date_picker"
+						<th>设备名称</th>
+						<td><input type="text" name="cname" value="${camera.cname }" class="date_picker"
 							style="width: 400px" /></td>
 					</tr>
 					<tr class="text-c">
-						<th>出租至</th>
-						<td><select class="date_picker" style="width: 420px">
-								<option>未出租</option>
-								<c:forEach items="${organizeList }" var="organize">
-								<option>${organize.name }</option>
-								</c:forEach>
-						</select></td>
+						<th>SIP编号</th>
+						<td><input type="text" name="sipid" value="${camera.sipid }"
+							class="date_picker" style="width: 400px" /></td>
 					</tr>
+
 					<tr class="text-c">
 						<th style="background: #FFF; border: #FFF; text-align: center;"
 							colspan="2"><input type="submit"

@@ -40,6 +40,11 @@
 				</thead>
 				<tbody>
 					<tr class="text-c">
+						<th>设备名称</th>
+						<td><input type="text" name="cname" class="date_picker"
+							style="width: 400px" /></td>
+					</tr>
+					<tr class="text-c">
 						<th>SIP编号</th>
 						<td><input type="text" name="sipid" class="date_picker"
 							style="width: 400px" /></td>
