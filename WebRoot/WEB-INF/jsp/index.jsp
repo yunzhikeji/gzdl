@@ -42,14 +42,10 @@
 	<div class="HuiTab">
 		<div class="tabBar cl">
 			<span class="tA0"><a href="map" target="myiframe">分布图</a></span>
-			<!-- <span
-				class="tA0"><a
-				href="${pageContext.request.contextPath }/site/showSites" id="td"
-				onClick="changeToTd();" target="myiframe">工地管理</a></span>  -->
-			<span class="tA0"><a href="javascript:void(0)" id="td" onClick="changeToTd();"
+			<span class="tA0"><a href="javascript:void(0)" id="org" onClick="changeToOrg();"
 				target="myiframe">组织管理</a>
 				</span> <span class="tA0"><a
-				href="javascript:void(0)" id="tz" onClick="changeToTz();"
+				href="javascript:void(0)" id="cam" onClick="changeToCam();"
 				target="myiframe">设备管理</a></span> 
 		</div>
 		<div class="sJ0"></div>
@@ -61,8 +57,6 @@
 				style="background: #FFF"></iframe>
 
 		</div>
-
-
 
 	</div>
 
@@ -94,18 +88,13 @@
 			//iframe的url
 			});
 		}
-		function changeToTd() {
+		function changeToOrg() {
 			$("#iframepage").attr('src',
 					"${pageContext.request.contextPath }/organize/organizeList");
 		}
-		function changeToTz() {
+		function changeToCam() {
 			$("#iframepage").attr('src',
 					"${pageContext.request.contextPath }/camera/cameraList");
-		}
-
-		function changeToTj() {
-			$("#iframepage").attr('src',
-					"${pageContext.request.contextPath }/site/showVideoSites");
 		}
 	</script>
 </body>
