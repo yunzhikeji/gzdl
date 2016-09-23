@@ -63,13 +63,6 @@
 								</c:forEach>
 						</select></td>
 					</tr>
-					<!--      <tr class="text-c">
-       <th>组织类别</th>
-       <td><input name="vd" type="radio" value="1" checked="checked"/> 
-          供电局&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <input name="vd" type="radio" value="2" /> 
-            施工单位</td>
-     </tr> -->
 					<tr>
 						<th colspan="2" align="center" valign="middle"
 							style="background: #FFF; border: 0; text-align: right; font-size: 12px; line-height: 15px; font-weight: lighter;"><span

@@ -36,8 +36,18 @@
 		<if test="number != null and number != '' ">
 			cnumber like concat('%',#{number},'%') and
 		</if>
-		organizeid = 1
+		organizeid = #{userOrganizeid,jdbcType=INTEGER}
 	</select>
+	
+	
+	<select id="getCameraListByOrganizeid" parameterType="java.lang.Integer"
+		resultType="com.yz.po.Camera">
+		select * from camera
+		<where>
+			organizeid = #{organizeid,jdbcType=INTEGER}
+		</where>
+	</select>
+	
 
 
 

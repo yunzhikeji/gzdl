@@ -6,6 +6,21 @@
 		select * from organize
 	</select>
 
+	<select id="findOrganizeListByOrganizeQueryVO"
+		parameterType="com.yz.vo.OrganizeQueryVO" resultType="com.yz.po.Organize">
+		select * from organize where
+		<if test="province != null and province != '' ">
+			province = #{province}
+		</if>
+		<if test="city != null and city != '' ">
+			city = #{city}
+		</if>
+		<if test="area != null and area != '' ">
+			area = #{area}
+		</if>
+		type = #{type,jdbcType=INTEGER}
+	</select>
+
 	<select id="findOrganizeByName" parameterType="java.lang.String" resultType="com.yz.po.Organize">
 		select * from organize where name=#{organizeName}
 	</select>

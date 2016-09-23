@@ -18,7 +18,6 @@
     </style>
     <script type="text/javascript">
         function refresh() {
-            //window.location.reload();
             i = 0;
             if (!$("#no").val()) {
                 alert("请输入需要搜索的设备编码");
@@ -65,18 +64,18 @@
         getData();
         //整合注释下方代码，取消注释getData函数进行调试
         //json = [{ "id": 1, "sipid": null, "sipserverid": null, "lng": "119.809085", "lat": "31.349772", "cnumber": "54321", "cname": "测试摄像头", "voltage": null, "temperature": null, "status": null, "iscontroll": null, "stat": null, "state": null, "cameraid": null, "organizeid": null }]
-        addMarker();
+        //addMarker();
         //----------------------------------------------
     });
     function getData(number) {
         if (!number) { number = ""; }
         $.ajax({
-            type: 'post',
+            type: 'get',
             async: false,
-            url: '${pageContext.request.contextPath }/camera/getCameras.action',
-            data: { number: number },
+            url: '${pageContext.request.contextPath }/camera/getCameras?number='+number,
             contentType: 'application/json;charset=utf-8',
             success: function (data) {//返回json结果
+            	map.clearOverlays(); 
                 json = data;
                 addMarker();
             }
@@ -84,8 +83,7 @@
         });
     }
     function attribute(e) {
-        window
-				.open(
+        window.open(
 						"${pageContext.request.contextPath }/camera/singleVideo?id="
 								+ this.data["id"],
 						"_blank",
@@ -96,9 +94,9 @@
 
         var convertor = new BMap.Convertor();
         var pointArr = [];
+        
         pointArr.push(json[i]);
-        convertor.translate(pointArr, 1, 5, translateCallback)
-
+        convertor.translate(pointArr, 1, 5, translateCallback);
     }
     //坐标转换完之后的回调函数
     translateCallback = function (data) {
