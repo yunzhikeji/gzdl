@@ -37,7 +37,7 @@
 					<tr>
 						<th width="15%">设备编号</th>
 						<td width="70%"><input type="text" name="cnumber"
-							value="${camera.cnumer }" class="date_picker"
+							value="${camera.cnumber }" class="date_picker"
 							style="width: 400px" value="" /></td>
 					</tr>
 				</thead>

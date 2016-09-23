@@ -116,9 +116,7 @@ public class CameraController {
 	@RequestMapping("/toUpdate")
 	public String toUpdate(HttpServletRequest request,Model model,Integer id) throws Exception {
 		Camera camera = cameraService.findCameraById(id);
-		List<Organize> organizeList = organizeService.findOrganizeList();
 		model.addAttribute("camera", camera);
-		model.addAttribute("organizeList", organizeList);
 		return "camera/cameraUpdate";
 	}
 	
