@@ -60,7 +60,7 @@
 								class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
 						<td>
 						<c:if test="${userVo.organizeid !=-1}">
-						<a id="edit" href="${pageContext.request.contextPath }/user/deleteUser?id=${userVo.id }"
+						<a id="delete" href="${pageContext.request.contextPath }/user/deleteUser?id=${userVo.id }"
 							class="button orange bla smallrounded" style="font-size: 14px;"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除&nbsp;&nbsp;&nbsp;</a>
 						</c:if>
 						</td>

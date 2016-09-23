@@ -28,12 +28,12 @@
 
 <body>
 	<div class="pd-20">
-		<form action="" method="post" class="form form-horizontal" id=" ">
+		<form action="${pageContext.request.contextPath }/organize/addOrganize?type=2" method="post" class="form form-horizontal" id="companyForm ">
 			<table class="table">
 				<thead class="text-c">
 					<tr>
 						<th width="15%">单位名称</th>
-						<td width="70%"><input type="text" class="date_picker"
+						<td width="70%"><input type="text" name="name" class="date_picker"
 							style="width: 400px" /></td>
 					</tr>
 				</thead>
@@ -41,20 +41,20 @@
 					<tr class="text-c">
 						<th rowspan="3">所属区域</th>
 						<td style="padding-top: 7px; padding-bottom: 7px;"><select
-							class="date_picker" id="s_province" name="s_province"
+							class="date_picker" id="s_province" name="province"
 							style="width: 420px"></select></td>
 					</tr>
 					<tr class="text-c">
 						<td style="padding-top: 7px; padding-bottom: 7px;"><select
-							class="date_picker" id="s_city" name="s_city"
+							class="date_picker" id="s_city" name="city"
 							style="width: 420px"></select></td>
 					</tr>
 					<tr class="text-c">
 						<td style="padding-top: 7px; padding-bottom: 7px;"><select
-							class="date_picker1" id="s_county" name="s_county"
+							class="date_picker1" id="s_county" name="area"
 							style="width: 420px"></select></td>
 
-						<script class="resources library" src="js/area.js"
+						<script class="resources library" src="${pageContext.request.contextPath }/js/area.js"
 							type="text/javascript"></script>
 
 						<script type="text/javascript">
@@ -63,13 +63,18 @@
 						<span id="show"></span>
 					</tr>
 					<tr class="text-c">
+						<th>详细地址</th>
+						<td><input type="text" name="address" class="date_picker"
+							style="width: 400px" /></td>
+					</tr>
+					<tr class="text-c">
 						<th>联系人</th>
-						<td><input type="text" class="date_picker"
+						<td><input type="text" name="contact" class="date_picker"
 							style="width: 400px" /></td>
 					</tr>
 					<tr class="text-c">
 						<th>联系电话</th>
-						<td><input type="text" class="date_picker"
+						<td><input type="text" name="phone" class="date_picker"
 							style="width: 400px" /></td>
 					</tr>
 
@@ -77,8 +82,7 @@
 						<th style="background: #FFF; border: #FFF; text-align: center;"
 							colspan="2"><a id="save" href="#"
 							class="button orange smallrouded"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe66c;</i>重置&nbsp;&nbsp;&nbsp;</a>
-							<a id="save" href="#" class="button blue smallrouded"><i
-								class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe632;</i>保存&nbsp;&nbsp;&nbsp;</a></th>
+							<input type="submit" class="button blue smallrouded Hui-iconfont" style="font-size:14px;padding:6px 10px 5px 10px;" value="&nbsp;&nbsp;&nbsp;&nbsp;&#xe632;保存&nbsp;&nbsp;&nbsp;&nbsp;"/></th>
 					</tr>
 				</tbody>
 			</table>

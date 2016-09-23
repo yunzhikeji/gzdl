@@ -7,7 +7,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>供电局</title>
+<title>施工单位</title>
 <!--[if lt IE 9]>
 <script type="text/javascript" src="lib/html5.js"></script>
 <script type="text/javascript" src="lib/respond.min.js"></script>
@@ -28,12 +28,12 @@
 
 <body>
 	<div class="pd-20">
-		<form action="${pageContext.request.contextPath }/organize/addOrganize?type=1" method="post" class="form form-horizontal" id="govermentForm">
+		<form action="${pageContext.request.contextPath }/organize/updateOrganizeSubmit" method="post" class="form form-horizontal" id="companyForm ">
 			<table class="table">
 				<thead class="text-c">
 					<tr>
 						<th width="15%">单位名称</th>
-						<td width="70%"><input type="text" name="name" class="date_picker"
+						<td width="70%"><input type="text" name="name" value="${organize.name }" class="date_picker"
 							style="width: 400px" /></td>
 					</tr>
 				</thead>
@@ -54,8 +54,7 @@
 							class="date_picker1" id="s_county" name="area"
 							style="width: 420px"></select></td>
 
-						<script class="resources library"
-							src="${pageContext.request.contextPath }/js/area.js"
+						<script class="resources library" src="${pageContext.request.contextPath }/js/area.js"
 							type="text/javascript"></script>
 
 						<script type="text/javascript">
@@ -78,20 +77,12 @@
 						<td><input type="text" name="phone" class="date_picker"
 							style="width: 400px" /></td>
 					</tr>
-					<tr class="text-c">
-						<th>组织级别</th>
-						<td><input name="level" type="radio" value="1" checked="checked" />
-							省级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
-							name="level" type="radio" value="2" />
-							市级&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
-							name="level" type="radio" value="3" /> 区级</td>
-					</tr>
 
 					<tr class="text-c">
 						<th style="background: #FFF; border: #FFF; text-align: center;"
 							colspan="2"><a id="save" href="#"
 							class="button orange smallrouded"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe66c;</i>重置&nbsp;&nbsp;&nbsp;</a>
-							 <input type="submit" class="button blue smallrouded Hui-iconfont" style="font-size:14px;padding:6px 10px 5px 10px;" value="&nbsp;&nbsp;&nbsp;&nbsp;&#xe632;保存&nbsp;&nbsp;&nbsp;&nbsp;"/></th>
+							<input type="submit" class="button blue smallrouded Hui-iconfont" style="font-size:14px;padding:6px 10px 5px 10px;" value="&nbsp;&nbsp;&nbsp;&nbsp;&#xe632;保存&nbsp;&nbsp;&nbsp;&nbsp;"/></th>
 					</tr>
 				</tbody>
 			</table>

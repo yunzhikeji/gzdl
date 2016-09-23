@@ -42,24 +42,49 @@ public class OrganizeController {
 	}
 	
 	
-	//去编辑组织页面，并回显需要修改的组织信息
-	@RequestMapping("/toUpdate")
+	//去编辑施工单位页面，并回显需要修改的施工单位信息
+	@RequestMapping("/toCompanyUpdate")
 	public String toUpdateOrganize(HttpServletRequest request,Model model,Integer id) throws Exception {
 		Organize organize = organizeService.selectByPrimaryKey(id);
 		model.addAttribute("organize",organize);
-		return "organize/organizeUpdate";
+		return "organize/companyUpdate";
 	}
+	
+	//去编辑施工单位页面，并回显需要修改的施工单位信息
+	@RequestMapping("/toGovermentUpdate")
+	public String toGovermentUpdate(HttpServletRequest request,Model model,Integer id) throws Exception {
+		Organize organize = organizeService.selectByPrimaryKey(id);
+		model.addAttribute("organize",organize);
+		return "organize/govermentUpdate";
+	}
+	
+	
+	
 	
 	//请求添加一个组织
 	@RequestMapping("/addOrganize")
-	public void addOrganize(HttpServletRequest request,Organize organize) throws Exception {
+	public String addOrganize(HttpServletRequest request,Organize organize) throws Exception {
 		organizeService.insertOrganize(organize);
+
+		if(organize.getType()==1){
+			return "redirect:/organize/toGovermentAdd";
+		}else
+		return "redirect:/organize/toCompanyAdd";
 	}
 	
 	
 	//请求删除一个组织
 	@RequestMapping("/deleteOrganize")
-	public void deleteOrganize(HttpServletRequest request,Integer id)throws Exception {
+	public String  deleteOrganize(HttpServletRequest request,Integer id)throws Exception {
 		organizeService.deleteOrganizeById(id);
+		return "redirect:/organize/organizeList";
 	}
+	
+	//组织信息修改提交
+	@RequestMapping("/updateOrganizeSubmit")
+	public String updateOrganizeSubmit() throws Exception {
+		return "success";
+	}
+	
+	
 }
