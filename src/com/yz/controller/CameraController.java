@@ -100,7 +100,7 @@ public class CameraController {
 		}
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("cameraVoList", cameraVoList);
-		modelAndView.setViewName("camera/camera");
+		modelAndView.setViewName("camera/cameraList");
 		return modelAndView;
 	}
 	
