@@ -75,9 +75,9 @@ $("#s_province option[value=province]").attr("selected",selected);
 					</tr>
 					<tr class="text-c">
 						<th>组织级别</th>
-						<td><c:if test="${organize.type==1 }">省级</c:if>
-							<c:if test="${organize.type==2 }">市级</c:if>
-							<c:if test="${organize.type==3 }">区级</c:if></td>
+						<td><c:if test="${organize.level==1 }">省级</c:if>
+							<c:if test="${organize.level==2 }">市级</c:if>
+							<c:if test="${organize.level==3 }">区级</c:if></td>
 					</tr>
 
 					<tr class="text-c">
