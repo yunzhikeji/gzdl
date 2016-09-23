@@ -21,6 +21,7 @@ import com.yz.po.Organize;
 import com.yz.service.CameraService;
 import com.yz.service.OrganizeService;
 import com.yz.vo.CameraQueryVO;
+import com.yz.vo.CameraVo;
 
 @Controller
 @RequestMapping("/camera")
@@ -31,6 +32,7 @@ public class CameraController {
 	
 	@Autowired
 	private OrganizeService organizeService;
+	
 
 	// 单个监控画面
 	@RequestMapping(value = "singleVideo", method = { RequestMethod.GET })
@@ -69,8 +71,32 @@ public class CameraController {
 	@RequestMapping("/cameraList")
 	public ModelAndView cameraList() throws Exception {
 		List<Camera> cameraList = cameraService.findCameraList();
+		
+		//返回设备信息同时要返回设备所属机构的信息，创建一个CameraVo对象,根据organizeId查询organize
+		List<CameraVo> cameraVoList = new ArrayList<>();
+		for (int i=0;cameraList !=null && i < cameraList.size();i++ ){
+			Camera camera = cameraList.get(i);
+			CameraVo cameraVo = new CameraVo();
+			cameraVo.setId(camera.getId());
+			cameraVo.setSipid(camera.getSipid());
+			cameraVo.setSipserverid(camera.getSipserverid());
+			cameraVo.setLng(camera.getLng());
+			cameraVo.setLat(camera.getLat());
+			cameraVo.setCnumber(camera.getCnumber());
+			cameraVo.setCname(camera.getCname());
+			cameraVo.setVoltage(camera.getVoltage());
+			cameraVo.setTemperature(camera.getTemperature());
+			cameraVo.setStatus(camera.getStatus());
+			cameraVo.setIscontroll(camera.getIscontroll());
+			cameraVo.setStat(camera.getStat());
+			cameraVo.setState(camera.getState());
+			cameraVo.setCameraid(camera.getCameraid());
+			cameraVo.setOrganizeid(camera.getOrganizeid());
+			cameraVo.setOrganizeName(organizeService.selectByPrimaryKey(camera.getOrganizeid()).getName());
+			cameraVoList.add(cameraVo);
+		}
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("cameraList", cameraList);
+		modelAndView.addObject("cameraVoList", cameraVoList);
 		modelAndView.setViewName("camera/camera");
 		return modelAndView;
 	}

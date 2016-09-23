@@ -36,17 +36,19 @@
       </tr>
     </thead>
       <tbody>
+       <c:forEach items="${cameraVoList }" var="camera" varStatus="index">
       <tr class="text-c">
-        <td class="text-c">1</td>
-        <td>64484</td>
-        <td>hfaifhdiu1125</td>
-        <td>越秀城南区ce</td>
+     
+        <td class="text-c">${index.count }</td>
+        <td>${camera.cnumber }</td>
+        <td>${camera.sipid }</td>
+        <td>${camera.organizeName }</td>
         <td><a href="javascript:;"onClick="ypgy('设备租售','${pageContext.request.contextPath }/camera/toUpdate','1024px','768px')" title="设备租售" target="_self" class="button blue bigrounded bla" style="font-size:14px;line-height:14px"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
         <td><a href="javascript:;" onClick="ypgy('设备租售','${pageContext.request.contextPath }/camera/toUpdate','1024px','768px')" title="设备租售" target="_self" class="button blue bigrounded bla" style="font-size:14px;line-height:14px"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe672;</i>出租&nbsp;&nbsp;&nbsp;</a></td>
         <td><button class="button orange bla smallrounded" style="font-size:14px;line-height:14px" onClick="OnUp();"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除</button></td>
 
       </tr>
-
+</c:forEach>
       </tbody>
     </table>
     </div>
