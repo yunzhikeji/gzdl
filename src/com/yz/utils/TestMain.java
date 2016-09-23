@@ -1,5 +1,6 @@
 package com.yz.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.yz.facecloud.model.CameraMessage;
@@ -12,10 +13,26 @@ public class TestMain {
 	
 	public static void main(String[] args) {
 		
-		int a = -1;
-		System.out.println(a);
+
+		List<Integer> number1 = new ArrayList<Integer>();
 		
-		System.out.println(-1!=0);
+		number1.add(1);
+		number1.add(2);
+		number1.add(3);
+		
+		List<Integer> number2 = new ArrayList<Integer>();
+		number2.add(1);
+		number2.add(2);
+		List<Integer> number3 = new ArrayList<Integer>();
+		number3.addAll(number1);
+		number3.addAll(number2);
+		
+		for(int i=0;i<number3.size();i++)
+		{
+			System.out.println(number3.get(i));
+		}
+		
+			
 	}
 	
 	
