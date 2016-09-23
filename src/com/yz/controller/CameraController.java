@@ -92,7 +92,10 @@ public class CameraController {
 			cameraVo.setState(camera.getState());
 			cameraVo.setCameraid(camera.getCameraid());
 			cameraVo.setOrganizeid(camera.getOrganizeid());
-			cameraVo.setOrganizeName(organizeService.selectByPrimaryKey(camera.getOrganizeid()).getName());
+			if(camera.getOrganizeid() != null){
+				cameraVo.setOrganizeName(organizeService.selectByPrimaryKey(camera.getOrganizeid()).getName());
+			}
+			
 			cameraVoList.add(cameraVo);
 		}
 		ModelAndView modelAndView = new ModelAndView();
@@ -113,14 +116,17 @@ public class CameraController {
 	@RequestMapping("/toUpdate")
 	public String toUpdate(HttpServletRequest request,Model model,Integer id) throws Exception {
 		Camera camera = cameraService.findCameraById(id);
+		List<Organize> organizeList = organizeService.findOrganizeList();
 		model.addAttribute("camera", camera);
+		model.addAttribute("organizeList", organizeList);
 		return "camera/cameraUpdate";
 	}
 	
 	// 请求添加一个设备
 	@RequestMapping("/addCamera")
-	public void addCamera(Camera camera) throws Exception {
+	public String addCamera(Camera camera) throws Exception {
 		cameraService.insertCamera(camera);
+		return "success";
 	}
 	
 	
@@ -128,5 +134,11 @@ public class CameraController {
 	@RequestMapping("/deleteCamera")
 	public void  deleteCamera(Integer id) throws Exception {
 		cameraService.deleCamera(id);
+	}
+	
+	@RequestMapping("/updateCameraSubmit")
+	public String updateCameraSubmit(Model model,HttpServletRequest request,Integer id,Camera camera) throws Exception {
+		cameraService.updateCamera(id, camera);
+		return "success";
 	}
 }
