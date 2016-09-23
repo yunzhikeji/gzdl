@@ -13,12 +13,17 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yz.po.Organize;
 import com.yz.service.OrganizeService;
+import com.yz.service.UserService;
 
 @Controller
 @RequestMapping("/organize")
 public class OrganizeController {
 	@Autowired
 	private OrganizeService organizeService;
+	
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping("/organizeList")
 	public ModelAndView organizeList(HttpServletRequest request) throws Exception {
@@ -64,25 +69,47 @@ public class OrganizeController {
 	//请求添加一个组织
 	@RequestMapping("/addOrganize")
 	public String addOrganize(HttpServletRequest request,Organize organize) throws Exception {
-		organizeService.insertOrganize(organize);
+		Organize or = new Organize();
+		or.setName(organize.getName());
+		or.setType(organize.getType());
+		or.setAddress(organize.getAddress());
+		or.setContact(organize.getContact());
+		or.setPhone(organize.getPhone());
+		or.setLevel(organize.getLevel());
+		if(organize.getProvince().equals("省份")) {
+			or.setProvince("");
+		}else or.setProvince(organize.getProvince());
+		if(organize.getCity().equals("地级市")) {
+			or.setCity("");
+		}else or.setCity(organize.getCity());
+		if(organize.getArea().equals("市、县级市")){
+			or.setArea("");
+		}else or.setArea(organize.getArea());
+		
+		organizeService.insertOrganize(or);
+		return "success";
 
-		if(organize.getType()==1){
-			return "redirect:/organize/toGovermentAdd";
-		}else
-		return "redirect:/organize/toCompanyAdd";
+//		if(organize.getType()==1){
+//			return "redirect:/organize/toGovermentAdd";
+//		}else
+//		return "redirect:/organize/toCompanyAdd";
 	}
 	
 	
-	//请求删除一个组织
+	//请求删除一个组织,删除组织的同时，删除该组织下的所有用户
 	@RequestMapping("/deleteOrganize")
 	public String  deleteOrganize(HttpServletRequest request,Integer id)throws Exception {
 		organizeService.deleteOrganizeById(id);
+	//删除组织的同时，删除该组织下的所有用户	
+		userService.deleteUserByOrganizeId(id);
 		return "redirect:/organize/organizeList";
 	}
 	
 	//组织信息修改提交
 	@RequestMapping("/updateOrganizeSubmit")
-	public String updateOrganizeSubmit() throws Exception {
+	public String updateOrganizeSubmit(Model model,HttpServletRequest request,Integer id,Organize organize) throws Exception {
+		organizeService.updateOrganize(id, organize);
+		
 		return "success";
 	}
 	

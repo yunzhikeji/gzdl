@@ -29,6 +29,7 @@
 <body>
 	<div class="pd-20">
 		<form action="${pageContext.request.contextPath }/organize/updateOrganizeSubmit" method="post" class="form form-horizontal" id="companyForm ">
+			<input type="hidden" name="id" value="${organize.id }">
 			<table class="table">
 				<thead class="text-c">
 					<tr>
@@ -39,42 +40,22 @@
 				</thead>
 				<tbody>
 					<tr class="text-c">
-						<th rowspan="3">所属区域</th>
-						<td style="padding-top: 7px; padding-bottom: 7px;"><select
-							class="date_picker" id="s_province" name="province"
-							style="width: 420px"></select></td>
-					</tr>
-					<tr class="text-c">
-						<td style="padding-top: 7px; padding-bottom: 7px;"><select
-							class="date_picker" id="s_city" name="city"
-							style="width: 420px"></select></td>
-					</tr>
-					<tr class="text-c">
-						<td style="padding-top: 7px; padding-bottom: 7px;"><select
-							class="date_picker1" id="s_county" name="area"
-							style="width: 420px"></select></td>
-
-						<script class="resources library" src="${pageContext.request.contextPath }/js/area.js"
-							type="text/javascript"></script>
-
-						<script type="text/javascript">
-							_init_area();
-						</script>
-						<span id="show"></span>
+						<th>所属区域</th>
+						<td>${organize.province }${organize.city }${organize.area }</td>
 					</tr>
 					<tr class="text-c">
 						<th>详细地址</th>
-						<td><input type="text" name="address" class="date_picker"
+						<td><input type="text" name="address" value="${organize.address }" class="date_picker"
 							style="width: 400px" /></td>
 					</tr>
 					<tr class="text-c">
 						<th>联系人</th>
-						<td><input type="text" name="contact" class="date_picker"
+						<td><input type="text" name="contact" value="${organize.contact }" class="date_picker"
 							style="width: 400px" /></td>
 					</tr>
 					<tr class="text-c">
 						<th>联系电话</th>
-						<td><input type="text" name="phone" class="date_picker"
+						<td><input type="text" name="phone" value="${organize.phone }" class="date_picker"
 							style="width: 400px" /></td>
 					</tr>
 

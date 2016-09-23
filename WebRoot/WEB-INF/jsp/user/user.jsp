@@ -55,9 +55,9 @@
 						<td>${userVo.province }${userVo.city }${userVo.area }</td>
 						<td>${userVo.organizeName }</td>
 						<td><c:if test="${userVo.type ==1}"> 供电局</c:if><c:if test="${userVo.type ==2}"> 施工单位</c:if></td>
-						<td><a id="edit" href="${pageContext.request.contextPath }/user/toEditUser?=${userVo.id }"
+						<td><a id="edit" href="${pageContext.request.contextPath }/user/toEditUser?id=${userVo.id }"
 							class="button blue bigrounded bla" style="font-size: 14px;"><i
-								class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe647;</i>编辑&nbsp;&nbsp;&nbsp;</a></td>
+								class="Hui-iconfont">&nbsp;&#xe647;</i>修改用户&nbsp;</a></td>
 						<td>
 						<c:if test="${userVo.organizeid !=-1}">
 						<a id="delete" href="${pageContext.request.contextPath }/user/deleteUser?id=${userVo.id }"

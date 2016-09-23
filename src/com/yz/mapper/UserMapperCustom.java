@@ -15,4 +15,6 @@ public interface UserMapperCustom {
 	// 根据用户的organizeId查询用户所属的组织信息
 	public Organize findOrganizeByOrganizeId(Integer organizeid) throws Exception;
 
+	public void deleteUserByOrganizeId(Integer id);
+
 }

@@ -29,60 +29,28 @@
 
 <body>
 	<div class="pd-20">
-		<form action="" method="post" class="form form-horizontal" id=" ">
+		<form action="${pageContext.request.contextPath }/user/editUserSubimt" method="post" class="form form-horizontal" id="userForm ">
+			<input type="hidden" name="id" value="${user.id }">
 			<table class="table">
 				<thead class="text-c">
 					<tr>
 						<th>用户名</th>
-						<td width="70%"><input type="text" class="date_picker"
-							style="width: 400px" /></td>
+						<td width="70%">${user.username }</td>
 					</tr>
 				</thead>
 				<tbody>
+					
+					
 					<tr class="text-c">
-						<th rowspan="3">所属区域</th>
-						<td style="padding-top: 7px; padding-bottom: 7px;"><select
-							class="date_picker" id="s_province" name="s_province"
-							style="width: 420px"></select></td>
-					</tr>
-					<tr class="text-c">
-						<td style="padding-top: 7px; padding-bottom: 7px;"><select
-							class="date_picker" id="s_city" name="s_city"
-							style="width: 420px"></select></td>
-					</tr>
-					<tr class="text-c">
-						<td style="padding-top: 7px; padding-bottom: 7px;"><select
-							class="date_picker1" id="s_county" name="s_county"
-							style="width: 420px"></select></td>
-
-						<script class="resources library"
-							src="${pageContext.request.contextPath }/js/area.js"
-							type="text/javascript"></script>
-
-						<script type="text/javascript">
-							_init_area();
-						</script>
-						<span id="show"></span>
-					</tr>
-					<tr class="text-c">
-						<th>所属机构</th>
-						<td><select class="date_picker1" style="width: 420px">
-								<option>广州供电局</option>
-								<option>南方供电局</option>
-						</select></td>
-					</tr>
-					<tr class="text-c">
-						<th>组织类别</th>
-						<td><input name="vd" type="radio" value="1" checked="checked" />
-							供电局&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input
-							name="vd" type="radio" value="2" /> 施工单位</td>
+						<th>修改密码</th>
+						<td width="70%"><input type="text" name="password" value="${user.password }" class="date_picker"
+							style="width: 400px" /></td>
 					</tr>
 					<tr class="text-c">
 						<th style="background: #FFF; border: #FFF; text-align: center;"
-							colspan="2"><a
-							href="${pageContext.request.contextPath }/user/queryUsers"
+							colspan="2"><a href="${pageContext.request.contextPath }/user/queryUsers"
 							class="button orange smallrouded"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe66c;</i>返回&nbsp;&nbsp;&nbsp;</a>
-							<input type="submit" class="button blue smallrouded Hui-iconfont" style="font-size:14px;padding:6px 10px 5px 10px;" value="&nbsp;&nbsp;&nbsp;&nbsp;&#xe632;保存&nbsp;&nbsp;&nbsp;&nbsp;"/></th>
+							 <input type="submit" class="button blue smallrouded Hui-iconfont" style="font-size:14px;padding:6px 10px 5px 10px;" value="&nbsp;&nbsp;&nbsp;&nbsp;&#xe632;保存&nbsp;&nbsp;&nbsp;&nbsp;"/></th>
 					</tr>
 				</tbody>
 			</table>

@@ -63,4 +63,10 @@ public class UserServiceImpl implements UserService {
 		return userMapperCustom.findOrganizeByOrganizeId(organizeid);
 	}
 
+	@Override
+	public void deleteUserByOrganizeId(Integer id) {
+		userMapperCustom.deleteUserByOrganizeId(id);
+		
+	}
+
 }

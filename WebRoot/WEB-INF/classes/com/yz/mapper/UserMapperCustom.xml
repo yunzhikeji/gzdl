@@ -25,4 +25,9 @@
  	SELECT * from organize where id = #{organizeId} 
 
 </select>
+
+  <delete id="deleteUserByOrganizeId" parameterType="java.lang.Integer" >
+    delete from user
+    where organizeid = #{id,jdbcType=INTEGER}
+  </delete>
 </mapper>

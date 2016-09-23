@@ -6,6 +6,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Null;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.codehaus.jackson.map.util.BeanUtil;
 import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yz.po.Organize;
 import com.yz.po.User;
+import com.yz.po.UserCustom;
 import com.yz.service.OrganizeService;
 import com.yz.service.UserService;
 import com.yz.vo.UserVo;
@@ -76,7 +79,12 @@ public class UserController {
 		
 	}
 	
-	
+	@RequestMapping("/editUserSubimt")
+	public String editUserSubimt(Model model,HttpServletRequest request,Integer id,UserCustom userCustom)throws Exception{
+
+		userService.updateUser(id, userCustom);
+		return "success";
+	}
 	
 	// 请求添加一个用户
 	@RequestMapping("/addUser")
