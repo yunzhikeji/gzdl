@@ -14,6 +14,7 @@
 <script type="text/javascript" src="lib/respond.min.js"></script>
 <script type="text/javascript" src="lib/PIE_IE678.js"></script>
 <![endif]-->
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.8.2.js"></script>
 <link href="${pageContext.request.contextPath }/css/datePicker1.css"
 	rel="stylesheet" type="text/css" media="all" />
 <link href="${pageContext.request.contextPath }/css/build.css"
@@ -40,6 +41,36 @@
 					</tr>
 				</thead>
 				<tbody>
+					<tr class="text-c">
+						<th rowspan="3">所属区域</th>
+						<td style="padding-top: 7px; padding-bottom: 7px;"><select
+							class="date_picker" id="s_province" name="province"
+							style="width: 420px"></select></td>
+					</tr>
+					<tr class="text-c">
+						<td style="padding-top: 7px; padding-bottom: 7px;"><select
+							class="date_picker" id="s_city" name="city"
+							style="width: 420px"></select></td>
+					</tr>
+					<tr class="text-c">
+						<td style="padding-top: 7px; padding-bottom: 7px;"><select
+							class="date_picker1" id="s_county" name="area"
+							style="width: 420px"></select></td>
+
+						<script class="resources library" src="${pageContext.request.contextPath }/js/area.js"
+							type="text/javascript"></script>
+
+						<script type="text/javascript">
+							_init_area();
+						</script>
+						<span id="show"></span>
+					</tr>
+					<tr class="text-c">
+						<th>出租至</th>
+						<td><select class="date_picker" style="width: 420px" id="selOrg" name="organizeName">
+								<option>回收(未出租)</option>
+						</select></td>
+					</tr>
 					<tr class="text-c">
 						<!--         <th rowspan="3">所属区域</th>
         <td style="padding-top:7px;padding-bottom:7px;"><select class="date_picker" id="s_province" name="s_province" style="width:420px"></select></td>

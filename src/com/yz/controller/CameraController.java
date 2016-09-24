@@ -58,6 +58,14 @@ public class CameraController {
 		
 		Integer userOrganizeid = (Integer) session.getAttribute("organizeid");
 		
+		//超级管理员
+		if(userOrganizeid==-1)
+		{
+			cameras =  cameraService.findCameraList();
+			return cameras;
+		}
+		
+		//用户
 		CameraQueryVO cameraQueryVO = new CameraQueryVO();
 		cameraQueryVO.setNumber(number);
 		cameraQueryVO.setUserOrganizeid(userOrganizeid);
