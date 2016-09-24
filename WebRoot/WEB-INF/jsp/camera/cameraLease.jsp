@@ -82,7 +82,7 @@
 					<tr class="text-c">
 						<th>出租至</th>
 						<td><select class="date_picker" style="width: 420px" id="selOrg" name="organizeName">
-								<option id="organized_0">回收(未出租)</option>
+								<option>回收(未出租)</option>
 						</select></td>
 					</tr>
 					<tr class="text-c">
@@ -134,13 +134,13 @@
 							
 			            	console.log(data);
 			            	
-			            	var options = '';
+			            	var options = "<option>回收(未出租)</option>";
 			            	
 			            	for(var i=0;i<data.length;i++){   
 			            	  	options = options+"+<option>" + data[i].name + "</option>"
 			            	} 
 			            	
-			            	$("#organized_0").after(options);
+			            	$("#selOrg").html(options);
 			            	
 			            }
 
