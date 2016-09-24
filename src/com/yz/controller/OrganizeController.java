@@ -1,19 +1,27 @@
 package com.yz.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.hibernate.validator.constraints.Range;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.yz.po.Camera;
 import com.yz.po.Organize;
 import com.yz.service.OrganizeService;
 import com.yz.service.UserService;
+import com.yz.vo.CameraQueryVO;
+import com.yz.vo.OrganizeQueryVO;
 
 @Controller
 @RequestMapping("/organize")
@@ -112,6 +120,26 @@ public class OrganizeController {
 		
 		return "success";
 	}
+	
+	
+	
+	/**
+	 * ajax 三级联动查询组织
+	 * @param organizeQueryVO
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/getOrganizes")
+	public @ResponseBody List<Organize> getOrganizes(OrganizeQueryVO organizeQueryVO) throws Exception {
+														
+		
+		List<Organize> organizes = new ArrayList<Organize>();
+		
+		organizes =  organizeService.getOrganizesByOrganizeQueryVO(organizeQueryVO);
+		
+		return organizes;
+	}
+	
 	
 	
 }

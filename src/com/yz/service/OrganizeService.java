@@ -5,6 +5,7 @@ import java.util.List;
 import com.yz.po.Camera;
 import com.yz.po.Organize;
 import com.yz.vo.CameraQueryVO;
+import com.yz.vo.OrganizeQueryVO;
 
 public interface OrganizeService {
 	
@@ -27,6 +28,9 @@ public interface OrganizeService {
 
 	//根据组织名称查询组织
 	public Organize findOrganizeByName(String organizeName);
+
+
+	public List<Organize> getOrganizesByOrganizeQueryVO(OrganizeQueryVO organizeQueryVO);
 	
 	
 }

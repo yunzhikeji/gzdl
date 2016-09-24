@@ -122,6 +122,17 @@ public class CameraController {
 		return "camera/cameraUpdate";
 	}
 	
+	
+	// 去设备编辑和出租页面，回显设备信息
+		@RequestMapping("/toLease")
+		public String toLease(HttpServletRequest request,Model model,Integer id) throws Exception {
+			Camera camera = cameraService.findCameraById(id);
+			List<Organize> organizeList = organizeService.findOrganizeList();
+			model.addAttribute("camera", camera);
+			model.addAttribute("organizeList", organizeList);
+			return "camera/cameraLease";
+		}
+	
 	// 请求添加一个设备
 	@RequestMapping("/addCamera")
 	public String addCamera(Camera camera) throws Exception {
@@ -139,6 +150,30 @@ public class CameraController {
 	@RequestMapping("/updateCameraSubmit")
 	public String updateCameraSubmit(Model model,HttpServletRequest request,Integer id,Camera camera) throws Exception {
 		cameraService.updateCamera(id, camera);
+		return "success";
+	}
+	
+	//设置设备租凭信息
+	@RequestMapping("/updateCameraLease")
+	public String updateCameraLease(Model model,HttpServletRequest request,Integer id,String organizeName) throws Exception {
+		
+		System.out.println(id);
+		System.out.println(organizeName);
+		
+		Camera camera = cameraService.findCameraById(id);
+		
+		if(organizeName.equals("回收(未出租)"))
+		{
+			camera.setOrganizeid(0);
+		}else
+		{
+			Organize organize = organizeService.findOrganizeByName(organizeName);
+			camera.setOrganizeid(organize.getId());
+		}
+		
+		cameraService.updateCamera(id, camera);
+		
+		
 		return "success";
 	}
 }

@@ -10,13 +10,13 @@
 		parameterType="com.yz.vo.OrganizeQueryVO" resultType="com.yz.po.Organize">
 		select * from organize where
 		<if test="province != null and province != '' ">
-			province = #{province}
+			province = #{province} and
 		</if>
 		<if test="city != null and city != '' ">
-			city = #{city}
+			city = #{city} and 
 		</if>
 		<if test="area != null and area != '' ">
-			area = #{area}
+			area = #{area} and
 		</if>
 		type = #{type,jdbcType=INTEGER}
 	</select>
