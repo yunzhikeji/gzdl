@@ -29,7 +29,7 @@
 
 <body>
 	<div class="pd-20">
-		<form action="${pageContext.request.contextPath }/user/editUserSubimt" method="post" class="form form-horizontal" id="userForm ">
+		<form action="${pageContext.request.contextPath }/user/editUserSubimt" method="post" class="form form-horizontal" id="userForm">
 			<input type="hidden" name="id" value="${user.id }">
 			<table class="table">
 				<thead class="text-c">

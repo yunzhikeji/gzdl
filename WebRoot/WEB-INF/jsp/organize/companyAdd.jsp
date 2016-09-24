@@ -41,10 +41,29 @@ $(function(){
 			if(!regExp.test($.trim(val))){
 				isSubmit = false;
 				$(this).next("span").html("<font color='red'>"+tip+"</font>");
+				return false;
+			}else {
+				$(this).next("span").html("");
 			}
 		})
 		return isSubmit;
 	})
+	
+	$("#companyForm").find("[reg2]").blur(function(){
+			//获得输入的值
+			var val = $(this).val();
+			//获得正则表达式
+			var reg = $(this).attr("reg2");
+			//获得提示信息
+			var tip = $(this).attr("tip");
+			//创建正则表达式的对象
+			var regExp = new RegExp(reg);
+			if(!regExp.test($.trim(val))){
+				$(this).next("span").html("<font color='red'>"+tip+"</font>");
+			}else {
+				$(this).next("span").html("");
+			}
+		})
 })
 </script>
 </head>
@@ -58,25 +77,25 @@ $(function(){
 				<thead class="text-c">
 					<tr>
 						<th width="15%">*单位名称</th>
-						<td width="70%"><input type="text" name="name"
-							class="date_picker" style="width: 400px" reg2="^[a-zA-Z0-9\u4e00-\u9fa5]{1,20}$" tip="必须是中英文或数字字符，长度1-20"/><span></span></td>
+						<td width="70%" align="left"><input type="text" name="name"
+							class="date_picker" style="width: 300px" reg2="^[a-zA-Z0-9\u4e00-\u9fa5]{1,20}$" tip="必须是中英文或数字字符，长度1-20"/><span></span></td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr class="text-c">
 						<th rowspan="3">所属区域</th>
-						<td style="padding-top: 7px; padding-bottom: 7px;"><select
+						<td align="left"  style="padding-top: 7px; padding-bottom: 7px;"><select
 							class="date_picker" id="s_province" name="province"
-							style="width: 420px"></select></td>
+							style="width: 300px"></select></td>
 					</tr>
 					<tr class="text-c">
-						<td style="padding-top: 7px; padding-bottom: 7px;"><select
-							class="date_picker" id="s_city" name="city" style="width: 420px"></select></td>
+						<td align="left"  style="padding-top: 7px; padding-bottom: 7px;"><select
+							class="date_picker" id="s_city" name="city" style="width: 300px"></select></td>
 					</tr>
 					<tr class="text-c">
-						<td style="padding-top: 7px; padding-bottom: 7px;"><select
+						<td align="left"  style="padding-top: 7px; padding-bottom: 7px;"><select
 							class="date_picker1" id="s_county" name="area"
-							style="width: 420px"></select></td>
+							style="width: 300px"></select></td>
 
 						<script class="resources library"
 							src="${pageContext.request.contextPath }/js/area.js"
@@ -89,18 +108,18 @@ $(function(){
 					</tr>
 					<tr class="text-c">
 						<th>*详细地址</th>
-						<td><input type="text" name="address" class="date_picker"
-							style="width: 400px" reg2="^[a-zA-Z0-9\u4e00-\u9fa5]{1,30}$" tip="必须是中英文或数字字符，长度1-30"/><span></span></td>
+						<td align="left" ><input type="text" name="address" class="date_picker"
+							style="width: 300px" reg2="^[a-zA-Z0-9\u4e00-\u9fa5]{1,30}$" tip="必须是中英文或数字字符，长度1-30"/><span></span></td>
 					</tr>
 					<tr class="text-c">
 						<th>*联系人</th>
-						<td><input type="text" name="contact" class="date_picker"
-							style="width: 400px" reg2="^[a-zA-Z0-9\u4e00-\u9fa5]{1,20}$" tip="必须是中英文或数字字符，长度1-20"/><span></span></td>
+						<td align="left" ><input type="text" name="contact" class="date_picker"
+							style="width: 300px" reg2="^[a-zA-Z0-9\u4e00-\u9fa5]{1,20}$" tip="必须是中英文或数字字符，长度1-20"/><span></span></td>
 					</tr>
 					<tr class="text-c">
 						<th>联系电话</th>
-						<td><input type="text" name="phone" class="date_picker"
-							style="width: 400px" /></td>
+						<td align="left" ><input type="text" name="phone" class="date_picker"
+							style="width: 300px" /></td>
 					</tr>
 
 					<tr class="text-c">

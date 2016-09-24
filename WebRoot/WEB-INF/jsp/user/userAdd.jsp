@@ -25,7 +25,49 @@
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#userForm").submit(function(){
+		var isSubmit = true;
+		$(this).find("[reg2]").each(function(){
+			//获得输入的值
+			var val = $(this).val();
+			//获得正则表达式
+			var reg = $(this).attr("reg2");
+			//获得提示信息
+			var tip = $(this).attr("tip");
+			//创建正则表达式的对象
+			var regExp = new RegExp(reg);
+			if(!regExp.test($.trim(val))){
+				isSubmit = false;
+				$(this).next("span").html("<font color='red'>"+tip+"</font>");
+				return false;
+			}else {
+				$(this).next("span").html("");
+			}
+		})
+		return isSubmit;
+	})
+	
+	$("#userForm").find("[reg2]").blur(function(){
+			//获得输入的值
+			var val = $(this).val();
+			//获得正则表达式
+			var reg = $(this).attr("reg2");
+			//获得提示信息
+			var tip = $(this).attr("tip");
+			//创建正则表达式的对象
+			var regExp = new RegExp(reg);
+			if(!regExp.test($.trim(val))){
+				$(this).next("span").html("<font color='red'>"+tip+"</font>");
+			}else {
+				$(this).next("span").html("");
+			}
+		})
+})
+</script>
 </head>
 
 <body>
@@ -36,8 +78,8 @@
 				<thead class="text-c">
 					<tr>
 						<th>用户名</th>
-						<td width="70%"><input type="text" name="username" class="date_picker"
-							style="width: 400px" /></td>
+						<td width="70%" align="left"><input type="text" name="username" class="date_picker"
+							style="width: 270px" reg2="^[a-zA-Z0-9\u4e00-\u9fa5]{1,20}$" tip="必须是中英文或数字字符，长度1-20"/><span></span></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -88,7 +130,7 @@
       </tr> -->
 					<tr class="text-c">
 						<th>所属机构</th>
-						<td><select name="organizeName" class="date_picker1" style="width: 420px">
+						<td align="left"><select name="organizeName" class="date_picker1" style="width: 320px">
 								<c:forEach items="${organizeList }" var="organize">
 									<option>${organize.name }</option>
 								</c:forEach>
