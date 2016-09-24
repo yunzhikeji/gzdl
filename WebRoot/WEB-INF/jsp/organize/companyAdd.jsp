@@ -23,18 +23,43 @@
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/jquery.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#companyForm").submit(function(){
+		var isSubmit = true;
+		$(this).find("[reg2]").each(function(){
+			//获得输入的值
+			var val = $(this).val();
+			//获得正则表达式
+			var reg = $(this).attr("reg2");
+			//获得提示信息
+			var tip = $(this).attr("tip");
+			//创建正则表达式的对象
+			var regExp = new RegExp(reg);
+			if(!regExp.test($.trim(val))){
+				isSubmit = false;
+				$(this).next("span").html("<font color='red'>"+tip+"</font>");
+			}
+		})
+		return isSubmit;
+	})
+})
+</script>
 </head>
 
 <body>
 	<div class="pd-20">
-		<form action="${pageContext.request.contextPath }/organize/addOrganize?type=2" method="post" class="form form-horizontal" id="companyForm ">
+		<form
+			action="${pageContext.request.contextPath }/organize/addOrganize?type=2"
+			method="post" class="form form-horizontal" id="companyForm">
 			<table class="table">
 				<thead class="text-c">
 					<tr>
-						<th width="15%">单位名称</th>
-						<td width="70%"><input type="text" name="name" class="date_picker"
-							style="width: 400px" /></td>
+						<th width="15%">*单位名称</th>
+						<td width="70%"><input type="text" name="name"
+							class="date_picker" style="width: 400px" reg2="^[a-zA-Z0-9\u4e00-\u9fa5]{1,20}$" tip="必须是中英文或数字字符，长度1-20"/><span></span></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -46,15 +71,15 @@
 					</tr>
 					<tr class="text-c">
 						<td style="padding-top: 7px; padding-bottom: 7px;"><select
-							class="date_picker" id="s_city" name="city"
-							style="width: 420px"></select></td>
+							class="date_picker" id="s_city" name="city" style="width: 420px"></select></td>
 					</tr>
 					<tr class="text-c">
 						<td style="padding-top: 7px; padding-bottom: 7px;"><select
 							class="date_picker1" id="s_county" name="area"
 							style="width: 420px"></select></td>
 
-						<script class="resources library" src="${pageContext.request.contextPath }/js/area.js"
+						<script class="resources library"
+							src="${pageContext.request.contextPath }/js/area.js"
 							type="text/javascript"></script>
 
 						<script type="text/javascript">
@@ -63,14 +88,14 @@
 						<span id="show"></span>
 					</tr>
 					<tr class="text-c">
-						<th>详细地址</th>
+						<th>*详细地址</th>
 						<td><input type="text" name="address" class="date_picker"
-							style="width: 400px" /></td>
+							style="width: 400px" reg2="^[a-zA-Z0-9\u4e00-\u9fa5]{1,30}$" tip="必须是中英文或数字字符，长度1-30"/><span></span></td>
 					</tr>
 					<tr class="text-c">
-						<th>联系人</th>
+						<th>*联系人</th>
 						<td><input type="text" name="contact" class="date_picker"
-							style="width: 400px" /></td>
+							style="width: 400px" reg2="^[a-zA-Z0-9\u4e00-\u9fa5]{1,20}$" tip="必须是中英文或数字字符，长度1-20"/><span></span></td>
 					</tr>
 					<tr class="text-c">
 						<th>联系电话</th>
@@ -82,7 +107,9 @@
 						<th style="background: #FFF; border: #FFF; text-align: center;"
 							colspan="2"><a id="save" href="#"
 							class="button orange smallrouded"><i class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe66c;</i>重置&nbsp;&nbsp;&nbsp;</a>
-							<input type="submit" class="button blue smallrouded Hui-iconfont" style="font-size:14px;padding:6px 10px 5px 10px;" value="&nbsp;&nbsp;&nbsp;&nbsp;&#xe632;保存&nbsp;&nbsp;&nbsp;&nbsp;"/></th>
+							<input type="submit" class="button blue smallrouded Hui-iconfont"
+							style="font-size: 14px; padding: 6px 10px 5px 10px;"
+							value="&nbsp;&nbsp;&nbsp;&nbsp;&#xe632;保存&nbsp;&nbsp;&nbsp;&nbsp;" /></th>
 					</tr>
 				</tbody>
 			</table>
