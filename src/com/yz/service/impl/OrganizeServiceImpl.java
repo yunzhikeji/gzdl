@@ -89,4 +89,5 @@ public class OrganizeServiceImpl implements OrganizeService {
 		return queryMessage;
 	}
 
+
 }

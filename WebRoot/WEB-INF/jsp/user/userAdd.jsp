@@ -127,15 +127,6 @@ $(function(){
 				</thead>
 				<tbody>
 					<tr class="text-c">
-						<th>用户权限</th>
-						<td align="left" style="padding-top: 7px; padding-bottom: 7px;"><select
-							class="date_picker" id="role" name="role"
-							style="width: 320px" onchange="showUserParam();">
-								<option value="1">超级管理员</option>
-								<option value="2">用户</option>
-							</select></td>
-					</tr>
-					<tr class="text-c">
 						<th>所属组织类型</th>
 						<td align="left" style="padding-top: 7px; padding-bottom: 7px;"><select
 							class="date_picker" id="organizeType" name="organizeType"

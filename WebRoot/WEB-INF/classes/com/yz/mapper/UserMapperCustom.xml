@@ -21,11 +21,6 @@
 
 </select>
 
-  <select id="findOrganizeByOrganizeId" parameterType="java.lang.Integer" resultType="com.yz.po.Organize">
- 	SELECT * from organize where id = #{organizeId} 
-
-</select>
-
   <delete id="deleteUserByOrganizeId" parameterType="java.lang.Integer" >
     delete from user
     where organizeid = #{id,jdbcType=INTEGER}
@@ -34,5 +29,21 @@
     <select id="findUserByUsername" parameterType="java.lang.String" resultType="com.yz.po.User">
  	SELECT user.* FROM user where username=#{username}
 
-</select>
+	</select>
+	
+	 <select id="findUserListByOrganizes"  resultType="com.yz.po.User">
+ 		SELECT * FROM user where  id in
+				 <foreach item="organize" index="index" collection="list" 
+                         open="(" separator="," close=")">
+                        #{organize.id}
+                </foreach>
+			
+
+	</select>
+	
+	<select id="findUserListByOrganizeid" parameterType="java.lang.Integer" resultType="com.yz.po.User">
+ 		SELECT * from user where organizeid = #{organizeid} 
+	</select>
+	
+	
 </mapper>

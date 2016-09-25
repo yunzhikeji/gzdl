@@ -56,7 +56,9 @@
 					<tr class="text-d">
 						<th width="5%" style="font-size: 14px;">序号</th>
 						<th width="10%" style="font-size: 14px;">用户名</th>
+						<!--  
 						<th width="10%" style="font-size: 14px;">用户权限</th>
+						-->
 						<th width="30%" style="font-size: 14px;">所属区域</th>
 						<th width="20%" style="font-size: 14px;">所属机构</th>
 						<th width="10%" style="font-size: 14px;"></th>
@@ -68,8 +70,10 @@
 						<tr class="text-c">
 							<td>${index.count }</td>
 							<td>${userVO.username }</td>
+							<!--  
 							<td><c:if test="${userVO.role==1 }">超级管理员</c:if> <c:if
 									test="${userVO.role==2 }">用户</c:if></td>
+									-->
 							<td>${userVO.areaName }</td>
 							<td>${userVO.organizeName }</td>
 							<td><a id="edit"
