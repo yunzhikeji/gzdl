@@ -32,6 +32,9 @@ public interface UserService {
 	public Organize findOrganizeByOrganizeId(Integer organizeid) throws Exception;
 
 	public void deleteUserByOrganizeId(Integer id);
+	
+	//校验用户名重复使用
+	public List<User> findUserByUsername(String username) throws Exception;
 
 
 }

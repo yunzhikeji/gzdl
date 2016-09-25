@@ -30,4 +30,9 @@
     delete from user
     where organizeid = #{id,jdbcType=INTEGER}
   </delete>
+  
+    <select id="findUserByUsername" parameterType="java.lang.String" resultType="com.yz.po.User">
+ 	SELECT user.* FROM user where username=#{username}
+
+</select>
 </mapper>

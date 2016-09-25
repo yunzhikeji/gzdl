@@ -69,4 +69,9 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public List<User> findUserByUsername(String username) throws Exception {
+		return userMapperCustom.findUserByUsername(username);
+	}
+
 }

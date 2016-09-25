@@ -67,6 +67,13 @@ $(function(){
 			}
 		})
 })
+
+/* function validUsername(username) {
+	var option = {
+			url:${pageContext.request.contextPath }/user/validUsername,
+			type:
+	}
+} */
 </script>
 </head>
 

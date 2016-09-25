@@ -1,5 +1,6 @@
 package com.yz.controller;
 
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -105,6 +106,17 @@ public class UserController {
 		return "redirect:/user/queryUsers";
 	}
 	
-	
+	// 校验用户名重复
+	@RequestMapping("/validUsername")
+	public void validUsername(String username,Writer out) throws Exception{
+		
+		//如果list长度为0，就说明名称不重复
+		List<User> userList = userService.findUserByUsername(username);
+		String flag = "no";
+		if (userList.size() > 0){
+			flag = "yes";
+		}
+			out.write(flag);
+	}
 
 }

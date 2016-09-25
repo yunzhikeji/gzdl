@@ -9,7 +9,9 @@ public class User {
 
     private String realname;
 
-    private Integer organizeid;//-1:表示超级管理员
+    private Integer organizeid;
+
+    private Integer role;
 
     public Integer getId() {
         return id;
@@ -49,5 +51,13 @@ public class User {
 
     public void setOrganizeid(Integer organizeid) {
         this.organizeid = organizeid;
+    }
+
+    public Integer getRole() {
+        return role;
+    }
+
+    public void setRole(Integer role) {
+        this.role = role;
     }
 }

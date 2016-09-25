@@ -16,5 +16,8 @@ public interface UserMapperCustom {
 	public Organize findOrganizeByOrganizeId(Integer organizeid) throws Exception;
 
 	public void deleteUserByOrganizeId(Integer id);
+	
+	//根据用户名查询用户信息，校验名称重复用,用list接收，防止数据库脏读数据
+	public List<User> findUserByUsername(String username) throws Exception;
 
 }
