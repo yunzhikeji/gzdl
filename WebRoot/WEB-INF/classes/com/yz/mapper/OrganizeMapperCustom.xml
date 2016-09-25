@@ -18,7 +18,9 @@
 		<if test="area != null and area != '' ">
 			area = #{area} and
 		</if>
-		type = #{type,jdbcType=INTEGER}
+		<if test="type != null and type != 0 ">
+			type = #{type,jdbcType=INTEGER}
+		</if>
 	</select>
 
 	<select id="findOrganizeByName" parameterType="java.lang.String" resultType="com.yz.po.Organize">

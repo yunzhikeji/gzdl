@@ -41,26 +41,24 @@
 						<th width="5%" style="font-size: 14px;">序号</th>
 						<th width="10%" style="font-size: 14px;">用户名</th>
 						<th width="30%" style="font-size: 14px;">所属区域</th>
-						<th width="15%" style="font-size: 14px;">所属机构</th>
-						<th width="15%" style="font-size: 14px;">组织类别</th>
+						<th width="30%" style="font-size: 14px;">所属机构</th>
 						<th width="10%" style="font-size: 14px;"></th>
 						<th width="10%" style="font-size: 14px;"></th>
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach items="${userVoList }" var="userVo" varStatus="index">
+				<c:forEach items="${userVOList }" var="userVO" varStatus="index">
 					<tr class="text-c">
 						<td>${index.count }</td>
-						<td>${userVo.username }</td>
-						<td>${userVo.province }${userVo.city }${userVo.area }</td>
-						<td>${userVo.organizeName }</td>
-						<td><c:if test="${userVo.type ==1}"> 供电局</c:if><c:if test="${userVo.type ==2}"> 施工单位</c:if></td>
-						<td><a id="edit" href="${pageContext.request.contextPath }/user/toEditUser?id=${userVo.id }"
+						<td>${userVO.username }</td>
+						<td>${userVO.areaName }</td>
+						<td>${userVO.organizeName }</td>
+						<td><a id="edit" href="${pageContext.request.contextPath }/user/toEditUser?id=${userVO.id }"
 							class="button blue bigrounded bla" style="font-size: 14px;"><i
 								class="Hui-iconfont">&nbsp;&#xe647;</i>修改用户&nbsp;</a></td>
 						<td>
-						<c:if test="${userVo.organizeid !=-1}">
-						<a id="delete" href="${pageContext.request.contextPath }/user/deleteUser?id=${userVo.id }"
+						<c:if test="${userVO.organizeid == 0}">
+						<a id="delete" href="${pageContext.request.contextPath }/user/deleteUser?id=${userVO.id }"
 							class="button orange bla smallrounded" style="font-size: 14px;"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除&nbsp;&nbsp;&nbsp;</a>
 						</c:if>
 						</td>

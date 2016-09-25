@@ -5,11 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.constraints.Null;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.codehaus.jackson.map.util.BeanUtil;
-import org.omg.CosNaming.NamingContextExtPackage.StringNameHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +17,7 @@ import com.yz.po.User;
 import com.yz.po.UserCustom;
 import com.yz.service.OrganizeService;
 import com.yz.service.UserService;
-import com.yz.vo.UserVo;
+import com.yz.vo.UserVO;
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -36,28 +32,46 @@ public class UserController {
 		//调用service查询数据库，查询用户列表
 		List<User> userList = userService.findUserList();
 		
-		
 		//返回用户信息同时要返回用户所属机构的信息，创建一个UserVo对象,根据organizeId查询organize
-		List<UserVo> userVoList = new ArrayList<UserVo>();
+		List<UserVO> userVOList = new ArrayList<UserVO>();
 		for (int i=0;userList !=null && i < userList.size();i++ ){
 			User user = userList.get(i);
-			UserVo userVo = new UserVo();
-			userVo.setId(user.getId());
-			userVo.setOrganizeid(user.getOrganizeid());
-			userVo.setOrganizeName(userService.findOrganizeByOrganizeId(user.getOrganizeid()).getName());
-			userVo.setProvince(userService.findOrganizeByOrganizeId(user.getOrganizeid()).getProvince());
-			userVo.setCity(userService.findOrganizeByOrganizeId(user.getOrganizeid()).getCity());
-			userVo.setArea(userService.findOrganizeByOrganizeId(user.getOrganizeid()).getArea());
-			userVo.setType(userService.findOrganizeByOrganizeId(user.getOrganizeid()).getType());
-			userVo.setPassword(user.getPassword());
-			userVo.setUsername(user.getUsername());
-			userVo.setRealname(user.getRealname());
-			userVoList.add(userVo);
+			UserVO userVO = new UserVO();
+			
+			userVO.setId(user.getId());
+			userVO.setOrganizeid(user.getOrganizeid());
+			if(user.getOrganizeid()==0)
+			{
+				userVO.setOrganizeName("亿弘淼能源科技有限公司");
+				userVO.setAreaName("全国");
+			}else
+			{
+				Organize organize = userService.findOrganizeByOrganizeId(user.getOrganizeid());
+				userVO.setOrganizeName(organize.getName());
+				String areaName = "";
+				if(organize.getProvince()!=null&&!organize.getProvince().trim().equals(""))
+				{
+					areaName = areaName + organize.getProvince();
+				}
+				if(organize.getCity()!=null&&!organize.getCity().trim().equals(""))
+				{
+					areaName = areaName + organize.getCity();
+				}
+				if(organize.getArea()!=null&&!organize.getArea().trim().equals(""))
+				{
+					areaName = areaName + organize.getArea();
+				}
+				userVO.setAreaName(areaName);
+			}
+			userVO.setPassword(user.getPassword());
+			userVO.setUsername(user.getUsername());
+			userVO.setRealname(user.getRealname());
+			userVOList.add(userVO);
 		}
 		// 返回ModelAndView
 		ModelAndView modelAndView = new ModelAndView();
 		
-		modelAndView.addObject("userVoList", userVoList);
+		modelAndView.addObject("userVOList", userVOList);
 		modelAndView.setViewName("user/userList");
 		return modelAndView;
 		
@@ -90,11 +104,18 @@ public class UserController {
 	// 请求添加一个用户
 	@RequestMapping("/addUser")
 	public String addUser(HttpServletRequest request,String username,String organizeName)throws Exception{
-		Organize organize = organizeService.findOrganizeByName(organizeName);
+		
+		
 		User user = new User();
 		user.setUsername(username);
-		user.setOrganizeid(organize.getId());
 		user.setPassword("1234");
+		if(organizeName.equals("请选择所属机构"))
+		{
+			user.setOrganizeid(0);
+		}else{
+			Organize organize = organizeService.findOrganizeByName(organizeName);
+			user.setOrganizeid(organize.getId());
+		}
 		userService.insert(user);
 		return "redirect:/user/queryUsers";
 	}

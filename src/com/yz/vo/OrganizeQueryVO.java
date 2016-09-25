@@ -1,5 +1,9 @@
 package com.yz.vo;
 
+/*
+ * 查询组织所用vo类
+ * @author Administrator
+ */
 public class OrganizeQueryVO {
 
 	private String province;
