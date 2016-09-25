@@ -27,51 +27,87 @@
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <script type="text/javascript">
-	$(function() {
-		$("#userForm").submit(
-				function() {
-					var isSubmit = true;
-					$(this).find("[reg2]").each(
-							function() {
-								//获得输入的值
-								var val = $(this).val();
-								//获得正则表达式
-								var reg = $(this).attr("reg2");
-								//获得提示信息
-								var tip = $(this).attr("tip");
-								//创建正则表达式的对象
-								var regExp = new RegExp(reg);
-								if (!regExp.test($.trim(val))) {
-									isSubmit = false;
-									$(this).next("td span").html(
-											"<font color='red'>" + tip
-													+ "</font>");
-									return false;
-								} else {
-									$(this).next("td span").html("");
-								}
-							})
-					return isSubmit;
-				})
-
-		$("#userForm").find("[reg2]").blur(
-				function() {
-					//获得输入的值
-					var val = $(this).val();
-					//获得正则表达式
-					var reg = $(this).attr("reg2");
-					//获得提示信息
-					var tip = $(this).attr("tip");
-					//创建正则表达式的对象
-					var regExp = new RegExp(reg);
-					if (!regExp.test($.trim(val))) {
-						$(this).next("td span").html(
-								"<font color='red'>" + tip + "</font>");
-					} else {
-						$(this).next("td span").html("");
+$(function(){
+	$("#userForm").submit(function(){
+		var isSubmit = true;
+		$(this).find("[reg2]").each(function(){
+			//获得输入的值
+			var val = $(this).val();
+			//获得正则表达式
+			var reg = $(this).attr("reg2");
+			//获得提示信息
+			var tip = $(this).attr("tip");
+			//创建正则表达式的对象
+			var regExp = new RegExp(reg);
+			if(!regExp.test($.trim(val))){
+				isSubmit = false;
+				$(this).next("span").html("<font color='red'>"+tip+"</font>");
+				return false;
+			}else {
+				var inputName = $(this).attr("name");
+				if(inputName == "username"){
+					var result = validUsername(val);
+					if(result == "yes"){
+						$(this).next("span").html("<font color='red'>用户名已经存在</font>");
+						isSubmit = false;
+						return false;
+					}else{
+						$(this).next("span").html("");
 					}
-				})
+				}
+				
+			}
+		})
+		return isSubmit;
 	})
+	
+	$("#userForm").find("[reg2]").blur(function(){
+			//获得输入的值
+			var val = $(this).val();
+			//获得正则表达式
+			var reg = $(this).attr("reg2");
+			//获得提示信息
+			var tip = $(this).attr("tip");
+			//创建正则表达式的对象
+			var regExp = new RegExp(reg);
+			if(!regExp.test($.trim(val))){
+				$(this).next("span").html("<font color='red'>"+tip+"</font>");
+			}else {
+				var inputName = $(this).attr("name");
+				if(inputName == "username"){
+					var result = validUsername(val);
+					if(result == "yes"){
+						$(this).next("span").html("<font color='red'>用户名已经存在</font>");
+						isSubmit = false;
+						return false;
+					}else{
+						$(this).next("span").html("");
+					}
+				}
+			}
+		})
+})
+//校验username重复
+ function validUsername(username) {
+	var result = "no";
+	var option = {
+			url:"${pageContext.request.contextPath }/user/validUsername",
+			type:"post",
+			date:{
+				username:username
+			},
+			dateType:"text",
+			async:false,
+			success:function(responseText){
+				result = responseText;
+			},
+			error:function(){
+				alert("系统错误");
+			}
+	};
+	$.ajax(option);
+	return result;
+} 
 </script>
 </head>
 

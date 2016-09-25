@@ -16,9 +16,9 @@
 <body style="background:#e9eef0;">
  <div class="bht">
  <div class="bh text-d">设备列表
- <button class="button white bigrounded bla" style="font-size:14px; line-height:14px;margin-left:5px;";>&nbsp;全部&nbsp;</button>
- <button class="button white bigrounded bla" style="font-size:14px; line-height:14px;";>已出租</button>
- <button class="button white bigrounded bla" style="font-size:14px; line-height:14px;";>未出租</button>
+ <a target="_self" href="${pageContext.request.contextPath }/camera/cameraList" class="button white bigrounded bla" style="font-size:14px; line-height:14px;margin-left:5px;";>&nbsp;全部&nbsp;</a>
+ <a target="_self" href="${pageContext.request.contextPath }/camera/hiredList" class="button white bigrounded bla" style="font-size:14px; line-height:14px;margin-left:5px;";>&nbsp;已出租&nbsp;</a>
+ <a target="_self" href="${pageContext.request.contextPath }/camera/unhiredList" class="button white bigrounded bla" style="font-size:14px; line-height:14px;margin-left:5px;";>&nbsp;未出租&nbsp;</a>
  <button class="button blue bla smallrounded" style="font-size:14px; line-height:14px;margin-left:75%"; onClick="ypgy('设备入库','${pageContext.request.contextPath }/camera/toAdd','1024px','768px')" ><i class="Hui-iconfont">&nbsp;&#xe600;&nbsp;</i>设备入库</button></div>
  <div class="sJ0"></div>
  <div style="height:740px">

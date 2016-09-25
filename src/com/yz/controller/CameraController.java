@@ -101,6 +101,9 @@ public class CameraController {
 			cameraVo.setCameraid(camera.getCameraid());
 			cameraVo.setOrganizeid(camera.getOrganizeid());
 			if(camera.getOrganizeid() != null){
+				if(camera.getOrganizeid()==0){
+					cameraVo.setOrganizeName("亿弘淼能源科技有限公司");
+				}else
 				cameraVo.setOrganizeName(organizeService.selectByPrimaryKey(camera.getOrganizeid()).getName());
 			}
 			
@@ -142,6 +145,7 @@ public class CameraController {
 	// 请求添加一个设备
 	@RequestMapping("/addCamera")
 	public String addCamera(Camera camera) throws Exception {
+		camera.setOrganizeid(0); //设备入库，将organizeid初始为0，表示入了亿弘淼的仓库
 		cameraService.insertCamera(camera);
 		return "success";
 	}
