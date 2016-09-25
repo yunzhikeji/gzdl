@@ -83,7 +83,7 @@ public class OrganizeServiceImpl implements OrganizeService {
 	}
 
 	private String setQueryMessage(String queryMessage) {
-		if (queryMessage.equals("省份") || queryMessage.equals("地级市") || queryMessage.equals("市、县级市")) {
+		if (queryMessage==null||queryMessage.equals("省份") || queryMessage.equals("地级市") || queryMessage.equals("市、县级市")) {
 			queryMessage = "";
 		}
 		return queryMessage;

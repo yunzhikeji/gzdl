@@ -19,8 +19,12 @@
 			area = #{area} and
 		</if>
 		<if test="type != null and type != 0 ">
-			type = #{type,jdbcType=INTEGER}
+			type = #{type,jdbcType=INTEGER} and
 		</if>
+		<if test="name != null and name != '' ">
+			name like concat('%',#{name},'%') and 
+		</if>
+		1=1
 	</select>
 
 	<select id="findOrganizeByName" parameterType="java.lang.String" resultType="com.yz.po.Organize">

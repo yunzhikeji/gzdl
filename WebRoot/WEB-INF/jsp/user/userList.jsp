@@ -27,12 +27,28 @@
 
 <body style="background: #fff;">
 	<div class="pd-20">
-		<form action="" method="post" class="form form-horizontal" id="">
+		<form action="${pageContext.request.contextPath }/user/queryUsers" method="post" class="form form-horizontal" id="">
 			<table class="table">
 				<thead class="text-c">
 					<tr class="text-d">
-						<th colspan="8" style="text-align: left; height: 35px;">&nbsp;&nbsp;&nbsp;&nbsp;<a
-							class="button blue bla smallrounded" href="${pageContext.request.contextPath }/user/toAddUser"
+						<th colspan="5" style="text-align: left; height: 35px;">
+							<span style="margin-left: 20px"><select
+								class="date_picker" id="s_province" name="province"></select>  
+								<select class="date_picker" id="s_city" name="city"></select>  
+								<select class="date_picker1" id="s_county" name="county"></select>
+								<script class="resources library"
+									src="${pageContext.request.contextPath }/js/area.js"
+									type="text/javascript"></script> <script type="text/javascript">
+										_init_area();
+									</script></span><span id="show"></span> <input type="text" class="date_picker" name="name"
+							placeholder="单位名称" style="width: 150px" />
+							<input type="submit" class="loginBtn1 orange smallrounded" 
+								 style="margin-left: 5px;" value="查询">
+							</input>
+						</th>
+						<th colspan="2" style="text-align: left; height: 35px;">&nbsp;&nbsp;&nbsp;&nbsp;<a
+							class="button blue bla smallrounded"
+							href="${pageContext.request.contextPath }/user/toAddUser"
 							target="_self" style="font-size: 14px;"><i
 								class="Hui-iconfont">&nbsp;&#xe607;&nbsp;</i>添加用户</a>
 						</th>
@@ -48,25 +64,25 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach items="${userVOList }" var="userVO" varStatus="index">
-					<tr class="text-c">
-						<td>${index.count }</td>
-						<td>${userVO.username }</td>
-						<td>
-							<c:if test="${userVO.role==1 }">超级管理员</c:if>
-							<c:if test="${userVO.role==2 }">用户</c:if>
-						</td>
-						<td>${userVO.areaName }</td>
-						<td>${userVO.organizeName }</td>
-						<td><a id="edit" href="${pageContext.request.contextPath }/user/toEditUser?id=${userVO.id }"
-							class="button blue bigrounded bla" style="font-size: 14px;"><i
-								class="Hui-iconfont">&nbsp;&#xe647;</i>修改用户&nbsp;</a></td>
-						<td>
-						<a id="delete" href="${pageContext.request.contextPath }/user/deleteUser?id=${userVO.id }"
-							class="button orange bla smallrounded" style="font-size: 14px;"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除&nbsp;&nbsp;&nbsp;</a>
-						</td>
-					</tr>
-				</c:forEach>
+					<c:forEach items="${userVOList }" var="userVO" varStatus="index">
+						<tr class="text-c">
+							<td>${index.count }</td>
+							<td>${userVO.username }</td>
+							<td><c:if test="${userVO.role==1 }">超级管理员</c:if> <c:if
+									test="${userVO.role==2 }">用户</c:if></td>
+							<td>${userVO.areaName }</td>
+							<td>${userVO.organizeName }</td>
+							<td><a id="edit"
+								href="${pageContext.request.contextPath }/user/toEditUser?id=${userVO.id }"
+								class="button blue bigrounded bla" style="font-size: 14px;"><i
+									class="Hui-iconfont">&nbsp;&#xe647;</i>修改用户&nbsp;</a></td>
+							<td><a id="delete"
+								href="${pageContext.request.contextPath }/user/deleteUser?id=${userVO.id }"
+								class="button orange bla smallrounded" style="font-size: 14px;"><i
+									class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除&nbsp;&nbsp;&nbsp;</a>
+							</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 

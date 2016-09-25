@@ -17,6 +17,7 @@ import com.yz.po.User;
 import com.yz.po.UserCustom;
 import com.yz.service.OrganizeService;
 import com.yz.service.UserService;
+import com.yz.vo.OrganizeQueryVO;
 import com.yz.vo.UserVO;
 @Controller
 @RequestMapping("/user")
@@ -28,7 +29,15 @@ public class UserController {
 	private OrganizeService organizeService;
 	
 	@RequestMapping("/queryUsers")
-	public ModelAndView queryUsers(HttpServletRequest request) throws Exception{
+	public ModelAndView queryUsers(OrganizeQueryVO organizeQueryVO,HttpServletRequest request) throws Exception{
+		
+		List<Organize> organizes = new ArrayList<Organize>();
+		
+		organizes =  organizeService.getOrganizesByOrganizeQueryVO(organizeQueryVO);
+		
+		System.out.println(organizes.size());
+		
+		
 		//调用service查询数据库，查询用户列表
 		List<User> userList = userService.findUserList();
 		

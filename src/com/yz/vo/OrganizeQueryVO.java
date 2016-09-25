@@ -14,6 +14,8 @@ public class OrganizeQueryVO {
 
 	private Integer type;// 组织类型 1：供电局 2：施工单位
 
+	private String name;
+
 	public String getProvince() {
 		return province;
 	}
@@ -45,5 +47,15 @@ public class OrganizeQueryVO {
 	public void setType(Integer type) {
 		this.type = type;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	
 
 }

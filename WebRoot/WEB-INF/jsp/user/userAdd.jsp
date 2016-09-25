@@ -94,7 +94,7 @@
 						<th>用户权限</th>
 						<td align="left" style="padding-top: 7px; padding-bottom: 7px;"><select
 							class="date_picker" id="role" name="role"
-							style="width: 320px">
+							style="width: 320px" onchange="showUserParam();">
 								<option value="1">超级管理员</option>
 								<option value="2">用户</option>
 							</select></td>
@@ -186,7 +186,6 @@
 								var s_county = $("#s_county").val();
 								var organizeType = $("#organizeType").val();
 								
-								console.log(organizeType);
 
 								var data = 'province=' + s_province + '&city='
 										+ s_city + '&area=' + s_county
@@ -219,6 +218,17 @@
 							});
 
 		})
+		
+		
+		function showUserParam()
+		{
+			var organizeType = $("#organizeType").val();
+			if(organizeType==1)
+			{
+				
+			}
+			
+		}
 	</script>
 
 </body>
