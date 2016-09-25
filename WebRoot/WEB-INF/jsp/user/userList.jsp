@@ -40,8 +40,9 @@
 					<tr class="text-d">
 						<th width="5%" style="font-size: 14px;">序号</th>
 						<th width="10%" style="font-size: 14px;">用户名</th>
+						<th width="10%" style="font-size: 14px;">用户权限</th>
 						<th width="30%" style="font-size: 14px;">所属区域</th>
-						<th width="30%" style="font-size: 14px;">所属机构</th>
+						<th width="20%" style="font-size: 14px;">所属机构</th>
 						<th width="10%" style="font-size: 14px;"></th>
 						<th width="10%" style="font-size: 14px;"></th>
 					</tr>
@@ -51,16 +52,18 @@
 					<tr class="text-c">
 						<td>${index.count }</td>
 						<td>${userVO.username }</td>
+						<td>
+							<c:if test="${userVO.role==1 }">超级管理员</c:if>
+							<c:if test="${userVO.role==2 }">用户</c:if>
+						</td>
 						<td>${userVO.areaName }</td>
 						<td>${userVO.organizeName }</td>
 						<td><a id="edit" href="${pageContext.request.contextPath }/user/toEditUser?id=${userVO.id }"
 							class="button blue bigrounded bla" style="font-size: 14px;"><i
 								class="Hui-iconfont">&nbsp;&#xe647;</i>修改用户&nbsp;</a></td>
 						<td>
-						<c:if test="${userVO.organizeid == 0}">
 						<a id="delete" href="${pageContext.request.contextPath }/user/deleteUser?id=${userVO.id }"
 							class="button orange bla smallrounded" style="font-size: 14px;"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除&nbsp;&nbsp;&nbsp;</a>
-						</c:if>
 						</td>
 					</tr>
 				</c:forEach>

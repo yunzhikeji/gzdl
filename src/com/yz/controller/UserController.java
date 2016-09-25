@@ -40,6 +40,7 @@ public class UserController {
 			
 			userVO.setId(user.getId());
 			userVO.setOrganizeid(user.getOrganizeid());
+			userVO.setRole(user.getRole());
 			if(user.getOrganizeid()==0)
 			{
 				userVO.setOrganizeName("亿弘淼能源科技有限公司");
@@ -103,12 +104,13 @@ public class UserController {
 	
 	// 请求添加一个用户
 	@RequestMapping("/addUser")
-	public String addUser(HttpServletRequest request,String username,String organizeName)throws Exception{
+	public String addUser(HttpServletRequest request,String username,String organizeName,Integer role)throws Exception{
 		
 		
 		User user = new User();
 		user.setUsername(username);
 		user.setPassword("1234");
+		user.setRole(role);
 		if(organizeName.equals("请选择所属机构"))
 		{
 			user.setOrganizeid(0);
@@ -137,7 +139,7 @@ public class UserController {
 		if (userList.size() > 0){
 			flag = "yes";
 		}
-			out.write(flag);
+		out.write(flag);
 	}
 
 }

@@ -21,6 +21,8 @@ public class UserVO {
 	private String password;
 
 	private Integer organizeid;
+	
+	private Integer role;
 
 	public String getOrganizeName() {
 		return organizeName;
@@ -77,5 +79,15 @@ public class UserVO {
 	public void setOrganizeid(Integer organizeid) {
 		this.organizeid = organizeid;
 	}
+
+	public Integer getRole() {
+		return role;
+	}
+
+	public void setRole(Integer role) {
+		this.role = role;
+	}
+	
+	
 
 }
