@@ -32,7 +32,7 @@
 	</select>
 	
 	 <select id="findUserListByOrganizes"  resultType="com.yz.po.User">
- 		SELECT * FROM user where  id in
+ 		SELECT * FROM user where  organizeid in
 				 <foreach item="organize" index="index" collection="list" 
                          open="(" separator="," close=")">
                         #{organize.id}

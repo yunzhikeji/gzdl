@@ -18,22 +18,24 @@
 </head>
 
 <body style="background: #e9eef0;">
+	
 	<div class="bht">
 		<div class="bh text-d">
+		<form action="${pageContext.request.contextPath }/organize/organizeList" method="post" class="form form-horizontal" id="">
 			单位列表 <span style="margin-left: 20px"><select
-				class="date_picker" id="s_province" name="s_province"></select>   <select
-				class="date_picker" id="s_city" name="s_city"></select>   <select
-				class="date_picker1" id="s_county" name="s_county"></select> <script
+				class="date_picker" id="s_province" name="province"></select>   <select
+				class="date_picker" id="s_city" name="city"></select>   <select
+				class="date_picker1" id="s_county" name="county"></select> <script
 					class="resources library"
 					src="${pageContext.request.contextPath }/js/area.js"
 					type="text/javascript"></script> <script type="text/javascript">
 						_init_area();
-					</script></span><span id="show"></span> <input type="text" class="date_picker"
+					</script></span><span id="show"></span> <input type="text" class="date_picker" name="name"
 				placeholder="单位名称" style="width: 150px" />
-			<button class="loginBtn1 orange smallrounded" onClick="refresh();"
-				style="margin-left: 5px;">
-				<i class="Hui-iconfont">&#xe665;</i>
-			</button>
+			<input type="submit" class="loginBtn1 orange smallrounded" 
+								 style="margin-left: 5px;" value="查询">
+							</input>
+							</form>
 			<button class="button blue bla smallrounded"
 				style="font-size: 14px; line-height: 14px; margin-left: 20px"
 				onClick="ypgy('施工单位','${pageContext.request.contextPath }/organize/toCompanyAdd','1024px','768px')">
@@ -69,10 +71,6 @@
 					<c:forEach items="${organizeList }" var="organize"
 						varStatus="index">
 						<tr class="text-c">
-
-
-
-
 							<td>${index.count }</td>
 							<td>${organize.name }</td>
 							<td>${organize.province }${organize.city }${organize.area }</td>
@@ -108,6 +106,8 @@
 				</tbody>
 			</table>
 		</div>
+		
+		<!-- 
 		<div class="sJ0"></div>
 		<div class="text-e bb">
 			<button class="button white bla smallrounded"
@@ -122,9 +122,10 @@
 				class="date_picker" placeholder="&nbsp;1" style="width: 20px" />&nbsp;页
 			</span>
 		</div>
+		 -->
+		
 
 	</div>
-
 
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath }/js/jquery.min.js"></script>

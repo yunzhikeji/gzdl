@@ -10,9 +10,10 @@ import com.yz.mapper.CameraMapperCustom;
 import com.yz.mapper.OrganizeMapper;
 import com.yz.mapper.OrganizeMapperCustom;
 import com.yz.po.Camera;
-import com.yz.po.CameraCustom;
 import com.yz.po.Organize;
+import com.yz.po.User;
 import com.yz.service.CameraService;
+import com.yz.service.OrganizeService;
 import com.yz.vo.CameraQueryVO;
 import com.yz.vo.OrganizeQueryVO;
 
@@ -22,13 +23,16 @@ public class CameraServiceImpl implements CameraService {
 	private CameraMapper cameraMapper;
 	
 	@Autowired
-	private CameraMapperCustom camearMapperCustom;
+	private CameraMapperCustom cameraMapperCustom;
 	
 	@Autowired
 	private OrganizeMapper organizeMapper;
 	
 	@Autowired
 	private OrganizeMapperCustom organizeMapperCustom;
+	
+	@Autowired
+	private OrganizeService organizeService;
 
 	@Override
 	public Camera findCameraById(Integer id) throws Exception {
@@ -58,19 +62,19 @@ public class CameraServiceImpl implements CameraService {
 	@Override
 	public List<Camera> getCameraByUsefulLatlng() {
 		// TODO Auto-generated method stub
-		return camearMapperCustom.getCameraByUsefulLatlng();
+		return cameraMapperCustom.getCameraByUsefulLatlng();
 	}
 
 	@Override
 	public List<Camera> findCameraList() throws Exception {
 		
-		return camearMapperCustom.findCameraList();
+		return cameraMapperCustom.findCameraList();
 	}
 
 	@Override
 	public Camera findCameraByNumber(String number) {
 		// TODO Auto-generated method stub
-		return camearMapperCustom.findCameraByNumber(number);
+		return cameraMapperCustom.findCameraByNumber(number);
 	}
 
 	@Override
@@ -82,7 +86,7 @@ public class CameraServiceImpl implements CameraService {
 	@Override
 	public List<Camera> findCameraListByNumber(String number) {
 		// TODO Auto-generated method stub
-		return camearMapperCustom.findCameraListByNumber(number);
+		return cameraMapperCustom.findCameraListByNumber(number);
 	}
 	
 	@Override
@@ -125,13 +129,13 @@ public class CameraServiceImpl implements CameraService {
 			{
 				for(Organize organ : organizes)
 				{
-					cameras.addAll(camearMapperCustom.getCameraListByOrganizeid(organ.getId()));
+					cameras.addAll(cameraMapperCustom.getCameraListByOrganizeid(organ.getId()));
 				}
 			}
 			
 		}else if(type==2)
 		{
-			cameras = camearMapperCustom.getCameraListByNumberAndUserOrganizeid(cameraQueryVO);
+			cameras = cameraMapperCustom.getCameraListByNumberAndUserOrganizeid(cameraQueryVO);
 		}
 		
 		return cameras;
@@ -140,12 +144,26 @@ public class CameraServiceImpl implements CameraService {
 	@Override
 	public List<Camera> findHiredCameralist() {
 		
-		return camearMapperCustom.findHiredCameralist();
+		return cameraMapperCustom.findHiredCameralist();
 	}
 
 	@Override
 	public List<Camera> findUnhiredCameralist() {
-		return camearMapperCustom.findUnhiredCameralist();
+		return cameraMapperCustom.findUnhiredCameralist();
+	}
+
+	@Override
+	public List<Camera> findCameraListByOrganizeQueryVO(OrganizeQueryVO organizeQueryVO) {
+		
+		List<Camera> cameras = new ArrayList<Camera>();
+
+		List<Organize> organizes = organizeService.getOrganizesByOrganizeQueryVO(organizeQueryVO);// 根据查询条件获得设备列表
+		
+		List<Camera> cameraList = cameraMapperCustom.findCameraListByOrganizes(organizes);// 根据组织列表查询设备列表
+
+		cameras.addAll(cameraList);
+		
+		return cameras;
 	}
 
 }

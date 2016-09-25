@@ -38,8 +38,8 @@
 		</if>
 		organizeid = #{userOrganizeid,jdbcType=INTEGER}
 	</select>
-	
-	
+
+
 	<select id="getCameraListByOrganizeid" parameterType="java.lang.Integer"
 		resultType="com.yz.po.Camera">
 		select * from camera
@@ -47,13 +47,28 @@
 			organizeid = #{organizeid,jdbcType=INTEGER}
 		</where>
 	</select>
-	
+
 	<select id="findHiredCameralist" resultType="com.yz.po.Camera">
-		select * from camera where organizeid > 0
+		select * from camera
+		where organizeid > 0
 	</select>
 
 	<select id="findUnhiredCameralist" resultType="com.yz.po.Camera">
-		select * from camera where organizeid = 0
+		select * from
+		camera where organizeid = 0
+	</select>
+
+	<select id="findCameraListByOrganizes" resultType="com.yz.po.Camera">
+		SELECT * FROM camera where organizeid in
+		<foreach item="organize" index="index" collection="list" open="("
+			separator="," close=")">
+			#{organize.id}
+		</foreach>
+	</select>
+
+	<select id="findCameraListByOrganizeid" parameterType="java.lang.Integer"
+		resultType="com.yz.po.Camera">
+		SELECT * from camera where organizeid = #{organizeid}
 	</select>
 
 

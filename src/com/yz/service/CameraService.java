@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.yz.po.Camera;
 import com.yz.vo.CameraQueryVO;
+import com.yz.vo.OrganizeQueryVO;
 
 public interface CameraService {
 
@@ -42,5 +43,8 @@ public interface CameraService {
 	
 	//查询未出租的设备列表
 	public List<Camera> findUnhiredCameralist();
+
+	//根据vo查询设备列表
+	public List<Camera> findCameraListByOrganizeQueryVO(OrganizeQueryVO organizeQueryVO);
 
 }

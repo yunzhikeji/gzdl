@@ -125,7 +125,7 @@
 
 
             var label = new BMap.Label("设备：" + json[i]["cname"]
-                + "<br/>" + "设备编号：4321"
+                + "<br/>" + "设备编号："+json[i]["cnumber"]
                 + "<br/>" + "设备电压：" + json[i]["voltage"]
                 + "<br/>" + "设备温度：" + json[i]["temperature"]
                 + "<br/>" + "工作状态：" + getStatus(json[i]["status"])

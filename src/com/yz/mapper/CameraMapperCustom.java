@@ -33,4 +33,7 @@ public interface CameraMapperCustom {
 
 	public List<Camera> findUnhiredCameralist();
 
+	//根据组织列表查询设备
+	public List<Camera> findCameraListByOrganizes(List<Organize> organizes);
+
 }

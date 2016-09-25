@@ -22,6 +22,7 @@ import com.yz.service.CameraService;
 import com.yz.service.OrganizeService;
 import com.yz.vo.CameraQueryVO;
 import com.yz.vo.CameraVo;
+import com.yz.vo.OrganizeQueryVO;
 
 @Controller
 @RequestMapping("/camera")
@@ -77,15 +78,17 @@ public class CameraController {
 	
 	//设备管理列表
 	@RequestMapping("/cameraList")
-	public ModelAndView cameraList(Integer hire) throws Exception {
+	public ModelAndView cameraList(OrganizeQueryVO organizeQueryVO,Integer hire) throws Exception {
 		List<Camera> cameraList = null;
 		if(hire == null){			//hire为空表示前台没传参数，显示所有
-			cameraList = cameraService.findCameraList();
+			cameraList = cameraService.findCameraListByOrganizeQueryVO(organizeQueryVO);
 		} else if (hire == 1){		//hire等于1表示显示已经出租的设备
 			cameraList = cameraService.findHiredCameralist();
 		} else if(hire == 2) {
 			cameraList = cameraService.findUnhiredCameralist();
 		}
+		
+		
 		
 		
 		//返回设备信息同时要返回设备所属机构的信息，创建一个CameraVo对象,根据organizeId查询organize

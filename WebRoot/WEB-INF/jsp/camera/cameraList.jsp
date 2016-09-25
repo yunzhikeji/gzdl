@@ -19,7 +19,25 @@
 <body style="background: #e9eef0;">
 	<div class="bht">
 		<div class="bh text-d">
-			设备列表 <a target="_self"
+			设备列表
+				<div style="margin-bottom: 2px;width: 50%;">
+				<form action="${pageContext.request.contextPath }/camera/cameraList" method="post">
+				 <select
+				class="date_picker" id="s_province" name="province"></select>   <select
+				class="date_picker" id="s_city" name="city"></select>   <select
+				class="date_picker1" id="s_county" name="county"></select> <script
+					class="resources library"
+					src="${pageContext.request.contextPath }/js/area.js"
+					type="text/javascript"></script> <script type="text/javascript">
+						_init_area();
+					</script></span><span id="show"></span> <input type="text" class="date_picker" name="name"
+				placeholder="单位名称" style="width: 100px" />
+			<input type="submit" class="loginBtn1 orange smallrounded" 
+								 style="margin-left: 5px;" value="查询">
+							</input>
+							</form>
+							</div>
+			 <a target="_self"
 				href="${pageContext.request.contextPath }/camera/cameraList"
 				class="button white bigrounded bla"
 				style="font-size: 14px; line-height: 14px; margin-left: 5px;";>&nbsp;全部&nbsp;</a>
@@ -31,6 +49,7 @@
 				href="${pageContext.request.contextPath }/camera/cameraList?hire=2"
 				class="button white bigrounded bla"
 				style="font-size: 14px; line-height: 14px; margin-left: 5px;";>&nbsp;未出租&nbsp;</a>
+				 <span style="margin-left: 20px">
 			<button class="button blue bla smallrounded"
 				style="font-size: 14px; line-height: 14px; margin-left: 75%"
 				; onClick="ypgy('设备入库','${pageContext.request.contextPath }/camera/toAdd','1024px','768px')">
@@ -81,6 +100,8 @@
 				</tbody>
 			</table>
 		</div>
+		
+		<!--  
 		<div class="sJ0"></div>
 		<div class="text-e bb">
 			<button class="button white bla smallrounded"
@@ -95,9 +116,8 @@
 				class="date_picker" placeholder="&nbsp;1" style="width: 20px" />&nbsp;页
 			</span>
 		</div>
-
+		-->
 	</div>
-
 
 	<script type="text/javascript"
 		src="${pageContext.request.contextPath }/js/jquery.min.js"></script>

@@ -34,8 +34,10 @@ public class OrganizeController {
 	private UserService userService;
 	
 	@RequestMapping("/organizeList")
-	public ModelAndView organizeList(HttpServletRequest request) throws Exception {
-		List<Organize> organizeList = organizeService.findOrganizeList();
+	public ModelAndView organizeList(OrganizeQueryVO organizeQueryVO,HttpServletRequest request) throws Exception {
+		
+		
+		List<Organize> organizeList = organizeService.getOrganizesByOrganizeQueryVO(organizeQueryVO);// 根据查询条件获得组织列表
 		
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject("organizeList", organizeList);
@@ -132,7 +134,6 @@ public class OrganizeController {
 	@RequestMapping(value="/getOrganizes")
 	public @ResponseBody List<Organize> getOrganizes(OrganizeQueryVO organizeQueryVO) throws Exception {
 														
-		
 		List<Organize> organizes = new ArrayList<Organize>();
 		
 		organizes =  organizeService.getOrganizesByOrganizeQueryVO(organizeQueryVO);
