@@ -111,7 +111,7 @@ public class OrganizeController {
 	public String  deleteOrganize(HttpServletRequest request,Integer id)throws Exception {
 		organizeService.deleteOrganizeById(id);
 	//删除组织的同时，删除该组织下的所有用户	
-		userService.deleteUserByOrganizeId(id);
+		userService.deleteUserByOrganizeid(id);
 		return "redirect:/organize/organizeList";
 	}
 	

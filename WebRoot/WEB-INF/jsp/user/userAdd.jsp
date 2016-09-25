@@ -213,7 +213,6 @@ $(function(){
 								var s_county = $("#s_county").val();
 								var organizeType = $("#organizeType").val();
 								
-
 								var data = 'province=' + s_province + '&city='
 										+ s_city + '&area=' + s_county
 										+ '&type=' + organizeType;

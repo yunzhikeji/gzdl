@@ -1,7 +1,7 @@
 package com.yz.vo;
 
 /*
- * 查询组织所用vo类
+ * 查询条件包装类  组织
  * @author Administrator
  */
 public class OrganizeQueryVO {

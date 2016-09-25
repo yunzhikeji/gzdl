@@ -19,11 +19,7 @@
     <script type="text/javascript">
         function refresh() {
             i = 0;
-            if (!$("#no").val()) {
-                alert("请输入需要搜索的设备编码");
-            } else {
-                getData($("#no").val());
-            }
+            getData($("#no").val());
 
         }
 
@@ -37,11 +33,22 @@
 <body>
     <div style="padding-left: 15px; padding-bottom: 5px; padding-top: 5px;">
         <span>设备查询条件:</span>&nbsp;&nbsp;&nbsp;
-		<span>编号:</span>
-        &nbsp;&nbsp;&nbsp;
-		<input type="text" class="date_picker2" name="convalue" id="no" />
+        <span style="margin-left: 20px"><select
+								class="date_picker" id="s_province" name="province"></select>  
+								<select class="date_picker" id="s_city" name="city"></select>  
+								<select class="date_picker1" id="s_county" name="area"></select>
+								<script class="resources library"
+									src="${pageContext.request.contextPath }/js/area.js"
+									type="text/javascript"></script> <script type="text/javascript">
+										_init_area();
+									</script></span><span id="show"></span> <input type="text" class="date_picker" name="name"
+							placeholder="施工单位名称" id="organizeName" style="width: 150px" />
+		<input type="text" class="date_picker" name="convalue" id="no"
+							placeholder="设备编号" style="width: 150px" />
+		
 
         <button class="loginBtn1 blue" onclick="refresh();" style="margin-left: 5px;"><i class="Hui-iconfont">&#xe665;</i>查询</button>
+        <button class="loginBtn1 blue" onclick="window.location.reload();" style="margin-left: 5px;">刷新</button>
     </div>
     <div id="allmap"></div>
 
@@ -68,12 +75,24 @@
         //----------------------------------------------
     });
     function getData(number) {
-        if (!number) { number = ""; }
+    	
+        var s_province = $("#s_province").val();
+		var s_city = $("#s_city").val();
+		var s_county = $("#s_county").val();
+		var name =$("#organizeName").val();
+		if (!number) { number = ""; }
+		if (!name) { name = ""; }
+		
+        var data = 'province=' + s_province + '&city='
+		+ s_city + '&area=' + s_county
+		+ '&type=' + 2+ '&name=' + name + '&number=' + number;
+        
         $.ajax({
-            type: 'get',
+            type: 'post',
             async: false,
-            url: '${pageContext.request.contextPath }/camera/getCameras?number='+number,
-            contentType: 'application/json;charset=utf-8',
+            url: '${pageContext.request.contextPath }/camera/getCameras',
+            data : data,
+            dataType : 'json',
             success: function (data) {//返回json结果
             	map.clearOverlays(); 
                 json = data;

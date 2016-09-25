@@ -14,7 +14,7 @@ public interface CameraMapperCustom {
 	//查询所有有效经纬度的设备
 	public List<Camera> getCameraByUsefulLatlng();
 
-	//查询所有
+	//查询所有设备
 	public List<Camera> findCameraList();
 
 	//根据编号查询单个设备
@@ -29,8 +29,10 @@ public interface CameraMapperCustom {
 	//根据组织id查询设备列表
 	public List<Camera> getCameraListByOrganizeid(Integer organizeid);
 
+	//查询已出租设备列表
 	public List<Camera> findHiredCameralist();
 
+	//查询未出租设备列表
 	public List<Camera> findUnhiredCameralist();
 
 	//根据组织列表查询设备

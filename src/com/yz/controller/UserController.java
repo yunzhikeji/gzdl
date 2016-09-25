@@ -34,7 +34,7 @@ public class UserController {
 
 		List<User> userList = userService.getUsersByOrganizeQueryVO(organizeQueryVO);
 
-		// 返回用户信息同时要返回用户所属机构的信息，创建一个UserVo对象,根据organizeId查询organize
+		// 返回用户信息同时要返回用户所属机构的信息，创建一个UserVO对象,根据organizeId查询organize
 		List<UserVO> userVOList = new ArrayList<UserVO>();
 		for (int i = 0; userList != null && i < userList.size(); i++) {
 			User user = userList.get(i);

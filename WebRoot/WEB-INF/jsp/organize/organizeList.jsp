@@ -25,7 +25,7 @@
 			单位列表 <span style="margin-left: 20px"><select
 				class="date_picker" id="s_province" name="province"></select>   <select
 				class="date_picker" id="s_city" name="city"></select>   <select
-				class="date_picker1" id="s_county" name="county"></select> <script
+				class="date_picker1" id="s_county" name="area"></select> <script
 					class="resources library"
 					src="${pageContext.request.contextPath }/js/area.js"
 					type="text/javascript"></script> <script type="text/javascript">

@@ -29,7 +29,7 @@ public interface OrganizeService {
 	//根据组织名称查询组织
 	public Organize findOrganizeByName(String organizeName);
 
-	//根据vo查询组织列表
+	//根据organizeQueryVO查询组织列表
 	public List<Organize> getOrganizesByOrganizeQueryVO(OrganizeQueryVO organizeQueryVO);
 
 	

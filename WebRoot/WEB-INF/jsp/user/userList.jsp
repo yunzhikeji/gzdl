@@ -35,7 +35,7 @@
 							<span style="margin-left: 20px"><select
 								class="date_picker" id="s_province" name="province"></select>  
 								<select class="date_picker" id="s_city" name="city"></select>  
-								<select class="date_picker1" id="s_county" name="county"></select>
+								<select class="date_picker1" id="s_county" name="area"></select>
 								<script class="resources library"
 									src="${pageContext.request.contextPath }/js/area.js"
 									type="text/javascript"></script> <script type="text/javascript">
@@ -49,7 +49,7 @@
 						<th colspan="2" style="text-align: left; height: 35px;">&nbsp;&nbsp;&nbsp;&nbsp;<a
 							class="button blue bla smallrounded"
 							href="${pageContext.request.contextPath }/user/toAddUser"
-							target="_self" style="font-size: 14px;"><i
+							target="_self" style="font-size: 10px;"><i
 								class="Hui-iconfont">&nbsp;&#xe607;&nbsp;</i>添加用户</a>
 						</th>
 					</tr>

@@ -139,7 +139,50 @@ public class Camera {
         return cameraid;
     }
 
-    public void setCameraid(Integer cameraid) {
+    @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((cname == null) ? 0 : cname.hashCode());
+		result = prime * result + ((cnumber == null) ? 0 : cnumber.hashCode());
+		result = prime * result + ((organizeid == null) ? 0 : organizeid.hashCode());
+		result = prime * result + ((sipid == null) ? 0 : sipid.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Camera other = (Camera) obj;
+		if (cname == null) {
+			if (other.cname != null)
+				return false;
+		} else if (!cname.equals(other.cname))
+			return false;
+		if (cnumber == null) {
+			if (other.cnumber != null)
+				return false;
+		} else if (!cnumber.equals(other.cnumber))
+			return false;
+		if (organizeid == null) {
+			if (other.organizeid != null)
+				return false;
+		} else if (!organizeid.equals(other.organizeid))
+			return false;
+		if (sipid == null) {
+			if (other.sipid != null)
+				return false;
+		} else if (!sipid.equals(other.sipid))
+			return false;
+		return true;
+	}
+
+	public void setCameraid(Integer cameraid) {
         this.cameraid = cameraid;
     }
 
@@ -150,4 +193,16 @@ public class Camera {
     public void setOrganizeid(Integer organizeid) {
         this.organizeid = organizeid;
     }
+
+	@Override
+	public String toString() {
+		return "Camera [id=" + id + ", sipid=" + sipid + ", sipserverid=" + sipserverid + ", lng=" + lng + ", lat="
+				+ lat + ", cnumber=" + cnumber + ", cname=" + cname + ", voltage=" + voltage + ", temperature="
+				+ temperature + ", status=" + status + ", iscontroll=" + iscontroll + ", stat=" + stat + ", state="
+				+ state + ", cameraid=" + cameraid + ", organizeid=" + organizeid + "]";
+	}
+    
+    
+    
+    
 }

@@ -30,10 +30,9 @@ public class CameraController {
 
 	@Autowired
 	private CameraService cameraService;
-	
+
 	@Autowired
 	private OrganizeService organizeService;
-	
 
 	// 单个监控画面
 	@RequestMapping(value = "singleVideo", method = { RequestMethod.GET })
@@ -45,7 +44,7 @@ public class CameraController {
 
 	}
 
-	//地图获取设备列表
+	// 地图获取设备列表
 	/**
 	 * @param number
 	 * @return
@@ -53,47 +52,58 @@ public class CameraController {
 	 */
 	// 地图返回
 	@RequestMapping("/getCameras")
-	public @ResponseBody List<Camera> getAllCameras(String number,HttpSession session) throws Exception {
-		
+	public @ResponseBody List<Camera> getAllCameras(OrganizeQueryVO organizeQueryVO, CameraQueryVO cameraQueryVO,
+			HttpSession session) throws Exception {
+
 		List<Camera> cameras = new ArrayList<Camera>();
-		
+
 		Integer userOrganizeid = (Integer) session.getAttribute("organizeid");
-		
-		//超级管理员
-		if(userOrganizeid==0)
-		{
-			cameras =  cameraService.findCameraList();
+
+		// 超级管理员
+		if (userOrganizeid == 0) {
+			cameras = cameraService.findCameraListByOrganizeQueryVO(organizeQueryVO);
+			if(cameraQueryVO.getNumber()!=null&&!cameraQueryVO.getNumber().trim().equals(""))
+			{
+				List<Camera> camerasByNumber = cameraService.findCameraListByNumber(cameraQueryVO.getNumber());
+				cameras.retainAll(camerasByNumber);//取交集
+			}
 			return cameras;
 		}
-		
-		//用户
-		CameraQueryVO cameraQueryVO = new CameraQueryVO();
-		cameraQueryVO.setNumber(number);
+
+		// 用户
 		cameraQueryVO.setUserOrganizeid(userOrganizeid);
-		
-		cameras =  cameraService.getCamerasByNumberAndOrganizeid(cameraQueryVO);
-		
+
+		List<Camera> camerasQuery = cameraService.findCameraListByOrganizeQueryVO(organizeQueryVO);// 根据前台查询条件获得设备列表
+
+		cameras = cameraService.getCamerasByNumberAndOrganizeid(cameraQueryVO);// 根据用户自身权限获得设备列表
+
+		cameras.retainAll(camerasQuery);// 取交集
+
 		return cameras;
 	}
-	
-	//设备管理列表
+
+	// 设备管理列表
 	@RequestMapping("/cameraList")
-	public ModelAndView cameraList(OrganizeQueryVO organizeQueryVO,Integer hire) throws Exception {
+	public ModelAndView cameraList(OrganizeQueryVO organizeQueryVO, String number, Integer hire) throws Exception {
 		List<Camera> cameraList = null;
-		if(hire == null){			//hire为空表示前台没传参数，显示所有
-			cameraList = cameraService.findCameraListByOrganizeQueryVO(organizeQueryVO);
-		} else if (hire == 1){		//hire等于1表示显示已经出租的设备
+		if (hire == null) { // hire为空表示前台没传参数，显示所有
+			cameraList = cameraService.findCameraListByOrganizeQueryVO(organizeQueryVO);// 根据查询条件获得设备
+
+			if (number != null && !number.trim().equals("")) {
+				List<Camera> cameraListNumber = cameraService.findCameraListByNumber(number);// 根据编号模糊查询的设备
+				cameraList.retainAll(cameraListNumber);// 取交集
+			}
+			
+
+		} else if (hire == 1) { // hire等于1表示显示已经出租的设备
 			cameraList = cameraService.findHiredCameralist();
-		} else if(hire == 2) {
+		} else if (hire == 2) {
 			cameraList = cameraService.findUnhiredCameralist();
 		}
-		
-		
-		
-		
-		//返回设备信息同时要返回设备所属机构的信息，创建一个CameraVo对象,根据organizeId查询organize
+
+		// 返回设备信息同时要返回设备所属机构的信息，创建一个CameraVo对象,根据organizeId查询organize
 		List<CameraVo> cameraVoList = new ArrayList<>();
-		for (int i=0;cameraList !=null && i < cameraList.size();i++ ){
+		for (int i = 0; cameraList != null && i < cameraList.size(); i++) {
 			Camera camera = cameraList.get(i);
 			CameraVo cameraVo = new CameraVo();
 			cameraVo.setId(camera.getId());
@@ -111,13 +121,13 @@ public class CameraController {
 			cameraVo.setState(camera.getState());
 			cameraVo.setCameraid(camera.getCameraid());
 			cameraVo.setOrganizeid(camera.getOrganizeid());
-			if(camera.getOrganizeid() != null){
-				if(camera.getOrganizeid()==0){
+			if (camera.getOrganizeid() != null) {
+				if (camera.getOrganizeid() == 0) {
 					cameraVo.setOrganizeName("亿弘淼能源科技有限公司");
-				}else
-				cameraVo.setOrganizeName(organizeService.selectByPrimaryKey(camera.getOrganizeid()).getName());
+				} else
+					cameraVo.setOrganizeName(organizeService.selectByPrimaryKey(camera.getOrganizeid()).getName());
 			}
-			
+
 			cameraVoList.add(cameraVo);
 		}
 		ModelAndView modelAndView = new ModelAndView();
@@ -125,87 +135,81 @@ public class CameraController {
 		modelAndView.setViewName("camera/cameraList");
 		return modelAndView;
 	}
-	
-	
-	//去设备入库页面
+
+	// 去设备入库页面
 	@RequestMapping("/toAdd")
 	public String toAdd() throws Exception {
 		return "camera/cameraAdd";
 	}
-	
-	
+
 	// 去设备编辑和出租页面，回显设备信息
 	@RequestMapping("/toUpdate")
-	public String toUpdate(HttpServletRequest request,Model model,Integer id) throws Exception {
+	public String toUpdate(HttpServletRequest request, Model model, Integer id) throws Exception {
 		Camera camera = cameraService.findCameraById(id);
 		model.addAttribute("camera", camera);
 		return "camera/cameraUpdate";
 	}
-	
-	
+
 	// 去设备编辑和出租页面，回显设备信息
-		@RequestMapping("/toLease")
-		public String toLease(HttpServletRequest request,Model model,Integer id) throws Exception {
-			Camera camera = cameraService.findCameraById(id);
-			List<Organize> organizeList = organizeService.findOrganizeList();
-			model.addAttribute("camera", camera);
-			model.addAttribute("organizeList", organizeList);
-			return "camera/cameraLease";
-		}
-	
+	@RequestMapping("/toLease")
+	public String toLease(HttpServletRequest request, Model model, Integer id) throws Exception {
+		Camera camera = cameraService.findCameraById(id);
+		List<Organize> organizeList = organizeService.findOrganizeList();
+		model.addAttribute("camera", camera);
+		model.addAttribute("organizeList", organizeList);
+		return "camera/cameraLease";
+	}
+
 	// 请求添加一个设备
 	@RequestMapping("/addCamera")
 	public String addCamera(Camera camera) throws Exception {
-		camera.setOrganizeid(0); //设备入库，将organizeid初始为0，表示入了亿弘淼的库存
+		camera.setOrganizeid(0); // 设备入库，将organizeid初始为0，表示入了亿弘淼的库存
 		cameraService.insertCamera(camera);
 		return "success";
 	}
-	
-	
+
 	// 请求删除一个设备
 	@RequestMapping("/deleteCamera")
-	public void  deleteCamera(Integer id) throws Exception {
+	public void deleteCamera(Integer id) throws Exception {
 		cameraService.deleCamera(id);
 	}
-	
+
 	@RequestMapping("/updateCameraSubmit")
-	public String updateCameraSubmit(Model model,HttpServletRequest request,Integer id,Camera camera) throws Exception {
+	public String updateCameraSubmit(Model model, HttpServletRequest request, Integer id, Camera camera)
+			throws Exception {
 		cameraService.updateCamera(id, camera);
 		return "success";
 	}
-	
-	//根据id回收设备，将organizeid初始为0
+
+	// 根据id回收设备，将organizeid初始为0
 	@RequestMapping("/recycle")
-	public String recycle(Integer id)throws Exception {
+	public String recycle(Integer id) throws Exception {
 		Camera camera = cameraService.findCameraById(id);
 		camera.setOrganizeid(0);
 		cameraService.updateCamera(id, camera);
 		return "redirect:/camera/cameraList";
 	}
-	
-	//设置设备租凭信息
+
+	// 设置设备租凭信息
 	@RequestMapping("/updateCameraLease")
-	public String updateCameraLease(Model model,HttpServletRequest request,Integer id,String organizeName) throws Exception {
-		
+	public String updateCameraLease(Model model, HttpServletRequest request, Integer id, String organizeName)
+			throws Exception {
+
 		System.out.println(id);
 		System.out.println(organizeName);
-		
+
 		Camera camera = cameraService.findCameraById(id);
-		
-		if(organizeName.equals("回收(未出租)"))
-		{
+
+		if (organizeName.equals("回收(未出租)")) {
 			camera.setOrganizeid(0);
-		}else
-		{
+		} else {
 			Organize organize = organizeService.findOrganizeByName(organizeName);
 			camera.setOrganizeid(organize.getId());
 		}
-		
+
 		cameraService.updateCamera(id, camera);
-		
-		
+
 		return "success";
 	}
-	
 
 }

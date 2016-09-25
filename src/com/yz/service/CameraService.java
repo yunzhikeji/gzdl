@@ -44,7 +44,7 @@ public interface CameraService {
 	//查询未出租的设备列表
 	public List<Camera> findUnhiredCameralist();
 
-	//根据vo查询设备列表
+	//根据OrganizeQueryVO查询设备列表
 	public List<Camera> findCameraListByOrganizeQueryVO(OrganizeQueryVO organizeQueryVO);
 
 }

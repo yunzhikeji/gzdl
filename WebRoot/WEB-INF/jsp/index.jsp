@@ -26,10 +26,13 @@
 				<li class="pR0">${username }，你好！</li>
 			</c:if>
 			<li class="rZ0 pn1">|</li>
+			<c:if test="${organizeid==0 }">
 			<li class="rZ0"><a href="javascript:;"
 				onClick="ypgj('用户管理','${pageContext.request.contextPath }/user/queryUsers','1024px','768px')"
 				title="用户管理" target="_self" class="sh0 nui-txt-link">用户管理</a></li>
 			<li class="rZ0 pn1">|</li>
+			</c:if>
+			
 			<c:if test="${username!=null }">
 				<li class="rZ0"><a
 					href="${pageContext.request.contextPath }/logout.action"
@@ -42,11 +45,13 @@
 	<div class="HuiTab">
 		<div class="tabBar cl">
 			<span class="tA0"><a href="map" target="myiframe">分布图</a></span>
+			<c:if test="${organizeid==0 }">
 			<span class="tA0"><a href="javascript:void(0)" id="org" onClick="changeToOrg();"
 				target="myiframe">组织管理</a>
 				</span> <span class="tA0"><a
 				href="javascript:void(0)" id="cam" onClick="changeToCam();"
 				target="myiframe">设备管理</a></span> 
+				</c:if>
 		</div>
 		<div class="sJ0"></div>
 		<div class="tabCon">

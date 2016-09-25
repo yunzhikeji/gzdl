@@ -1,7 +1,7 @@
 package com.yz.vo;
 
 /**
- * 查询设备列表所用vo类
+ * 查询条件包装类  设备
  * @author Administrator
  *
  */

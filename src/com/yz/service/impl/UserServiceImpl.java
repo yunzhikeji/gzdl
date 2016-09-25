@@ -65,8 +65,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void deleteUserByOrganizeId(Integer id) {
-		userMapperCustom.deleteUserByOrganizeId(id);
+	public void deleteUserByOrganizeid(Integer id) {
+		userMapperCustom.deleteUserByOrganizeid(id);
 
 	}
 
@@ -80,17 +80,18 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 
 		List<User> users = new ArrayList<User>();
+		
+		List<User> commonUserList = new ArrayList<User>();
 
 		List<Organize> organizes = organizeService.getOrganizesByOrganizeQueryVO(organizeQueryVO);// 根据查询条件获得组织列表
 		
-		List<User> commonUserList = userMapperCustom.findUserListByOrganizes(organizes);// 根据组织列表查询用户列表
-
-		//List<User> superUserList = userMapperCustom.findUserListByOrganizeid(0);// 获得超级管理员列表
+		if(organizes!=null&&organizes.size()>0)
+		{
+			 commonUserList = userMapperCustom.findUserListByOrganizes(organizes);// 根据组织列表查询用户列表
+		}
 
 		users.addAll(commonUserList);
 				
-		//users.addAll(superUserList);
-		
 		return users;
 
 	}

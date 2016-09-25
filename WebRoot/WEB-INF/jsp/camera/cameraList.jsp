@@ -25,13 +25,15 @@
 				 <select
 				class="date_picker" id="s_province" name="province"></select>   <select
 				class="date_picker" id="s_city" name="city"></select>   <select
-				class="date_picker1" id="s_county" name="county"></select> <script
+				class="date_picker1" id="s_county" name="area"></select> <script
 					class="resources library"
 					src="${pageContext.request.contextPath }/js/area.js"
 					type="text/javascript"></script> <script type="text/javascript">
 						_init_area();
 					</script></span><span id="show"></span> <input type="text" class="date_picker" name="name"
-				placeholder="单位名称" style="width: 100px" />
+				placeholder="施工单位名称" style="width: 100px" />
+				<span id="show"></span> <input type="text" class="date_picker" name="number"
+				placeholder="设备编号" style="width: 100px" />
 			<input type="submit" class="loginBtn1 orange smallrounded" 
 								 style="margin-left: 5px;" value="查询">
 							</input>

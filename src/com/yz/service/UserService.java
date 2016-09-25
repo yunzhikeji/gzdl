@@ -23,14 +23,14 @@ public interface UserService {
 	public List<User> findUserList() throws Exception;
 	
 	// 修改用户 信息
-	
 	public void updateUser(Integer id,UserCustom userCustom)throws Exception;
 	
 	//验证用户登录
 	public User findByUserNameAndPassword(UserQueryVo userQueryVo) throws Exception;
 
 
-	public void deleteUserByOrganizeId(Integer id);
+	//根据Organizeid删除用户
+	public void deleteUserByOrganizeid(Integer id);
 	
 	//校验用户名重复使用
 	public List<User> findUserByUsername(String username) throws Exception;

@@ -123,14 +123,16 @@ public class CameraServiceImpl implements CameraService {
 			default:
 				break;
 			}
-			organizes = organizeMapperCustom.findOrganizeListByOrganizeQueryVO(organizeQueryVO);
+			organizes = organizeMapperCustom.findOrganizeListByOrganizeQueryVO(organizeQueryVO);//查询出当前供电局可查看施工单位
 			
 			if(organizes!=null&&organizes.size()>0)
 			{
-				for(Organize organ : organizes)
-				{
-					cameras.addAll(cameraMapperCustom.getCameraListByOrganizeid(organ.getId()));
-				}
+				cameras= cameraMapperCustom.findCameraListByOrganizes(organizes);
+			}
+			if(cameraQueryVO.getNumber()!=null&&!cameraQueryVO.getNumber().trim().equals(""))
+			{
+				List<Camera> camerasByNumber = cameraMapperCustom.findCameraListByNumber(cameraQueryVO.getNumber());
+				cameras.retainAll(camerasByNumber);//取交集
 			}
 			
 		}else if(type==2)
@@ -156,10 +158,21 @@ public class CameraServiceImpl implements CameraService {
 	public List<Camera> findCameraListByOrganizeQueryVO(OrganizeQueryVO organizeQueryVO) {
 		
 		List<Camera> cameras = new ArrayList<Camera>();
-
-		List<Organize> organizes = organizeService.getOrganizesByOrganizeQueryVO(organizeQueryVO);// 根据查询条件获得设备列表
 		
-		List<Camera> cameraList = cameraMapperCustom.findCameraListByOrganizes(organizes);// 根据组织列表查询设备列表
+		List<Camera> cameraList =  new ArrayList<Camera>();
+
+		List<Organize> organizes = organizeService.getOrganizesByOrganizeQueryVO(organizeQueryVO);// 根据查询条件获得符合条件的组织列表
+		
+		if(organizes!=null&&organizes.size()>0)
+		{
+		  cameraList = cameraMapperCustom.findCameraListByOrganizes(organizes);// 根据组织列表查询设备列表，不会包含没有组织的设备即未出租设备
+		}
+		
+		List<Camera>  cameraListNoLease = cameraMapperCustom.findUnhiredCameralist();//未出租的设备
+		
+		cameraListNoLease.removeAll(cameraList);
+		
+		cameraList.addAll(cameraListNoLease);//取无重复并集
 
 		cameras.addAll(cameraList);
 		
