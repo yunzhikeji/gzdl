@@ -1,39 +1,26 @@
 package com.yz.vo;
 
-import com.yz.po.User;
+/**
+ * userList列表显示所用包装类
+ * 
+ * @author Administrator
+ *
+ */
+public class UserVO {
 
-public class UserVo extends User {
+	private Integer id;
+
 	private String organizeName;
 
-	private String province;
+	private String areaName;
 
-	private String city;
-	private String area;
-	
-	  private Integer type;//组织类型  1：供电局  2：施工单位
-	public String getProvince() {
-		return province;
-	}
+	private String username;
 
-	public void setProvince(String province) {
-		this.province = province;
-	}
+	private String realname;
 
-	public String getCity() {
-		return city;
-	}
+	private String password;
 
-	public void setCity(String city) {
-		this.city = city;
-	}
-
-	public String getArea() {
-		return area;
-	}
-
-	public void setArea(String area) {
-		this.area = area;
-	}
+	private Integer organizeid;
 
 	public String getOrganizeName() {
 		return organizeName;
@@ -43,12 +30,52 @@ public class UserVo extends User {
 		this.organizeName = organizeName;
 	}
 
-	public Integer getType() {
-		return type;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setType(Integer type) {
-		this.type = type;
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getAreaName() {
+		return areaName;
+	}
+
+	public void setAreaName(String areaName) {
+		this.areaName = areaName;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getRealname() {
+		return realname;
+	}
+
+	public void setRealname(String realname) {
+		this.realname = realname;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public Integer getOrganizeid() {
+		return organizeid;
+	}
+
+	public void setOrganizeid(Integer organizeid) {
+		this.organizeid = organizeid;
 	}
 
 }
