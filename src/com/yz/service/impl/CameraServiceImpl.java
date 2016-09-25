@@ -137,4 +137,15 @@ public class CameraServiceImpl implements CameraService {
 		return cameras;
 	}
 
+	@Override
+	public List<Camera> findHiredCameralist() {
+		
+		return camearMapperCustom.findHiredCameralist();
+	}
+
+	@Override
+	public List<Camera> findUnhiredCameralist() {
+		return camearMapperCustom.findUnhiredCameralist();
+	}
+
 }

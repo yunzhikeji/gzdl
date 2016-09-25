@@ -77,8 +77,16 @@ public class CameraController {
 	
 	//设备管理列表
 	@RequestMapping("/cameraList")
-	public ModelAndView cameraList() throws Exception {
-		List<Camera> cameraList = cameraService.findCameraList();
+	public ModelAndView cameraList(Integer hire) throws Exception {
+		List<Camera> cameraList = null;
+		if(hire == null){			//hire为空表示前台没传参数，显示所有
+			cameraList = cameraService.findCameraList();
+		} else if (hire == 1){		//hire等于1表示显示已经出租的设备
+			cameraList = cameraService.findHiredCameralist();
+		} else if(hire == 2) {
+			cameraList = cameraService.findUnhiredCameralist();
+		}
+		
 		
 		//返回设备信息同时要返回设备所属机构的信息，创建一个CameraVo对象,根据organizeId查询organize
 		List<CameraVo> cameraVoList = new ArrayList<>();
@@ -145,7 +153,7 @@ public class CameraController {
 	// 请求添加一个设备
 	@RequestMapping("/addCamera")
 	public String addCamera(Camera camera) throws Exception {
-		camera.setOrganizeid(0); //设备入库，将organizeid初始为0，表示入了亿弘淼的仓库
+		camera.setOrganizeid(0); //设备入库，将organizeid初始为0，表示入了亿弘淼的库存
 		cameraService.insertCamera(camera);
 		return "success";
 	}
@@ -161,6 +169,15 @@ public class CameraController {
 	public String updateCameraSubmit(Model model,HttpServletRequest request,Integer id,Camera camera) throws Exception {
 		cameraService.updateCamera(id, camera);
 		return "success";
+	}
+	
+	//根据id回收设备，将organizeid初始为0
+	@RequestMapping("/recycle")
+	public String recycle(Integer id)throws Exception {
+		Camera camera = cameraService.findCameraById(id);
+		camera.setOrganizeid(0);
+		cameraService.updateCamera(id, camera);
+		return "redirect:/camera/cameraList";
 	}
 	
 	//设置设备租凭信息
@@ -186,4 +203,6 @@ public class CameraController {
 		
 		return "success";
 	}
+	
+
 }

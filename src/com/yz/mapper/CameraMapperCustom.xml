@@ -48,9 +48,13 @@
 		</where>
 	</select>
 	
+	<select id="findHiredCameralist" resultType="com.yz.po.Camera">
+		select * from camera where organizeid > 0
+	</select>
 
-
-
+	<select id="findUnhiredCameralist" resultType="com.yz.po.Camera">
+		select * from camera where organizeid = 0
+	</select>
 
 
 </mapper>

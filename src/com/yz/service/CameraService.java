@@ -36,5 +36,11 @@ public interface CameraService {
 	
 	//根据CameraQueryVO,查询所有摄像头(设备)列表
 	public List<Camera> getCamerasByNumberAndOrganizeid(CameraQueryVO cameraQueryVO);
+	
+	//查询已经出租的设备列表
+	public List<Camera> findHiredCameralist();
+	
+	//查询未出租的设备列表
+	public List<Camera> findUnhiredCameralist();
 
 }

@@ -29,4 +29,8 @@ public interface CameraMapperCustom {
 	//根据组织id查询设备列表
 	public List<Camera> getCameraListByOrganizeid(Integer organizeid);
 
+	public List<Camera> findHiredCameralist();
+
+	public List<Camera> findUnhiredCameralist();
+
 }
