@@ -58,7 +58,7 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 		
 		modelAndView.addObject("userVoList", userVoList);
-		modelAndView.setViewName("user/user");
+		modelAndView.setViewName("user/userList");
 		return modelAndView;
 		
 	}
