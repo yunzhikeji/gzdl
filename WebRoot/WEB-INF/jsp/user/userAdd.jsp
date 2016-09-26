@@ -27,6 +27,28 @@
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
 <script type="text/javascript">
+//校验username重复
+function validUsername(username) {
+	var result = "no";
+	var option = {
+			url:"${pageContext.request.contextPath }/user/validUsername",
+			type:"post",
+			data:{
+				username:username
+			},
+			dataType:"text",
+			async:false,
+			success:function(responseText){
+				result = responseText;
+			},
+			error:function(){
+				alert("系统错误");
+			}
+	};
+	$.ajax(option);
+	return result;
+} 
+
 $(function(){
 	$("#userForm").submit(function(){
 		var isSubmit = true;
@@ -78,7 +100,7 @@ $(function(){
 					var result = validUsername(val);
 					if(result == "yes"){
 						$(this).next("span").html("<font color='red'>用户名已经存在</font>");
-						isSubmit = false;
+						
 						return false;
 					}else{
 						$(this).next("span").html("");
@@ -87,27 +109,7 @@ $(function(){
 			}
 		})
 })
-//校验username重复
- function validUsername(username) {
-	var result = "no";
-	var option = {
-			url:"${pageContext.request.contextPath }/user/validUsername",
-			type:"post",
-			date:{
-				username:username
-			},
-			dateType:"text",
-			async:false,
-			success:function(responseText){
-				result = responseText;
-			},
-			error:function(){
-				alert("系统错误");
-			}
-	};
-	$.ajax(option);
-	return result;
-} 
+
 </script>
 </head>
 
@@ -234,7 +236,7 @@ $(function(){
 															+ "+<option>"
 															+ data[i].name
 															+ "</option>"
-												}
+												}1
 
 												$("#selOrg").html(options);
 
