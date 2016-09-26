@@ -179,4 +179,10 @@ public class CameraServiceImpl implements CameraService {
 		return cameras;
 	}
 
+	@Override
+	public List<Camera> findCameraListByOrganizeId(Integer organizeId) {
+		
+		return cameraMapperCustom.getCameraListByOrganizeid(organizeId);
+	}
+
 }

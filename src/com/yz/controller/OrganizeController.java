@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.yz.po.Camera;
 import com.yz.po.Organize;
+import com.yz.service.CameraService;
 import com.yz.service.OrganizeService;
 import com.yz.service.UserService;
 import com.yz.vo.CameraQueryVO;
@@ -31,6 +32,8 @@ public class OrganizeController {
 	@Autowired
 	private OrganizeService organizeService;
 	
+	@Autowired
+	private CameraService cameraService;
 	
 	@Autowired
 	private UserService userService;
@@ -111,10 +114,16 @@ public class OrganizeController {
 	//请求删除一个组织,删除组织的同时，删除该组织下的所有用户
 	@RequestMapping("/deleteOrganize")
 	public String  deleteOrganize(HttpServletRequest request,Integer id)throws Exception {
-		organizeService.deleteOrganizeById(id);
-	//删除组织的同时，删除该组织下的所有用户	
-		userService.deleteUserByOrganizeid(id);
-		return "redirect:/organize/organizeList";
+		List<Camera> cameraList = cameraService.findCameraListByOrganizeId(id);
+		if(cameraList.size()==0){
+			organizeService.deleteOrganizeById(id);
+			//删除组织的同时，删除该组织下的所有用户,并且回收所有设备	
+				userService.deleteUserByOrganizeid(id);
+				return "redirect:/organize/organizeList";
+		} else 
+
+		return "organizefail";
+		
 	}
 	
 	//组织信息修改提交

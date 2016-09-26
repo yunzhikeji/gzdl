@@ -47,4 +47,6 @@ public interface CameraService {
 	//根据OrganizeQueryVO查询设备列表
 	public List<Camera> findCameraListByOrganizeQueryVO(OrganizeQueryVO organizeQueryVO);
 
+	//根据organizeid查询设备列表
+	public List<Camera> findCameraListByOrganizeId(Integer organizeId);
 }
