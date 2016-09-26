@@ -23,7 +23,7 @@
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<%-- <script type="text/javascript"
+<script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery.js"></script>
 <script type="text/javascript">
 //校验组织名称重复
@@ -109,7 +109,7 @@ $(function(){
 		})
 })
 
-</script> --%>
+</script>
 </head>
 
 <body>
@@ -163,7 +163,7 @@ $(function(){
 			Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市"
 					+ Gid('s_city').value + " - 县/区" + Gid('s_county').value
 					+ "</h3>"
-		}
+		};
 		Gid('s_county').setAttribute('onchange', 'showArea()');
 	</script>
 </body>

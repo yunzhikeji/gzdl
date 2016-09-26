@@ -25,7 +25,7 @@
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<%-- <script type="text/javascript"
+<script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery.js"></script>
 <script type="text/javascript">
 //校验组织名称重复
@@ -60,6 +60,8 @@ $(function(){
 			var reg = $(this).attr("reg2");
 			//获得提示信息
 			var tip = $(this).attr("tip");
+			
+			var oldname = $("#oldname").val();
 			//创建正则表达式的对象
 			var regExp = new RegExp(reg);
 			if(!regExp.test($.trim(val))){
@@ -69,14 +71,17 @@ $(function(){
 			}else {
 				var inputName = $(this).attr("name");
 				if(inputName == "name"){
-					var result = validUsername(val);
-					if(result == "yes"){
-						$(this).next("span").html("<font color='red'>名称已经存在</font>");
-						isSubmit = false;
-						return false;
-					}else{
-						$(this).next("span").html("");
+					if(oldname != val){
+						var result = validUsername(val);
+						if(result == "yes"){
+							$(this).next("span").html("<font color='red'>名称已经存在</font>");
+							isSubmit = false;
+							return false;
+						}else{
+							$(this).next("span").html("");
+						}
 					}
+				
 				}
 				
 			}
@@ -91,6 +96,7 @@ $(function(){
 			var reg = $(this).attr("reg2");
 			//获得提示信息
 			var tip = $(this).attr("tip");
+			var oldname = $("#oldname").val();
 			//创建正则表达式的对象
 			var regExp = new RegExp(reg);
 			if(!regExp.test($.trim(val))){
@@ -98,20 +104,23 @@ $(function(){
 			}else {
 				var inputName = $(this).attr("name");
 				if(inputName == "name"){
-					var result = validUsername(val);
-					if(result == "yes"){
-						$(this).next("span").html("<font color='red'>名称已经存在</font>");
-						
-						return false;
-					}else{
-						$(this).next("span").html("");
+					if(oldname != val){
+						var result = validUsername(val);
+						if(result == "yes"){
+							$(this).next("span").html("<font color='red'>名称已经存在</font>");
+							
+							return false;
+						}else{
+							$(this).next("span").html("");
+						}
 					}
+				
 				}
 			}
 		})
 })
 
-</script> --%>
+</script>
 <script type="text/javascript">
 var province = ${organize.province };
 var s_province = $("#s_province");
@@ -128,6 +137,7 @@ $("#s_province option[value=province]").attr("selected",selected);
 			action="${pageContext.request.contextPath }/organize/updateOrganizeSubmit"
 			method="post" class="form form-horizontal" id="govermentForm">
 			<input type="hidden" name="id" value="${organize.id }">
+			<input id="oldname" type="hidden"  value="${organize.name }">
 			<table class="table">
 				<thead class="text-c">
 					<tr>
@@ -188,7 +198,7 @@ $("#s_province option[value=province]").attr("selected",selected);
 			Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市"
 					+ Gid('s_city').value + " - 县/区" + Gid('s_county').value
 					+ "</h3>"
-		}
+		};
 		Gid('s_county').setAttribute('onchange', 'showArea()');
 	</script>
 </body>
