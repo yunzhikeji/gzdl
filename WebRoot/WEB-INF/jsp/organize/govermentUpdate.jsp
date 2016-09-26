@@ -25,6 +25,93 @@
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
+<%-- <script type="text/javascript"
+	src="${pageContext.request.contextPath }/js/jquery.js"></script>
+<script type="text/javascript">
+//校验组织名称重复
+function validUsername(name) {
+	var result = "no";
+	var option = {
+			url:"${pageContext.request.contextPath }/organize/validOrganizeName",
+			type:"post",
+			data:{
+				name:name
+			},
+			dataType:"text",
+			async:false,
+			success:function(responseText){
+				result = responseText;
+			},
+			error:function(){
+				alert("系统错误");
+			}
+	};
+	$.ajax(option);
+	return result;
+} 
+
+$(function(){
+	$("#govermentForm").submit(function(){
+		var isSubmit = true;
+		$(this).find("[reg2]").each(function(){
+			//获得输入的值
+			var val = $(this).val();
+			//获得正则表达式
+			var reg = $(this).attr("reg2");
+			//获得提示信息
+			var tip = $(this).attr("tip");
+			//创建正则表达式的对象
+			var regExp = new RegExp(reg);
+			if(!regExp.test($.trim(val))){
+				isSubmit = false;
+				$(this).next("span").html("<font color='red'>"+tip+"</font>");
+				return false;
+			}else {
+				var inputName = $(this).attr("name");
+				if(inputName == "name"){
+					var result = validUsername(val);
+					if(result == "yes"){
+						$(this).next("span").html("<font color='red'>名称已经存在</font>");
+						isSubmit = false;
+						return false;
+					}else{
+						$(this).next("span").html("");
+					}
+				}
+				
+			}
+		})
+		return isSubmit;
+	})
+	
+	$("#govermentForm").find("[reg2]").blur(function(){
+			//获得输入的值
+			var val = $(this).val();
+			//获得正则表达式
+			var reg = $(this).attr("reg2");
+			//获得提示信息
+			var tip = $(this).attr("tip");
+			//创建正则表达式的对象
+			var regExp = new RegExp(reg);
+			if(!regExp.test($.trim(val))){
+				$(this).next("span").html("<font color='red'>"+tip+"</font>");
+			}else {
+				var inputName = $(this).attr("name");
+				if(inputName == "name"){
+					var result = validUsername(val);
+					if(result == "yes"){
+						$(this).next("span").html("<font color='red'>名称已经存在</font>");
+						
+						return false;
+					}else{
+						$(this).next("span").html("");
+					}
+				}
+			}
+		})
+})
+
+</script> --%>
 <script type="text/javascript">
 var province = ${organize.province };
 var s_province = $("#s_province");
@@ -45,37 +132,37 @@ $("#s_province option[value=province]").attr("selected",selected);
 				<thead class="text-c">
 					<tr>
 						<th width="15%">单位名称</th>
-						<td width="70%"><input type="text" name="name"
+						<td width="70%" align="left"><input type="text" name="name"
 							value="${organize.name }" class="date_picker"
-							style="width: 400px" /></td>
+							style="width: 300px" reg2="^[a-zA-Z0-9\u4e00-\u9fa5]{1,20}$" tip="必须是中英文或数字字符，长度1-20"/><span></span></td>
 					</tr>
 				</thead>
 				<tbody>
 					<tr class="text-c">
 						<th>所属区域</th>
-						<td>${organize.province }${organize.city }${organize.area }</td>
+						<td align="left">${organize.province }${organize.city }${organize.area }</td>
 					</tr>
 					<tr class="text-c">
 						<th>详细地址</th>
-						<td><input type="text" name="address"
+						<td align="left"><input type="text" name="address"
 							value="${organize.address }" class="date_picker"
-							style="width: 400px" /></td>
+							style="width: 300px" /></td>
 					</tr>
 					<tr class="text-c">
 						<th>联系人</th>
-						<td><input type="text" name="contact"
+						<td align="left"><input type="text" name="contact"
 							value="${organize.contact }" class="date_picker"
-							style="width: 400px" /></td>
+							style="width: 300px" /></td>
 					</tr>
 					<tr class="text-c">
 						<th>联系电话</th>
-						<td><input type="text" name="phone"
+						<td align="left"><input type="text" name="phone"
 							value="${organize.phone }" class="date_picker"
-							style="width: 400px" /></td>
+							style="width: 300px" /></td>
 					</tr>
 					<tr class="text-c">
 						<th>组织级别</th>
-						<td><c:if test="${organize.level==1 }">省级</c:if>
+						<td align="left"><c:if test="${organize.level==1 }">省级</c:if>
 							<c:if test="${organize.level==2 }">市级</c:if>
 							<c:if test="${organize.level==3 }">区级</c:if></td>
 					</tr>

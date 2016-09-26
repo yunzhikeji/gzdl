@@ -1,6 +1,8 @@
 package com.yz.controller;
 
 
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -141,6 +143,19 @@ public class OrganizeController {
 		return organizes;
 	}
 	
+	
+	//验证组织名称是否重复
+	@RequestMapping("/validOrganizeName")
+	public void validOrganizeName(String name,Writer out) throws IOException{
+		
+		List<Organize> organizeList = organizeService.findOrganizeByOrganizeName(name.trim());
+		String flag = "no";
+		if (organizeList.size() > 0) {
+			flag = "yes";
+		}
+		out.write(flag);
+		
+	}
 	
 	
 }

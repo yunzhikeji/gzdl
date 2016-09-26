@@ -26,6 +26,28 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery.js"></script>
 <script type="text/javascript">
+//校验组织名称重复
+function validUsername(name) {
+	var result = "no";
+	var option = {
+			url:"${pageContext.request.contextPath }/organize/validOrganizeName",
+			type:"post",
+			data:{
+				name:name
+			},
+			dataType:"text",
+			async:false,
+			success:function(responseText){
+				result = responseText;
+			},
+			error:function(){
+				alert("系统错误");
+			}
+	};
+	$.ajax(option);
+	return result;
+} 
+
 $(function(){
 	$("#companyForm").submit(function(){
 		var isSubmit = true;
@@ -43,7 +65,18 @@ $(function(){
 				$(this).next("span").html("<font color='red'>"+tip+"</font>");
 				return false;
 			}else {
-				$(this).next("span").html("");
+				var inputName = $(this).attr("name");
+				if(inputName == "name"){
+					var result = validUsername(val);
+					if(result == "yes"){
+						$(this).next("span").html("<font color='red'>名称已经存在</font>");
+						isSubmit = false;
+						return false;
+					}else{
+						$(this).next("span").html("");
+					}
+				}
+				
 			}
 		})
 		return isSubmit;
@@ -61,10 +94,21 @@ $(function(){
 			if(!regExp.test($.trim(val))){
 				$(this).next("span").html("<font color='red'>"+tip+"</font>");
 			}else {
-				$(this).next("span").html("");
+				var inputName = $(this).attr("name");
+				if(inputName == "name"){
+					var result = validUsername(val);
+					if(result == "yes"){
+						$(this).next("span").html("<font color='red'>名称已经存在</font>");
+						
+						return false;
+					}else{
+						$(this).next("span").html("");
+					}
+				}
 			}
 		})
 })
+
 </script>
 </head>
 
@@ -86,16 +130,16 @@ $(function(){
 						<th rowspan="3">所属区域</th>
 						<td align="left"  style="padding-top: 7px; padding-bottom: 7px;"><select
 							class="date_picker" id="s_province" name="province"
-							style="width: 300px"></select></td>
+							style="width: 320px"></select></td>
 					</tr>
 					<tr class="text-c">
 						<td align="left"  style="padding-top: 7px; padding-bottom: 7px;"><select
-							class="date_picker" id="s_city" name="city" style="width: 300px"></select></td>
+							class="date_picker" id="s_city" name="city" style="width: 320px"></select></td>
 					</tr>
 					<tr class="text-c">
 						<td align="left"  style="padding-top: 7px; padding-bottom: 7px;"><select
 							class="date_picker1" id="s_county" name="area"
-							style="width: 300px"></select></td>
+							style="width: 320px"></select></td>
 
 						<script class="resources library"
 							src="${pageContext.request.contextPath }/js/area.js"

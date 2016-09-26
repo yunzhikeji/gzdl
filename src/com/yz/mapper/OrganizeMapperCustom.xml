@@ -30,5 +30,8 @@
 	<select id="findOrganizeByName" parameterType="java.lang.String" resultType="com.yz.po.Organize">
 		select * from organize where name=#{organizeName}
 	</select>
+		<select id="findOrganizeByOrganizeName" parameterType="java.lang.String" resultType="com.yz.po.Organize">
+		select * from organize where name=#{organizeName}
+	</select>
 	
 </mapper>

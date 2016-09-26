@@ -26,6 +26,28 @@
 <script type="text/javascript"
 	src="${pageContext.request.contextPath }/js/jquery.js"></script>
 <script type="text/javascript">
+//校验组织名称重复
+function validUsername(name) {
+	var result = "no";
+	var option = {
+			url:"${pageContext.request.contextPath }/organize/validOrganizeName",
+			type:"post",
+			data:{
+				name:name
+			},
+			dataType:"text",
+			async:false,
+			success:function(responseText){
+				result = responseText;
+			},
+			error:function(){
+				alert("系统错误");
+			}
+	};
+	$.ajax(option);
+	return result;
+} 
+
 $(function(){
 	$("#govermentForm").submit(function(){
 		var isSubmit = true;
@@ -43,7 +65,18 @@ $(function(){
 				$(this).next("span").html("<font color='red'>"+tip+"</font>");
 				return false;
 			}else {
-				$(this).next("span").html("");
+				var inputName = $(this).attr("name");
+				if(inputName == "name"){
+					var result = validUsername(val);
+					if(result == "yes"){
+						$(this).next("span").html("<font color='red'>名称已经存在</font>");
+						isSubmit = false;
+						return false;
+					}else{
+						$(this).next("span").html("");
+					}
+				}
+				
 			}
 		})
 		return isSubmit;
@@ -61,10 +94,21 @@ $(function(){
 			if(!regExp.test($.trim(val))){
 				$(this).next("span").html("<font color='red'>"+tip+"</font>");
 			}else {
-				$(this).next("span").html("");
+				var inputName = $(this).attr("name");
+				if(inputName == "name"){
+					var result = validUsername(val);
+					if(result == "yes"){
+						$(this).next("span").html("<font color='red'>名称已经存在</font>");
+						
+						return false;
+					}else{
+						$(this).next("span").html("");
+					}
+				}
 			}
 		})
 })
+
 </script>
 </head>
 
@@ -84,17 +128,17 @@ $(function(){
 						<th rowspan="3">所属区域</th>
 						<td align="left" style="padding-top: 7px; padding-bottom: 7px;"><select
 							class="date_picker" id="s_province" name="province"
-							style="width: 420px"></select></td>
+							style="width: 320px"></select></td>
 					</tr>
 					<tr class="text-c">
 						<td align="left" style="padding-top: 7px; padding-bottom: 7px;"><select
 							class="date_picker" id="s_city" name="city"
-							style="width: 420px"></select></td>
+							style="width: 320px"></select></td>
 					</tr>
 					<tr class="text-c">
 						<td align="left" style="padding-top: 7px; padding-bottom: 7px;"><select
 							class="date_picker1" id="s_county" name="area"
-							style="width: 420px"></select></td>
+							style="width: 320px"></select></td>
 
 						<script class="resources library"
 							src="${pageContext.request.contextPath }/js/area.js"
@@ -105,15 +149,15 @@ $(function(){
 						</script>
 						<span id="show"></span>
 					</tr>
-					<tr class="text-c">
-						<th>详细地址</th>
+			<tr class="text-c">
+						<th>*详细地址</th>
 						<td align="left" ><input type="text" name="address" class="date_picker"
-							style="width: 300px" /></td>
+							style="width: 300px" reg2="^[a-zA-Z0-9\u4e00-\u9fa5]{1,30}$" tip="必须是中英文或数字字符，长度1-30"/><span></span></td>
 					</tr>
 					<tr class="text-c">
-						<th>联系人</th>
+						<th>*联系人</th>
 						<td align="left" ><input type="text" name="contact" class="date_picker"
-							style="width: 300px" /></td>
+							style="width: 300px" reg2="^[a-zA-Z0-9\u4e00-\u9fa5]{1,20}$" tip="必须是中英文或数字字符，长度1-20"/><span></span></td>
 					</tr>
 					<tr class="text-c">
 						<th>联系电话</th>

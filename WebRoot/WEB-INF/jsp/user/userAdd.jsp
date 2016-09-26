@@ -120,8 +120,8 @@ $(function(){
 			<table class="table">
 				<thead class="text-c">
 					<tr>
-						<th>用户名</th>
-						<td align="left" style="padding-top: 7px; padding-bottom: 7px;"><input
+						<th width="15%">用户名</th>
+						<td width="70%" align="left" style="padding-top: 7px; padding-bottom: 7px;"><input
 							type="text" name="username" class="date_picker"
 							style="width: 320px" reg2="^[a-zA-Z0-9\u4e00-\u9fa5]{1,20}$"
 							tip="必须是中英文或数字字符，长度1-20" /><span></span></td>

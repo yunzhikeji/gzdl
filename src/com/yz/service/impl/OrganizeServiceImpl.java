@@ -89,5 +89,10 @@ public class OrganizeServiceImpl implements OrganizeService {
 		return queryMessage;
 	}
 
+	@Override
+	public List<Organize> findOrganizeByOrganizeName(String organizeName) {
+		return organizeMapperCustom.findOrganizeByOrganizeName(organizeName);
+	}
+
 
 }

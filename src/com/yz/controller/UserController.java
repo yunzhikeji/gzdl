@@ -132,7 +132,7 @@ public class UserController {
 	public void validUsername(String username, Writer out) throws Exception {
 
 		// 如果list长度为0，就说明名称不重复
-		List<User> userList = userService.findUserByUsername(username);
+		List<User> userList = userService.findUserByUsername(username.trim() );
 		String flag = "no";
 		if (userList.size() > 0) {
 			flag = "yes";

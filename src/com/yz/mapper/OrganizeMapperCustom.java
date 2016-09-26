@@ -15,5 +15,9 @@ public interface OrganizeMapperCustom {
 
 	// 根据组织名称查询组织
 	public Organize findOrganizeByName(String organizeName);
+	
+	
+	// 验证组织名称重复用
+	public List<Organize> findOrganizeByOrganizeName(String organizeName);
 
 }

@@ -33,6 +33,7 @@ public interface OrganizeService {
 	public List<Organize> getOrganizesByOrganizeQueryVO(OrganizeQueryVO organizeQueryVO);
 
 	
-	
+	//验证组织名称重复
+	public List<Organize> findOrganizeByOrganizeName(String organizeName);
 	
 }
