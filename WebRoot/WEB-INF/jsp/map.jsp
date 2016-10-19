@@ -62,7 +62,7 @@
     var map = new BMap.Map("allmap");
     map.enableScrollWheelZoom();
     map.enableContinuousZoom();
-    map.centerAndZoom("宜兴", 15);
+    map.centerAndZoom("广州", 10);
 
 
 
