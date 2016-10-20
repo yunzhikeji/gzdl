@@ -3,33 +3,33 @@ package com.yz.po;
 public class Camera {
     private Integer id;
 
-    private String sipid;
+    private String sipid;//设备的sip编号
 
-    private String sipserverid;
+    private String sipserverid;//sip服务器编号
 
-    private String lng;
+    private String lng;//经度
 
-    private String lat;
+    private String lat;//纬度
 
-    private String cnumber;
+    private String cnumber;//设备编号
 
-    private String cname;
+    private String cname;//设备名称
 
-    private String voltage;
+    private String voltage;//设备电压
 
-    private String temperature;
+    private String temperature;//设备温度
 
-    private Integer status;
+    private Integer status;//设备工作状态  A=正常工作(1)，D=关机(0)，R=重启中(2)，N=未知状态(-1),也用于判断设备的GPS信号接收状态，详见mina相关代码
 
-    private Integer iscontroll;
+    private Integer iscontroll;//是否已经布控（0:未布控 1：已布控）（用于人脸布控）
 
-    private Integer stat;
+    private Integer stat;//是否布控成功(0：未布控成功，1：已布控成功)（用于人脸布控）
 
-    private Integer state;
+    private Integer state;//摄像头sipid是否注册成功()
 
-    private Integer cameraid;
+    private Integer cameraid;//设备的摄像头编号
 
-    private Integer organizeid;
+    private Integer organizeid;//组织(施工单位)id
 
     public Integer getId() {
         return id;

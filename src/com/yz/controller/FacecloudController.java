@@ -137,7 +137,7 @@ public class FacecloudController {
 			}
 			
 			List<AlarmMessageVO> alarmMessageVOs = new ArrayList<AlarmMessageVO>();
-			if(alarmResultMessage!=null)
+			if(alarmResultMessage!=null&&alarmResultMessage.getAlarmMessages()!=null)
 			{
 				for(int i=0;i<alarmResultMessage.getAlarmMessages().size();i++)
 				{

@@ -90,6 +90,7 @@ public class MinaServerHandler implements IoHandler {
 			
 			if (camera == null) {
 				camera = new Camera();
+				camera.setOrganizeid(0);
 				camera.setCnumber(number);
 				camera.setLat(latitude);
 				camera.setLng(longitude);
@@ -133,6 +134,9 @@ public class MinaServerHandler implements IoHandler {
 				}
 
 			}
+		}else
+		{
+			
 		}
 
 	}
@@ -145,6 +149,8 @@ public class MinaServerHandler implements IoHandler {
 		// TODO Auto-generated method stub
 		
 		camera.setStatus(0);
+		
+		cameraService.updateCamera(camera.getCameraid(), camera);//设置为关机 状态
 		
 		
 		arg0.closeOnFlush();

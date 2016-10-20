@@ -93,7 +93,6 @@ public class CameraController {
 				cameraList.retainAll(cameraListNumber);// 取交集
 			}
 			
-
 		} else if (hire == 1) { // hire等于1表示显示已经出租的设备
 			cameraList = cameraService.findHiredCameralist();
 		} else if (hire == 2) {
@@ -126,7 +125,6 @@ public class CameraController {
 				} else
 					cameraVo.setOrganizeName(organizeService.selectByPrimaryKey(camera.getOrganizeid()).getName());
 			}
-
 			cameraVoList.add(cameraVo);
 		}
 		ModelAndView modelAndView = new ModelAndView();
