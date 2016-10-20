@@ -5,15 +5,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>监控系统</title>
-<link type="text/css" rel="stylesheet"
-	href="${pageContext.request.contextPath }/css/test.css" />
-<link
-	href="${pageContext.request.contextPath }/css/Aliiconfont/iconfont.css"
-	rel="stylesheet" type="text/css" />
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/jquery.js"></script>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="lib/html5.js"></script>
+<script type="text/javascript" src="lib/respond.min.js"></script>
+<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<![endif]-->
+<link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/css/test.css" />
+<link href="${pageContext.request.contextPath }/css/Aliiconfont/iconfont.css" rel="stylesheet" type="text/css" />
+<!--[if IE 6]>
+<script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
+<script>DD_belatedPNG.fix('*');</script>
+<![endif]-->
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.js"></script>
 <Script language="javascript">
 	function GetRequest() {
 		var url = location.search; //获取url中"?"符后的字串 
@@ -208,25 +213,7 @@
 </head>
 <body onload="checkAndLogin()">
 	<div style="width: 100%; position: relative;">
-		<div class="yzrtv">
-			<span style="font-weight: bold;">工地名称：</span><span>${siteCustom.name}</span>
-			<span style="font-weight: bold;">工地位置：</span><span>${siteCustom.areaname }</span>
-			<span>||</span>
-			<c:if test="${camera!=null }">
-				<span style="font-weight: bold;">设备工作状态：</span>
-				<span> <c:if test="${camera.status==-1}">未知状态</c:if> <c:if
-						test="${camera.status == 0 }">关机</c:if> <c:if
-						test="${camera.status == 1 }">正常工作</c:if> <c:if
-						test="${camera.status == 2 }">重启</c:if>
-				</span>
-				<span style="font-weight: bold;">设备电压：</span>
-				<span>${camera.voltage}伏</span>
-				<span style="font-weight: bold;">设备温度：</span>
-				<span>${camera.temperature}度</span>
-			</c:if>
-			<c:if test="${camera==null }">当前没有设备接入</c:if>
-		</div>
-		<div class="yzvedio0">
+		<div class="yzvedio00">
 			<div
 				style="width: 80%; margin-top: 5px; margin-left: 1%; height: 500px;">
 				<object CLASSID='CLSID:7A2B1F67-6568-4466-A0A5-EA7FF6EBE820'
@@ -235,28 +222,35 @@
 			</div>
 			<div style="margin-left: 1%; margin-top: 5px;">
 				<a href="#" class="button white" onClick="play();"> <i
-					class="iconfont">&nbsp;&nbsp;&#xe624;&nbsp;&nbsp;</a> <a href="#"
-					class="button white" onClick="stop();"><i class="iconfont">&nbsp;&nbsp;&#xe625;&nbsp;&nbsp;</a>
+					class="iconfont">&nbsp;&nbsp;&#xe624;&nbsp;&nbsp;</i></a> 
+                <a href="#"
+					class="button white" onClick="stop();"><i class="iconfont">&nbsp;&nbsp;&#xe625;&nbsp;&nbsp;</i></a>
 
 				<a href="#" class="button1 white" onClick="up();"><i
-					class="iconfont">&nbsp;&#xe623;&nbsp;</i></a> <a href="#"
+					class="iconfont">&nbsp;&#xe623;&nbsp;</i></a> 
+                <a href="#"
 					class="button1 white" onClick="down();"><i class="iconfont">&nbsp;&#xe603;&nbsp;</i></a>
 
 				<a href="#" class="button1 white" onClick="left();"><i
-					class="iconfont">&nbsp;&#xe604;&nbsp;</i></a> <a href="#"
+					class="iconfont">&nbsp;&#xe604;&nbsp;</i></a> 
+                <a href="#"
 					class="button1 white" onClick="right();"><i class="iconfont">&nbsp;&#xe622;&nbsp;</i></a>
 
 				<a href="#" class="button white" onClick="ptzStop();">停止控制</a>
+                
+               <a href="#" onClick="alert('Welcome!')"  class="gfvd smallrouded">规范视频</a>
+                
 
 			</div>
 		</div>
-		<div style="width: 100%; height: 200px;">
-			<div class="yzrl">
-				<input type="button" onclick="addcamera()" value="开始布控" />
-				<input type="button" onclick="sayTo();" value="开始对讲"  id="says"/>
-				<input type="button" onclick="recordToWeb();" value="手动录制"  id="record"/>
+		<div class="yzvedio01" >
+			<div class="yzr1" style="margin-left: 1%; margin-top: 5px;">
+				<input type="button" class="button white" onclick="addcamera()" value="开始布控" />
+				<input type="button" class="button white" onclick="sayTo();" value="开始对讲"  id="says"/>
+				<input type="button" class="button white" onclick="recordToWeb();" value="手动录制"  id="record"/>
 				<input type="checkbox" id="check" onclick="recordToWeb();" >报警时录制</input>
-				<input type="button" onclick="video();" value="录像回放"  />
+				<input type="button" class="button white" onclick="video();" value="录像回放"  />
+                <input type="button" class="button white" onclick="openWin('work.html', 800, 600)" value="工作票"  />
 			</div>
 			<div class="yzr2">
 				<table id="myTable" class="tt" width="100%" border="0"
@@ -274,6 +268,17 @@
 			</div>
 		</div>
 	</div>
+<script language="javascript"> 
+      function openWin(u, w, h) { 
+            var l = (screen.width - w) / 2; 
+            var t = (screen.height - h) / 2; 
+            var s = 'width=' + w + ', height=' + h + ', top=' + t + ', left=' + l; 
+            s += ', toolbar=no, scrollbars=yes, menubar=no, location=no, resizable=no'; 
+            open(u, 'oWin', s); 
+      } 
+</script>   
+</script>
+	
 
 </body>
 </html>

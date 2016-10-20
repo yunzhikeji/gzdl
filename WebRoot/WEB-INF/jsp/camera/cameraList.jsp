@@ -20,7 +20,7 @@
 	<div class="bht">
 		<div class="bh text-d">
 			设备列表
-				<div style="margin-bottom: 2px;width: 50%;">
+				<div style="margin-bottom: 2px;width: 100%;">
 				<form action="${pageContext.request.contextPath }/camera/cameraList" method="post">
 				 <select
 				class="date_picker" id="s_province" name="province"></select>   <select
@@ -53,7 +53,7 @@
 				style="font-size: 14px; line-height: 14px; margin-left: 5px;";>&nbsp;未出租&nbsp;</a>
 				 <span style="margin-left: 20px">
 			<button class="button blue bla smallrounded"
-				style="font-size: 14px; line-height: 14px; margin-left: 75%"
+				style="font-size: 14px; line-height: 14px; margin-left: 5px"
 				; onClick="ypgy('设备入库','${pageContext.request.contextPath }/camera/toAdd','1024px','768px')">
 				<i class="Hui-iconfont">&nbsp;&#xe600;&nbsp;</i>设备入库
 			</button>
