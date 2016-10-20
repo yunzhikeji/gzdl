@@ -49,7 +49,7 @@
 						<th colspan="2" style="text-align: left; height: 35px;">&nbsp;&nbsp;&nbsp;&nbsp;<a
 							class="button blue bla smallrounded"
 							href="${pageContext.request.contextPath }/user/toAddUser"
-							target="_self" style="font-size: 10px;"><i
+							target="_self" style="font-size: 14px;"><i
 								class="Hui-iconfont">&nbsp;&#xe607;&nbsp;</i>添加用户</a>
 						</th>
 					</tr>
@@ -59,10 +59,10 @@
 						<!--  
 						<th width="10%" style="font-size: 14px;">用户权限</th>
 						-->
-						<th width="30%" style="font-size: 14px;">所属区域</th>
-						<th width="20%" style="font-size: 14px;">所属机构</th>
-						<th width="10%" style="font-size: 14px;"></th>
-						<th width="10%" style="font-size: 14px;"></th>
+						<th width="25%" style="font-size: 14px;">所属区域</th>
+						<th width="15%" style="font-size: 14px;">所属机构</th>
+						<th width="15%" style="font-size: 14px;"></th>
+						<th width="15%" style="font-size: 14px;"></th>
 					</tr>
 				</thead>
 				<tbody>
