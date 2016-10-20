@@ -49,4 +49,7 @@ public interface CameraService {
 
 	//根据organizeid查询设备列表
 	public List<Camera> findCameraListByOrganizeId(Integer organizeId);
+	
+	// 重置地图坐标为空
+	public void setLngAndLatNull();
 }

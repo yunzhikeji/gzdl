@@ -185,4 +185,12 @@ public class CameraServiceImpl implements CameraService {
 		return cameraMapperCustom.getCameraListByOrganizeid(organizeId);
 	}
 
+	
+	@Override
+	public void setLngAndLatNull() {
+		cameraMapperCustom.setLatNull();
+		cameraMapperCustom.setLngNull();
+		
+	}
+
 }

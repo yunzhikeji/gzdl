@@ -72,4 +72,14 @@
 	</select>
 
 
+ <update id="setLngNull">
+    update camera set lng=""
+ 
+  </update>
+  
+   <update id="setLatNull">
+    update camera set lat=""
+ 
+  </update>
+
 </mapper>
