@@ -2,7 +2,7 @@ package com.yz.vo;
 
 import com.yz.po.Camera;
 
-public class CameraVo extends Camera{
+public class CameraVO extends Camera{
 	
 	private String organizeName;
 

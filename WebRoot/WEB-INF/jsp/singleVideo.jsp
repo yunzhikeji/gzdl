@@ -49,7 +49,7 @@
 		if (ocx == null) {
 			ocx = document.getElementById("ocx");
 		}
-		var backPlay = ocx.PlayVideo("44030300001320020246");
+		var backPlay = ocx.PlayVideo("${camera.sipid}");
 		if (backPlay != 0) {
 			alert("操作失败");
 		}

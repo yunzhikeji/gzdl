@@ -21,7 +21,7 @@ import com.yz.po.Organize;
 import com.yz.service.CameraService;
 import com.yz.service.OrganizeService;
 import com.yz.vo.CameraQueryVO;
-import com.yz.vo.CameraVo;
+import com.yz.vo.CameraVO;
 import com.yz.vo.OrganizeQueryVO;
 
 @Controller
@@ -37,7 +37,6 @@ public class CameraController {
 	// 单个监控画面
 	@RequestMapping(value = "singleVideo", method = { RequestMethod.GET })
 	public String singleVideo(@RequestParam(value = "id", required = false) Integer id, ModelMap map) throws Exception {
-		System.out.println(id);
 		Camera camera = cameraService.findCameraById(id);
 		map.put("camera", camera);
 		return "singleVideo";
@@ -102,10 +101,10 @@ public class CameraController {
 		}
 
 		// 返回设备信息同时要返回设备所属机构的信息，创建一个CameraVo对象,根据organizeId查询organize
-		List<CameraVo> cameraVoList = new ArrayList<>();
+		List<CameraVO> cameraVoList = new ArrayList<>();
 		for (int i = 0; cameraList != null && i < cameraList.size(); i++) {
 			Camera camera = cameraList.get(i);
-			CameraVo cameraVo = new CameraVo();
+			CameraVO cameraVo = new CameraVO();
 			cameraVo.setId(camera.getId());
 			cameraVo.setSipid(camera.getSipid());
 			cameraVo.setSipserverid(camera.getSipserverid());
