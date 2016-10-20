@@ -1,6 +1,5 @@
 package com.yz.controller;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,10 +24,10 @@ import com.yz.facecloud.model.LoginRequestMessage;
 import com.yz.facecloud.model.LoginResultMessage;
 import com.yz.facecloud.model.PolicyRequestMessage;
 import com.yz.facecloud.model.PolicyResultMessage;
-import com.yz.facecloud.model.SearchMessage;
 import com.yz.facecloud.service.HttpRequestService;
 import com.yz.facecloud.util.MD5Util;
 import com.yz.facecloud.vo.AlarmMessageVO;
+import com.yz.model.CameraServer;
 import com.yz.po.Camera;
 import com.yz.po.CameraCustom;
 import com.yz.service.CameraService;
@@ -46,6 +45,10 @@ public class FacecloudController {
 
 	@Resource(name = "faceUser")
 	private FaceUser faceUser;
+	
+	
+	@Resource(name = "cameraServer")
+	private CameraServer cameraServer;
 
 	/*
 	 * 经测试 reboot接口无效
@@ -67,11 +70,17 @@ public class FacecloudController {
 		CameraMessage cameraMessage = new CameraMessage();
 		cameraMessage.setCamera_name(camera.getCnumber()+"_"+DateTimeKit.getLocalTime());
 		cameraMessage.setCamera_mode(0);
+		if(this.setRtspURL(camera.getSipid())==null)
+		{
+			return "摄像头rtsp流配置错误,请确保系统rtsp服务地址配置正确";
+		}
 		cameraMessage.setUrl(this.setRtspURL(camera.getSipid()));
 		cameraMessage.setDb_id_list("1"); // 人脸库
 		cameraMessage.setNode_id(0);
 		cameraMessage.setFixed_host(0);
 		cameraMessage.setMt_policy_id(1); // 策略
+		
+		
 		if (camera.getCameraid() == null||camera.getCameraid() == 0) {
 			cameraResultMessage = requestService.addCamera(cameraMessage);
 
@@ -79,12 +88,20 @@ public class FacecloudController {
 				setLoginState();
 				cameraResultMessage = requestService.addCamera(cameraMessage);
 			}
-
-			cameraid = cameraResultMessage.getCamera_list().get(0).getCamera_id();
+			
+			if(cameraResultMessage.getCamera_list()!=null&&cameraResultMessage.getCamera_list().size()>0)
+			{
+				cameraid = cameraResultMessage.getCamera_list().get(0).getCamera_id();
+			}
 		} else {
 			cameraid = camera.getCameraid();
 		}
 
+		if(cameraid==0)
+		{
+			return "布控失败:无法获取人脸服务器中摄像头对应的cameraid";
+		}
+		
 		CameraResultMessage cameraResulttMessage = requestService.recognition(cameraid);// 布控下发
 
 		this.updateCamera(id, cameraid);
@@ -334,7 +351,12 @@ public class FacecloudController {
 	 */
 	public String setRtspURL(String sipid) {
 		if (sipid != null) {
-			String url = "rtsp://127.0.0.1:8554/" + sipid + "/1";
+			
+			if(cameraServer.getRstp_url()==null)
+			{
+				return null;
+			}
+			String url = cameraServer.getRstp_url() + sipid + "/1";
 			return url;
 		}
 		return null;
@@ -362,15 +384,19 @@ public class FacecloudController {
 		while (true) {
 			try {
 				result = this.login().getRet();
+				if (result == 0 || result == 4011)// 登录成功 请求超时
+				{
+					// camera_id设置错误
+					break;
+				}
+					
 				counter++;
 				if(counter==15)
 				{
 					CustomException exception = new CustomException("人脸服务器连接异常。");
 					throw exception;
 				}
-				if (result == 0 || result == 4011)// 登录成功 请求超时
-																	// camera_id设置错误
-					break;
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

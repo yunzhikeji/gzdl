@@ -18,26 +18,14 @@
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.js"></script>
-<Script language="javascript">
-	function GetRequest() {
-		var url = location.search; //获取url中"?"符后的字串 
-		var theRequest = new Object();
-		if (url.indexOf("?") != -1) {
-			var str = url.substr(1);
-			strs = str.split("&");
-			for (var i = 0; i < strs.length; i++) {
-				theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
-			}
-		}
-		return theRequest;
-	}
-</Script>
-<script type="text/javascript">
-	var Request = new Object();
-	Request = GetRequest();
-	var id;
-	id = Request['id'];
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.8.2.js"></script>
+<Script type="text/javascript">
+
+	$(document).ready(function() {
+		setInterval("alarms()", 3000);
+	});
+
+	var id = '${camera.id}';
 	var ocx = null;
 
 	function login() {
@@ -111,20 +99,15 @@
 	}
 
 	function addcamera() {
-		$
-				.ajax({
+		$.ajax({
 					type : 'post',
 					url : '${pageContext.request.contextPath }/facecloud/addcameratocloud.action',
-					//请求是key/value这里不需要指定contentType，因为默认就 是key/value类型
-					//contentType:'application/json;charset=utf-8',
-					//数据格式是json串，商品信息
-					data : 'id=' + id,
+					dataType: 'json',  
+					data : 'id='+id,
 					success : function(data) {//返回json结果
 					 	alert(data);
 					}
-
 				});
-
 	}
 	
 	function video()
@@ -173,17 +156,12 @@
 		}
 	}
 
-	$(document).ready(function() {
-		setInterval("alarms()", 3000);
-	});
 
 	function alarms() {
 		$.ajax({
-			type : 'post',
-			url : '${pageContext.request.contextPath }/facecloud/getalarmvos',
-			//请求是key/value这里不需要指定contentType，因为默认就 是key/value类型
-			//contentType:'application/json;charset=utf-8',
-			//数据格式是json串，商品信息
+			type:'post',
+			url:'${pageContext.request.contextPath }/facecloud/getalarmvos',
+			dataType: 'json', 
 			data : 'id=' + id,
 			success : function(data) {//返回json结果
 				if(data!=null)
@@ -191,7 +169,7 @@
 					
 					console.log(data);
 					var obj = data;
-					var tbody = $('<tbody></tbody>');
+					var tbody = $('#tbody');
 					$(obj).each(
 							function(index) {
 								var val = obj[index];
@@ -213,6 +191,7 @@
 </head>
 <body onload="checkAndLogin()">
 	<div style="width: 100%; position: relative;">
+		<div>设备编号:${camera.cnumber}</div>
 		<div class="yzvedio00">
 			<div
 				style="width: 80%; margin-top: 5px; margin-left: 1%; height: 500px;">
@@ -263,7 +242,7 @@
 							<td>人员类别</td>
 						</tr>
 					</thead>
-					<tbody></tbody>
+					<tbody id="tbody"></tbody>
 				</table>
 			</div>
 		</div>
