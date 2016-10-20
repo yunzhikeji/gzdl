@@ -268,7 +268,7 @@
 			</div>
 		</div>
 	</div>
-<script language="javascript"> 
+<script type="text/javascript"> 
       function openWin(u, w, h) { 
             var l = (screen.width - w) / 2; 
             var t = (screen.height - h) / 2; 
@@ -277,7 +277,6 @@
             open(u, 'oWin', s); 
       } 
 </script>   
-</script>
 	
 
 </body>
