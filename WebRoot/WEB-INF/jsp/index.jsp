@@ -28,7 +28,7 @@
 			<li class="rZ0 pn1">|</li>
 			<c:if test="${organizeid==0 }">
 			<li class="rZ0"><a href="javascript:;"
-				onClick="ypgj('用户管理','${pageContext.request.contextPath }/user/queryUsers','1024px','768px')"
+				onClick="ypgj('用户管理','${pageContext.request.contextPath }/user/queryUsers','800px','600px')"
 				title="用户管理" target="_self" class="sh0 nui-txt-link">用户管理</a></li>
 			<li class="rZ0 pn1">|</li>
 			</c:if>
