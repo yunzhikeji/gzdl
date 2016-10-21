@@ -1,11 +1,13 @@
 package com.yz.facecloud.service.impl;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.yz.exception.CustomException;
 import com.yz.facecloud.model.CameraMessage;
 import com.yz.facecloud.model.CameraRequestMessage;
 import com.yz.facecloud.model.CameraResultMessage;
@@ -15,6 +17,7 @@ import com.yz.facecloud.model.LoginResultMessage;
 import com.yz.facecloud.service.FaceCameraService;
 import com.yz.facecloud.service.HttpRequestService;
 import com.yz.facecloud.util.MD5Util;
+import com.yz.po.Camera;
 import com.yz.po.CameraCustom;
 import com.yz.service.CameraService;
 
@@ -22,6 +25,8 @@ public class FaceCameraServiceImpl implements FaceCameraService {
 
 	@Autowired
 	private CameraService cameraService;
+	
+	
 
 	@Autowired
 	private HttpRequestService requestService;
@@ -93,7 +98,6 @@ public class FaceCameraServiceImpl implements FaceCameraService {
 				return null;
 			}
 		}
-
 		if (cameraResultMessage.getCamera_list() != null && cameraResultMessage.getCamera_list().size() > 0) {
 			return cameraResultMessage.getCamera_list().get(0);
 		} else {
@@ -146,6 +150,26 @@ public class FaceCameraServiceImpl implements FaceCameraService {
 		return result;
 
 	}
+	
+	
+	@Override
+	public void checkAndDeleteCameraOnFaceServer() throws Exception {
+		// TODO Auto-generated method stub
+		CameraRequestMessage requestMessage = new CameraRequestMessage();
+		CameraResultMessage cameraResultMessage = requestService.getCameras(requestMessage);
+
+		if (cameraResultMessage.getCamera_list() != null && cameraResultMessage.getCamera_list().size() > 3) {
+			
+			List<CameraMessage> cameraMessages = cameraResultMessage.getCamera_list(); 
+			for (int i = 0; i < cameraMessages.size(); i++) {
+				
+				Camera camera = cameraService.findCameraByCameraid(cameraMessages.get(i).getCamera_id());
+				
+				
+			}
+			
+		}
+	}
 
 
 	public String getRstp_url() {
@@ -163,5 +187,6 @@ public class FaceCameraServiceImpl implements FaceCameraService {
 	public void setFaceUser(FaceUser faceUser) {
 		this.faceUser = faceUser;
 	}
+
 
 }

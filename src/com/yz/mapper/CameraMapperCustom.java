@@ -38,10 +38,13 @@ public interface CameraMapperCustom {
 	//根据组织列表查询设备
 	public List<Camera> findCameraListByOrganizes(List<Organize> organizes);
 	
-	
 	//重置地图坐标为空用
 	public int setLngNull();
+	
 	//重置地图坐标为空用
 	public int setLatNull();
+
+	//根据cameraid查询设备
+	public Camera findCameraByCameraid(Integer cameraid);
 
 }

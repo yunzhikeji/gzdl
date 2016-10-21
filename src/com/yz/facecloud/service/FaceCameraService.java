@@ -25,5 +25,8 @@ public interface FaceCameraService {
 	
 	//获取登录cookie
 	public int setLoginState();
+	
+	//判断并删除人脸服务器上的摄像头
+	public void checkAndDeleteCameraOnFaceServer() throws Exception;
 
 }

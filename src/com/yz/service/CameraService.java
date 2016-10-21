@@ -2,6 +2,7 @@ package com.yz.service;
 
 import java.util.List;
 
+import com.yz.facecloud.model.CameraMessage;
 import com.yz.po.Camera;
 import com.yz.vo.CameraQueryVO;
 import com.yz.vo.OrganizeQueryVO;
@@ -52,4 +53,7 @@ public interface CameraService {
 	
 	// 重置地图坐标为空
 	public void setLngAndLatNull();
+
+	//根据cameraid查询设备
+	public Camera findCameraByCameraid(Integer cameraid);
 }

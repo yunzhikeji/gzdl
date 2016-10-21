@@ -79,7 +79,15 @@
   
    <update id="setLatNull">
     update camera set lat=""
- 
   </update>
+  
+  
+  	<select id="findCameraByCameraid" parameterType="java.lang.Integer"
+		resultType="com.yz.po.Camera">
+		select * from camera
+		<where>
+			cameraid = #{cameraid,jdbcType=INTEGER}
+		</where>
+	</select>
 
 </mapper>

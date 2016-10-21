@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.yz.facecloud.model.CameraMessage;
 import com.yz.mapper.CameraMapper;
 import com.yz.mapper.CameraMapperCustom;
 import com.yz.mapper.OrganizeMapper;
@@ -191,6 +192,12 @@ public class CameraServiceImpl implements CameraService {
 		cameraMapperCustom.setLatNull();
 		cameraMapperCustom.setLngNull();
 		
+	}
+
+	@Override
+	public Camera findCameraByCameraid(Integer cameraid) {
+		// TODO Auto-generated method stub
+		return cameraMapperCustom.findCameraByCameraid(cameraid);
 	}
 
 }
