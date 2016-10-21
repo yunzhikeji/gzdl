@@ -99,16 +99,24 @@
 	}
 
 	function addcamera() {
-		$.ajax({
-					type : 'post',
-					url : '${pageContext.request.contextPath }/facecloud/addcameratocloud.action',
-					dataType: 'json',  
-					async:false,
-					data : 'id='+id,
-					success : function(data) {//返回json结果
-					 	alert(data);
-					}
-				});
+		$.ajax({   
+            url:'${pageContext.request.contextPath }/facecloud/addcameratocloud.action',//这里是你的action或者servlert的路径地址   
+            type:'get', //数据发送方式   
+            dataType: 'json',
+            async:false,
+            data: {"id":id},
+            error: function(msg)
+            { 
+            	console.log(msg);   
+            },   
+            success: function(msg)
+            { //成功
+	            if(msg!=null)
+	            {
+	            	alert(msg.message);
+	            }
+			}
+		});    
 	}
 	
 	function video()
@@ -165,13 +173,13 @@
 			dataType: 'json', 
 			async:false,
 			data : 'id='+id,
-			success : function(data) {
-				if(data!=null)
+			success : function(msg) {
+				if(msg.data!=null&&msg.data.length>0)
 				{
 					var tbody = "";
-					for(var i=0;i<data.length;i++)
+					for(var i=0;i<msg.data.length;i++)
 					{
-						var val = data[i];
+						var val = msg.data[i];
 						tbody = tbody+"<tr>"+"<td>" + val.alarm_id + "</td>" + "<td>"
 								+ val.camera_name + "</td>" + "<td>"
 								+ val.alarm_time + "</td>" + "<td>"
@@ -179,6 +187,15 @@
 					}
 					$("#tbody").empty()
 					$("#tbody").append(tbody);
+				}else
+				{
+					if(msg.message!=null)
+					{
+						alert(msg.message);
+					}else
+					{
+						alert("当前无告警记录");
+					}
 				}
 			}
 

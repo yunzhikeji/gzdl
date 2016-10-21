@@ -57,87 +57,86 @@ public class MinaServerHandler implements IoHandler {
 
 		String[] d_data = s_data.split(",");
 		
-		String number = d_data[1]; // 设备编号
-		
-		
-		String head = "$COMMAND,";
-		String command = ",T";
-		String backup = ",000";
-		String blank = " ";
-		String enter = "\n";
-		
-		String send = head+number+command+backup+blank+enter;
-		
-		
-		byte[] srtbyte = send.getBytes();
-		
-		session.write(IoBuffer.wrap(srtbyte));
-
-		if (d_data[2].equals("A")) {
-			String s_latitude = d_data[3]; // 维度
-			String latitude = DataConvertor.stringTolatitude(s_latitude);
-			String s_longitude = d_data[5]; // 经度
-			String longitude = DataConvertor.stringTolongitude(s_longitude);
-			String voltage = d_data[7]; // 电压
-			String temperature = d_data[8]; // 温度
-			String state = "";
-			if (d_data.length > 9) {
-				state = d_data[9]; // 工作状态  A=正常工作(1)，D=关机(0)，R=重启中(2)，N=未知状态(-1)
-			}
-
-			
-			camera = cameraService.findCameraByNumber(number);
-			
-			if (camera == null) {
-				camera = new Camera();
-				camera.setOrganizeid(0);
-				camera.setCnumber(number);
-				camera.setLat(latitude);
-				camera.setLng(longitude);
-				camera.setVoltage(voltage);
-				camera.setTemperature(temperature);
-
-				if (d_data.length > 9) {
-					if (state.contains("A")) {
-						camera.setStatus(1);
-					} else if (state.contains("D")) {
-						camera.setStatus(0);
-					} else if (state.contains("R")) {
-						camera.setStatus(2);
-					} else if (state.contains("N")) {
-						camera.setStatus(-1);
-					}
-					System.out.println("insert camera status is "+camera.getStatus());
-					cameraService.insertCamera(camera);
-				}
-
-			} else {
-
-				camera.setCnumber(number);
-				camera.setLat(latitude);
-				camera.setLng(longitude);
-				camera.setVoltage(voltage);
-				camera.setTemperature(temperature);
-
-				if (d_data.length > 9) {
-					if (state.contains("A")) {
-						camera.setStatus(1);  //正常工作
-					} else if (state.contains("D")) {
-						camera.setStatus(0); //关机
-					} else if (state.contains("R")) {
-						camera.setStatus(2); //重启
-					} else if (state.contains("N")) {
-						camera.setStatus(-1); //未知
-					}
-					System.out.println("update camera status is "+camera.getStatus());
-					cameraService.updateCamera(camera);
-				}
-
-			}
-		}else
+		if(d_data.length>3)
 		{
+			String number = d_data[1]; // 设备编号
+			String head = "$COMMAND,";
+			String command = ",T";
+			String backup = ",000";
+			String blank = " ";
+			String enter = "\n";
 			
+			String send = head+number+command+backup+blank+enter;
+			
+			
+			byte[] srtbyte = send.getBytes();
+			
+			session.write(IoBuffer.wrap(srtbyte));
+
+			if (d_data[2].equals("A")) {
+				String s_latitude = d_data[3]; // 维度
+				String latitude = DataConvertor.stringTolatitude(s_latitude);
+				String s_longitude = d_data[5]; // 经度
+				String longitude = DataConvertor.stringTolongitude(s_longitude);
+				String voltage = d_data[7]; // 电压
+				String temperature = d_data[8]; // 温度
+				String state = "";
+				if (d_data.length > 9) {
+					state = d_data[9]; // 工作状态  A=正常工作(1)，D=关机(0)，R=重启中(2)，N=未知状态(-1)
+				}
+
+				
+				camera = cameraService.findCameraByNumber(number);
+				
+				if (camera == null) {
+					camera = new Camera();
+					camera.setOrganizeid(0);
+					camera.setCnumber(number);
+					camera.setLat(latitude);
+					camera.setLng(longitude);
+					camera.setVoltage(voltage);
+					camera.setTemperature(temperature);
+
+					if (d_data.length > 9) {
+						if (state.contains("A")) {
+							camera.setStatus(1);
+						} else if (state.contains("D")) {
+							camera.setStatus(0);
+						} else if (state.contains("R")) {
+							camera.setStatus(2);
+						} else if (state.contains("N")) {
+							camera.setStatus(-1);
+						}
+						System.out.println("insert camera status is "+camera.getStatus());
+						cameraService.insertCamera(camera);
+					}
+
+				} else {
+
+					camera.setCnumber(number);
+					camera.setLat(latitude);
+					camera.setLng(longitude);
+					camera.setVoltage(voltage);
+					camera.setTemperature(temperature);
+
+					if (d_data.length > 9) {
+						if (state.contains("A")) {
+							camera.setStatus(1);  //正常工作
+						} else if (state.contains("D")) {
+							camera.setStatus(0); //关机
+						} else if (state.contains("R")) {
+							camera.setStatus(2); //重启
+						} else if (state.contains("N")) {
+							camera.setStatus(-1); //未知
+						}
+						System.out.println("update camera status is "+camera.getStatus());
+						cameraService.updateCamera(camera);
+					}
+
+				}
+			}
 		}
+		
 
 	}
 

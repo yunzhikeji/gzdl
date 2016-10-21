@@ -83,7 +83,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		if (null != jsonObject) {
 			try {
 
-				System.out.println("重启服务:" + jsonObject);
+				//System.out.println("重启服务:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 
@@ -110,14 +110,14 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		String requestMsg = this.jsonRequestMessage(requestMessage);
 
-		System.out.println("登陆请求message:" + requestMsg);
+		//System.out.println("登陆请求message:" + requestMsg);
 
 		JSONObject jsonObject = httpRequest(login_url, "POST", requestMsg, true);
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
 
-				System.out.println("用户登陆:" + jsonObject);
+				//System.out.println("用户登陆:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 				resultMsg.setSessionid(jsonObject.getString("sessionid"));
@@ -152,7 +152,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		if (null != jsonObject) {
 			try {
 
-				System.out.println("用户注销:" + jsonObject);
+				//System.out.println("用户注销:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 
@@ -187,7 +187,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		if (null != jsonObject) {
 			try {
 
-				System.out.println("查询布控策略:" + jsonObject);
+				//System.out.println("查询布控策略:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setMt_policy_num(jsonObject.getInt("mt_policy_num"));
 				List<PolicyMessage> list = new ArrayList<PolicyMessage>();
@@ -226,7 +226,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
-				System.out.println("新增布控策略:" + jsonObject);
+				//System.out.println("新增布控策略:" + jsonObject);
 
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
@@ -259,7 +259,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
-				System.out.println("修改布控策略:" + jsonObject);
+				//System.out.println("修改布控策略:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 			} catch (JSONException e) {
@@ -286,7 +286,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
-				System.out.println("修改布控策略:" + jsonObject);
+				//System.out.println("修改布控策略:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 			} catch (JSONException e) {
@@ -323,7 +323,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		if (null != jsonObject) {
 			try {
 
-				System.out.println("查询摄像机:" + jsonObject);
+				//System.out.println("查询摄像机:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 				resultMsg.setTotal_count(jsonObject.getInt("total"));
@@ -623,7 +623,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		if (null != jsonObject) {
 			try {
 
-				System.out.println("查询告警记录:" + jsonObject);
+				//System.out.println("查询告警记录:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 				resultMsg.setAlarm_size(jsonObject.getInt("alarm_size"));
@@ -633,7 +633,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 					JSONArray array = jsonObject.getJSONArray("alarm_list");
 					for (int i = 0; i < array.size(); i++) {
 						JSONObject object = (JSONObject) array.get(i);
-						System.out.println("object:" + object);
+						//System.out.println("object:" + object);
 						AlarmMessage alarmMessage = new AlarmMessage();
 						List<SearchMessage> searchMessages = new ArrayList<SearchMessage>();
 						if (object.getJSONArray("search_list") != null) {
@@ -657,7 +657,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 					Iterator it = list.iterator();
 					while (it.hasNext()) {
 						AlarmMessage alarmMsg = (AlarmMessage) it.next();
-						System.out.println("查询：" + alarmMsg.getSearchMessages());
+						//System.out.println("查询：" + alarmMsg.getSearchMessages());
 					}
 
 				}
@@ -731,7 +731,6 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		if (null != jsonObject) {
 			try {
 
-				System.out.println("删除告警记录:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 
@@ -821,7 +820,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 			Map<String, List<String>> maps = httpUrlConn.getHeaderFields();
 			for (String key : maps.keySet()) {
-				System.out.println(key + ":" + maps.get(key));
+				//System.out.println(key + ":" + maps.get(key));
 			}
 
 			if (httpUrlConn != null)

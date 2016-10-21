@@ -26,7 +26,20 @@
 	<bean id="organizeService" class="com.yz.service.impl.OrganizeServiceImpl" />
 	<!-- 人脸服务器的service -->
 	<bean id="faceCameraService" class="com.yz.facecloud.service.impl.FaceCameraServiceImpl">
+		<property name="faceUser" ref="faceUser"></property>
 		<!-- rtsp服务器相关配置 -->
 		<property name="rstp_url" value="rtsp://115.28.135.48:8554/"></property>
+	</bean>
+	
+	<!-- 人脸服务器相关配置 -->
+	<bean id="faceUser" class="com.yz.facecloud.model.FaceUser">
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+		<property name="mode" value="force_login"></property>
+		<!-- 
+		<property name="username" value="root"></property>
+		<property name="password" value="123456"></property>
+		property name="mode" value="force_login"></property>
+		 -->
 	</bean>
 </beans>

@@ -1,6 +1,7 @@
 package com.yz.facecloud.service;
 
 import com.yz.facecloud.model.CameraMessage;
+import com.yz.facecloud.model.LoginResultMessage;
 
 public interface FaceCameraService {
 	
@@ -18,5 +19,11 @@ public interface FaceCameraService {
 
 	//判断当前设备在人脸服务器中是否存在
 	public CameraMessage checkCameraOnFaceServer(int cameraid);
+	
+	//登录
+	public LoginResultMessage login() throws Exception;
+	
+	//获取登录cookie
+	public int setLoginState();
 
 }

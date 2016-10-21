@@ -95,6 +95,8 @@
             dataType : 'json',
             success: function (data) {//返回json结果
             	map.clearOverlays(); 
+            
+            	console.log(data);
                 json = data;
                 addMarker();
             }
@@ -153,6 +155,7 @@
                  + "<br/>" + "是否视频上线：" + getState(json[i]["state"]), {
                     offset: new BMap.Size(20, -10)
                 });
+            
             label.setStyle({ "padding": "5px", "-moz-border-radius": "10px", "-webkit-border-radius": "10px", "border-radius": "10px", "border": "2px solid " + color });
             marker2.setLabel(label);
             marker2.data = json[i];
@@ -187,12 +190,13 @@
         return text;
     }
     function getIscontroll(val) {
+    	val  = Number(val);
         var text = "";
         switch (val) {
-            case "0":
+            case 0:
                 text = "未布控";
                 break;
-            case "1":
+            case 1:
                 text = "已布控";
                 break;
             default:
@@ -202,12 +206,13 @@
         return text;
     }
     function getStat(val) {
+    	val  = Number(val);
         var text = "";
         switch (val) {
-            case "0":
+            case 0:
                 text = "未布控成功";
                 break;
-            case "1":
+            case 1:
                 text = "已布控成功";
                 break;
             default:
@@ -217,12 +222,14 @@
         return text;
     }
     function getState(val) {
+    	
+		val  = Number(val);
         var text = "";
         switch (val) {
-            case "0":
+            case 0:
                 text = "未上线成功";
                 break;
-            case "1":
+            case 1:
                 text = "已上线成功";
                 break;
             default:
