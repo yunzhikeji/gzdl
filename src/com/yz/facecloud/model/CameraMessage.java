@@ -1,5 +1,10 @@
 package com.yz.facecloud.model;
 
+/**
+ * 摄像头信息
+ * @author Administrator
+ *
+ */
 public class CameraMessage {
 
 	private int camera_id; //相机id

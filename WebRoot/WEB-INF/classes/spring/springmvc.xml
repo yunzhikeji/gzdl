@@ -32,12 +32,7 @@
 	</bean>
 	
 	
-	<!-- rtsp服务器相关配置 -->
-	<bean id="cameraServer" class="com.yz.model.CameraServer">
-		<property name="rstp_url" value="rtsp://115.28.135.48:8554/"></property>
-	</bean>
-	
-	
+
 	
 	<mvc:default-servlet-handler/>  
 	<!-- 静态资源解析

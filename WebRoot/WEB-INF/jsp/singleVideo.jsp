@@ -103,6 +103,7 @@
 					type : 'post',
 					url : '${pageContext.request.contextPath }/facecloud/addcameratocloud.action',
 					dataType: 'json',  
+					async:false,
 					data : 'id='+id,
 					success : function(data) {//返回json结果
 					 	alert(data);
@@ -162,6 +163,7 @@
 			type:'post',
 			url:'${pageContext.request.contextPath }/facecloud/getalarmvos',
 			dataType: 'json', 
+			async:false,
 			data : 'id='+id,
 			success : function(data) {
 				if(data!=null)
@@ -186,7 +188,9 @@
 </head>
 <body onload="checkAndLogin()">
 	<div style="width: 100%; position: relative;">
-		<div style="margin-left: 1%; margin-top: 5px;font-family: 'Microsoft Yahei',verdana;color:#666;font-weight:bold">设备编号:${camera.cnumber}</div>
+		<div style="margin-left: 1%; margin-top: 5px;font-family: 'Microsoft Yahei',verdana;color:#666;font-weight:bold">
+		设备编号:${camera.cnumber}
+		</div>
 		<div class="yzvedio00">
 			<div
 				style="width: 90%; margin-top: 5px; margin-left: 1%; height: 500px;">

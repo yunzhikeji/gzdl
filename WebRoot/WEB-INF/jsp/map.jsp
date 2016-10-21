@@ -148,8 +148,9 @@
                 + "<br/>" + "设备电压：" + json[i]["voltage"]
                 + "<br/>" + "设备温度：" + json[i]["temperature"]
                 + "<br/>" + "工作状态：" + getStatus(json[i]["status"])
-                + "<br/>" + "是否已经布控：" + getIscontroll(json[i]["iscontroll"])
-                + "<br/>" + "是否布控成功：" + getStat(json[i]["stat"]), {
+               // + "<br/>" + "是否已经布控：" + getIscontroll(json[i]["iscontroll"])
+                + "<br/>" + "是否布控成功：" + getStat(json[i]["stat"])
+                 + "<br/>" + "是否视频上线：" + getState(json[i]["state"]), {
                     offset: new BMap.Size(20, -10)
                 });
             label.setStyle({ "padding": "5px", "-moz-border-radius": "10px", "-webkit-border-radius": "10px", "border-radius": "10px", "border": "2px solid " + color });
@@ -211,6 +212,21 @@
                 break;
             default:
                 text = "未布控成功";
+                break;
+        }
+        return text;
+    }
+    function getState(val) {
+        var text = "";
+        switch (val) {
+            case "0":
+                text = "未上线成功";
+                break;
+            case "1":
+                text = "已上线成功";
+                break;
+            default:
+                text = "未上线成功";
                 break;
         }
         return text;

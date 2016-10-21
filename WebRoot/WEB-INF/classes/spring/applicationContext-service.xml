@@ -24,4 +24,9 @@
 	<bean id="faceService" class="com.yz.service.impl.FaceServiceImpl"></bean>
 	<!-- 组织的service -->
 	<bean id="organizeService" class="com.yz.service.impl.OrganizeServiceImpl" />
+	<!-- 人脸服务器的service -->
+	<bean id="faceCameraService" class="com.yz.facecloud.service.impl.FaceCameraServiceImpl">
+		<!-- rtsp服务器相关配置 -->
+		<property name="rstp_url" value="rtsp://115.28.135.48:8554/"></property>
+	</bean>
 </beans>
