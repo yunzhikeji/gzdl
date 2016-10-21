@@ -6,6 +6,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!--[if lt IE 9]>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/html5.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/respond.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/PIE_IE678.js"></script>
+<![endif]-->
 <title>修改商品信息</title>
 
 </head>

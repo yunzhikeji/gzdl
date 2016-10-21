@@ -9,9 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>设备租售</title>
 <!--[if lt IE 9]>
-<script type="text/javascript" src="lib/html5.js"></script>
-<script type="text/javascript" src="lib/respond.min.js"></script>
-<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/html5.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/respond.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/PIE_IE678.js"></script>
 <![endif]-->
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.8.2.js"></script>
 <link href="${pageContext.request.contextPath }/css/datePicker1.css"

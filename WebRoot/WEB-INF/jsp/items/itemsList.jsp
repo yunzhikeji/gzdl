@@ -7,6 +7,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>查询商品列表</title>
+<!--[if lt IE 9]>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/html5.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/respond.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/PIE_IE678.js"></script>
+<![endif]-->
 <script type="text/javascript">
 function deleteItems(){
 	//提交form

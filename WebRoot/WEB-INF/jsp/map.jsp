@@ -106,7 +106,7 @@
 						"${pageContext.request.contextPath }/camera/singleVideo?id="
 								+ this.data["id"],
 						"_blank",
-						"top=100,left=100,width=900,height=800,menubar=yes,scrollbars=no,toolbar=yes,status=yes");
+						"top=100,left=100,width=900,height=800,menubar=yes,scrollbars=yes,toolbar=yes,status=yes");
     }
 
     function addMarker() {

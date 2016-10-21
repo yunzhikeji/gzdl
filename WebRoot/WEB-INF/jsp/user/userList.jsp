@@ -10,9 +10,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>用户管理</title>
 <!--[if lt IE 9]>
-<script type="text/javascript" src="lib/html5.js"></script>
-<script type="text/javascript" src="lib/respond.min.js"></script>
-<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/html5.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/respond.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/PIE_IE678.js"></script>
 <![endif]-->
 <link href="${pageContext.request.contextPath }/css/user.css"
 	rel="stylesheet" type="text/css" />
