@@ -180,7 +180,7 @@ public class FacecloudController {
 			
 			if(faceCameraService.checkCameraOnFaceServer(cameraid)==null)
 			{
-				faceCameraService.updateCamera(id, 0,false);//布控失败，当前摄像头未添加到人脸服务器
+				faceCameraService.updateCamera(id, 0,false);//查询到当前摄像头未添加到人脸服务器,修改数据库
 				ajaxMessage.setErrorCode(0);
 				ajaxMessage.setMessage("获取告警记录失败，当前摄像头已被删除，请重新布控");
 				return ajaxMessage;
@@ -190,6 +190,7 @@ public class FacecloudController {
 				{
 					ajaxMessage.setErrorCode(2);
 					ajaxMessage.setMessage("获取告警记录失败，当前摄像头未开启布控状态");
+					faceCameraService.updateCamera(id, cameraid,false);//查询到未布控,修改数据库
 					return ajaxMessage;
 				}
 			}
