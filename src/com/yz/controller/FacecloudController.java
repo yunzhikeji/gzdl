@@ -67,7 +67,7 @@ public class FacecloudController {
 
 		CameraResultMessage cameraResultMessage = new CameraResultMessage();
 		
-		//判断当前设备是否已经添加到人脸服务器
+		//通过服务器数据库中cameraid判断当前设备是否已经添加到人脸服务器
 		if (camera.getCameraid() == null||camera.getCameraid() == 0) {
 			CameraMessage cameraMessage = new CameraMessage();
 			
@@ -87,7 +87,9 @@ public class FacecloudController {
 			
 			cameraResultMessage = requestService.addCamera(cameraMessage);
 
+			//判断登录状态
 			if (!faceCameraService.checkLoginState(cameraResultMessage.getRet())) {
+				//如果未登录，则进行登录
 				int result = faceCameraService.setLoginState();
 				if(result==1)
 				{
@@ -101,7 +103,23 @@ public class FacecloudController {
 			
 			if(cameraResultMessage.getRet()==4028)
 			{
-				ajaxMessage.setMessage("人脸服务器挂载的摄像头已超出上限.");
+				
+				String message  = "人脸服务器挂载的摄像头已超出上限.";
+				
+				//第一步优化：删除人脸服务器中无效的摄像头(无效：cameraid在gzdl的camera表中不存在)
+				int optimizeCameraSize  = faceCameraService.optimizeCameraOnFaceServer();
+				
+				if(optimizeCameraSize>0)
+				{
+					message = message+"系统已自动为您优化"+optimizeCameraSize+"台设备,请稍后点击开始布控.";
+				}else
+				{
+					//第二步优化：删除人脸服务器中未布控的摄像头
+					faceCameraService.deleteCameraOnFaceServer();
+					message = message+"系统优化无可优化设备请稍后再试";
+				}
+				
+				ajaxMessage.setMessage(message);
 				return ajaxMessage;
 			}
 			
@@ -119,6 +137,7 @@ public class FacecloudController {
 			return ajaxMessage;
 		}
 		
+		//判断人脸服务器中是否存在当前cameraid的摄像头
 		if(faceCameraService.checkCameraOnFaceServer(cameraid)==null)
 		{
 			faceCameraService.updateCamera(id, 0,false);//布控成功修改数据库
@@ -126,70 +145,27 @@ public class FacecloudController {
 			return ajaxMessage;
 		}
 		
+		//判断人脸服务器中当前cameraid的摄像头布控状态
 		if(!faceCameraService.checkCameraStateOnFaceServer(cameraid))
 		{
 			cameraResultMessage = requestService.recognition(cameraid);// 布控下发
 		}
 
+		
 		if (cameraResultMessage.getRet() == 0) {
 			faceCameraService.updateCamera(id, cameraid,true);//布控成功修改数据库
 			ajaxMessage.setMessage("布控成功");
+			ajaxMessage.setErrorCode(1);
 			return ajaxMessage;
 		}else
 		{
+			faceCameraService.updateCamera(id, cameraid,false);//布控成功修改数据库
 			ajaxMessage.setMessage("布控失败：" + cameraResultMessage.getRet_mes());
 			return ajaxMessage;
 		}
 		
 	}
 
-
-	@RequestMapping("/getalarms")
-	public @ResponseBody AjaxMessage getAlarms(Integer id) throws Exception {
-		
-		AjaxMessage ajaxMessage = new AjaxMessage();
-
-		Camera camera = cameraService.findCameraById(id);
-		
-		List<AlarmMessage> alarmList = new ArrayList<AlarmMessage>();
-
-		Integer cameraid = camera.getCameraid();
-		if (cameraid != null&&cameraid != 0) {
-			
-			if(faceCameraService.checkCameraOnFaceServer(cameraid)==null)
-			{
-				faceCameraService.updateCamera(id, 0,false);//布控失败，当前摄像头未添加到人脸服务器
-				ajaxMessage.setMessage("布控失败，当前摄像头未添加到人脸服务器");
-				return ajaxMessage;
-			}
-			
-			AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
-			alarmRequestMessage.setCamera_id_list(camera.getCameraid() + "");
-
-			AlarmResultMessage alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
-
-			if (!faceCameraService.checkLoginState(alarmResultMessage.getRet())) {
-				int result = faceCameraService.setLoginState();
-				if(result==1)
-				{
-					alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
-				}else if(result==4011)
-				{
-					ajaxMessage.setMessage("布控失败，人脸服务器连接超时");
-					return ajaxMessage;
-				}
-				
-			}
-		//	ajaxMessage.setAlarmMessages(alarmResultMessage.getAlarmMessages());
-			return ajaxMessage;
-		} else {
-			ajaxMessage.setMessage("布控失败，当前设备没有进行人脸布控");
-			return ajaxMessage;
-		}
-
-	}
-	
-	
 	
 	@RequestMapping("/getalarmvos")
 	public @ResponseBody AjaxMessage getAlarmVOs(Integer id) throws Exception {
@@ -205,12 +181,14 @@ public class FacecloudController {
 			if(faceCameraService.checkCameraOnFaceServer(cameraid)==null)
 			{
 				faceCameraService.updateCamera(id, 0,false);//布控失败，当前摄像头未添加到人脸服务器
+				ajaxMessage.setErrorCode(0);
 				ajaxMessage.setMessage("获取告警记录失败，当前摄像头已被删除，请重新布控");
 				return ajaxMessage;
 			}else
 			{
 				if(!faceCameraService.checkCameraStateOnFaceServer(cameraid))
 				{
+					ajaxMessage.setErrorCode(2);
 					ajaxMessage.setMessage("获取告警记录失败，当前摄像头未开启布控状态");
 					return ajaxMessage;
 				}
@@ -227,8 +205,10 @@ public class FacecloudController {
 				if(result==1)
 				{
 					alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
+					ajaxMessage.setErrorCode(1);
 				}else if(result==4011)
 				{
+					ajaxMessage.setErrorCode(3);
 					ajaxMessage.setMessage("获取告警记录失败，人脸服务器连接超时");
 					return ajaxMessage;
 				}
@@ -270,6 +250,9 @@ public class FacecloudController {
 			
 			return ajaxMessage;
 		} else {
+			
+			ajaxMessage.setErrorCode(0);
+			
 			ajaxMessage.setMessage("获取告警记录失败，当前摄像头未添加到人脸服务器");
 			return ajaxMessage;
 		}

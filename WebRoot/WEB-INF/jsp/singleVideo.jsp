@@ -6,6 +6,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="pragma" content="no-cache"> 
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+<meta http-equiv="expires" content="0">
 <title>监控系统</title>
 <!--[if lt IE 9]>
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/html5.js"></script>
@@ -101,19 +104,20 @@
 	function addcamera() {
 		$.ajax({   
             url:'${pageContext.request.contextPath }/facecloud/addcameratocloud.action',//这里是你的action或者servlert的路径地址   
-            type:'get', //数据发送方式   
+            type:'post', //数据发送方式   
             dataType: 'json',
-            async:false,
+            async :true,
             data: {"id":id},
             error: function(msg)
             { 
             	console.log(msg);   
             },   
             success: function(msg)
-            { //成功
+            { 
 	            if(msg!=null)
 	            {
 	            	alert(msg.message);
+	            	errorCode = msg.errorCode;
 	            }
 			}
 		});    
@@ -166,40 +170,49 @@
 	}
 
 
+	var errorCode = 1;
+	
 	function alarms() {
-		$.ajax({
-			type:'post',
-			url:'${pageContext.request.contextPath }/facecloud/getalarmvos',
-			dataType: 'json', 
-			async:false,
-			data : 'id='+id,
-			success : function(msg) {
-				if(msg.data!=null&&msg.data.length>0)
-				{
-					var tbody = "";
-					for(var i=0;i<msg.data.length;i++)
+		
+		if(errorCode==1)
+		{
+			$.ajax({
+				type:'post',
+				url:'${pageContext.request.contextPath }/facecloud/getalarmvos',
+				dataType: 'json', 
+				data : 'id='+id,
+				success : function(msg) {
+					
+					errorCode = msg.errorCode;
+					
+					if(msg.data!=null&&msg.data.length>0)
 					{
-						var val = msg.data[i];
-						tbody = tbody+"<tr>"+"<td>" + val.alarm_id + "</td>" + "<td>"
-								+ val.camera_name + "</td>" + "<td>"
-								+ val.alarm_time + "</td>" + "<td>"
-								+ val.alarm_typename + "</td>"+"</tr>";
-					}
-					$("#tbody").empty()
-					$("#tbody").append(tbody);
-				}else
-				{
-					if(msg.message!=null)
-					{
-						alert(msg.message);
+						var tbody = "";
+						for(var i=0;i<msg.data.length;i++)
+						{
+							var val = msg.data[i];
+							tbody = tbody+"<tr>"+"<td>" + val.alarm_id + "</td>" + "<td>"
+									+ val.camera_name + "</td>" + "<td>"
+									+ val.alarm_time + "</td>" + "<td>"
+									+ val.alarm_typename + "</td>"+"</tr>";
+						}
+						$("#tbody").empty()
+						$("#tbody").append(tbody);
 					}else
 					{
-						alert("当前无告警记录");
+						if(msg.message!=null)
+						{
+							alert(msg.message);
+						}else
+						{
+							alert("当前无告警记录");
+						}
 					}
 				}
-			}
 
-		});
+			});
+		}
+		
 	}
 </script>
 </head>
@@ -240,7 +253,7 @@
 		</div>
 		<div class="yzvedio01" >
 			<div class="yzr1" style="margin-left: 1%; margin-top: 5px;">
-				<input type="button" class="button white" onclick="addcamera()" value="开始布控" />
+				<input type="button" class="button white" onclick="addcamera();" value="开始布控" />
 				<input type="button" class="button white" onclick="sayTo();" value="开始对讲"  id="says"/>
 				<input type="button" class="button white" onclick="recordToWeb();" value="手动录制"  id="record"/>
 				<input type="checkbox" id="check" onclick="recordToWeb();" >报警时录制</input>

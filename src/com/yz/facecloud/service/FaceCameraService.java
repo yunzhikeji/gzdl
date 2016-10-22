@@ -26,7 +26,10 @@ public interface FaceCameraService {
 	//获取登录cookie
 	public int setLoginState();
 	
-	//判断并删除人脸服务器上的摄像头
-	public void checkAndDeleteCameraOnFaceServer() throws Exception;
+	//(判断并删除)优化人脸服务器上的摄像头,返回已优化的摄像头个数（0-4之间的值）
+	public int optimizeCameraOnFaceServer() throws Exception;
+
+	//删除人脸服务器上当前未布控的摄像头
+	public void deleteCameraOnFaceServer();
 
 }

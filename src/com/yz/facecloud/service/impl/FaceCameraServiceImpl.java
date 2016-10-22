@@ -1,7 +1,6 @@
 package com.yz.facecloud.service.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -25,8 +24,6 @@ public class FaceCameraServiceImpl implements FaceCameraService {
 
 	@Autowired
 	private CameraService cameraService;
-	
-	
 
 	@Autowired
 	private HttpRequestService requestService;
@@ -39,11 +36,10 @@ public class FaceCameraServiceImpl implements FaceCameraService {
 	public void updateCamera(Integer id, int cameraid, boolean success) throws Exception {
 		// TODO Auto-generated method stub
 		CameraCustom cameraCustom = new CameraCustom();
+		cameraCustom.setCameraid(cameraid); // 布控成功将cameraid保存到数据库
 		if (success) {
-			cameraCustom.setCameraid(cameraid); // 布控成功将cameraid保存到数据库
 			cameraCustom.setStat(1); // 布控成功就将stat设为1，否则为0
 		} else {
-			cameraCustom.setCameraid(cameraid); // 布控成功将cameraid保存到数据库
 			cameraCustom.setStat(0); // 布控成功就将stat设为1，否则为0
 		}
 		cameraService.updateCamera(id, cameraCustom);
@@ -93,8 +89,7 @@ public class FaceCameraServiceImpl implements FaceCameraService {
 		CameraResultMessage cameraResultMessage = requestService.getCameras(requestMessage);
 
 		if (!this.checkLoginState(cameraResultMessage.getRet())) {
-			if(this.setLoginState()!=1)
-			{
+			if (this.setLoginState() != 1) {
 				return null;
 			}
 		}
@@ -130,8 +125,7 @@ public class FaceCameraServiceImpl implements FaceCameraService {
 					result = 1;
 					break;
 				}
-				if(result == 4011)
-				{
+				if (result == 4011) {
 					result = 4011;
 					break;
 				}
@@ -150,27 +144,66 @@ public class FaceCameraServiceImpl implements FaceCameraService {
 		return result;
 
 	}
-	
-	
+
 	@Override
-	public void checkAndDeleteCameraOnFaceServer() throws Exception {
+	public int optimizeCameraOnFaceServer() throws Exception {
 		// TODO Auto-generated method stub
 		CameraRequestMessage requestMessage = new CameraRequestMessage();
 		CameraResultMessage cameraResultMessage = requestService.getCameras(requestMessage);
 
+		List<CameraMessage> cameraMessagesDelete = new ArrayList<CameraMessage>();// 需被删除列表
+
 		if (cameraResultMessage.getCamera_list() != null && cameraResultMessage.getCamera_list().size() > 3) {
-			
-			List<CameraMessage> cameraMessages = cameraResultMessage.getCamera_list(); 
+
+			List<CameraMessage> cameraMessages = cameraResultMessage.getCamera_list();
+
 			for (int i = 0; i < cameraMessages.size(); i++) {
-				
-				Camera camera = cameraService.findCameraByCameraid(cameraMessages.get(i).getCamera_id());
-				
-				
+
+				CameraMessage cameraMessage = cameraMessages.get(i);
+
+				int camera_id = cameraMessage.getCamera_id();
+
+				Camera camera = cameraService.findCameraByCameraid(camera_id);
+				// 当本地摄像头中没有查询到人脸服务器中的设备时，则删除人脸服务器中的摄像头
+				if (camera == null) {
+
+					// 如果当前摄像机为布控状态，则停止布控
+					if (cameraMessage.getCamera_state() == 2) {
+						requestService.recognitionStop(camera_id);
+					}
+					requestService.deleteCamera(camera_id);
+
+					cameraMessagesDelete.add(cameraMessage);
+				}
 			}
-			
 		}
+		return cameraMessagesDelete.size();
 	}
 
+	@Override
+	public void deleteCameraOnFaceServer() {
+
+		CameraRequestMessage requestMessage = new CameraRequestMessage();
+		CameraResultMessage cameraResultMessage = requestService.getCameras(requestMessage);
+
+		if (cameraResultMessage.getCamera_list() != null && cameraResultMessage.getCamera_list().size() > 3) {
+
+			List<CameraMessage> cameraMessages = cameraResultMessage.getCamera_list();
+
+			for (int i = 0; i < cameraMessages.size(); i++) {
+
+				CameraMessage cameraMessage = cameraMessages.get(i);
+
+				int camera_state = cameraMessage.getCamera_state();
+
+				// 未布控的摄像头
+				if (camera_state != 2) {
+					requestService.deleteCamera(cameraMessage.getCamera_id());
+				}
+			}
+		}
+
+	}
 
 	public String getRstp_url() {
 		return rstp_url;
@@ -187,6 +220,5 @@ public class FaceCameraServiceImpl implements FaceCameraService {
 	public void setFaceUser(FaceUser faceUser) {
 		this.faceUser = faceUser;
 	}
-
 
 }
