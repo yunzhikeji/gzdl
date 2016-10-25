@@ -40,7 +40,6 @@ public class FacecloudController {
 	@Autowired
 	private FaceCameraService faceCameraService;
 
-	
 
 	/*
 	 * 经测试 reboot接口无效
@@ -98,9 +97,17 @@ public class FacecloudController {
 				{
 					ajaxMessage.setMessage("人脸服务器登录超时");
 					return ajaxMessage;
+				}else if(result==41)
+				{
+					ajaxMessage.setMessage("人脸服务器权限过期");
+					return ajaxMessage;
 				}
 			}
-			
+			if(cameraResultMessage.getRet()==41)
+			{
+				ajaxMessage.setMessage("人脸服务器权限过期");
+				return ajaxMessage;
+			}
 			if(cameraResultMessage.getRet()==4028)
 			{
 				
