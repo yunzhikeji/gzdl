@@ -15,7 +15,6 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.yz.exception.CustomException;
 import com.yz.facecloud.model.AlarmMessage;
 import com.yz.facecloud.model.AlarmRequestMessage;
 import com.yz.facecloud.model.AlarmResultMessage;
@@ -26,6 +25,11 @@ import com.yz.facecloud.model.CameraResultMessage;
 import com.yz.facecloud.model.FaceDBMessage;
 import com.yz.facecloud.model.FaceDBRequestMessage;
 import com.yz.facecloud.model.FaceDBResultMessage;
+import com.yz.facecloud.model.FaceDataMessage;
+import com.yz.facecloud.model.FaceDataResultMessage;
+import com.yz.facecloud.model.FaceMessage;
+import com.yz.facecloud.model.FaceRequestMessage;
+import com.yz.facecloud.model.FaceResultMessage;
 import com.yz.facecloud.model.ImageMessage;
 import com.yz.facecloud.model.ImageRequestMessage;
 import com.yz.facecloud.model.ImageResultMessage;
@@ -193,12 +197,11 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 				List<PolicyMessage> list = new ArrayList<PolicyMessage>();
 				if (jsonObject.getInt("mt_policy_num") > 0) {
 					JSONArray array = jsonObject.getJSONArray("mt_policy_list");
-					System.out.println(array);
 					list = (List<PolicyMessage>) JSONArray.toCollection(array, PolicyMessage.class);
 					Iterator it = list.iterator();
 					while (it.hasNext()) {
 						PolicyMessage polMsg = (PolicyMessage) it.next();
-						System.out.println(polMsg.getMt_policy_id());
+						//System.out.println(polMsg.getMt_policy_id());
 					}
 				}
 				resultMsg.setPolicyMessages(list);
@@ -332,12 +335,10 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 				List<CameraMessage> list = new ArrayList<CameraMessage>();
 				if (jsonObject.getInt("list_size") > 0) {
 					JSONArray array = jsonObject.getJSONArray("camera_list");
-					System.out.println(array);
 					list = (List<CameraMessage>) JSONArray.toCollection(array, CameraMessage.class);
 					Iterator it = list.iterator();
 					while (it.hasNext()) {
 						CameraMessage camMsg = (CameraMessage) it.next();
-						System.out.println(camMsg.getCamera_id());
 					}
 
 				}
@@ -363,14 +364,12 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		String requestMsg = this.jsonRequestMessage(cameraMessage);
 
-		System.out.println("新增摄像机message:" + requestMsg);
-
 		JSONObject jsonObject = httpRequest(cameras_url, "PUT", requestMsg, false);
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {
 
-				System.out.println("新增摄像机:" + jsonObject);
+				//System.out.println("新增摄像机:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 
@@ -400,8 +399,6 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		String cameras_url = serverAddress + CAMERA_REQUEST_URL + "/" + cameraMessage.getCamera_id();
 
 		String requestMsg = this.jsonRequestMessage(cameraMessage);
-
-		System.out.println("配置相机请求message:" + requestMsg);
 
 		JSONObject jsonObject = httpRequest(cameras_url, "PUT", requestMsg, false);
 		// 如果请求成功
@@ -577,12 +574,10 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 				List<FaceDBMessage> list = new ArrayList<FaceDBMessage>();
 				if (jsonObject.getInt("list_size") > 0) {
 					JSONArray array = jsonObject.getJSONArray("facedb_list");
-					System.out.println(array);
 					list = (List<FaceDBMessage>) JSONArray.toCollection(array, FaceDBMessage.class);
 					Iterator it = list.iterator();
 					while (it.hasNext()) {
 						FaceDBMessage faceMsg = (FaceDBMessage) it.next();
-						System.out.println(faceMsg.getDb_id());
 					}
 
 				}
@@ -623,7 +618,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 		if (null != jsonObject) {
 			try {
 
-				//System.out.println("查询告警记录:" + jsonObject);
+				System.out.println("查询告警记录:" + jsonObject);
 				resultMsg.setRet(jsonObject.getInt("ret"));
 				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
 				resultMsg.setAlarm_size(jsonObject.getInt("alarm_size"));
@@ -633,13 +628,32 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 					JSONArray array = jsonObject.getJSONArray("alarm_list");
 					for (int i = 0; i < array.size(); i++) {
 						JSONObject object = (JSONObject) array.get(i);
-						//System.out.println("object:" + object);
 						AlarmMessage alarmMessage = new AlarmMessage();
 						List<SearchMessage> searchMessages = new ArrayList<SearchMessage>();
 						if (object.getJSONArray("search_list") != null) {
-							searchMessages = (List<SearchMessage>) JSONArray
-									.toCollection(object.getJSONArray("search_list"), SearchMessage.class);
-							alarmMessage.setSearchMessages(searchMessages);
+							JSONArray arraySearchMessage = object.getJSONArray("search_list");
+							
+							if(arraySearchMessage.size()>0)
+							{
+								for (int j = 0; j < arraySearchMessage.size(); j++) {
+									JSONObject searchMessageObject = (JSONObject) arraySearchMessage.get(j);
+									SearchMessage searchMessage = new SearchMessage();
+									searchMessage.setBirth(searchMessageObject.getString("birth"));
+									searchMessage.setDb_id(searchMessageObject.getString("db_id"));
+									//处理url
+									searchMessage.setFace_url(setUrl(searchMessageObject.getString("face_url"),serverAddress));
+									searchMessage.setSex(searchMessageObject.getString("sex"));
+									searchMessage.setPerson_name(searchMessageObject.getString("person_name"));
+									searchMessage.setPerson_id(searchMessageObject.getString("person_id"));
+									searchMessage.setSimilarity(searchMessageObject.getDouble("similarity"));
+									searchMessages.add(searchMessage);
+								}
+								/*
+								 * 为了修改url 只能以上写法
+								searchMessages = (List<SearchMessage>) JSONArray
+										.toCollection(object.getJSONArray("search_list"), SearchMessage.class);*/
+								alarmMessage.setSearchMessages(searchMessages);
+							}
 						}
 						alarmMessage.setAlarm_id(object.getString("alarm_id"));
 						alarmMessage.setCamera_id(object.getInt("camera_id"));
@@ -654,11 +668,6 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 						list.add(alarmMessage);
 					}
-					Iterator it = list.iterator();
-					while (it.hasNext()) {
-						AlarmMessage alarmMsg = (AlarmMessage) it.next();
-						//System.out.println("查询：" + alarmMsg.getSearchMessages());
-					}
 
 				}
 				resultMsg.setAlarmMessages(list);
@@ -669,6 +678,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		return resultMsg;
 	}
+
 
 	/**
 	 * 删除告警记录
@@ -747,6 +757,84 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		return resultMsg;
 	}
+	
+	
+	
+	/*****************************************
+	 * 查询人脸列表
+	 *
+	 * 
+	 * 
+	 * @return faceResultMessage 
+	 */
+	
+	public FaceResultMessage getFaces(FaceRequestMessage requestMessage) {
+
+		FaceResultMessage resultMsg = new FaceResultMessage();
+		
+		
+		//  /facedb/<db_id>/persons/<person_id>/faces
+		
+		String face_url = serverAddress + FACEDB_REQUEST_URL+"/"+requestMessage.getDb_id()+"/persons/"+requestMessage.getPerson_id()+"/faces";
+
+		JSONObject jsonObject = httpRequest(face_url, "GET", null, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+
+				System.out.println("查询人脸列表：" + jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+				resultMsg.setTotal_count(jsonObject.getInt("total_count"));
+				resultMsg.setList_size(jsonObject.getInt("list_size"));
+
+				List<FaceMessage> list = new ArrayList<FaceMessage>();
+				if (jsonObject.getInt("list_size") > 0) {
+					JSONArray array = jsonObject.getJSONArray("face_list");
+					list = (List<FaceMessage>) JSONArray.toCollection(array, FaceMessage.class);
+					Iterator it = list.iterator();
+					while (it.hasNext()) {
+						FaceMessage faceMsg = (FaceMessage) it.next();
+					}
+
+				}
+				resultMsg.setFace_list(list);
+			} catch (JSONException e) {
+			}
+		}
+		return resultMsg;
+	}
+	
+
+	
+	public FaceDataResultMessage getFace(FaceRequestMessage requestMessage) {
+
+		FaceDataResultMessage resultMsg = new FaceDataResultMessage();
+		
+		// /facedb/<db_id>/persons/<person_id>/faces/<face_id> 
+		String face_url = serverAddress + FACEDB_REQUEST_URL+"/"+requestMessage.getDb_id()+"/persons/"+requestMessage.getPerson_id()+"/faces/"+requestMessage.getFace_id();
+
+		JSONObject jsonObject = httpRequest(face_url, "GET", null, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+
+				System.out.println("查询指定人脸：" + jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+				
+				FaceDataMessage faceDataMessage = new FaceDataMessage();
+				JSONObject face_data = jsonObject.getJSONObject("face_data");
+				faceDataMessage = (FaceDataMessage)JSONObject.toBean(face_data,FaceDataMessage.class);
+				resultMsg.setFace_data(faceDataMessage);
+			} catch (JSONException e) {
+			}
+		}
+
+		return resultMsg;
+	}
+	
+	
 
 	/**
 	 * 发起http请求并获取结果
@@ -886,7 +974,6 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 			List<Face> faces = faceService.findFaceList();
 			if (faces != null && faces.size() > 0) {
 				cookie = faces.get(0).getCookie();
-				System.out.println(cookie);
 			}
 
 		} catch (Exception e) {
@@ -907,6 +994,21 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 			return "&";
 		}
 		return "?";
+	}
+	
+	public String setUrl(String url,String serverAddress) {
+		// TODO Auto-generated method stub
+		if(url.contains("http://"))
+		{
+			url = url.substring(7);
+			int index = url.indexOf("/");
+			if(index>0)
+			{
+				url = url.substring(index+1);
+				return serverAddress+url;
+			}
+		}
+		return null;
 	}
 
 	public String getServerAddress() {
