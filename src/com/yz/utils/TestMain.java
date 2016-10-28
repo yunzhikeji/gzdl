@@ -13,26 +13,29 @@ public class TestMain {
 	
 	public static void main(String[] args) {
 		
-
-		List<Integer> number1 = new ArrayList<Integer>();
-		
-		number1.add(1);
-		number1.add(2);
-		number1.add(3);
-		
-		List<Integer> number2 = new ArrayList<Integer>();
-		number2.add(1);
-		number2.add(2);
-		List<Integer> number3 = new ArrayList<Integer>();
-		number3.addAll(number1);
-		number3.addAll(number2);
-		
-		for(int i=0;i<number3.size();i++)
-		{
-			System.out.println(number3.get(i));
-		}
-		
+			String url = "http://api.facecloud.reconova.com/facedb/1/persons/2/faces/100000000001/image";
 			
+			String serverAddress = "http://183.61.108.29:8000/"; 
+			
+			
+			System.out.println(setUrl(url,serverAddress));
+					
+	}
+	
+	
+	public static String setUrl(String url,String serverAddress) {
+		// TODO Auto-generated method stub
+		if(url.contains("http://"))
+		{
+			url = url.substring(7);
+			int index = url.indexOf("/");
+			if(index>0)
+			{
+				url = url.substring(index+1);
+				return serverAddress+url;
+			}
+		}
+		return null;
 	}
 	
 	

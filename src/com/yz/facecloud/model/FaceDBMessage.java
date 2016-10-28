@@ -1,6 +1,10 @@
 package com.yz.facecloud.model;
 
-
+/**
+ * 人脸库
+ * @author Administrator
+ *
+ */
 public class FaceDBMessage {
 	
 	private String db_id;

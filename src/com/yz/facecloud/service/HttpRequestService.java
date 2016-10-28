@@ -8,6 +8,9 @@ import com.yz.facecloud.model.CameraRequestMessage;
 import com.yz.facecloud.model.CameraResultMessage;
 import com.yz.facecloud.model.FaceDBRequestMessage;
 import com.yz.facecloud.model.FaceDBResultMessage;
+import com.yz.facecloud.model.FaceDataResultMessage;
+import com.yz.facecloud.model.FaceRequestMessage;
+import com.yz.facecloud.model.FaceResultMessage;
 import com.yz.facecloud.model.ImageRequestMessage;
 import com.yz.facecloud.model.ImageResultMessage;
 import com.yz.facecloud.model.LoginRequestMessage;
@@ -53,6 +56,11 @@ public interface HttpRequestService {
 	public AlarmResultMessage deleteAlarms(AlarmRequestMessage requestMessage);//删除告警记录
 	
 	public ImageResultMessage getImage(ImageRequestMessage requestMessage);
+	
+	public FaceResultMessage getFaces(FaceRequestMessage requestMessage);//获得人脸列表
+	
+	public FaceDataResultMessage getFace(FaceRequestMessage requestMessage);//获得指定人脸列表
+	
 	
 	
 	

@@ -183,18 +183,29 @@
 				data : 'id='+id,
 				success : function(msg) {
 					
+					
 					errorCode = msg.errorCode;
 					
-					if(msg.data!=null&&msg.data.length>0)
+					if(msg.alarmMessages!=null)
 					{
+						errorCode = 1;
 						var tbody = "";
-						for(var i=0;i<msg.data.length;i++)
+						for(var i=0;i<msg.alarmMessages.length;i++)
 						{
-							var val = msg.data[i];
+							var val = msg.alarmMessages[i];
+							
+							var person_name = val.person_name;
+							
+							if(person_name==null)
+							{
+								person_name ="";
+							}
+							
 							tbody = tbody+"<tr>"+"<td>" + val.alarm_id + "</td>" + "<td>"
 									+ val.camera_name + "</td>" + "<td>"
 									+ val.alarm_time + "</td>" + "<td>"
-									+ val.alarm_typename + "</td>"+"</tr>";
+									+ val.alarm_typename + "</td>"+ "<td>  <a href='${pageContext.request.contextPath }/facecloud/image?person_id="+val.person_id+"' >"
+									+ person_name + "</a></td>" +"</tr>";
 						}
 						$("#tbody").empty()
 						$("#tbody").append(tbody);
@@ -269,6 +280,7 @@
 							<td>相机名称</td>
 							<td>告警时间</td>
 							<td>人员类别</td>
+							<td>人员姓名</td>
 						</tr>
 					</thead>
 					<tbody id="tbody"></tbody>

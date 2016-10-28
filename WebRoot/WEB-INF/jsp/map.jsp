@@ -95,8 +95,6 @@
             dataType : 'json',
             success: function (data) {//返回json结果
             	map.clearOverlays(); 
-            
-            	console.log(data);
                 json = data;
                 addMarker();
             }

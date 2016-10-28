@@ -1,16 +1,15 @@
 package com.yz.facecloud.model;
 
-
-public class SearchMessage {
+public class SearchMessage implements Comparable<SearchMessage> {
 
 	private String search_result_id;
 	private String db_id;
 	private String person_name;
-	private int person_id;
+	private String person_id;
 	private String face_url;
 	private String birth;
-	private String man;
-	private int similarity;
+	private String sex;
+	private Double similarity;
 
 	public String getSearch_result_id() {
 		return search_result_id;
@@ -36,11 +35,11 @@ public class SearchMessage {
 		this.person_name = person_name;
 	}
 
-	public int getPerson_id() {
+	public String getPerson_id() {
 		return person_id;
 	}
 
-	public void setPerson_id(int person_id) {
+	public void setPerson_id(String person_id) {
 		this.person_id = person_id;
 	}
 
@@ -60,20 +59,37 @@ public class SearchMessage {
 		this.birth = birth;
 	}
 
-	public String getMan() {
-		return man;
+	public String getSex() {
+		return sex;
 	}
 
-	public void setMan(String man) {
-		this.man = man;
+	public void setSex(String sex) {
+		this.sex = sex;
 	}
 
-	public int getSimilarity() {
+	public Double getSimilarity() {
 		return similarity;
 	}
 
-	public void setSimilarity(int similarity) {
+	public void setSimilarity(Double similarity) {
 		this.similarity = similarity;
+	}
+
+	@Override
+	public int compareTo(SearchMessage o) {
+		// TODO Auto-generated method stub
+		if (this == o) {
+			return 0;
+		} else if (o != null && o instanceof SearchMessage) {
+			SearchMessage searchMessage = (SearchMessage) o;
+			if (this.getSimilarity() <= searchMessage.getSimilarity()) {
+				return -1;
+			} else {
+				return 1;
+			}
+		} else {
+			return -1;
+		}
 	}
 
 }

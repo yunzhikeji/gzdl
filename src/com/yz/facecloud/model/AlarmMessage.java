@@ -13,6 +13,14 @@ public class AlarmMessage {
 	private String alarm_time;
 	private int monitor_type;// 布控类型
 	private int alarm_type;// 0,抓拍无告警1,告警 9所有//查询时不分黑白名单告警，所用1包含黑白名单告警
+	/****
+	 * 黑名单的理解：就是人脸库中存在的
+	 * 白名单的理解:就是人脸库中搜不到的
+	 * 抓拍的理解：就是不进行人脸库搜索
+	 * 
+	 */
+	
+	
 	private int alarm_level;
 	private String photo_name;
 	private String face_name;

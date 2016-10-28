@@ -7,6 +7,9 @@ public class AlarmMessageVO {
 	private String alarm_time;
 	private String alarm_typename;
 	private String photo_name;
+	private String person_name;
+	private String photo_url;
+	private String person_id;
 
 	public String getAlarm_id() {
 		return alarm_id;
@@ -46,6 +49,30 @@ public class AlarmMessageVO {
 
 	public void setPhoto_name(String photo_name) {
 		this.photo_name = photo_name;
+	}
+
+	public String getPerson_name() {
+		return person_name;
+	}
+
+	public void setPerson_name(String person_name) {
+		this.person_name = person_name;
+	}
+
+	public String getPhoto_url() {
+		return photo_url;
+	}
+
+	public void setPhoto_url(String photo_url) {
+		this.photo_url = photo_url;
+	}
+
+	public String getPerson_id() {
+		return person_id;
+	}
+
+	public void setPerson_id(String person_id) {
+		this.person_id = person_id;
 	}
 
 }
