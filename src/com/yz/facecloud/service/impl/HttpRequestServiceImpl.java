@@ -59,6 +59,8 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	public static final String POLICY_REQUEST_URL = "rtmonitor/mt_policy";
 	public static final String CAMERA_REQUEST_URL = "rtmonitor/manage";
 	public static final String ALARM_REQUEST_URL = "rtmonitor/alarm";
+	
+	public static final String FACEIMAGE_REQUEST_URL = "rtmonitor/alarm/cface/";
 	public static final String IMAGE_REQUEST_URL = "rtmonitor/alarm/image/";
 
 	public static final String FACEDB_REQUEST_URL = "facedb";
@@ -759,13 +761,51 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 	
 	
+	/****
+	 *  查询告警记录中的现场抓拍人脸
+	 */
+	public ImageResultMessage getFaceImage(ImageRequestMessage requestMessage) {
+
+		ImageResultMessage resultMsg = new ImageResultMessage();
+		String image_url = serverAddress + FACEIMAGE_REQUEST_URL + requestMessage.getPhoto_host_id();
+
+		String filename = requestMessage.getFilename();
+
+		if (filename != null && !filename.replace(" ", "").equals("")) {
+			image_url = setRequestURL(image_url, "filename", filename);
+		}
+
+		JSONObject jsonObject = httpRequest(image_url, "GET", null, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+
+				JSONObject object = jsonObject.getJSONObject("image_data");
+
+				ImageMessage imageMessage = (ImageMessage) JSONObject.toBean(object, ImageMessage.class);
+
+				resultMsg.setImage(imageMessage);
+
+			} catch (JSONException e) {
+
+			}
+		}
+
+		return resultMsg;
+	}
+	
+	
+	
 	
 	/*****************************************
 	 * 查询人脸列表
 	 *
 	 * 
 	 * 
-	 * @return faceResultMessage 
+	 * @return faceResultMessage   
 	 */
 	
 	public FaceResultMessage getFaces(FaceRequestMessage requestMessage) {
@@ -806,12 +846,13 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	}
 	
 
-	
+	/**
+	 * 查询指定人脸
+	 */
 	public FaceDataResultMessage getFace(FaceRequestMessage requestMessage) {
 
 		FaceDataResultMessage resultMsg = new FaceDataResultMessage();
 		
-		// /facedb/<db_id>/persons/<person_id>/faces/<face_id> 
 		String face_url = serverAddress + FACEDB_REQUEST_URL+"/"+requestMessage.getDb_id()+"/persons/"+requestMessage.getPerson_id()+"/faces/"+requestMessage.getFace_id();
 
 		JSONObject jsonObject = httpRequest(face_url, "GET", null, false);
@@ -833,6 +874,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 		return resultMsg;
 	}
+	
 	
 	
 

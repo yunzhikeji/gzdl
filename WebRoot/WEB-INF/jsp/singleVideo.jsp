@@ -183,7 +183,6 @@
 				data : 'id='+id,
 				success : function(msg) {
 					
-					
 					errorCode = msg.errorCode;
 					
 					if(msg.alarmMessages!=null)
@@ -196,16 +195,24 @@
 							
 							var person_name = val.person_name;
 							
+							var url ="";
+							
 							if(person_name==null)
 							{
-								person_name ="";
+								person_name ="无";
+								url = "${pageContext.request.contextPath }/facecloud/faceimage?photo_name="+val.photo_name+"&host_id="+val.photo_host_id;
+								
+							}else
+							{
+								url = "${pageContext.request.contextPath }/facecloud/face?person_id="+val.person_id;
 							}
 							
 							tbody = tbody+"<tr>"+"<td>" + val.alarm_id + "</td>" + "<td>"
 									+ val.camera_name + "</td>" + "<td>"
 									+ val.alarm_time + "</td>" + "<td>"
-									+ val.alarm_typename + "</td>"+ "<td>  <a href='${pageContext.request.contextPath }/facecloud/image?person_id="+val.person_id+"' >"
-									+ person_name + "</a></td>" +"</tr>";
+									+ val.alarm_typename + "</td>"+ "<td>"
+									+ person_name + "</td><td> <a href='"+url+"' > <img src='${pageContext.request.contextPath }/images/img.png'/></a></td>"
+									+"</tr>";
 						}
 						$("#tbody").empty()
 						$("#tbody").append(tbody);
@@ -217,6 +224,7 @@
 						}else
 						{
 							alert("当前无告警记录");
+							errorCode = 0;
 						}
 					}
 				}
@@ -233,11 +241,10 @@
 		设备编号:${camera.cnumber}
 		</div>
 		<div class="yzvedio00">
-			<div
-				style="width: 90%; margin-top: 5px; margin-left: 1%; height: 500px;">
-				<object CLASSID='CLSID:7A2B1F67-6568-4466-A0A5-EA7FF6EBE820'
-					id='ocx' style="margin-right: 10%;" width='100%'
-					height='100%' VIEWASTEXT> </object>
+			<div style="width: 90%; margin-top: 5px; margin-left: 1%; height: 500px;">
+				<object CLASSID="CLSID:7A2B1F67-6568-4466-A0A5-EA7FF6EBE820"
+					id="ocx" style="margin-right: 10%;" width="100%"
+					height="100%" VIEWASTEXT> </object>
 			</div>
 			<div style="margin-left: 1%; margin-top: 5px;">
 				<a href="#" class="button white" onClick="play();"> <i
@@ -281,6 +288,7 @@
 							<td>告警时间</td>
 							<td>人员类别</td>
 							<td>人员姓名</td>
+							<td>人员照片(抓拍照片)</td>
 						</tr>
 					</thead>
 					<tbody id="tbody"></tbody>

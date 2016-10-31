@@ -23,6 +23,9 @@ import com.yz.facecloud.model.FaceDataResultMessage;
 import com.yz.facecloud.model.FaceMessage;
 import com.yz.facecloud.model.FaceRequestMessage;
 import com.yz.facecloud.model.FaceResultMessage;
+import com.yz.facecloud.model.ImageMessage;
+import com.yz.facecloud.model.ImageRequestMessage;
+import com.yz.facecloud.model.ImageResultMessage;
 import com.yz.facecloud.model.LoginResultMessage;
 import com.yz.facecloud.model.PolicyRequestMessage;
 import com.yz.facecloud.model.PolicyResultMessage;
@@ -44,7 +47,7 @@ public class FacecloudController {
 
 	@Autowired
 	private CameraService cameraService;
-	
+
 	@Autowired
 	private FaceCameraService faceCameraService;
 
@@ -222,6 +225,8 @@ public class FacecloudController {
 					vo.setAlarm_id(alarm.getAlarm_id());
 					vo.setAlarm_time(alarm.getAlarm_time());
 					vo.setCamera_name(alarm.getCamera_name());
+					vo.setPhoto_host_id(alarm.getPhoto_host_id());
+					vo.setPhoto_name(alarm.getPhoto_name());
 					//// 0,抓拍无告警 1,黑名单告警2,白名单告警
 					switch (alarm.getAlarm_type()) {
 					case 0:
@@ -267,39 +272,84 @@ public class FacecloudController {
 		}
 
 	}
-	
-	@RequestMapping("/image")
-	public  String image(String person_id, Model model) throws Exception {
-		
+
+	@RequestMapping("/face")
+	public String face(String person_id, Model model) throws Exception {
+
 		FaceRequestMessage faceRequestMessage = new FaceRequestMessage();
-		
-		if(person_id!=null&&!person_id.equals(""))
-		{
+
+		if (person_id != null && !person_id.equals("")) {
 			faceRequestMessage.setDb_id("1");
 			faceRequestMessage.setPerson_id(person_id);
-			
+
 			FaceResultMessage faceResultMessage = requestService.getFaces(faceRequestMessage);
-			
-			if(faceResultMessage.getRet()==0&&faceResultMessage.getFace_list()!=null&&faceResultMessage.getFace_list().size()>0)
-			{
+
+			if (faceResultMessage.getRet() == 0 && faceResultMessage.getFace_list() != null
+					&& faceResultMessage.getFace_list().size() > 0) {
 				FaceMessage faceMessage = faceResultMessage.getFace_list().get(0);
-				
+
 				faceRequestMessage.setFace_id(faceMessage.getFace_id());
-				
+
 				FaceDataResultMessage faceDataResultMessage = requestService.getFace(faceRequestMessage);
-				
-				if(faceDataResultMessage.getRet()==0)
-				{
-					model.addAttribute("content",faceDataResultMessage.getFace_data().getImage_data().getContent());
+
+				if (faceDataResultMessage.getRet() == 0) {
+					model.addAttribute("content", faceDataResultMessage.getFace_data().getImage_data().getContent());
 					return "image";
 				}
 			}
 		}
 		model.addAttribute("message", "未查询到当前人员照片.");
 		return "error";
-		
+
 	}
-	
+
+	@RequestMapping("/image")
+	public String image(String photo_name, Integer host_id, Model model) throws Exception {
+
+		ImageRequestMessage imageRequestMessage = new ImageRequestMessage();
+
+		if (photo_name != null && !photo_name.equals("") && host_id != null && host_id != 0) {
+			imageRequestMessage.setFilename(photo_name);
+			;
+			imageRequestMessage.setPhoto_host_id(host_id);
+
+			ImageResultMessage imageResultMessage = requestService.getImage(imageRequestMessage);
+
+			if (imageResultMessage.getRet() == 0 && imageResultMessage.getImage() != null) {
+
+				ImageMessage imageMessage = imageResultMessage.getImage();
+				model.addAttribute("content", imageMessage.getContent());
+				return "image";
+			}
+		}
+		model.addAttribute("message", "未查询到当前抓拍照片.");
+		return "error";
+
+	}
+
+	@RequestMapping("/faceimage")
+	public String faceimage(String photo_name, Integer host_id, Model model) throws Exception {
+
+		ImageRequestMessage imageRequestMessage = new ImageRequestMessage();
+
+		if (photo_name != null && !photo_name.equals("") && host_id != null && host_id != 0) {
+			imageRequestMessage.setFilename(photo_name);
+			;
+			imageRequestMessage.setPhoto_host_id(host_id);
+
+			ImageResultMessage imageResultMessage = requestService.getImage(imageRequestMessage);
+
+			if (imageResultMessage.getRet() == 0 && imageResultMessage.getImage() != null) {
+
+				ImageMessage imageMessage = imageResultMessage.getImage();
+				model.addAttribute("content", imageMessage.getContent());
+				return "image";
+			}
+		}
+		model.addAttribute("message", "未查询到当前抓拍人脸.");
+		return "error";
+
+	}
 
 	@RequestMapping("/login")
 	public @ResponseBody LoginResultMessage login() throws Exception {

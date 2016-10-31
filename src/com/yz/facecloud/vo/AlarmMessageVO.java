@@ -10,6 +10,7 @@ public class AlarmMessageVO {
 	private String person_name;
 	private String photo_url;
 	private String person_id;
+	private int photo_host_id;
 
 	public String getAlarm_id() {
 		return alarm_id;
@@ -73,6 +74,14 @@ public class AlarmMessageVO {
 
 	public void setPerson_id(String person_id) {
 		this.person_id = person_id;
+	}
+
+	public int getPhoto_host_id() {
+		return photo_host_id;
+	}
+
+	public void setPhoto_host_id(int photo_host_id) {
+		this.photo_host_id = photo_host_id;
 	}
 
 }
