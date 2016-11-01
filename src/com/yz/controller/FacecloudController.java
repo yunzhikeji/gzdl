@@ -241,7 +241,7 @@ public class FacecloudController {
 						if (searchMessages != null && searchMessages.size() > 0) {
 							Collections.sort(searchMessages, COMPARATOR);
 
-							SearchMessage searchMessage = searchMessages.get(0);
+							SearchMessage searchMessage = searchMessages.get(searchMessages.size()-1);
 
 							if (searchMessage.getPerson_name() != null && !searchMessage.getPerson_name().equals("")) {
 								vo.setPerson_name(searchMessage.getPerson_name());

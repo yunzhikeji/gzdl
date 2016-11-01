@@ -1,9 +1,12 @@
 package com.yz.utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.yz.facecloud.model.CameraMessage;
+import com.yz.facecloud.model.SearchMessage;
 
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
@@ -11,15 +14,43 @@ import net.sf.json.util.PropertyFilter;
 
 public class TestMain {
 	
+	private static final Comparator<SearchMessage> COMPARATOR = new Comparator<SearchMessage>() {
+		public int compare(SearchMessage o1, SearchMessage o2) {
+			return o1.compareTo(o2);// 运用SearchMessage类的compareTo方法比较两个对象
+		}
+	};
+	
+	
+	
 	public static void main(String[] args) {
 		
-			String url = "http://api.facecloud.reconova.com/facedb/1/persons/2/faces/100000000001/image";
-			
-			String serverAddress = "http://183.61.108.29:8000/"; 
-			
-			
-			System.out.println(setUrl(url,serverAddress));
-					
+		List<SearchMessage> searchMessages = new ArrayList<SearchMessage>();
+		
+		
+		
+		SearchMessage message1 = new SearchMessage();
+		message1.setSimilarity(170.5);
+		searchMessages.add(message1);
+		SearchMessage message2 = new SearchMessage();
+		message2.setSimilarity(70.6);
+		searchMessages.add(message2);
+		SearchMessage message3 = new SearchMessage();
+		message3.setSimilarity(720.7);
+		searchMessages.add(message3);
+		
+		
+		for (int i = 0; i < searchMessages.size(); i++) {
+			System.out.println(searchMessages.get(i).getSimilarity());
+		}
+		
+		
+		Collections.sort(searchMessages, COMPARATOR);
+		
+		
+		for (int i = 0; i < searchMessages.size(); i++) {
+			System.out.println(searchMessages.get(i).getSimilarity());
+		}
+		
 	}
 	
 	
