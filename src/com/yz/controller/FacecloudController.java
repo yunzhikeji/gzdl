@@ -102,8 +102,8 @@ public class FacecloudController {
 			// 判断登录状态
 			if (!faceCameraService.checkLoginState(cameraResultMessage.getRet())) {
 				// 如果未登录，则进行登录
-				int result = faceCameraService.setLoginState();
-				if (result == 1) {
+				int result = faceCameraService.operationLogin(0);
+				if (result == 0) {
 					cameraResultMessage = requestService.addCamera(cameraMessage);
 				} else if (result == 4011) {
 					ajaxMessage.setMessage("人脸服务器登录超时");
@@ -205,8 +205,8 @@ public class FacecloudController {
 			AlarmResultMessage alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
 
 			if (!faceCameraService.checkLoginState(alarmResultMessage.getRet())) {
-				int result = faceCameraService.setLoginState();
-				if (result == 1) {
+				int result = faceCameraService.operationLogin(0);
+				if (result == 0) {
 					alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
 					ajaxMessage.setErrorCode(1);
 				} else if (result == 4011) {

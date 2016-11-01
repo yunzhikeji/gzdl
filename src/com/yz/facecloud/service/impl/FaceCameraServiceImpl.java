@@ -67,7 +67,7 @@ public class FaceCameraServiceImpl implements FaceCameraService {
 	}
 
 	@Override
-	public boolean checkCameraStateOnFaceServer(int cameraid) {
+	public boolean checkCameraStateOnFaceServer(int cameraid) throws Exception {
 
 		CameraMessage cameraMessage = this.checkCameraOnFaceServer(cameraid);
 
@@ -83,16 +83,20 @@ public class FaceCameraServiceImpl implements FaceCameraService {
 	}
 
 	@Override
-	public CameraMessage checkCameraOnFaceServer(int cameraid) {
+	public CameraMessage checkCameraOnFaceServer(int cameraid) throws Exception {
 		CameraRequestMessage requestMessage = new CameraRequestMessage();
 		requestMessage.setCamera_id(cameraid);
 		CameraResultMessage cameraResultMessage = requestService.getCameras(requestMessage);
-
+		
 		if (!this.checkLoginState(cameraResultMessage.getRet())) {
-			if (this.setLoginState() != 1) {
+			if (operationLogin(0) == 0) {
+				cameraResultMessage = requestService.getCameras(requestMessage);
+			} else {
 				return null;
 			}
 		}
+		
+		
 		if (cameraResultMessage.getCamera_list() != null && cameraResultMessage.getCamera_list().size() > 0) {
 			return cameraResultMessage.getCamera_list().get(0);
 		} else {
@@ -112,38 +116,6 @@ public class FaceCameraServiceImpl implements FaceCameraService {
 		return requestService.login(requestMessage);
 	}
 
-	public int setLoginState() {
-
-		int result = 0;
-		int counter = 0;
-
-		try {
-			while (true) {
-				result = this.login().getRet();
-				if (result == 0)// 登录成功 请求超时
-				{
-					result = 1;
-					break;
-				}
-				if (result == 4011) {
-					result = 4011;
-					break;
-				}
-
-				counter++;
-				if (counter == 8) {
-					result = 4011;
-					break;
-				}
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			result = 4011;
-		}
-		return result;
-
-	}
 
 	@Override
 	public int optimizeCameraOnFaceServer() throws Exception {
@@ -203,6 +175,17 @@ public class FaceCameraServiceImpl implements FaceCameraService {
 			}
 		}
 
+	}
+
+	public Integer operationLogin (int num) throws Exception {
+		
+		LoginResultMessage loginResultMessage = this.login();
+		
+		if (loginResultMessage.getRet() == 0||num ==10) { // 当num=0时，循环结束
+			return loginResultMessage.getRet();
+		} else {
+			return operationLogin(num++);
+		}
 	}
 
 	public String getRstp_url() {

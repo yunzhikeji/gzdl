@@ -15,16 +15,16 @@ public interface FaceCameraService {
 	public boolean checkLoginState(int ret);
 
     //判断当前设备在人脸服务器中的布控状态
-	public boolean checkCameraStateOnFaceServer(int cameraid);
+	public boolean checkCameraStateOnFaceServer(int cameraid) throws Exception;
 
 	//判断当前设备在人脸服务器中是否存在
-	public CameraMessage checkCameraOnFaceServer(int cameraid);
+	public CameraMessage checkCameraOnFaceServer(int cameraid) throws Exception;
 	
 	//登录
 	public LoginResultMessage login() throws Exception;
 	
-	//获取登录cookie
-	public int setLoginState();
+	//登录操作
+	public Integer operationLogin (int num) throws Exception;
 	
 	//(判断并删除)优化人脸服务器上的摄像头,返回已优化的摄像头个数（0-4之间的值）
 	public int optimizeCameraOnFaceServer() throws Exception;
