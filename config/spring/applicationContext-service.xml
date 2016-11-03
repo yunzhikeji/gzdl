@@ -18,8 +18,8 @@
 	<bean id="cameraService" class="com.yz.service.impl.CameraServiceImpl" />
 	<!-- 人脸websercie请求的service -->
 	<bean id="httpRequestService" class="com.yz.facecloud.service.impl.HttpRequestServiceImpl">
-			<!--  <property name="serverAddress" value="http://183.61.108.29:8000/"></property>  -->
-	 <property name="serverAddress" value="http://192.168.1.70:8000/"></property>
+		<!-- <property name="serverAddress" value="http://183.61.108.29:8000/"></property> -->
+		  <property name="serverAddress" value="http://192.168.1.70:8000/"></property> 
 	</bean>
 	<!-- 人脸server管理Face的service -->
 	<bean id="faceService" class="com.yz.service.impl.FaceServiceImpl"></bean>
@@ -29,7 +29,7 @@
 	<bean id="faceCameraService" class="com.yz.facecloud.service.impl.FaceCameraServiceImpl">
 		<property name="faceUser" ref="faceUser"></property>
 		<!-- rtsp服务器相关配置 -->
-		<property name="rstp_url" value="rtsp://115.28.135.48:8554/"></property>
+		<property name="rstp_url" value="rtsp://120.24.253.152:8554/"></property>
 	</bean>
 	
 	<!-- 人脸服务器相关配置 -->

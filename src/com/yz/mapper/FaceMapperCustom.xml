@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yz.mapper.FaceMapperCustom">
+
+	<select id="findFaceList" resultType="com.yz.po.Face">
+		select * from face
+	</select>
+
+</mapper>

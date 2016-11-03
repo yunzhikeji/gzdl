@@ -250,6 +250,7 @@
 							} else {
 								if (msg.message != null) {
 									alert(msg.message);
+									errorCode = 0;
 								} else {
 									alert("当前无告警记录");
 									errorCode = 0;

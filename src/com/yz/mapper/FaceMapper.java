@@ -28,5 +28,4 @@ public interface FaceMapper {
 
     int updateByPrimaryKey(Face record);
 
-	List<Face> findFaceList();
 }

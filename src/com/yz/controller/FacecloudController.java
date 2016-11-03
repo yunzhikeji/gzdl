@@ -240,8 +240,7 @@ public class FacecloudController {
 						// 比较获取阈值最高的人员
 						if (searchMessages != null && searchMessages.size() > 0) {
 							Collections.sort(searchMessages, COMPARATOR);
-
-							SearchMessage searchMessage = searchMessages.get(searchMessages.size()-1);
+							SearchMessage searchMessage = searchMessages.get(searchMessages.size() - 1);
 
 							if (searchMessage.getPerson_name() != null && !searchMessage.getPerson_name().equals("")) {
 								vo.setPerson_name(searchMessage.getPerson_name());

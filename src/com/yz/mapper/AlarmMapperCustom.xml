@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yz.mapper.AlarmMapperCustom">
+
+	<select id="findAlarmList" resultType="com.yz.po.Alarm">
+		select * from Alarm
+	</select>
+	
+	
+	<select id="findAlarmList" resultType="com.yz.po.Alarm" parameterType="com.yz.vo.AlarmQueryVO">
+		select * from Alarm where
+		<if test="cameraid != null and cameraid != '' ">
+			cameraid = #{cameraid,jdbcType=INTEGER}
+		</if>
+	</select>
+
+</mapper>

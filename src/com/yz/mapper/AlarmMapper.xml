@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yz.mapper.AlarmMapper" >
+  <resultMap id="BaseResultMap" type="com.yz.po.Alarm" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="cameraid" property="cameraid" jdbcType="INTEGER" />
+    <result column="alarmtime" property="alarmtime" jdbcType="VARCHAR" />
+    <result column="pertype" property="pertype" jdbcType="INTEGER" />
+    <result column="pername" property="pername" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.yz.po.Alarm" extends="BaseResultMap" >
+    <result column="photo" property="photo" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, cameraid, alarmtime, pertype, pername
+  </sql>
+  <sql id="Blob_Column_List" >
+    photo
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.yz.po.AlarmExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from alarm
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.yz.po.AlarmExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from alarm
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from alarm
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from alarm
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yz.po.AlarmExample" >
+    delete from alarm
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yz.po.Alarm" >
+    insert into alarm (id, cameraid, alarmtime, 
+      pertype, pername, photo
+      )
+    values (#{id,jdbcType=INTEGER}, #{cameraid,jdbcType=INTEGER}, #{alarmtime,jdbcType=VARCHAR}, 
+      #{pertype,jdbcType=INTEGER}, #{pername,jdbcType=VARCHAR}, #{photo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.yz.po.Alarm" >
+    insert into alarm
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="cameraid != null" >
+        cameraid,
+      </if>
+      <if test="alarmtime != null" >
+        alarmtime,
+      </if>
+      <if test="pertype != null" >
+        pertype,
+      </if>
+      <if test="pername != null" >
+        pername,
+      </if>
+      <if test="photo != null" >
+        photo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="cameraid != null" >
+        #{cameraid,jdbcType=INTEGER},
+      </if>
+      <if test="alarmtime != null" >
+        #{alarmtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pertype != null" >
+        #{pertype,jdbcType=INTEGER},
+      </if>
+      <if test="pername != null" >
+        #{pername,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        #{photo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yz.po.AlarmExample" resultType="java.lang.Integer" >
+    select count(*) from alarm
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update alarm
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.cameraid != null" >
+        cameraid = #{record.cameraid,jdbcType=INTEGER},
+      </if>
+      <if test="record.alarmtime != null" >
+        alarmtime = #{record.alarmtime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pertype != null" >
+        pertype = #{record.pertype,jdbcType=INTEGER},
+      </if>
+      <if test="record.pername != null" >
+        pername = #{record.pername,jdbcType=VARCHAR},
+      </if>
+      <if test="record.photo != null" >
+        photo = #{record.photo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update alarm
+    set id = #{record.id,jdbcType=INTEGER},
+      cameraid = #{record.cameraid,jdbcType=INTEGER},
+      alarmtime = #{record.alarmtime,jdbcType=VARCHAR},
+      pertype = #{record.pertype,jdbcType=INTEGER},
+      pername = #{record.pername,jdbcType=VARCHAR},
+      photo = #{record.photo,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update alarm
+    set id = #{record.id,jdbcType=INTEGER},
+      cameraid = #{record.cameraid,jdbcType=INTEGER},
+      alarmtime = #{record.alarmtime,jdbcType=VARCHAR},
+      pertype = #{record.pertype,jdbcType=INTEGER},
+      pername = #{record.pername,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yz.po.Alarm" >
+    update alarm
+    <set >
+      <if test="cameraid != null" >
+        cameraid = #{cameraid,jdbcType=INTEGER},
+      </if>
+      <if test="alarmtime != null" >
+        alarmtime = #{alarmtime,jdbcType=VARCHAR},
+      </if>
+      <if test="pertype != null" >
+        pertype = #{pertype,jdbcType=INTEGER},
+      </if>
+      <if test="pername != null" >
+        pername = #{pername,jdbcType=VARCHAR},
+      </if>
+      <if test="photo != null" >
+        photo = #{photo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.yz.po.Alarm" >
+    update alarm
+    set cameraid = #{cameraid,jdbcType=INTEGER},
+      alarmtime = #{alarmtime,jdbcType=VARCHAR},
+      pertype = #{pertype,jdbcType=INTEGER},
+      pername = #{pername,jdbcType=VARCHAR},
+      photo = #{photo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yz.po.Alarm" >
+    update alarm
+    set cameraid = #{cameraid,jdbcType=INTEGER},
+      alarmtime = #{alarmtime,jdbcType=VARCHAR},
+      pertype = #{pertype,jdbcType=INTEGER},
+      pername = #{pername,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
