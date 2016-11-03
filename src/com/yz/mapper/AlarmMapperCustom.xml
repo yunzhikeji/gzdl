@@ -7,7 +7,7 @@
 	</select>
 	
 	
-	<select id="findAlarmList" resultType="com.yz.po.Alarm" parameterType="com.yz.vo.AlarmQueryVO">
+	<select id="getAlarmsByAlarmQueryVO" resultType="com.yz.po.Alarm" parameterType="com.yz.vo.AlarmQueryVO">
 		select * from Alarm where
 		<if test="cameraid != null and cameraid != '' ">
 			cameraid = #{cameraid,jdbcType=INTEGER}
