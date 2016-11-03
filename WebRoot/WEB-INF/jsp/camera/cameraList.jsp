@@ -68,14 +68,15 @@
 			<table class="table" style="width: 98%; margin: 5px auto">
 				<thead class="text-c">
 					<tr bgcolor="#f6f6f6">
-
-						<th width="5%" style="font-size: 14px;">序号</th>
-						<th width="12%" style="font-size: 14px;">设备编号</th>
-						<th width="12%" style="font-size: 14px;">SIP编号</th>
-						<th width="22%" style="font-size: 14px;">单位名称</th>
-						<th width="13%" style="font-size: 14px;"></th>
-						<th width="13%" style="font-size: 14px;"></th>
-						<th width="13%" style="font-size: 14px;"></th>
+        
+        <th width="5%" style="font-size:14px;">序号</th>
+        <th width="10%" style="font-size:14px;">设备编号</th>
+        <th width="10%" style="font-size:14px;">SIP编号</th>
+        <th width="21%" style="font-size:14px;">单位名称</th>
+        <th width="13%" style="font-size:14px;"></th>
+        <th width="13%" style="font-size:14px;"></th>
+        <th width="18%" style="font-size:14px;"></th>
+        <th width="13%" style="font-size:14px;"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -97,6 +98,11 @@
 								title="设备租售" target="_self" class="button blue bigrounded bla"
 								style="font-size: 14px; line-height: 14px"><i
 									class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe672;</i>出租&nbsp;&nbsp;&nbsp;</a></c:if><c:if test="${camera.organizeid !=0 }">已出租</c:if></td>
+							<td><a href="javascript:;"
+								onClick="ypgy('历史告警记录','alarm.html','1024px','768px')"
+								title="历史告警记录" target="_self" class="button blue bigrounded bla"
+								style="font-size: 14px; line-height: 14px"><i
+									class="Hui-iconfont">&#xe603;</i>历史告警记录</a></td>		
 							<td><c:if test="${camera.organizeid != 0 }"><a href="${pageContext.request.contextPath }/camera/recycle?id=${camera.id }" class="button orange bla smallrounded"
 									style="font-size: 14px; line-height: 14px" onClick="OnUp();">
 									<i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>回收
