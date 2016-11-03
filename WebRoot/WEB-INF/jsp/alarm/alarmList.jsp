@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -5,12 +9,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>用户管理</title>
 <!--[if lt IE 9]>
-<script type="text/javascript" src="lib/html5.js"></script>
-<script type="text/javascript" src="lib/respond.min.js"></script>
-<script type="text/javascript" src="lib/PIE_IE678.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/lib/html5.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/lib/respond.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/lib/PIE_IE678.js"></script>
 <![endif]-->
-<link href="css/user.css" rel="stylesheet" type="text/css" />
-<link href="css/1.0.7/iconfont.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath }/css/user.css" rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath }/css/1.0.7/iconfont.css" rel="stylesheet" type="text/css" />
 <!--[if IE 6]>
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>

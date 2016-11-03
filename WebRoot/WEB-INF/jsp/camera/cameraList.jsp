@@ -99,7 +99,7 @@
 								style="font-size: 14px; line-height: 14px"><i
 									class="Hui-iconfont">&nbsp;&nbsp;&nbsp;&#xe672;</i>出租&nbsp;&nbsp;&nbsp;</a></c:if><c:if test="${camera.organizeid !=0 }">已出租</c:if></td>
 							<td><a href="javascript:;"
-								onClick="ypgy('历史告警记录','alarm.html','1024px','768px')"
+								onClick="ypgy('历史告警记录','${pageContext.request.contextPath }/alarm/alarmList?cameraid=${camera.id }','1024px','768px')"
 								title="历史告警记录" target="_self" class="button blue bigrounded bla"
 								style="font-size: 14px; line-height: 14px"><i
 									class="Hui-iconfont">&#xe603;</i>历史告警记录</a></td>		

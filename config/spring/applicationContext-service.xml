@@ -43,4 +43,6 @@
 		property name="mode" value="force_login"></property>
 		 -->
 	</bean>
+		<!-- 告警的service -->
+	<bean id="alarmService" class="com.yz.service.impl.AlarmServiceImpl" />
 </beans>
