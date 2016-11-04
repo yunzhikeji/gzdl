@@ -9,9 +9,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>用户管理</title>
 <!--[if lt IE 9]>
-<script type="text/javascript" src="${pageContext.request.contextPath }/lib/html5.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/lib/respond.min.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath }/lib/PIE_IE678.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/html5.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/respond.min.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/lib/PIE_IE678.js"></script>
 <![endif]-->
 <link href="${pageContext.request.contextPath }/css/user.css" rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath }/css/1.0.7/iconfont.css" rel="stylesheet" type="text/css" />
@@ -25,6 +25,8 @@
 	rel="stylesheet" type="text/css" />
 <link href="${pageContext.request.contextPath }/css/1.0.7/iconfont.css"
 	rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/My97DatePicker/WdatePicker.js"></script>
+
 </head>
 
 <body style="background:#fff;">
@@ -34,10 +36,16 @@
     <thead class="text-c">
     <tr class="text-d">
     <th colspan="8" style="text-align:left;height:35px;">
-    <span id="show" style="font-size:16px;padding-left:10px;color:#8c8c8c;">告警时间查询：</span> <input type="text" class="date_picker" name="name"
-				placeholder="开始时间" style="width: 100px" />
-				<span id="show" style="color:#b6b6b6;">━</span> <input type="text" class="date_picker" name="number"
-				placeholder="结束时间" style="width: 100px" />
+    <span id="show" style="font-size:16px;padding-left:10px;color:#8c8c8c;">告警时间查询：</span> 
+    <input type="text" class="date_picker" name="starttime" placeholder="开始时间" 
+	value=""
+	onFocus="WdatePicker({maxDate:'#F{$dp.$D(\'endtime\')||\'%y-%M-%d\'}'})"
+	id="logmin" style="width: 150px;"/>
+	<span id="show" style="color:#b6b6b6;">━</span> 
+	<input type="text" class="date_picker" name="endtime" placeholder="结束时间"
+	value=""
+	onFocus="WdatePicker({minDate:'#F{$dp.$D(\'starttime\')}',maxDate:'%y-%M-%d'})"
+	id="endtime" style="width: 150px;"/>
 			<input type="submit" class="loginBtn1 orange smallrounded" 
 								 style="margin-left: 5px;" value="查询">
 							</input></th>
