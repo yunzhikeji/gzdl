@@ -19,7 +19,12 @@
 <script type="text/javascript" src="http://lib.h-ui.net/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-
+<link href="${pageContext.request.contextPath }/css/datePicker1.css"
+	rel="stylesheet" type="text/css" media="all" />
+<link href="${pageContext.request.contextPath }/css/index.css"
+	rel="stylesheet" type="text/css" />
+<link href="${pageContext.request.contextPath }/css/1.0.7/iconfont.css"
+	rel="stylesheet" type="text/css" />
 </head>
 
 <body style="background:#fff;">
@@ -28,14 +33,25 @@
 	  <table class="table">
     <thead class="text-c">
     <tr class="text-d">
+    <th colspan="8" style="text-align:left;height:35px;">
+    <span id="show" style="font-size:16px;padding-left:10px;color:#8c8c8c;">告警时间查询：</span> <input type="text" class="date_picker" name="name"
+				placeholder="开始时间" style="width: 100px" />
+				<span id="show" style="color:#b6b6b6;">━</span> <input type="text" class="date_picker" name="number"
+				placeholder="结束时间" style="width: 100px" />
+			<input type="submit" class="loginBtn1 orange smallrounded" 
+								 style="margin-left: 5px;" value="查询">
+							</input></th>
+    </tr>
+    <tr class="text-d">
       
       <th width="5%" style="font-size:14px;">序号</th>
       <th width="10%" style="font-size:14px;">告警ID</th>
-      <th width="15%" style="font-size:14px;">相机名称</th>
-      <th width="20%" style="font-size:14px;">告警时间</th>
+      <th width="12%" style="font-size:14px;">相机名称</th>
+      <th width="15%" style="font-size:14px;">告警时间</th>
       <th width="10%" style="font-size:14px;">人员类别</th>
       <th width="10%" style="font-size:14px;">人员姓名</th>
-      <th width="20%" style="font-size:14px;">人员照片(抓拍照片)</th>
+      <th width="18%" style="font-size:14px;">人员照片(抓拍照片)</th>
+      <th width="10%" style="font-size:14px;"></th>
     </tr>
     </thead>
       <tbody>
@@ -48,6 +64,12 @@
         <td>施工单位</td>
         <td>施工单位</td>
         <td height="100px"><img src="images/mission.png" alt="抓拍" /></td>
+        <td><c:if test="${alarm.id !=-1}">
+									<a id="delete"
+										href="${pageContext.request.contextPath }/alarm/deletealarm?id=${alarm.id }"
+										class="button orange bla smallrounded"
+										style="font-size: 14px;"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除&nbsp;&nbsp;&nbsp;</a>
+								</c:if></td>
       </tr>
      
       </tbody>
