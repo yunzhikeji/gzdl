@@ -34,7 +34,9 @@ import com.yz.facecloud.service.FaceCameraService;
 import com.yz.facecloud.service.HttpRequestService;
 import com.yz.facecloud.vo.AlarmMessageVO;
 import com.yz.model.AjaxMessage;
+import com.yz.po.Alarm;
 import com.yz.po.Camera;
+import com.yz.service.AlarmService;
 import com.yz.service.CameraService;
 import com.yz.utils.DateTimeKit;
 
@@ -50,6 +52,10 @@ public class FacecloudController {
 
 	@Autowired
 	private FaceCameraService faceCameraService;
+	
+	
+	@Autowired
+	private AlarmService alarmService;
 
 	private static final Comparator<SearchMessage> COMPARATOR = new Comparator<SearchMessage>() {
 		public int compare(SearchMessage o1, SearchMessage o2) {
@@ -257,6 +263,18 @@ public class FacecloudController {
 						break;
 					}
 					alarmMessageVOs.add(vo);
+					
+					
+					
+					Alarm alarmModle = new Alarm();
+					alarmModle.setCameraid(camera.getId());
+					alarmModle.setAlarmtime(vo.getAlarm_time());
+					alarmModle.setPername(vo.getPerson_name());
+					alarmModle.setPertype(alarm.getAlarm_type());
+					alarmService.saveAlarm(alarmModle);
+					
+					
+					
 				}
 				ajaxMessage.setAlarmMessages(alarmMessageVOs);
 			}

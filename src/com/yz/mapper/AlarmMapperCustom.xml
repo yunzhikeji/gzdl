@@ -10,8 +10,15 @@
 	<select id="getAlarmsByAlarmQueryVO" resultType="com.yz.po.Alarm" parameterType="com.yz.vo.AlarmQueryVO">
 		select * from Alarm where
 		<if test="cameraid != null and cameraid != '' ">
-			cameraid = #{cameraid,jdbcType=INTEGER}
+			cameraid = #{cameraid,jdbcType=INTEGER} and
 		</if>
+		<if test="startTime != null and startTime != '' ">
+		    	alarmtime &gt;= #{startTime} and
+		</if>
+		<if test="endTime != null and endTime != '' ">
+		    alarmtime   &lt;= #{endTime} and
+		</if>
+		1=1
 	</select>
 
 </mapper>

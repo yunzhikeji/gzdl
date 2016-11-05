@@ -80,7 +80,7 @@
 								href="${pageContext.request.contextPath }/user/toEditUser?id=${userVO.id }"
 								class="button blue bigrounded bla" style="font-size: 14px;"><i
 									class="Hui-iconfont">&nbsp;&#xe647;</i>修改用户&nbsp;</a></td>
-							<td><a id="delete"
+							<td><a id="delete" onClick="return confirm('您确认要删除信息吗?')"
 								href="${pageContext.request.contextPath }/user/deleteUser?id=${userVO.id }"
 								class="button orange bla smallrounded" style="font-size: 14px;"><i
 									class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除&nbsp;&nbsp;&nbsp;</a>

@@ -100,7 +100,7 @@
 								</c:if></td>
 
 							<td><c:if test="${organize.id !=-1}">
-									<a id="delete"
+									<a id="delete" onClick="return confirm('您确认要删除信息吗?')"
 										href="${pageContext.request.contextPath }/organize/deleteOrganize?id=${organize.id }"
 										class="button orange bla smallrounded"
 										style="font-size: 14px;"><i class="Hui-iconfont">&nbsp;&#xe609;&nbsp;</i>删除&nbsp;&nbsp;&nbsp;</a>
