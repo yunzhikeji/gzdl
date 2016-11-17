@@ -281,12 +281,101 @@ background-repeat:no-repeat;background-position:100% 100%;" onload="checkAndLogi
 					VIEWASTEXT> </object>
 			</div>
 			<div style="margin-left: 1%; margin-top: 5px;height: 660px;float:left;background-color:#ededed;padding:20px 10px;">
-			<table width="400" border="0" cellspacing="5" cellpadding="0">
+			<div class="exh">
+			<div style="text-align:center;font-weight:bold;margin-bottom:15px;font-size:25px">当前识别人员</div></div>
+<div class="ex">
+<table style="height:120px;text-align:left;font-size:14px;" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+  <td rowspan="6"><img style="width:120px;height:120px;" src="${pageContext.request.contextPath }/images/140.jpg" alt="暂无图片"/></td>
+    <td>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
+    <td>郝眉</td>
+  </tr>
+   <tr>
+    <td>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+    <td>女</td>
+  </tr>
+  <tr>
+    <td>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
+    <td>24</td>
+  </tr>
+  <tr>
+    <td>职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：</td>
+    <td>视觉工程师</td>
+  </tr>
+  <tr>
+    <td>公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司：</td>
+    <td>科腾技术有限公司</td>
+  </tr>
+  <tr style="color:#ff6c00;">
+    <td>告警时间：</td>
+    <td>2016.10.26 08:09:56</td>
+  </tr>
+</table>
+<div class="exl"></div>
+<table style="height:120px;text-align:left;font-size:14px;margin-top:8px;" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+  <td rowspan="6"><img style="width:120px;height:120px;" src="${pageContext.request.contextPath }/images/120.jpg" alt="暂无图片"/></td>
+    <td>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
+    <td>林大大</td>
+  </tr>
+   <tr>
+    <td>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+    <td>男</td>
+  </tr>
+  <tr>
+    <td>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
+    <td>28</td>
+  </tr>
+  <tr>
+    <td>职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：</td>
+    <td>软件工程师</td>
+  </tr>
+  <tr>
+    <td>公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司：</td>
+    <td>科腾技术有限公司</td>
+  </tr>
+  <tr style="color:#ff6c00;">
+    <td>告警时间：</td>
+    <td>2016.10.27 15:25:01</td>
+  </tr>
+</table>
+<div class="exl"></div>
+<table style="height:120px;text-align:left;font-size:14px;margin-top:8px;" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+  <td rowspan="6"><img style="width:120px;height:120px;" src="${pageContext.request.contextPath }/images/130.jpg" alt="暂无图片"/></td>
+    <td>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
+    <td>周一山</td>
+  </tr>
+   <tr>
+    <td>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
+    <td>男</td>
+  </tr>
+  <tr>
+    <td>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
+    <td>35</td>
+  </tr>
+  <tr>
+    <td>职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：</td>
+    <td>硬件工程师</td>
+  </tr>
+  <tr>
+    <td>公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司：</td>
+    <td>科腾技术有限公司</td>
+  </tr>
+  <tr style="color:#ff6c00;">
+    <td>告警时间：</td>
+    <td>2016.10.28 09:12:32</td>
+  </tr>
+</table>
+<div class="exl"></div>
+</div>	
+
+<table width="400" border="0" cellspacing="5" cellpadding="0" style="margin-top: 8px;">
   <tr>
     <td class="white1"><a style="color: #606060;" href="#" onClick="big();"><i class="iconfont">&#xe601;</i></a></td>
     <td class="white1"><a style="color: #606060;" href="#" onClick="up();"><i class="iconfont">&#xe623;</i></a></td>
     <td class="white1"><a style="color: #606060;" href="#" onClick="play();"> <i class="iconfont">&#xe624;</i></a></td>
-    <td class="white1"><a style="color: #606060;" href="#" onclick="addcamera();">开始控制</a></td>
+    <td class="white1"><a style="color: #606060;" href="#" onclick="addcamera();">开始布控</a></td>
   </tr>
   <tr>
     <td class="white1"><a style="color: #606060;" href="#" onClick="left();"><i class="iconfont">&#xe604;</i></a></td>
@@ -298,43 +387,10 @@ background-repeat:no-repeat;background-position:100% 100%;" onload="checkAndLogi
     <td class="white1"><a style="color: #606060;" href="#" onClick="small();"><i class="iconfont">&#xe600;</i></a></td>
     <td class="white1"><a style="color: #606060;" href="#" onClick="down();"><i class="iconfont">&#xe603;</i></a></td>
     <td class="white1"><a style="color: #606060;" href="#" onClick="stop();"><i class="iconfont">&#xe625;</i></a></td>
-    <td class="white1"></td>
+    <td class="white1"><a style="color: #606060;" href="#" onclick="#">历史记录查询</a></td>
   </tr>
 </table>
-			  
-<div class="ex">
-<div style="text-align:center;font-weight:bold;margin-bottom:15px;font-size:25px">当前识别人员</div>
-<div style="width:150px;height:150px;float:left;padding-left:15px"><img style="width:150px;height:150px;" src="${pageContext.request.contextPath }/images/140.jpg" alt="暂无图片"/></div>
-<div><table style="margin-left:10px;height:150px;text-align:left;" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td>姓名：</td>
-    <td>林大大</td>
-  </tr>
-   <tr>
-    <td>性别：</td>
-    <td>男</td>
-  </tr>
-  <tr>
-    <td>年龄：</td>
-    <td>28</td>
-  </tr>
-  <tr>
-    <td>职位：</td>
-    <td>软件工程师</td>
-  </tr>
-  <tr>
-    <td>公司：</td>
-    <td>科腾技术有限公司</td>
-  </tr>
-</table>
-</div>
-<div style="margin-top:20px;"><span style="color:#ff6c00;font: 20px/100% bold Arial, Helvetica, sans-serif;">告警时间：2016.10.26 08:09:56</span>
-<h1 style="color:#00ccff;font-family:'方正北魏楷书简体';font-size:50px;">热烈欢迎</h1>
-<h1 style="color:#00ccff;font-family:'方正北魏楷书简体';font-size:50px;">领导莅临</h1>
-</div>
-<div style="text-align:left;padding-left:15px;"><a style="padding:0.5em 0.5em;" href="#" class="button1 white1" onClick="">上一个告警记录</a>
-<a style="margin-left:140px;padding:0.5em 0.5em;" href="#" class="button1 white1" onClick="">历史记录查询</a></div>
-</div>	 
+ 
         
 
 			</div>
