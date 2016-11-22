@@ -73,12 +73,12 @@
 
 
  <update id="setLngNull">
-    update camera set lng=""
+    update camera set lng=""  where id !=16
  
   </update>
   
    <update id="setLatNull">
-    update camera set lat=""
+    update camera set lat=""  where id !=16
   </update>
   
   
