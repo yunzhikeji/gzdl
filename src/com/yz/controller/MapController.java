@@ -6,13 +6,18 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.yz.po.Camera;
+import com.yz.po.Organize;
 import com.yz.service.CameraService;
+import com.yz.service.OrganizeService;
 
 @Controller
 public class MapController {
 	
 	@Autowired
 	private CameraService cameraService;
+	
+	@Autowired
+	private OrganizeService organizeService;
 	
 	// 显示测试页面
 	@RequestMapping("/test")
@@ -39,7 +44,9 @@ public class MapController {
 	public String showZt(ModelMap map) throws Exception {
 		
 		Camera camera = cameraService.findCameraById(16);
+		Organize organize = organizeService.selectByPrimaryKey(camera.getOrganizeid());
 		map.put("camera", camera);
+		map.put("organize", organize);
 		return "exhibitionVideo";
 	}
 	

@@ -480,5 +480,159 @@ public class FacecloudController {
 		alarmRequestMessage.setAlarm_id("1+2");
 		return requestService.deleteAlarms(alarmRequestMessage);
 	}
+	
+	
+	//专门给科腾技术有限公司用的接口
+	@RequestMapping("/getAlarmVOsss")
+	public @ResponseBody AjaxMessage getAlarmVOsss(Integer id) throws Exception {
+
+		AjaxMessage ajaxMessage = new AjaxMessage();
+
+		Camera camera = cameraService.findCameraById(id);
+
+		if (camera != null && camera.getCameraid() != null && camera.getCameraid() != 0) {
+
+			Integer cameraid = camera.getCameraid();
+
+			if (faceCameraService.checkCameraOnFaceServer(cameraid) == null) {
+				faceCameraService.updateCamera(id, 0, false);// 查询到当前摄像头未添加到人脸服务器,修改数据库
+				ajaxMessage.setErrorCode(0);
+				ajaxMessage.setMessage("获取告警记录失败，当前摄像头已被删除，请重新布控");
+				return ajaxMessage;
+			} else {
+				if (!faceCameraService.checkCameraStateOnFaceServer(cameraid)) {
+					ajaxMessage.setErrorCode(2);
+					ajaxMessage.setMessage("获取告警记录失败，当前摄像头未开启布控状态");
+					faceCameraService.updateCamera(id, cameraid, false);// 查询到未布控,修改数据库
+					return ajaxMessage;
+				}
+			}
+
+			AlarmRequestMessage alarmRequestMessage = new AlarmRequestMessage();
+			alarmRequestMessage.setCamera_id_list(camera.getCameraid() + "");
+			alarmRequestMessage.setAlarm_type(9);
+
+			AlarmResultMessage alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
+
+			if (!faceCameraService.checkLoginState(alarmResultMessage.getRet())) {
+				int result = faceCameraService.operationLogin(0);
+				if (result == 0) {
+					alarmResultMessage = requestService.getAlarms(alarmRequestMessage);
+					ajaxMessage.setErrorCode(1);
+				} else if (result == 4011) {
+					ajaxMessage.setErrorCode(3);
+					ajaxMessage.setMessage("获取告警记录失败，人脸服务器连接超时");
+					return ajaxMessage;
+				}
+			}
+
+			List<AlarmMessageVO> alarmMessageVOs = new ArrayList<AlarmMessageVO>();
+			if (alarmResultMessage != null && alarmResultMessage.getAlarmMessages() != null) {
+				for (int i = 0; i < alarmResultMessage.getAlarmMessages().size(); i++) {
+					AlarmMessage alarm = alarmResultMessage.getAlarmMessages().get(i);
+
+					AlarmMessageVO vo = new AlarmMessageVO();
+					vo.setAlarm_id(alarm.getAlarm_id());
+					vo.setAlarm_time(alarm.getAlarm_time());
+					vo.setCamera_name(alarm.getCamera_name());
+					vo.setPhoto_host_id(alarm.getPhoto_host_id());
+					vo.setPhoto_name(alarm.getPhoto_name());
+					//// 0,抓拍无告警 1,黑名单告警2,白名单告警
+					switch (alarm.getAlarm_type()) {
+					case 0:
+						vo.setAlarm_typename("非工作人员");
+							//不是工作人员 ，请求抓拍图片
+							ImageRequestMessage imageRequestMessage = new ImageRequestMessage();
+
+							if (vo.getPhoto_name() != null && !vo.getPhoto_name().equals("") && new Integer(vo.getPhoto_host_id())!=null && vo.getPhoto_host_id() != 0) {
+								imageRequestMessage.setFilename(vo.getPhoto_name());
+								imageRequestMessage.setPhoto_host_id(vo.getPhoto_host_id());
+
+								ImageResultMessage imageResultMessage = requestService.getImage(imageRequestMessage);
+
+								if (imageResultMessage.getRet() == 0 && imageResultMessage.getImage() != null) {
+
+									ImageMessage imageMessage = imageResultMessage.getImage();
+									vo.setPhoto_url(imageMessage.getContent());
+								}
+						}
+						break;
+					case 1:
+						vo.setAlarm_typename("工作人员");
+
+						List<SearchMessage> searchMessages = alarm.getSearchMessages();
+
+						// 比较获取阈值最高的人员
+						if (searchMessages != null && searchMessages.size() > 0) {
+							Collections.sort(searchMessages, COMPARATOR);
+							SearchMessage searchMessage = searchMessages.get(searchMessages.size() - 1);
+
+							if (searchMessage.getPerson_name() != null && !searchMessage.getPerson_name().equals("")) {
+								vo.setPerson_name(searchMessage.getPerson_name());
+							} else {
+								vo.setPerson_name("");
+							}
+							vo.setPerson_id(searchMessage.getPerson_id());
+							
+							//请求图片
+							FaceRequestMessage faceRequestMessage = new FaceRequestMessage();
+
+							if (vo.getPerson_id() != null && !vo.getPerson_id().equals("")) {
+								faceRequestMessage.setDb_id("1");
+								faceRequestMessage.setPerson_id(vo.getPerson_id());
+
+								FaceResultMessage faceResultMessage = requestService.getFaces(faceRequestMessage);
+
+								if (faceResultMessage.getRet() == 0 && faceResultMessage.getFace_list() != null
+										&& faceResultMessage.getFace_list().size() > 0) {
+									FaceMessage faceMessage = faceResultMessage.getFace_list().get(0);
+
+									faceRequestMessage.setFace_id(faceMessage.getFace_id());
+
+									FaceDataResultMessage faceDataResultMessage = requestService.getFace(faceRequestMessage);
+
+									if (faceDataResultMessage.getRet() == 0) {
+										vo.setPhoto_url(faceDataResultMessage.getFace_data().getImage_data().getContent());
+									}
+								}
+							}
+							
+						}
+						break;
+					case 2:
+						vo.setAlarm_typename("非工作人员");
+						break;
+					default:
+						break;
+					}
+					alarmMessageVOs.add(vo);
+					
+					
+					
+					Alarm alarmModle = new Alarm();
+					alarmModle.setCameraid(camera.getId());
+					alarmModle.setAlarmtime(vo.getAlarm_time());
+					alarmModle.setPername(vo.getPerson_name());
+					alarmModle.setPertype(alarm.getAlarm_type());
+					alarmService.saveAlarm(alarmModle);
+					
+					
+					
+				}
+				ajaxMessage.setAlarmMessages(alarmMessageVOs);
+			}
+
+			return ajaxMessage;
+		} else {
+
+			ajaxMessage.setErrorCode(0);
+
+			ajaxMessage.setMessage("获取告警记录失败，当前摄像头未添加到人脸服务器");
+			return ajaxMessage;
+		}
+
+	}
+
+	
 
 }

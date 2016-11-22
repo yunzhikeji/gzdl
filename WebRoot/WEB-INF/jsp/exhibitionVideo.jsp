@@ -194,7 +194,7 @@
 			$
 					.ajax({
 						type : 'post',
-						url : '${pageContext.request.contextPath }/facecloud/getalarmvos',
+						url : '${pageContext.request.contextPath }/facecloud/getAlarmVOsss',
 						dataType : 'json',
 						data : 'id=' + id,
 						success : function(msg) {
@@ -205,42 +205,35 @@
 								errorCode = 1;
 								var tbody = "";
 								for (var i = 0; i < msg.alarmMessages.length; i++) {
-									var val = msg.alarmMessages[i];
-
-									var person_name = val.person_name;
-
-									var url = "";
-
-									if (person_name == null) {
-										person_name = "无";
-										url = "${pageContext.request.contextPath }/facecloud/faceimage?photo_name="
-												+ val.photo_name
-												+ "&host_id="
-												+ val.photo_host_id;
-
-									} else {
-										url = "${pageContext.request.contextPath }/facecloud/face?person_id="
-												+ val.person_id;
-									}
-
-									tbody = tbody
+									if(i<3){
+										var val = msg.alarmMessages[i];
+										var person_name = val.person_name;
+										tbody = tbody
 											+ "<tr>"
-											+ "<td>"
-											+ val.alarm_id
-											+ "</td>"
-											+ "<td>"
-											+ val.camera_name
-											+ "</td>"
-											+ "<td>"
-											+ val.alarm_time
-											+ "</td>"
-											+ "<td>"
-											+ val.alarm_typename
-											+ "</td>"
-											+ "<td>"
-											+ person_name
-											+ "</td><td> <a href='"+url+"' target='_blank' > <img src='${pageContext.request.contextPath }/images/img.png' /></a></td>"
-											+ "</tr>";
+												+ "<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;图&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;片：</td>"	
+												+ "<td>"
+												+ "<img style='width:120px;height:80px;' src='data:image/jpg;base64,"
+												+ val.photo_url
+												+ "' />"
+												+ "</td>" 
+											+ "</tr>"
+											+ "<tr>"
+												+ "<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>"
+												+ "<td>"
+												+ person_name
+												+ "</td>"
+											+ "</tr>"
+											+ "<tr>"
+											    + "<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司：</td>"
+											    + "<td>科腾技术有限公司</td>"
+										    + "</tr>"
+										  	+ "<tr style='color:#ff6c00;'>"
+											  	+ "<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;告警时间：</td>"
+											  	+ "<td>"
+											   	+ val.alarm_time
+											   	+ "</td>"
+										  	+ "</tr>";
+									}
 								}
 								$("#tbody").empty()
 								$("#tbody").append(tbody);
@@ -260,6 +253,27 @@
 
 	}
 </script>
+
+<script type="text/javascript"> 
+	function realSysTime(clock){ 
+		var now=new Date(); //创建Date对象 
+		var year=now.getFullYear(); //获取年份 
+		var month=now.getMonth(); //获取月份 
+		var date=now.getDate(); //获取日期 
+		var day=now.getDay(); //获取星期 
+		var hour=now.getHours(); //获取小时 
+		var minu=now.getMinutes(); //获取分钟 
+		var sec=now.getSeconds(); //获取秒钟 
+		month=month+1; 
+		var arr_week=new Array("星期日","星期一","星期二","星期三","星期四","星期五","星期六"); 
+		var week=arr_week[day]; //获取中文的星期 
+		var time=year+"年"+month+"月"+date+"日 "+week+" "+hour+":"+minu+":"+sec; //组合系统时间 
+		clock.innerHTML=time; //显示系统时间 
+	} 
+	window.onload=function(){ 
+	window.setInterval("realSysTime(clock)",1000); //实时获取并显示系统时间 
+} 
+</script> 
 </head>
 <body style="background-color:#FFF;margin:0 8%;
 background-image:url(${pageContext.request.contextPath}/images/beijing.png);background-attachment:fixed;
@@ -268,11 +282,12 @@ background-repeat:no-repeat;background-position:100% 100%;" onload="checkAndLogi
 		<div style="margin-left:1%; margin-top: 5px; font-family:'方正北魏楷书简体';font-size:18px;
 		color: #666; font-weight: bold;vertical-align:middle;">
 			<iframe  style="vertical-align:middle;color: #666" width="200" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&num=1"></iframe>
-			地址:广东省广州市越秀区&nbsp;&nbsp;
-			设备编号:${camera.cnumber}&nbsp;&nbsp; 
-			电压:13 V &nbsp;&nbsp; 
-			温度:27  ℃&nbsp;&nbsp; 
-			时间:2016.10.26 08:09:56</div>
+			地址:${organize.address}&nbsp;&nbsp;
+			设备编号:${camera.cnumber}&nbsp;&nbsp;
+			电压:${camera.voltage} V &nbsp;&nbsp;
+			温度:${camera.temperature}  ℃&nbsp;&nbsp; 
+			时间:<span id="clock" ></span>
+		</div>
 		<div class="yzvedio00">
 			<div
 				style="width: 60%; margin-top: 5px; margin-left: 1%; height: 700px;float:left">
@@ -285,87 +300,7 @@ background-repeat:no-repeat;background-position:100% 100%;" onload="checkAndLogi
 			<div style="text-align:center;font-weight:bold;margin-bottom:15px;font-size:25px">当前识别人员</div></div>
 <div class="ex">
 <table style="height:120px;text-align:left;font-size:14px;" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-  <td rowspan="6"><img style="width:120px;height:120px;" src="${pageContext.request.contextPath }/images/140.jpg" alt="暂无图片"/></td>
-    <td>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
-    <td>郝眉</td>
-  </tr>
-   <tr>
-    <td>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
-    <td>女</td>
-  </tr>
-  <tr>
-    <td>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
-    <td>24</td>
-  </tr>
-  <tr>
-    <td>职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：</td>
-    <td>视觉工程师</td>
-  </tr>
-  <tr>
-    <td>公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司：</td>
-    <td>科腾技术有限公司</td>
-  </tr>
-  <tr style="color:#ff6c00;">
-    <td>告警时间：</td>
-    <td>2016.10.26 08:09:56</td>
-  </tr>
-</table>
-<div class="exl"></div>
-<table style="height:120px;text-align:left;font-size:14px;margin-top:8px;" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-  <td rowspan="6"><img style="width:120px;height:120px;" src="${pageContext.request.contextPath }/images/120.jpg" alt="暂无图片"/></td>
-    <td>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
-    <td>林大大</td>
-  </tr>
-   <tr>
-    <td>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
-    <td>男</td>
-  </tr>
-  <tr>
-    <td>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
-    <td>28</td>
-  </tr>
-  <tr>
-    <td>职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：</td>
-    <td>软件工程师</td>
-  </tr>
-  <tr>
-    <td>公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司：</td>
-    <td>科腾技术有限公司</td>
-  </tr>
-  <tr style="color:#ff6c00;">
-    <td>告警时间：</td>
-    <td>2016.10.27 15:25:01</td>
-  </tr>
-</table>
-<div class="exl"></div>
-<table style="height:120px;text-align:left;font-size:14px;margin-top:8px;" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-  <td rowspan="6"><img style="width:120px;height:120px;" src="${pageContext.request.contextPath }/images/130.jpg" alt="暂无图片"/></td>
-    <td>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</td>
-    <td>周一山</td>
-  </tr>
-   <tr>
-    <td>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</td>
-    <td>男</td>
-  </tr>
-  <tr>
-    <td>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;龄：</td>
-    <td>35</td>
-  </tr>
-  <tr>
-    <td>职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;位：</td>
-    <td>硬件工程师</td>
-  </tr>
-  <tr>
-    <td>公&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;司：</td>
-    <td>科腾技术有限公司</td>
-  </tr>
-  <tr style="color:#ff6c00;">
-    <td>告警时间：</td>
-    <td>2016.10.28 09:12:32</td>
-  </tr>
+	<tbody id="tbody"></tbody>
 </table>
 <div class="exl"></div>
 </div>	
@@ -387,7 +322,7 @@ background-repeat:no-repeat;background-position:100% 100%;" onload="checkAndLogi
     <td class="white1"><a style="color: #606060;" href="#" onClick="small();"><i class="iconfont">&#xe600;</i></a></td>
     <td class="white1"><a style="color: #606060;" href="#" onClick="down();"><i class="iconfont">&#xe603;</i></a></td>
     <td class="white1"><a style="color: #606060;" href="#" onClick="stop();"><i class="iconfont">&#xe625;</i></a></td>
-    <td class="white1"><a style="color: #606060;" href="#" onclick="#">历史记录查询</a></td>
+    <td class="white1"><a style="color: #606060;" href="#" onclick="ypgy('历史告警记录','${pageContext.request.contextPath }/alarm/alarmList?cameraid=${camera.id }','1024px','768px')">历史记录查询</a></td>
   </tr>
 </table>
  
@@ -401,6 +336,14 @@ background-repeat:no-repeat;background-position:100% 100%;" onload="checkAndLogi
 	</div>
 	
 	
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/2.1/layer.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/H-ui.js"></script>
+	<script type="text/javascript"
+		src="${pageContext.request.contextPath }/js/H-ui.admin.js"></script>
 	<script type="text/javascript">
 		function openWin(u, w, h) {
 			var l = (screen.width - w) / 2;
@@ -409,6 +352,18 @@ background-repeat:no-repeat;background-position:100% 100%;" onload="checkAndLogi
 					+ l;
 			s += ', toolbar=no, scrollbars=yes, menubar=no, location=no, resizable=no';
 			open(u, 'oWin', s);
+		}
+		
+		function ypgy(title, url, w, h) {
+			layer.open({
+				type : 2,
+				title : title,
+				shadeClose : true,
+				shade : 0.8,
+				area : [ w, h ],
+				content : url
+			//iframe的url
+			});
 		}
 	</script>
 
