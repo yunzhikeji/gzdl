@@ -38,9 +38,13 @@ public class CameraController {
 	@RequestMapping(value = "singleVideo", method = { RequestMethod.GET })
 	public String singleVideo(@RequestParam(value = "id", required = false) Integer id, ModelMap map) throws Exception {
 		Camera camera = cameraService.findCameraById(id);
+		Organize organize = organizeService.selectByPrimaryKey(camera.getOrganizeid());
 		map.put("camera", camera);
+		map.put("organize", organize);
+		if(id==16){
+			return "exhibitionVideo";
+		}
 		return "singleVideo";
-
 	}
 
 	// 地图获取设备列表
