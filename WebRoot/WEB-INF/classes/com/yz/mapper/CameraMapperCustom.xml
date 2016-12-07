@@ -72,14 +72,13 @@
 	</select>
 
 
- <update id="setLngNull">
-    update camera set lng=""  where id !=16
- 
-  </update>
-  
-   <update id="setLatNull">
-    update camera set lat=""  where id !=16
-  </update>
+	 <update id="setLngNull">
+	    update camera set lng=""  where cnumber != '0010'
+	  </update>
+	  
+	   <update id="setLatNull">
+	    update camera set lat=""  where cnumber != '0010'
+	  </update>
   
   
   	<select id="findCameraByCameraid" parameterType="java.lang.Integer"
