@@ -55,7 +55,9 @@ public interface HttpRequestService {
 	
 	public AlarmResultMessage deleteAlarms(AlarmRequestMessage requestMessage);//删除告警记录
 	
-	public ImageResultMessage getImage(ImageRequestMessage requestMessage);
+	public ImageResultMessage getImage(ImageRequestMessage requestMessage);//获取抓拍照片
+	
+	public ImageResultMessage getFaceImage(ImageRequestMessage requestMessage);//获取抓拍人脸
 	
 	public FaceResultMessage getFaces(FaceRequestMessage requestMessage);//获得人脸列表
 	

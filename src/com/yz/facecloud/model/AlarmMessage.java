@@ -19,8 +19,6 @@ public class AlarmMessage {
 	 * 抓拍的理解：就是不进行人脸库搜索
 	 * 
 	 */
-	
-	
 	private int alarm_level;
 	private String photo_name;
 	private String face_name;

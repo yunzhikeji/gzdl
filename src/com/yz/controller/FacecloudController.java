@@ -354,7 +354,7 @@ public class FacecloudController {
 			;
 			imageRequestMessage.setPhoto_host_id(host_id);
 
-			ImageResultMessage imageResultMessage = requestService.getImage(imageRequestMessage);
+			ImageResultMessage imageResultMessage = requestService.getFaceImage(imageRequestMessage);
 
 			if (imageResultMessage.getRet() == 0 && imageResultMessage.getImage() != null) {
 
