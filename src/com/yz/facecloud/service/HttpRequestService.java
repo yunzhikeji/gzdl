@@ -11,6 +11,8 @@ import com.yz.facecloud.model.FaceDBResultMessage;
 import com.yz.facecloud.model.FaceDataResultMessage;
 import com.yz.facecloud.model.FaceRequestMessage;
 import com.yz.facecloud.model.FaceResultMessage;
+import com.yz.facecloud.model.ImageMessage;
+import com.yz.facecloud.model.ImageRecognitionResultMessage;
 import com.yz.facecloud.model.ImageRequestMessage;
 import com.yz.facecloud.model.ImageResultMessage;
 import com.yz.facecloud.model.LoginRequestMessage;
@@ -63,7 +65,6 @@ public interface HttpRequestService {
 	
 	public FaceDataResultMessage getFace(FaceRequestMessage requestMessage);//获得指定人脸列表
 	
-	
-	
+	public ImageRecognitionResultMessage getRecognition(ImageMessage imageMessage);//人脸识别
 	
 }

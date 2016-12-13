@@ -31,6 +31,7 @@ import com.yz.facecloud.model.FaceMessage;
 import com.yz.facecloud.model.FaceRequestMessage;
 import com.yz.facecloud.model.FaceResultMessage;
 import com.yz.facecloud.model.ImageMessage;
+import com.yz.facecloud.model.ImageRecognitionResultMessage;
 import com.yz.facecloud.model.ImageRequestMessage;
 import com.yz.facecloud.model.ImageResultMessage;
 import com.yz.facecloud.model.LoginRequestMessage;
@@ -38,6 +39,7 @@ import com.yz.facecloud.model.LoginResultMessage;
 import com.yz.facecloud.model.PolicyMessage;
 import com.yz.facecloud.model.PolicyRequestMessage;
 import com.yz.facecloud.model.PolicyResultMessage;
+import com.yz.facecloud.model.RecognitionMessage;
 import com.yz.facecloud.model.SearchMessage;
 import com.yz.facecloud.service.HttpRequestService;
 import com.yz.po.Face;
@@ -67,6 +69,9 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 
 	public static final String RECOGNIZE_REQUEST_URL = "faceops/image_recognition";
 	public static final String ADD_PERSON_REQUEST_URL = "facedb/";
+	
+	public static final String IMAGE_RECOGNITION_REQUEST_URL = "/faceops/image_recognition";
+	
 
 	@Autowired
 	private FaceService faceService;
@@ -868,6 +873,51 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 				JSONObject face_data = jsonObject.getJSONObject("face_data");
 				faceDataMessage = (FaceDataMessage)JSONObject.toBean(face_data,FaceDataMessage.class);
 				resultMsg.setFace_data(faceDataMessage);
+			} catch (JSONException e) {
+			}
+		}
+
+		return resultMsg;
+	}
+	
+	
+	
+	/*****************************************
+	 * 人脸识别 
+	 *
+	 * 
+	 * 
+	 * @return alarmResultMessage 人脸识别 
+	 */
+	public ImageRecognitionResultMessage getRecognition(ImageMessage imageMessage) {
+
+		ImageRecognitionResultMessage resultMsg = new ImageRecognitionResultMessage();
+		
+		String recognition_url = serverAddress + IMAGE_RECOGNITION_REQUEST_URL;
+		
+		String requestMsg = this.jsonRequestMessage(imageMessage);
+		
+		JSONObject jsonObject = httpRequest(recognition_url, "POST", requestMsg, false);
+		// 如果请求成功
+		if (null != jsonObject) {
+			try {
+
+				System.out.println("人脸识别：" + jsonObject);
+				resultMsg.setRet(jsonObject.getInt("ret"));
+				resultMsg.setRet_mes(jsonObject.getString("ret_mes"));
+				resultMsg.setList_size(jsonObject.getInt("list_size"));
+
+				List<RecognitionMessage> list = new ArrayList<RecognitionMessage>();
+				if (jsonObject.getInt("list_size") > 0) {
+					JSONArray array = jsonObject.getJSONArray("recognitionMessages");
+					list = (List<RecognitionMessage>) JSONArray.toCollection(array, RecognitionMessage.class);
+					Iterator it = list.iterator();
+					while (it.hasNext()) {
+						RecognitionMessage recogMessage = (RecognitionMessage) it.next();
+					}
+
+				}
+				resultMsg.setRecognitionMessages(list);
 			} catch (JSONException e) {
 			}
 		}

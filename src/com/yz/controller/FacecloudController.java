@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yz.facecloud.model.AlarmMessage;
 import com.yz.facecloud.model.AlarmRequestMessage;
@@ -31,6 +33,7 @@ import com.yz.facecloud.model.PolicyRequestMessage;
 import com.yz.facecloud.model.PolicyResultMessage;
 import com.yz.facecloud.model.SearchMessage;
 import com.yz.facecloud.service.FaceCameraService;
+import com.yz.facecloud.service.FaceImageService;
 import com.yz.facecloud.service.HttpRequestService;
 import com.yz.facecloud.vo.AlarmMessageVO;
 import com.yz.model.AjaxMessage;
@@ -39,6 +42,7 @@ import com.yz.po.Camera;
 import com.yz.service.AlarmService;
 import com.yz.service.CameraService;
 import com.yz.utils.DateTimeKit;
+import com.yz.utils.FileUtils;
 
 @Controller
 @RequestMapping("/facecloud")
@@ -52,8 +56,10 @@ public class FacecloudController {
 
 	@Autowired
 	private FaceCameraService faceCameraService;
-	
-	
+
+	@Autowired
+	private FaceImageService faceImageService;
+
 	@Autowired
 	private AlarmService alarmService;
 
@@ -263,18 +269,14 @@ public class FacecloudController {
 						break;
 					}
 					alarmMessageVOs.add(vo);
-					
-					
-					
+
 					Alarm alarmModle = new Alarm();
 					alarmModle.setCameraid(camera.getId());
 					alarmModle.setAlarmtime(vo.getAlarm_time());
 					alarmModle.setPername(vo.getPerson_name());
 					alarmModle.setPertype(alarm.getAlarm_type());
 					alarmService.saveAlarm(alarmModle);
-					
-					
-					
+
 				}
 				ajaxMessage.setAlarmMessages(alarmMessageVOs);
 			}
@@ -480,9 +482,8 @@ public class FacecloudController {
 		alarmRequestMessage.setAlarm_id("1+2");
 		return requestService.deleteAlarms(alarmRequestMessage);
 	}
-	
-	
-	//专门给科腾技术有限公司用的接口
+
+	// 专门给科腾技术有限公司用的接口
 	@RequestMapping("/getAlarmVOsss")
 	public @ResponseBody AjaxMessage getAlarmVOsss(Integer id) throws Exception {
 
@@ -541,20 +542,21 @@ public class FacecloudController {
 					switch (alarm.getAlarm_type()) {
 					case 0:
 						vo.setAlarm_typename("非工作人员");
-							//不是工作人员 ，请求抓拍图片
-							ImageRequestMessage imageRequestMessage = new ImageRequestMessage();
+						// 不是工作人员 ，请求抓拍图片
+						ImageRequestMessage imageRequestMessage = new ImageRequestMessage();
 
-							if (vo.getPhoto_name() != null && !vo.getPhoto_name().equals("") && new Integer(vo.getPhoto_host_id())!=null && vo.getPhoto_host_id() != 0) {
-								imageRequestMessage.setFilename(vo.getPhoto_name());
-								imageRequestMessage.setPhoto_host_id(vo.getPhoto_host_id());
+						if (vo.getPhoto_name() != null && !vo.getPhoto_name().equals("")
+								&& new Integer(vo.getPhoto_host_id()) != null && vo.getPhoto_host_id() != 0) {
+							imageRequestMessage.setFilename(vo.getPhoto_name());
+							imageRequestMessage.setPhoto_host_id(vo.getPhoto_host_id());
 
-								ImageResultMessage imageResultMessage = requestService.getImage(imageRequestMessage);
+							ImageResultMessage imageResultMessage = requestService.getImage(imageRequestMessage);
 
-								if (imageResultMessage.getRet() == 0 && imageResultMessage.getImage() != null) {
+							if (imageResultMessage.getRet() == 0 && imageResultMessage.getImage() != null) {
 
-									ImageMessage imageMessage = imageResultMessage.getImage();
-									vo.setPhoto_url(imageMessage.getContent());
-								}
+								ImageMessage imageMessage = imageResultMessage.getImage();
+								vo.setPhoto_url(imageMessage.getContent());
+							}
 						}
 						break;
 					case 1:
@@ -573,8 +575,8 @@ public class FacecloudController {
 								vo.setPerson_name("");
 							}
 							vo.setPerson_id(searchMessage.getPerson_id());
-							
-							//请求图片
+
+							// 请求图片
 							FaceRequestMessage faceRequestMessage = new FaceRequestMessage();
 
 							if (vo.getPerson_id() != null && !vo.getPerson_id().equals("")) {
@@ -589,14 +591,16 @@ public class FacecloudController {
 
 									faceRequestMessage.setFace_id(faceMessage.getFace_id());
 
-									FaceDataResultMessage faceDataResultMessage = requestService.getFace(faceRequestMessage);
+									FaceDataResultMessage faceDataResultMessage = requestService
+											.getFace(faceRequestMessage);
 
 									if (faceDataResultMessage.getRet() == 0) {
-										vo.setPhoto_url(faceDataResultMessage.getFace_data().getImage_data().getContent());
+										vo.setPhoto_url(
+												faceDataResultMessage.getFace_data().getImage_data().getContent());
 									}
 								}
 							}
-							
+
 						}
 						break;
 					case 2:
@@ -606,18 +610,14 @@ public class FacecloudController {
 						break;
 					}
 					alarmMessageVOs.add(vo);
-					
-					
-					
+
 					Alarm alarmModle = new Alarm();
 					alarmModle.setCameraid(camera.getId());
 					alarmModle.setAlarmtime(vo.getAlarm_time());
 					alarmModle.setPername(vo.getPerson_name());
 					alarmModle.setPertype(alarm.getAlarm_type());
 					alarmService.saveAlarm(alarmModle);
-					
-					
-					
+
 				}
 				ajaxMessage.setAlarmMessages(alarmMessageVOs);
 			}
@@ -633,6 +633,37 @@ public class FacecloudController {
 
 	}
 
-	
+	@RequestMapping("/reconImage")
+	public @ResponseBody String reconImage(@RequestParam MultipartFile[] photo_file) throws Exception {
+
+		String base64photo = "";
+		if (photo_file != null && photo_file.length > 0) {
+			System.out.println("文件大小:" + photo_file[0].getSize());
+			MultipartFile file = photo_file[0];
+			if (file.getSize() < 5 * 1024 * 1024) {
+
+				// 获取图片的字节流
+				// byte[] bytePhoto = FileUtils.file2Byte(photo_file[0]);
+				// 压缩图片
+				// base64photo = FileUtils.resize(bytePhoto, 300, 0.7f);
+				// System.out.println("字符长度:" + base64photo.length());
+
+				base64photo = FileUtils.file2String(file);
+
+				ImageMessage imageMessage = new ImageMessage();
+
+				String type = file.getContentType();// 获取文件MIME类型
+
+				imageMessage.setType(type);
+				imageMessage.setContent(base64photo);
+				return faceImageService.getPersonMatchingMessage(imageMessage);
+			} else {
+				return "照片大小不能超过1M!";
+			}
+		}
+		return "未上传照片!";
+		
+
+	}
 
 }
