@@ -38,10 +38,23 @@ public class CameraController {
 	@RequestMapping(value = "singleVideo", method = { RequestMethod.GET })
 	public String singleVideo(@RequestParam(value = "id", required = false) Integer id, ModelMap map) throws Exception {
 		Camera camera = cameraService.findCameraById(id);
+		if(camera==null)
+		{
+			String message  = "系统没有该设备.";
+			map.put("message", message);
+			return "error";
+		}
 		Organize organize = organizeService.selectByPrimaryKey(camera.getOrganizeid());
+		String cnumber  = camera.getCnumber();
+		if(cnumber==null)
+		{
+			String message  = "当前设备编号为空";
+			map.put("message", message);
+			return "error";
+		}
 		map.put("camera", camera);
 		map.put("organize", organize);
-		if(id==16){
+		if(cnumber.equals("0010")){
 			return "exhibitionVideo";
 		}
 		return "singleVideo";

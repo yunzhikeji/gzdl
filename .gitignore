@@ -63,3 +63,6 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+WebRoot/WEB-INF/classes/spring/applicationContext-service.xml
+config/db.properties
+config/spring/applicationContext-service.xml
