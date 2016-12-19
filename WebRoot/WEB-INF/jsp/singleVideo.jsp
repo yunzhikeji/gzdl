@@ -38,7 +38,7 @@
 		if (ocx == null) {
 			ocx = document.getElementById("ocx");
 		}
-		var backLogin = ocx.Login("test", "test", "115.28.135.48", 20000);
+		var backLogin = ocx.Login("test", "test", "183.61.108.89", 20000);
 		if (backLogin != 0) {
 			alert("登录超时");
 		}
@@ -220,11 +220,11 @@
 												+ val.photo_name
 												+ "&host_id="
 												+ val.photo_host_id;
-
-									} else {
-										url = "${pageContext.request.contextPath }/facecloud/face?person_id="
-												+ val.person_id;
-									}
+									} 
+									url = "${pageContext.request.contextPath }/facecloud/faceimage?photo_name="
+										+ val.photo_name
+										+ "&host_id="
+										+ val.photo_host_id;
 
 									tbody = tbody
 											+ "<tr>"

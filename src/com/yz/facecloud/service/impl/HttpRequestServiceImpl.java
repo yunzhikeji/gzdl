@@ -669,6 +669,7 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 						alarmMessage.setMonitor_type(object.getInt("monitor_type"));
 						alarmMessage.setAlarm_type(object.getInt("alarm_type"));
 						alarmMessage.setPhoto_name(object.getString("photo_name"));
+						alarmMessage.setFace_name(object.getString("face_name"));
 						alarmMessage.setFace_blur(object.getInt("face_blur"));
 						alarmMessage.setPhoto_host_id(object.getInt("photo_host_id"));
 						alarmMessage.setState(object.getInt("state"));
@@ -772,15 +773,15 @@ public class HttpRequestServiceImpl implements HttpRequestService {
 	public ImageResultMessage getFaceImage(ImageRequestMessage requestMessage) {
 
 		ImageResultMessage resultMsg = new ImageResultMessage();
-		String image_url = serverAddress + FACEIMAGE_REQUEST_URL + requestMessage.getPhoto_host_id();
+		String faceimage_url = serverAddress + FACEIMAGE_REQUEST_URL + requestMessage.getPhoto_host_id();
 
 		String filename = requestMessage.getFilename();
 
 		if (filename != null && !filename.replace(" ", "").equals("")) {
-			image_url = setRequestURL(image_url, "filename", filename);
+			faceimage_url = setRequestURL(faceimage_url, "filename", filename);
 		}
 
-		JSONObject jsonObject = httpRequest(image_url, "GET", null, false);
+		JSONObject jsonObject = httpRequest(faceimage_url, "GET", null, false);
 		// 如果请求成功
 		if (null != jsonObject) {
 			try {

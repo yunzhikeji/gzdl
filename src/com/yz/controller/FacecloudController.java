@@ -238,7 +238,7 @@ public class FacecloudController {
 					vo.setAlarm_time(alarm.getAlarm_time());
 					vo.setCamera_name(alarm.getCamera_name());
 					vo.setPhoto_host_id(alarm.getPhoto_host_id());
-					vo.setPhoto_name(alarm.getPhoto_name());
+					vo.setPhoto_name(alarm.getFace_name());
 					//// 0,抓拍无告警 1,黑名单告警2,白名单告警
 					switch (alarm.getAlarm_type()) {
 					case 0:
