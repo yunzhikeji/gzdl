@@ -32,12 +32,9 @@
 	});
 
 	var id = '${camera.id}';
-	var ocx = null;
 
 	function login() {
-		if (ocx == null) {
-			ocx = document.getElementById("ocx");
-		}
+		var ocx = document.getElementById("ocx");
 		var backLogin = ocx.Login("test", "test", "183.61.108.89", 20000);
 		if (backLogin != 0) {
 			alert("登录超时");
@@ -45,9 +42,7 @@
 
 	}
 	function play() {
-		if (ocx == null) {
-			ocx = document.getElementById("ocx");
-		}
+		var ocx = document.getElementById("ocx");
 		var backPlay = ocx.PlayVideo("${camera.sipid}");
 		if (backPlay != 0) {
 			alert("操作失败");
@@ -55,9 +50,7 @@
 
 	}
 	function stop() {
-		if (ocx == null) {
-			ocx = document.getElementById("ocx");
-		}
+		var ocx = document.getElementById("ocx");
 		var backStop = ocx.StopRealplay();
 		if (backStop != 0) {
 			alert("操作失败");
@@ -65,9 +58,7 @@
 	}
 
 	function up() {
-		if (ocx == null) {
-			ocx = document.getElementById("ocx");
-		}
+		var ocx = document.getElementById("ocx");
 		var backUp = ocx.PTZCtrl(3);
 		if (backUp != 0) {
 			alert("操作失败");
@@ -75,9 +66,7 @@
 	}
 
 	function down() {
-		if (ocx == null) {
-			ocx = document.getElementById("ocx");
-		}
+		var ocx = document.getElementById("ocx");
 		var backDown = ocx.PTZCtrl(4);
 		if (backDown != 0) {
 			alert("操作失败");
@@ -85,9 +74,7 @@
 	}
 
 	function big() {
-		if (ocx == null) {
-			ocx = document.getElementById("ocx");
-		}
+		var ocx = document.getElementById("ocx");
 		var backUp = ocx.PTZCtrl(5);
 		if (backUp != 0) {
 			alert("操作失败");
@@ -95,9 +82,7 @@
 	}
 
 	function small() {
-		if (ocx == null) {
-			ocx = document.getElementById("ocx");
-		}
+		var ocx = document.getElementById("ocx");
 		var backDown = ocx.PTZCtrl(6);
 		if (backDown != 0) {
 			alert("操作失败");
@@ -105,9 +90,7 @@
 	}
 
 	function left() {
-		if (ocx == null) {
-			ocx = document.getElementById("ocx");
-		}
+		var ocx = document.getElementById("ocx");
 		var backLeft = ocx.PTZCtrl(1);
 		if (backLeft != 0) {
 			alert("操作失败");
@@ -115,9 +98,7 @@
 	}
 
 	function right() {
-		if (ocx == null) {
-			ocx = document.getElementById("ocx");
-		}
+		var ocx = document.getElementById("ocx");
 		var backRight = ocx.PTZCtrl(2);
 		if (backRight != 0) {
 			alert("操作失败");
@@ -162,9 +143,7 @@
 	}
 
 	function ptzStop() {
-		if (ocx == null) {
-			ocx = document.getElementById("ocx");
-		}
+		var ocx = document.getElementById("ocx");
 		var backPTZStop = ocx.PTZCtrl(0);
 		if (backPTZStop != 0) {
 			alert("操作失败");
@@ -220,11 +199,11 @@
 												+ val.photo_name
 												+ "&host_id="
 												+ val.photo_host_id;
-									} 
+									}
 									url = "${pageContext.request.contextPath }/facecloud/faceimage?photo_name="
-										+ val.photo_name
-										+ "&host_id="
-										+ val.photo_host_id;
+											+ val.photo_name
+											+ "&host_id="
+											+ val.photo_host_id;
 
 									tbody = tbody
 											+ "<tr>"
@@ -290,9 +269,7 @@
 					class="button1 white" onClick="right();"><i class="iconfont">&nbsp;&#xe622;&nbsp;</i></a>
 
 				<a href="#" class="button1 white" onClick="big();">放大</a> <a
-					href="#" class="button1 white" onClick="small();">缩小</a>
-					
-					 <a
+					href="#" class="button1 white" onClick="small();">缩小</a> <a
 					href="#" class="button white" onClick="ptzStop();">停止控制</a> <a
 					href="#" onClick="alert('Welcome!')" class="gfvd smallrouded">规范视频</a>
 

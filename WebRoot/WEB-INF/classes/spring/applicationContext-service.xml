@@ -12,37 +12,23 @@
 		http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd ">
-	<!-- 用户管理的service -->
 	<bean id="userService" class="com.yz.service.impl.UserServiceImpl" />
-	<!-- 摄像头管理的service -->
 	<bean id="cameraService" class="com.yz.service.impl.CameraServiceImpl" />
-	<!-- 人脸websercie请求的service -->
 	<bean id="httpRequestService" class="com.yz.facecloud.service.impl.HttpRequestServiceImpl">
 		<property name="serverAddress" value="http://10.10.0.2:8000/"></property>
 	</bean>
-	<!-- 人脸server管理Face的service -->
 	<bean id="faceService" class="com.yz.service.impl.FaceServiceImpl"></bean>
-	<!-- 组织的service -->
 	<bean id="organizeService" class="com.yz.service.impl.OrganizeServiceImpl" />
-	<!-- 人脸服务器的service -->
 	<bean id="faceCameraService" class="com.yz.facecloud.service.impl.FaceCameraServiceImpl">
 		<property name="faceUser" ref="faceUser"></property>
-		<!-- rtsp服务器相关配置 -->
 		<property name="rstp_url" value="rtsp://10.10.0.5:8554/"></property>
 	</bean>
 	
-	<!-- 人脸服务器相关配置 -->
 	<bean id="faceUser" class="com.yz.facecloud.model.FaceUser">
 		<property name="username" value="root"></property>
 		<property name="password" value="123456"></property>
 		<property name="mode" value="force_login"></property>
-		<!-- 
-		<property name="username" value="root"></property>
-		<property name="password" value="123456"></property>
-		property name="mode" value="force_login"></property>
-		 -->
 	</bean>
-		<!-- 告警的service -->
 	<bean id="alarmService" class="com.yz.service.impl.AlarmServiceImpl" />
 	
 	<bean id="faceImageaService" class="com.yz.facecloud.service.impl.FaceImageServiceImpl"/>
